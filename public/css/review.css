@@ -1,0 +1,44 @@
+/* ================================
+   Review Section
+=============================== */
+
+#reviews, .review-section {
+    padding: 100px 0; /* consistent padding */
+    /*background-color: var(--bg-main); !* light soft background *!*/
+}
+
+.review-section h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.review-card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    padding: 30px;
+    background-color: #ffffff; /* can also use var(--bg-glass) for glass effect */
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+}
+
+.elfsight-app-57ae0b6d-211e-469f-b760-b6058da871ac {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .review-card {
+        padding: 20px;
+    }
+    #reviews {
+        padding: 60px 15px;
+    }
+}

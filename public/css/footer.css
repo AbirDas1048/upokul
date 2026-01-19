@@ -1,0 +1,13 @@
+.simple-footer {
+    background-color: #025d61;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.simple-footer p {
+    margin: 0;
+    color: #ffffff;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    opacity: 0.9;
+}
