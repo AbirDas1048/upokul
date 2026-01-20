@@ -182,13 +182,13 @@
                     <div class="chairman-box">
                         <img src="{{asset('images/avatar.png')}}" alt="Chairman">
                         <div>
-                            <h5>Debraj Mitra</h5>
-                            <span>Owner, {{config('app.name')}}</span>
+                            <h5>{{config('custom.owner_name')}}</h5>
+                            <span>{{config('custom.owner_designation')}}, {{config('app.name')}}</span>
                         </div>
                     </div>
 
                     <ul class="contact-info mt-4">
-                        <li>📍 123, Motijheel, Dhaka, Bangladesh</li>
+                        <li>{{config('custom.office_address')}}</li>
                     </ul>
                 </div>
 
@@ -196,11 +196,11 @@
                 <div class="contact-card info-card h-100" data-aos="fade-right" data-aos-delay="150">
                     <h5 class="mb-3">Quick Contact</h5>
                     <ul class="contact-info">
-                        <li>📞 <a href="tel:+880123456789">+880 1234-56789</a></li>
-                        <li>✉️ <a href="mailto:info@upokultravels.com">info@upokultravels.com</a></li>
+                        <li>📞 <a href="tel:{{config('custom.office_phone')}}">{{config('custom.office_phone')}}</a></li>
+                        <li>✉️ <a href="mailto:{{config('custom.office_email')}}">{{ config('custom.office_email') }}</a></li>
                         <li>
-                            🔗 <a href="https://facebook.com/upokultravels" target="_blank">
-                                Facebook Page
+                            🔗 <a href="{{config('custom.facebook_page_link')}}" target="_blank">
+                                {{config('custom.facebook_page_name')}}
                             </a>
                         </li>
                     </ul>
@@ -240,7 +240,7 @@
 </footer>
 
 <!-- WhatsApp Button -->
-<a href="https://wa.me/+8801868330080" target="_blank" class="whatsapp-btn">
+<a href="https://wa.me/{{config('custom.whatsapp_number')}}" target="_blank" class="whatsapp-btn">
     <i class="bi bi-whatsapp"></i>
 </a>
 
