@@ -12,7 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <!-- Custom CSS -->
     <style>
+        :root {
+            --accent-green: #20c997;
+        }
         /* General Styles */
+        html, body {
+            overflow-x: hidden;
+        }
         body {
             font-family: 'Poppins', sans-serif;
             scroll-behavior: smooth;
@@ -21,6 +27,22 @@
             text-decoration: none;
         }
         /* Navbar */
+
+        /* Navbar */
+        #mainNav {
+            background: rgba(0, 0, 0, 0.85);
+            transform: translateY(-100%);
+            transition: all 0.4s ease;
+            z-index: 999;
+        }
+
+        #mainNav.show {
+            transform: translateY(0);
+        }
+
+        #mainNav .nav-link:hover {
+            color: var(--accent-green);
+        }
         .navbar {
             padding: 1rem 2rem;
         }
@@ -32,6 +54,92 @@
             font-weight: 500;
         }
         /* Hero Section */
+
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(0,0,0,0.75) 0%,
+                rgba(0,0,0,0.45) 50%,
+                rgba(0,0,0,0.2) 100%
+            );
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+        }
+
+        .hero-content h1 {
+            font-size: 3.4rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        /*.hero-content h1 span {*/
+        /*    color: #ffc107;*/
+        /*}*/
+
+        .hero-content h1 span {
+            background: linear-gradient(90deg, #ffc107, var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            margin: 20px 0 35px;
+            font-size: 1.1rem;
+            max-width: 480px;
+        }
+
+        /* Glossy Buttons */
+        .btn-glossy-primary,
+        .btn-glossy-secondary {
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .btn-glossy-primary {
+            background: linear-gradient(135deg, #ff9f00, #ffc107);
+            box-shadow: 0 12px 30px rgba(255,193,7,0.45);
+        }
+
+        .btn-glossy-secondary {
+            background: linear-gradient(135deg, #0dcaf0, #0d6efd);
+            box-shadow: 0 12px 30px rgba(13,110,253,0.45);
+        }
+
+        .btn-glossy-primary i,
+        .btn-glossy-secondary i {
+            color: var(--accent-green);
+        }
+
+        .btn-glossy-primary:hover,
+        .btn-glossy-secondary:hover {
+            transform: translateY(-4px);
+            color: #fff;
+        }
+
         #hero {
             background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1650&q=80') no-repeat center center;
             background-size: cover;
@@ -133,39 +241,122 @@
         footer a {
             color: #ff6b6b;
         }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #ffc107, var(--accent-green));
+            display: block;
+            margin: 12px auto 0;
+            border-radius: 10px;
+        }
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.3rem;
+            }
+
+            .hero-buttons a {
+                display: block;
+                margin-bottom: 15px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+{{--<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">--}}
+{{--    <div class="container">--}}
+{{--        <a class="navbar-brand" href="#">TravelNow</a>--}}
+{{--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">--}}
+{{--            <span class="navbar-toggler-icon"></span>--}}
+{{--        </button>--}}
+{{--        <div class="collapse navbar-collapse" id="navbarNav">--}}
+{{--            <ul class="navbar-nav ms-auto">--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>--}}
+{{--            </ul>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</nav>--}}
+
+{{--<!-- Hero Section -->--}}
+{{--<section id="hero" class="d-flex">--}}
+{{--    <div class="overlay"></div>--}}
+{{--    <div class="container hero-content text-center text-md-start">--}}
+{{--        <h1>Explore the World with TravelNow</h1>--}}
+{{--        <p>Your adventure starts here. Discover amazing destinations and unforgettable experiences.</p>--}}
+{{--        <a href="#services" class="btn btn-primary btn-lg">Discover More</a>--}}
+{{--    </div>--}}
+{{--</section>--}}
+
+<!-- Navbar -->
+<nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">TravelNow</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <a class="navbar-brand fw-bold" href="#">Upokul Travels</a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+
+        <div id="navMenu" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
                 <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                 <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
                 <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item">
+                    <a class="btn btn-warning text-dark px-4 ms-lg-3" href="#contact">
+                        Contact
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
 
 <!-- Hero Section -->
-<section id="hero" class="d-flex">
-    <div class="overlay"></div>
-    <div class="container hero-content text-center text-md-start">
-        <h1>Explore the World with TravelNow</h1>
-        <p>Your adventure starts here. Discover amazing destinations and unforgettable experiences.</p>
-        <a href="#services" class="btn btn-primary btn-lg">Discover More</a>
+<section id="hero" class="hero-section">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="assets/video/travel.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-overlay"></div>
+
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6 hero-content">
+                <h1>
+                    Discover Beautiful Places <br>
+                    <span>With Upokul Travels</span>
+                </h1>
+
+                <p>
+                    We create unforgettable travel experiences with comfort,
+                    safety and trusted service across Bangladesh & beyond.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#services" class="btn btn-glossy-primary">
+                        <i class="fas fa-route"></i> Our Services
+                    </a>
+                    <a href="#contact" class="btn btn-glossy-secondary">
+                        <i class="fas fa-headset"></i> Get Support
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
 
 <!-- About Section -->
 <section id="about" class="container">
@@ -316,6 +507,17 @@
             }, 800);
         });
     });
+
+    $(window).on('scroll', function () {
+        const heroHeight = $('#hero').outerHeight();
+
+        if ($(window).scrollTop() > heroHeight - 120) {
+            $('#mainNav').addClass('show');
+        } else {
+            $('#mainNav').removeClass('show');
+        }
+    });
+
 </script>
 </body>
 </html>
