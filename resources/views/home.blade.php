@@ -11,55 +11,51 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <!-- Custom CSS -->
-    <style>
-        :root {
-            --accent-green: #20c997;
-        }
-        /* General Styles */
-        html, body {
-            overflow-x: hidden;
-        }
-        body {
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-        }
-        a {
-            text-decoration: none;
-        }
-        /* Navbar */
 
-        /* Navbar */
+
+    <style>
+        :root { --accent-green: #20c997; }
+
+        /* --- Global Responsive Typography --- */
+        html { font-size: 16px; }
+        @media (min-width: 1400px) { html { font-size: 17px; } }
+        @media (max-width: 991.98px) { html { font-size: 15px; } }
+        @media (max-width: 575.98px) { html { font-size: 14px; } }
+
+        html, body { overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        a { text-decoration: none; }
+
+        /* --- Navbar --- */
         #mainNav {
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0,0,0,0.85);
             transform: translateY(-100%);
             transition: all 0.4s ease;
             z-index: 999;
         }
+        #mainNav.show { transform: translateY(0); }
 
-        #mainNav.show {
-            transform: translateY(0);
-        }
+        .navbar { padding: 1rem 2rem; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
+        .nav-link { font-weight: 500; }
+        #mainNav .nav-link:hover { color: var(--accent-green); }
 
-        #mainNav .nav-link:hover {
-            color: var(--accent-green);
-        }
-        .navbar {
-            padding: 1rem 2rem;
-        }
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-        .nav-link {
-            font-weight: 500;
-        }
-        /* Hero Section */
+        #navMenu .nav-item { margin: 0.5rem 0; }
+        #navMenu .btn { margin-top: 0.5rem; }
 
+        /* --- Hero Section --- */
         .hero-section {
             position: relative;
-            height: 100vh;
+            min-height: 100svh;
+            min-height: 100vh;
             overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* text sits at top */
         }
+
+
 
         .hero-video {
             position: absolute;
@@ -72,18 +68,18 @@
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                90deg,
-                rgba(0,0,0,0.75) 0%,
-                rgba(0,0,0,0.45) 50%,
-                rgba(0,0,0,0.2) 100%
-            );
+            background: linear-gradient(90deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.2) 100%);
         }
 
-        /* Hero Content */
-        .hero-content {
+        .hero-section .container {
             position: relative;
             z-index: 2;
+            padding-top: 5rem;   /* pushes text down from top */
+            padding-bottom: 3rem; /* space below buttons */
+        }
+
+        .hero-content {
+            max-width: 600px;
             color: #fff;
         }
 
@@ -91,11 +87,8 @@
             font-size: 3.4rem;
             font-weight: 800;
             line-height: 1.2;
+            margin-bottom: 1.5rem; /* space after heading */
         }
-
-        /*.hero-content h1 span {*/
-        /*    color: #ffc107;*/
-        /*}*/
 
         .hero-content h1 span {
             background: linear-gradient(90deg, #ffc107, var(--accent-green));
@@ -104,19 +97,27 @@
         }
 
         .hero-content p {
-            margin: 20px 0 35px;
+            margin-bottom: 2rem; /* space before buttons */
             font-size: 1.1rem;
-            max-width: 480px;
         }
 
-        /* Glossy Buttons */
+        /* Hero Buttons */
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
         .btn-glossy-primary,
         .btn-glossy-secondary {
-            padding: 14px 30px;
+            padding: 0.875rem 1.875rem;
             border-radius: 50px;
             font-weight: 600;
-            color: #fff;
+            color: #fff; /* text color */
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-glossy-primary {
@@ -131,137 +132,41 @@
 
         .btn-glossy-primary i,
         .btn-glossy-secondary i {
-            color: var(--accent-green);
+            color: #fff; /* force icon color */
+            margin-right: 0.5rem;                  /* spacing from text */
+            font-size: 1.1rem;                     /* optional: slightly bigger icon */
         }
 
         .btn-glossy-primary:hover,
         .btn-glossy-secondary:hover {
             transform: translateY(-4px);
-            color: #fff;
+            color: #fff; /* keeps text white on hover */
         }
 
-        #hero {
-            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1650&q=80') no-repeat center center;
-            background-size: cover;
-            color: #fff;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-        #hero .overlay {
-            background: rgba(0,0,0,0.5);
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top:0; left:0;
-        }
-        #hero .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        #hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-        }
-        #hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        /* About Section */
-        #about {
-            padding: 100px 0;
-        }
-        #about img {
-            border-radius: 20px;
-        }
-        /* Services */
-        #services {
-            padding: 100px 0;
-            background-color: #f9f9f9;
-        }
-        .service-card {
-            border: none;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            background-color: #fff;
-        }
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        .service-card i {
-            font-size: 3rem;
-            color: #ff6b6b;
-            margin-bottom: 15px;
-        }
-        /* Gallery */
-        #gallery {
-            padding: 100px 0;
-        }
-        #gallery img {
-            border-radius: 15px;
-            transition: transform 0.3s;
-        }
-        #gallery img:hover {
-            transform: scale(1.05);
-        }
-        /* Reviews */
-        #reviews {
-            padding: 100px 0;
-            background-color: #f9f9f9;
-        }
-        .review-card {
-            border: none;
-            border-radius: 15px;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .review-card:hover {
-            transform: translateY(-5px);
-        }
-        .review-card img {
-            border-radius: 50%;
-            width: 60px;
-            margin-right: 15px;
-        }
-        /* Contact */
-        #contact {
-            padding: 100px 0;
-        }
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 40px 0;
-        }
-        footer a {
-            color: #ff6b6b;
-        }
-
-        .section-title::after {
-            content: '';
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, #ffc107, var(--accent-green));
-            display: block;
-            margin: 12px auto 0;
-            border-radius: 10px;
-        }
-
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.3rem;
+        /* Medium devices (tablets) */
+        @media (max-width: 991.98px) {
+            .hero-section {
+                min-height: auto; /* let content define height */
             }
+            .hero-section .container {
+                padding-top: 4rem;
+                padding-bottom: 1rem; /* less space below buttons */
+            }
+        }
 
+
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: auto; /* let content determine height */
+            }
+            .hero-section .container { padding-top: 4rem; padding-bottom: 1rem; }
+            .hero-content { text-align: center; }
             .hero-buttons a {
-                display: block;
-                margin-bottom: 15px;
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 0; /* remove any extra margin from buttons */
             }
         }
     </style>
@@ -269,41 +174,11 @@
 <body>
 
 <!-- Navbar -->
-{{--<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">--}}
-{{--    <div class="container">--}}
-{{--        <a class="navbar-brand" href="#">TravelNow</a>--}}
-{{--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">--}}
-{{--            <span class="navbar-toggler-icon"></span>--}}
-{{--        </button>--}}
-{{--        <div class="collapse navbar-collapse" id="navbarNav">--}}
-{{--            <ul class="navbar-nav ms-auto">--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>--}}
-{{--            </ul>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</nav>--}}
-
-{{--<!-- Hero Section -->--}}
-{{--<section id="hero" class="d-flex">--}}
-{{--    <div class="overlay"></div>--}}
-{{--    <div class="container hero-content text-center text-md-start">--}}
-{{--        <h1>Explore the World with TravelNow</h1>--}}
-{{--        <p>Your adventure starts here. Discover amazing destinations and unforgettable experiences.</p>--}}
-{{--        <a href="#services" class="btn btn-primary btn-lg">Discover More</a>--}}
-{{--    </div>--}}
-{{--</section>--}}
-
-<!-- Navbar -->
 <nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-dark">
     <div class="container">
         <a class="navbar-brand fw-bold" href="#">Upokul Travels</a>
 
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -324,15 +199,15 @@
 </nav>
 
 <!-- Hero Section -->
-<section id="hero" class="hero-section">
-    <video class="hero-video" autoplay muted loop playsinline>
-        <source src="assets/video/travel.mp4" type="video/mp4">
+<section class="hero-section">
+    <video class="hero-video" autoplay muted loop playsinline poster="{{ asset('images/hero-poster.jpg') }}">
+        <source src="{{ asset('videos/bg.mp4') }}" type="video/mp4">
     </video>
 
     <div class="hero-overlay"></div>
 
     <div class="container">
-        <div class="row align-items-center min-vh-100">
+        <div class="row">
             <div class="col-lg-6 hero-content">
                 <h1>
                     Discover Beautiful Places <br>
@@ -356,6 +231,7 @@
         </div>
     </div>
 </section>
+
 
 
 <!-- About Section -->
