@@ -11,165 +11,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <!-- Custom CSS -->
-
-
-    <style>
-        :root { --accent-green: #20c997; }
-
-        /* --- Global Responsive Typography --- */
-        html { font-size: 16px; }
-        @media (min-width: 1400px) { html { font-size: 17px; } }
-        @media (max-width: 991.98px) { html { font-size: 15px; } }
-        @media (max-width: 575.98px) { html { font-size: 14px; } }
-
-        html, body { overflow-x: hidden; }
-        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
-        a { text-decoration: none; }
-
-        /* --- Navbar --- */
-        #mainNav {
-            background: rgba(0,0,0,0.85);
-            transform: translateY(-100%);
-            transition: all 0.4s ease;
-            z-index: 999;
-        }
-        #mainNav.show { transform: translateY(0); }
-
-        .navbar { padding: 1rem 2rem; }
-        .navbar-brand { font-weight: 700; font-size: 1.5rem; }
-        .nav-link { font-weight: 500; }
-        #mainNav .nav-link:hover { color: var(--accent-green); }
-
-        #navMenu .nav-item { margin: 0.5rem 0; }
-        #navMenu .btn { margin-top: 0.5rem; }
-
-        /* --- Hero Section --- */
-        .hero-section {
-            position: relative;
-            min-height: 100svh;
-            min-height: 100vh;
-            overflow: hidden;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* text sits at top */
-        }
-
-
-
-        .hero-video {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.2) 100%);
-        }
-
-        .hero-section .container {
-            position: relative;
-            z-index: 2;
-            padding-top: 5rem;   /* pushes text down from top */
-            padding-bottom: 3rem; /* space below buttons */
-        }
-
-        .hero-content {
-            max-width: 600px;
-            color: #fff;
-        }
-
-        .hero-content h1 {
-            font-size: 3.4rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.5rem; /* space after heading */
-        }
-
-        .hero-content h1 span {
-            background: linear-gradient(90deg, #ffc107, var(--accent-green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-content p {
-            margin-bottom: 2rem; /* space before buttons */
-            font-size: 1.1rem;
-        }
-
-        /* Hero Buttons */
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .btn-glossy-primary,
-        .btn-glossy-secondary {
-            padding: 0.875rem 1.875rem;
-            border-radius: 50px;
-            font-weight: 600;
-            color: #fff; /* text color */
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-glossy-primary {
-            background: linear-gradient(135deg, #ff9f00, #ffc107);
-            box-shadow: 0 12px 30px rgba(255,193,7,0.45);
-        }
-
-        .btn-glossy-secondary {
-            background: linear-gradient(135deg, #0dcaf0, #0d6efd);
-            box-shadow: 0 12px 30px rgba(13,110,253,0.45);
-        }
-
-        .btn-glossy-primary i,
-        .btn-glossy-secondary i {
-            color: #fff; /* force icon color */
-            margin-right: 0.5rem;                  /* spacing from text */
-            font-size: 1.1rem;                     /* optional: slightly bigger icon */
-        }
-
-        .btn-glossy-primary:hover,
-        .btn-glossy-secondary:hover {
-            transform: translateY(-4px);
-            color: #fff; /* keeps text white on hover */
-        }
-
-        /* Medium devices (tablets) */
-        @media (max-width: 991.98px) {
-            .hero-section {
-                min-height: auto; /* let content define height */
-            }
-            .hero-section .container {
-                padding-top: 4rem;
-                padding-bottom: 1rem; /* less space below buttons */
-            }
-        }
-
-
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            .hero-section {
-                min-height: auto; /* let content determine height */
-            }
-            .hero-section .container { padding-top: 4rem; padding-bottom: 1rem; }
-            .hero-content { text-align: center; }
-            .hero-buttons a {
-                width: 100%;
-                justify-content: center;
-                margin-bottom: 0; /* remove any extra margin from buttons */
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('home/css/style.css') }}">
+{{--    <link rel="stylesheet" href="{{ asset('home/css/style2.css') }}">--}}
 </head>
 <body>
 
@@ -200,8 +43,8 @@
 
 <!-- Hero Section -->
 <section class="hero-section">
-    <video class="hero-video" autoplay muted loop playsinline poster="{{ asset('images/hero-poster.jpg') }}">
-        <source src="{{ asset('videos/bg.mp4') }}" type="video/mp4">
+    <video class="hero-video" autoplay muted loop playsinline poster="{{ asset('home/images/banner.jpg') }}">
+        <source src="{{ asset('home/videos/bg.mp4') }}" type="video/mp4">
     </video>
 
     <div class="hero-overlay"></div>
@@ -211,7 +54,7 @@
             <div class="col-lg-6 hero-content">
                 <h1>
                     Discover Beautiful Places <br>
-                    <span>With Upokul Travels</span>
+                    <span>With {{config('app.name')}}</span>
                 </h1>
 
                 <p>
@@ -231,6 +74,40 @@
         </div>
     </div>
 </section>
+
+{{--<section class="hero-section">--}}
+{{--    <!-- Video Background -->--}}
+{{--    <video class="hero-video" autoplay muted loop playsinline poster="{{ asset('home/images/banner.jpg') }}">--}}
+{{--        <source src="{{ asset('home/videos/bg.mp4') }}" type="video/mp4">--}}
+{{--    </video>--}}
+
+{{--    <!-- Overlay -->--}}
+{{--    <div class="hero-overlay"></div>--}}
+
+{{--    <!-- Content -->--}}
+{{--    <div class="container hero-content">--}}
+{{--        <div class="row">--}}
+{{--            <div class="col-xl-6 col-lg-7 col-md-9">--}}
+{{--                <h1 class="hero-title">--}}
+{{--                    Discover Beautiful Places--}}
+{{--                </h1>--}}
+
+{{--                <p class="hero-text">--}}
+{{--                    Explore breathtaking destinations with comfort, style, and unforgettable travel experiences.--}}
+{{--                </p>--}}
+
+{{--                <div class="hero-buttons d-flex flex-wrap gap-3">--}}
+{{--                    <a href="#" class="btn btn-primary btn-lg">--}}
+{{--                        Explore Tours--}}
+{{--                    </a>--}}
+{{--                    <a href="#" class="btn btn-outline-light btn-lg">--}}
+{{--                        Contact Us--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</section>--}}
 
 
 
