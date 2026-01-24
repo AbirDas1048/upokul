@@ -68,20 +68,10 @@ a { text-decoration: none; }
     color: #fff;
 }
 
-/*.hero-section .row {*/
-/*    margin: 0;*/
-/*}*/
-
 .hero-section .row,
 .hero-section .col-lg-6 {
     margin-bottom: 0 !important;
 }
-
-
-/*.hero-content {*/
-/*    max-width: 600px;*/
-/*    color: #fff;*/
-/*}*/
 
 .hero-content {
     display: flex;
@@ -95,6 +85,10 @@ a { text-decoration: none; }
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 1.5rem; /* space after heading */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeUp 0.9s ease-out forwards;
+    animation-delay: 0.3s;
 }
 
 .hero-content h1 span {
@@ -118,6 +112,11 @@ a { text-decoration: none; }
     align-items: flex-start;
     line-height: 1;
     margin-bottom: 0 !important;
+
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeUp 0.9s ease-out forwards;
+    animation-delay: 0.6s;
 }
 
 .hero-buttons a {
@@ -166,32 +165,18 @@ a { text-decoration: none; }
     color: #fff; /* keeps text white on hover */
 }
 
-/* Medium devices (tablets) */
-/*@media (max-width: 991.98px) {*/
-/*    .hero-section {*/
-/*        min-height: auto; !* let content define height *!*/
-/*    }*/
-/*    .hero-section .container {*/
-/*        padding-top: 4rem;*/
-/*        padding-bottom: 1rem; !* less space below buttons *!*/
-/*    }*/
-/*}*/
-
-
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* Mobile */
-/*@media (max-width: 768px) {*/
-/*    .hero-section {*/
-/*        min-height: auto; !* let content determine height *!*/
-/*    }*/
-/*    .hero-section .container { padding-top: 4rem; padding-bottom: 1rem; }*/
-/*    .hero-content { text-align: center; }*/
-/*    .hero-buttons a {*/
-/*        width: 100%;*/
-/*        justify-content: center;*/
-/*        margin-bottom: 0; !* remove any extra margin from buttons *!*/
-/*    }*/
-/*}*/
 @media (max-width: 991.98px) {
     .hero-section {
         min-height: auto;
