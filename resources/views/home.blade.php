@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('home/css/style.css') }}">
-{{--    <link rel="stylesheet" href="{{ asset('home/css/style2.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('home/css/style2.css') }}">
 </head>
 <body>
 
@@ -75,59 +75,49 @@
     </div>
 </section>
 
-{{--<section class="hero-section">--}}
-{{--    <!-- Video Background -->--}}
-{{--    <video class="hero-video" autoplay muted loop playsinline poster="{{ asset('home/images/banner.jpg') }}">--}}
-{{--        <source src="{{ asset('home/videos/bg.mp4') }}" type="video/mp4">--}}
-{{--    </video>--}}
+<section id="about" class="about-section">
+    <div class="container">
+        <div class="row align-items-center gy-5">
 
-{{--    <!-- Overlay -->--}}
-{{--    <div class="hero-overlay"></div>--}}
+            <!-- Image -->
+            <div class="col-lg-6">
+                <div class="about-image-wrapper fade-up">
+                    <img src="{{ asset('images/Logo.png') }}" alt="About Upokul Travels">
+                </div>
+            </div>
 
-{{--    <!-- Content -->--}}
-{{--    <div class="container hero-content">--}}
-{{--        <div class="row">--}}
-{{--            <div class="col-xl-6 col-lg-7 col-md-9">--}}
-{{--                <h1 class="hero-title">--}}
-{{--                    Discover Beautiful Places--}}
-{{--                </h1>--}}
+            <!-- Content -->
+            <div class="col-lg-6">
+                <div class="about-content fade-up">
+                    <span class="about-badge">About Us</span>
 
-{{--                <p class="hero-text">--}}
-{{--                    Explore breathtaking destinations with comfort, style, and unforgettable travel experiences.--}}
-{{--                </p>--}}
+                    <h2>
+                        Your Trusted Partner for
+                        <span>Unforgettable Journeys</span>
+                    </h2>
 
-{{--                <div class="hero-buttons d-flex flex-wrap gap-3">--}}
-{{--                    <a href="#" class="btn btn-primary btn-lg">--}}
-{{--                        Explore Tours--}}
-{{--                    </a>--}}
-{{--                    <a href="#" class="btn btn-outline-light btn-lg">--}}
-{{--                        Contact Us--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</section>--}}
+                    <p>
+                        Upokul Travels is dedicated to creating meaningful travel experiences.
+                        From breathtaking coastal tours to personalized holiday packages,
+                        we ensure comfort, safety, and unforgettable memories.
+                    </p>
 
+                    <ul class="about-list">
+                        <li><i class="fas fa-check-circle"></i> Trusted & experienced travel experts</li>
+                        <li><i class="fas fa-check-circle"></i> Customized tour packages</li>
+                        <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>
+                    </ul>
 
+                    <a href="#services" class="btn btn-glossy-primary mt-3">
+                        Explore Our Services
+                    </a>
+                </div>
+            </div>
 
-<!-- About Section -->
-<section id="about" class="container">
-    <div class="row align-items-center">
-        <div class="col-md-6 mb-4">
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="About Travel" class="img-fluid">
-        </div>
-        <div class="col-md-6">
-            <h2>About TravelNow</h2>
-            <p>We are a premier travel agency dedicated to crafting unforgettable journeys for our clients. From exotic vacations to local adventures, we make every trip seamless and memorable.</p>
-            <ul>
-                <li>Custom travel packages</li>
-                <li>Expert travel guidance</li>
-                <li>24/7 customer support</li>
-            </ul>
         </div>
     </div>
 </section>
+
 
 <!-- Services Section -->
 <section id="services" class="container">
@@ -269,6 +259,21 @@
         } else {
             $('#mainNav').removeClass('show');
         }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const faders = document.querySelectorAll('.fade-up');
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show'); // triggers CSS transition
+                    obs.unobserve(entry.target); // fade once
+                }
+            });
+            }, { threshold: 0.2 }); // 20% of element is visible
+
+        faders.forEach(el => observer.observe(el));
     });
 
 </script>
