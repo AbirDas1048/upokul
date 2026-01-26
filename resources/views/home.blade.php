@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <!-- AOS Library CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('home/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/style2.css') }}">
@@ -80,16 +83,16 @@
         <div class="row align-items-center gy-5">
 
             <!-- Image -->
-            <div class="col-lg-6">
-                <div class="about-image-wrapper fade-up">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="about-image-wrapper" >
                     <img src="{{ asset('images/Logo.png') }}" alt="About Upokul Travels">
                 </div>
             </div>
 
             <!-- Content -->
-            <div class="col-lg-6">
-                <div class="about-content fade-up">
-                    <span class="about-badge">About Us</span>
+            <div class="col-lg-6" data-aos="fade-light">
+                <div class="about-content">
+                    <h4 class="about-badge">About Us</h4>
 
                     <h2>
                         Your Trusted Partner for
@@ -108,7 +111,7 @@
                         <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>
                     </ul>
 
-                    <a href="#services" class="btn btn-glossy-primary mt-3">
+                    <a href="#services" class="btn btn-glossy-primary mt-3" data-aos="fade-up">
                         Explore Our Services
                     </a>
                 </div>
@@ -159,7 +162,7 @@
     <div class="row g-3">
         <div class="col-md-4"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 1"></div>
         <div class="col-md-4"><img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 2"></div>
-        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1549887534-27e65cbbf379?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 3"></div>
+        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 3"></div>
     </div>
 </section>
 
@@ -239,6 +242,7 @@
 <!-- jQuery & Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
     // Smooth scrolling for nav links
     $(document).ready(function(){
@@ -261,21 +265,10 @@
         }
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const faders = document.querySelectorAll('.fade-up');
-
-        const observer = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show'); // triggers CSS transition
-                    obs.unobserve(entry.target); // fade once
-                }
-            });
-            }, { threshold: 0.2 }); // 20% of element is visible
-
-        faders.forEach(el => observer.observe(el));
+    AOS.init({
+        duration: 1000,
+        once: true
     });
-
 </script>
 </body>
 </html>
