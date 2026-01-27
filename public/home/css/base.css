@@ -1,0 +1,11 @@
+:root { --accent-green: #20c997; }
+
+/* --- Global Responsive Typography --- */
+html { font-size: 16px; }
+@media (min-width: 1400px) { html { font-size: 17px; } }
+@media (max-width: 991.98px) { html { font-size: 15px; } }
+@media (max-width: 575.98px) { html { font-size: 14px; } }
+
+html, body { overflow-x: hidden; }
+body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+a { text-decoration: none; }

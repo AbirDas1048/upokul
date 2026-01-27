@@ -14,8 +14,10 @@
     <!-- AOS Library CSS -->
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('home/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/style2.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/hero.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/about.css') }}">
 </head>
 <body>
 

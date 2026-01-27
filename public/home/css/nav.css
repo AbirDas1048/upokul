@@ -1,0 +1,16 @@
+/* --- Navbar --- */
+#mainNav {
+    background: rgba(0,0,0,0.85);
+    transform: translateY(-100%);
+    transition: all 0.4s ease;
+    z-index: 999;
+}
+#mainNav.show { transform: translateY(0); }
+
+.navbar { padding: 1rem 2rem; }
+.navbar-brand { font-weight: 700; font-size: 1.5rem; }
+.nav-link { font-weight: 500; }
+#mainNav .nav-link:hover { color: var(--accent-green); }
+
+#navMenu .nav-item { margin: 0.5rem 0; }
+#navMenu .btn { margin-top: 0.5rem; }
