@@ -6,6 +6,9 @@ html { font-size: 16px; }
 @media (max-width: 991.98px) { html { font-size: 15px; } }
 @media (max-width: 575.98px) { html { font-size: 14px; } }
 
-html, body { overflow-x: hidden; }
-body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+html, body { overflow-x: hidden; scroll-behavior: auto;}
+body { font-family: 'Poppins', sans-serif;}
 a { text-decoration: none; }
+section {
+    scroll-margin-top: 90px; /* height of navbar */
+}

@@ -319,17 +319,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
-    // Smooth scrolling for nav links
-    $(document).ready(function(){
-        $('a.nav-link').click(function(e){
-            e.preventDefault();
-            var target = $(this).attr('href');
-            $('html, body').animate({
-                scrollTop: $(target).offset().top - 70
-            }, 800);
-        });
-    });
-
+    /* ===============================
+       NAV SHOW / HIDE ON SCROLL
+    ================================ */
     $(window).on('scroll', function () {
         const heroHeight = $('#hero').outerHeight();
 
@@ -340,10 +332,67 @@
         }
     });
 
+    /* ===============================
+       AOS INIT
+    ================================ */
     AOS.init({
         duration: 1000,
-        once: true
+        once: true,
+        easing: 'ease-out-cubic'
     });
+
+    /* ===============================
+       PREMIUM SMOOTH SCROLL
+    ================================ */
+    (function () {
+        const easeInOutCubic = t =>
+            t < 0.5
+                ? 4 * t * t * t
+                : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+        function smoothScrollTo(targetY, duration = 1400) {
+            const startY = window.pageYOffset;
+            const diff = targetY - startY;
+            let startTime = null;
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const time = timestamp - startTime;
+                const progress = Math.min(time / duration, 1);
+                const eased = easeInOutCubic(progress);
+
+                window.scrollTo(0, startY + diff * eased);
+
+                if (time < duration) {
+                    requestAnimationFrame(step);
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const id = this.getAttribute('href');
+                if (!id || id === '#') return;
+
+                const target = document.querySelector(id);
+                if (!target) return;
+
+                e.preventDefault();
+
+                const navHeight =
+                    document.getElementById('mainNav')?.offsetHeight || 90;
+
+                const targetY =
+                    target.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    navHeight;
+
+                smoothScrollTo(targetY, 1500); // 🎩 premium timing
+            });
+        });
+    })();
 </script>
 </body>
 </html>
