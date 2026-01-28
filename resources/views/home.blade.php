@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/hero.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/about.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">
 </head>
 <body>
 
@@ -125,35 +126,107 @@
 
 
 <!-- Services Section -->
-<section id="services" class="container">
-    <div class="text-center mb-5">
-        <h2>Our Services</h2>
-        <p>We provide a variety of travel services to make your journey comfortable and unforgettable.</p>
-    </div>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="service-card">
-                <i class="fas fa-plane"></i>
-                <h4>Flight Booking</h4>
-                <p>Book flights easily to any destination worldwide with best deals.</p>
-            </div>
+<section id="services" class="services-section">
+    <div class="container">
+
+        <!-- Section Title -->
+        <div class="text-center mb-5">
+            <span class="section-badge" data-aos="fade-up">Our Services</span>
+            <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">
+                Everything You Need for a
+                <span>Perfect Journey</span>
+            </h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">
+                We provide complete travel solutions with comfort, reliability,
+                and personalized care.
+            </p>
         </div>
-        <div class="col-md-4">
-            <div class="service-card">
-                <i class="fas fa-hotel"></i>
-                <h4>Hotel Reservations</h4>
-                <p>Stay in premium hotels and resorts with our special partnerships.</p>
+
+        <!-- Services Grid -->
+        <div class="row g-4">
+
+            <!-- Service Card -->
+            <div class="col-xl-4 col-md-6" data-aos="fade-up">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h5>Tour Planning</h5>
+                    <p>
+                        Customized tour plans designed to give you unforgettable
+                        experiences and hassle-free journeys.
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="service-card">
-                <i class="fas fa-map"></i>
-                <h4>Custom Tours</h4>
-                <p>Plan tailor-made tours and travel experiences with our experts.</p>
+
+            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <h5>Hotel Booking</h5>
+                    <p>
+                        Hand-picked hotels at the best prices ensuring comfort,
+                        safety, and quality stays.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-plane-departure"></i>
+                    </div>
+                    <h5>Air Ticket Booking</h5>
+                    <p>
+                        Affordable and flexible flight bookings with trusted
+                        airlines worldwide.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-6" data-aos="fade-up">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-passport"></i>
+                    </div>
+                    <h5>Visa Processing</h5>
+                    <p>
+                        Smooth and reliable visa processing with expert guidance
+                        at every step.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h5>Transport & Transfer</h5>
+                    <p>
+                        Comfortable and safe transport solutions for airport
+                        transfers and tours.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h5>Travel Insurance</h5>
+                    <p>
+                        Secure your journey with reliable travel insurance
+                        coverage and peace of mind.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- Gallery Section -->
 <section id="gallery" class="container">
