@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/hero.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/about.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
 </head>
 <body>
 
@@ -81,6 +82,7 @@
     </div>
 </section>
 
+<!-- About Section -->
 <section id="about" class="about-section">
     <div class="container">
         <div class="row align-items-center gy-5">
@@ -123,7 +125,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- Services Section -->
 <section id="services" class="services-section">
@@ -221,6 +222,91 @@
                         Secure your journey with reliable travel insurance
                         coverage and peace of mind.
                     </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Counter Section -->
+{{--<section id="stats" class="stats-section">--}}
+{{--    <div class="container">--}}
+{{--        <div class="row text-center">--}}
+
+{{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up">--}}
+{{--                <div class="stat-card">--}}
+{{--                    <h2 class="counter" data-target="100">0</h2>--}}
+{{--                    <p>Satisfied Clients</p>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="100">--}}
+{{--                <div class="stat-card">--}}
+{{--                    <h2 class="counter" data-target="30">0</h2>--}}
+{{--                    <p>Countries Covered</p>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="200">--}}
+{{--                <div class="stat-card">--}}
+{{--                    <h2 class="counter" data-target="80">0</h2>--}}
+{{--                    <p>Hotel Partners</p>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="300">--}}
+{{--                <div class="stat-card">--}}
+{{--                    <h2 class="counter" data-target="10">0</h2>--}}
+{{--                    <p>Years of Experience</p>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</section>--}}
+
+<section class="trust-section" id="trusted">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title" data-aos="fade-up">
+                Trusted by Travelers Worldwide
+            </h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="150">
+                Numbers that reflect our experience, trust, and global reach
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Item -->
+            <div class="col-md-6 col-lg-3">
+                <div class="trust-card" data-aos="fade-up">
+                    <i class="fas fa-smile-beam"></i>
+                    <h3 class="counter" data-count="100">0</h3>
+                    <p>Satisfied Clients</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="trust-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-globe-asia"></i>
+                    <h3 class="counter" data-count="300">0</h3>
+                    <p>Countries Connected</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="trust-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-hotel"></i>
+                    <h3 class="counter" data-count="800">0</h3>
+                    <p>Hotel Partnerships</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="trust-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-handshake"></i>
+                    <h3 class="counter" data-count="500">0</h3>
+                    <p>Trusted Agents & Media</p>
                 </div>
             </div>
         </div>
@@ -330,6 +416,18 @@
         } else {
             $('#mainNav').removeClass('show');
         }
+
+        // const sectionTop = $('#trusted').offset().top - window.innerHeight + 100;
+        // if ($(window).scrollTop() > sectionTop) {
+        //     startCounters();
+        // }
+
+        // const sectionTop = $('#trusted').offset().top - window.innerHeight + 200;
+        //
+        // if (!counterStarted && $(window).scrollTop() > sectionTop) {
+        //     counterStarted = true;
+        //     startCounters();
+        // }
     });
 
     /* ===============================
@@ -393,6 +491,98 @@
             });
         });
     })();
+
+    /* ===============================
+   COUNTER ANIMATION
+================================ */
+    // let counterStarted = false;
+    //
+    // function startCounters() {
+    //     if (counterStarted) return;
+    //
+    //     $('.counter').each(function () {
+    //         const $this = $(this);
+    //         const target = +$this.data('count');
+    //         let count = 0;
+    //         const speed = 200;
+    //
+    //         const updateCount = () => {
+    //             const increment = Math.ceil(target / speed);
+    //             count += increment;
+    //
+    //             if (count < target) {
+    //                 $this.text(count);
+    //                 requestAnimationFrame(updateCount);
+    //             } else {
+    //                 $this.text(target);
+    //             }
+    //         };
+    //
+    //         updateCount();
+    //     });
+    //
+    //     counterStarted = true;
+    // }
+
+    let counterStarted = false;
+
+    function animateCounter(el, target) {
+        let current = 0;
+        const increment = Math.ceil(target / 80);
+
+        const interval = setInterval(() => {
+            current += increment;
+
+            if (current >= target) {
+                el.textContent = target;
+                clearInterval(interval);
+            } else {
+                el.textContent = current;
+            }
+        }, 25);
+    }
+
+    const observer = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !counterStarted) {
+                    counterStarted = true;
+
+                    document.querySelectorAll('.counter').forEach(counter => {
+                        animateCounter(counter, +counter.dataset.count);
+                    });
+
+                    observer.disconnect();
+                }
+            });
+        },
+        { threshold: 0.4 }
+    );
+
+    observer.observe(document.querySelector('#trusted'));
+
+    // let counterStarted = false;
+    //
+    // function startCounters() {
+    //     $('.counter').each(function () {
+    //         const $this = $(this);
+    //         const target = +$this.data('count');
+    //
+    //         $({ countNum: 0 }).animate(
+    //             { countNum: target },
+    //             {
+    //                 duration: 2000,
+    //                 easing: 'swing',
+    //                 step: function () {
+    //                     $this.text(Math.floor(this.countNum));
+    //                 },
+    //                 complete: function () {
+    //                     $this.text(target);
+    //                 }
+    //             }
+    //         );
+    //     });
+    // }
 </script>
 </body>
 </html>
