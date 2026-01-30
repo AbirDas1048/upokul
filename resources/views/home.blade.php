@@ -229,34 +229,34 @@
 </section>
 
 <!-- Counter Section -->
-{{--<section id="stats" class="stats-section">--}}
+{{--<section id="trusted" class="stats-section">--}}
 {{--    <div class="container">--}}
 {{--        <div class="row text-center">--}}
 
 {{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up">--}}
 {{--                <div class="stat-card">--}}
-{{--                    <h2 class="counter" data-target="100">0</h2>--}}
+{{--                    <h2 class="counter" data-count="100">0</h2>--}}
 {{--                    <p>Satisfied Clients</p>--}}
 {{--                </div>--}}
 {{--            </div>--}}
 
 {{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="100">--}}
 {{--                <div class="stat-card">--}}
-{{--                    <h2 class="counter" data-target="30">0</h2>--}}
+{{--                    <h2 class="counter" data-count="300">0</h2>--}}
 {{--                    <p>Countries Covered</p>--}}
 {{--                </div>--}}
 {{--            </div>--}}
 
 {{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="200">--}}
 {{--                <div class="stat-card">--}}
-{{--                    <h2 class="counter" data-target="80">0</h2>--}}
+{{--                    <h2 class="counter" data-count="800">0</h2>--}}
 {{--                    <p>Hotel Partners</p>--}}
 {{--                </div>--}}
 {{--            </div>--}}
 
 {{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="300">--}}
 {{--                <div class="stat-card">--}}
-{{--                    <h2 class="counter" data-target="10">0</h2>--}}
+{{--                    <h2 class="counter" data-count="500">0</h2>--}}
 {{--                    <p>Years of Experience</p>--}}
 {{--                </div>--}}
 {{--            </div>--}}
