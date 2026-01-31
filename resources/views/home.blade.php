@@ -393,9 +393,9 @@
     <div class="container">
         <p>&copy; 2026 TravelNow. All rights reserved.</p>
         <div>
-            <a href="#"><i class="fab fa-facebook fa-lg me-3"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61555938637948" target="_blank"><i class="fab fa-facebook fa-lg me-3"></i></a>
             <a href="#"><i class="fab fa-twitter fa-lg me-3"></i></a>
-            <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+            <a href="https://www.instagram.com/upokul80/" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
         </div>
     </div>
 </footer>
