@@ -280,32 +280,32 @@
 
         <div class="row g-4">
             <!-- Item -->
-            <div class="col-md-6 col-lg-3">
-                <div class="trust-card" data-aos="fade-up">
+            <div class="col-md-6 col-lg-3" data-aos="fade-up">
+                <div class="trust-card">
                     <i class="fas fa-smile-beam"></i>
                     <h3 class="counter" data-count="100">0</h3>
                     <p>Satisfied Clients</p>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3">
-                <div class="trust-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="trust-card">
                     <i class="fas fa-globe-asia"></i>
                     <h3 class="counter" data-count="300">0</h3>
                     <p>Countries Connected</p>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3">
-                <div class="trust-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="trust-card">
                     <i class="fas fa-hotel"></i>
                     <h3 class="counter" data-count="800">0</h3>
                     <p>Hotel Partnerships</p>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3">
-                <div class="trust-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="trust-card">
                     <i class="fas fa-handshake"></i>
                     <h3 class="counter" data-count="500">0</h3>
                     <p>Trusted Agents & Media</p>
