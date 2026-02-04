@@ -15,6 +15,10 @@
 
     <!-- AOS Library CSS -->
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Swiper Library CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('home/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/nav.css') }}">
@@ -22,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/about.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
 </head>
 <body>
 
@@ -231,42 +236,6 @@
 </section>
 
 <!-- Counter Section -->
-{{--<section id="trusted" class="stats-section">--}}
-{{--    <div class="container">--}}
-{{--        <div class="row text-center">--}}
-
-{{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up">--}}
-{{--                <div class="stat-card">--}}
-{{--                    <h2 class="counter" data-count="100">0</h2>--}}
-{{--                    <p>Satisfied Clients</p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="100">--}}
-{{--                <div class="stat-card">--}}
-{{--                    <h2 class="counter" data-count="300">0</h2>--}}
-{{--                    <p>Countries Covered</p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="200">--}}
-{{--                <div class="stat-card">--}}
-{{--                    <h2 class="counter" data-count="800">0</h2>--}}
-{{--                    <p>Hotel Partners</p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--            <div class="col-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="300">--}}
-{{--                <div class="stat-card">--}}
-{{--                    <h2 class="counter" data-count="500">0</h2>--}}
-{{--                    <p>Years of Experience</p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</section>--}}
-
 <section class="trust-section" id="trusted">
     <div class="container">
         <div class="text-center mb-5">
@@ -317,17 +286,99 @@
 
 
 <!-- Gallery Section -->
-<section id="gallery" class="container">
-    <div class="text-center mb-5">
-        <h2>Gallery</h2>
-        <p>Explore some of our most memorable trips and destinations.</p>
-    </div>
-    <div class="row g-3">
-        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 1"></div>
-        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 2"></div>
-        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 3"></div>
+{{--<section id="gallery" class="container">--}}
+{{--    <div class="text-center mb-5">--}}
+{{--        <h2>Gallery</h2>--}}
+{{--        <p>Explore some of our most memorable trips and destinations.</p>--}}
+{{--    </div>--}}
+{{--    <div class="row g-3">--}}
+{{--        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 1"></div>--}}
+{{--        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 2"></div>--}}
+{{--        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 3"></div>--}}
+{{--    </div>--}}
+{{--</section>--}}
+
+<section id="gallery" class="gallery-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Travel Moments</h2>
+            <p class="text-muted">Explore our unforgettable journeys</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="gallery-card">
+                    <div class="swiper gallerySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" alt="">
+                            </div>
+                        </div>
+
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                    <div class="gallery-info">
+                        <h5>Cox’s Bazar</h5>
+                        <span>Bangladesh</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="gallery-card">
+                    <div class="swiper gallerySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                    <div class="gallery-info">
+                        <h5>Sylhet</h5>
+                        <span>Bangladesh</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="gallery-card">
+                    <div class="swiper gallerySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                    <div class="gallery-info">
+                        <h5>Bali</h5>
+                        <span>Indonesia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
 
 <!-- Reviews Section -->
 <section id="reviews" class="container">
@@ -406,6 +457,8 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <script>
     /* ===============================
        NAV SHOW / HIDE ON SCROLL
@@ -418,18 +471,6 @@
         } else {
             $('#mainNav').removeClass('show');
         }
-
-        // const sectionTop = $('#trusted').offset().top - window.innerHeight + 100;
-        // if ($(window).scrollTop() > sectionTop) {
-        //     startCounters();
-        // }
-
-        // const sectionTop = $('#trusted').offset().top - window.innerHeight + 200;
-        //
-        // if (!counterStarted && $(window).scrollTop() > sectionTop) {
-        //     counterStarted = true;
-        //     startCounters();
-        // }
     });
 
     /* ===============================
@@ -495,36 +536,8 @@
     })();
 
     /* ===============================
-   COUNTER ANIMATION
-================================ */
-    // let counterStarted = false;
-    //
-    // function startCounters() {
-    //     if (counterStarted) return;
-    //
-    //     $('.counter').each(function () {
-    //         const $this = $(this);
-    //         const target = +$this.data('count');
-    //         let count = 0;
-    //         const speed = 200;
-    //
-    //         const updateCount = () => {
-    //             const increment = Math.ceil(target / speed);
-    //             count += increment;
-    //
-    //             if (count < target) {
-    //                 $this.text(count);
-    //                 requestAnimationFrame(updateCount);
-    //             } else {
-    //                 $this.text(target);
-    //             }
-    //         };
-    //
-    //         updateCount();
-    //     });
-    //
-    //     counterStarted = true;
-    // }
+            COUNTER ANIMATION
+      ================================ */
 
     let counterStarted = false;
 
@@ -562,29 +575,23 @@
     );
 
     observer.observe(document.querySelector('#trusted'));
-
-    // let counterStarted = false;
-    //
-    // function startCounters() {
-    //     $('.counter').each(function () {
-    //         const $this = $(this);
-    //         const target = +$this.data('count');
-    //
-    //         $({ countNum: 0 }).animate(
-    //             { countNum: target },
-    //             {
-    //                 duration: 2000,
-    //                 easing: 'swing',
-    //                 step: function () {
-    //                     $this.text(Math.floor(this.countNum));
-    //                 },
-    //                 complete: function () {
-    //                     $this.text(target);
-    //                 }
-    //             }
-    //         );
-    //     });
-    // }
 </script>
+<script>
+    document.querySelectorAll('.gallerySwiper').forEach(swiperEl => {
+        new Swiper(swiperEl, {
+            loop: true,
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: swiperEl.querySelector('.swiper-pagination'),
+                clickable: true,
+            },
+            speed: 900,
+        });
+    });
+</script>
+
 </body>
 </html>
