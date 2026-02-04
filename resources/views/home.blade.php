@@ -19,6 +19,8 @@
     <!-- Swiper Library CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('home/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/nav.css') }}">
@@ -312,12 +314,15 @@
                     <div class="swiper gallerySwiper">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
+                                <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
                                 <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
                             </div>
                             <div class="swiper-slide">
+                                <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
                                 <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
                             </div>
                             <div class="swiper-slide">
+                                <a href="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
                                 <img src="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" alt="">
                             </div>
                         </div>
@@ -338,9 +343,11 @@
                     <div class="swiper gallerySwiper">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
+                                <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
                                 <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
                             </div>
                             <div class="swiper-slide">
+                                <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
                                 <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
                             </div>
                         </div>
@@ -360,9 +367,11 @@
                     <div class="swiper gallerySwiper">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
+                                <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
                                 <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
                             </div>
                             <div class="swiper-slide">
+                                <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
                                 <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
                             </div>
                         </div>
@@ -458,6 +467,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 
 <script>
     /* ===============================
@@ -590,6 +600,15 @@
             },
             speed: 900,
         });
+    });
+
+    const lightbox = GLightbox({
+        selector: '.glightbox',
+        touchNavigation: true,
+        loop: true,
+        zoomable: true,
+        openEffect: 'fade',
+        closeEffect: 'fade'
     });
 </script>
 
