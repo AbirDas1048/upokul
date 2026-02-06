@@ -7,19 +7,15 @@
     <link rel="icon" type="image/x-icon" href=" {{ asset('home/images/favicon.ico') }}">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
     <!-- AOS Library CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <!-- Swiper Library CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('home/css/base.css') }}">
@@ -288,18 +284,6 @@
 
 
 <!-- Gallery Section -->
-{{--<section id="gallery" class="container">--}}
-{{--    <div class="text-center mb-5">--}}
-{{--        <h2>Gallery</h2>--}}
-{{--        <p>Explore some of our most memorable trips and destinations.</p>--}}
-{{--    </div>--}}
-{{--    <div class="row g-3">--}}
-{{--        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 1"></div>--}}
-{{--        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 2"></div>--}}
-{{--        <div class="col-md-4"><img src="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" class="img-fluid" alt="Gallery 3"></div>--}}
-{{--    </div>--}}
-{{--</section>--}}
-
 <section id="gallery" class="gallery-section py-5">
     <div class="container">
         <div class="text-center mb-5">
@@ -307,99 +291,118 @@
             <p class="text-muted">Explore our unforgettable journeys</p>
         </div>
 
-        <div class="row g-4">
-            <!-- Card 1 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="gallery-card">
-                    <div class="gallery-media">
-                        <div class="swiper gallerySwiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
-                                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
-                                        <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
-                                        <img src="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" alt="">
-                                    </a>
-                                </div>
-                            </div>
+        <!-- CARD SLIDER -->
+        <div class="swiper cardSwiper">
+            <div class="swiper-wrapper">
 
-                            <div class="swiper-pagination"></div>
-                        </div>
-
-                        <div class="gallery-info text-center">
+                <!-- Card -->
+                <div class="swiper-slide">
+                    <div class="gallery-card" data-index="0">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200" alt="">
+                        <div class="gallery-info">
                             <h5>Cox’s Bazar</h5>
                             <span>Bangladesh</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Card 2 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="gallery-card">
-                    <div class="gallery-media">
-                        <div class="swiper gallerySwiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="sylhet-gallery">
-                                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="sylhet-gallery">
-                                        <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
-                        </div>
-
-                        <div class="gallery-info text-center">
+                <div class="swiper-slide">
+                    <div class="gallery-card" data-index="1">
+                        <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?w=1200" alt="">
+                        <div class="gallery-info">
                             <h5>Sylhet</h5>
                             <span>Bangladesh</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Card 3 -->
-            <div class="col-lg-4 col-md-6">
-                <div class="gallery-card">
-                    <div class="gallery-media">
-                        <div class="swiper gallerySwiper">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="bali-gallery">
-                                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
-                                    </a>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="bali-gallery">
-                                        <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
-                        </div>
-
-                        <div class="gallery-info text-center">
+                <div class="swiper-slide">
+                    <div class="gallery-card" data-index="2">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200" alt="">
+                        <div class="gallery-info">
                             <h5>Bali</h5>
                             <span>Indonesia</span>
                         </div>
                     </div>
                 </div>
+
+                <div class="swiper-slide">
+                    <div class="gallery-card" data-index="0">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200" alt="">
+                        <div class="gallery-info">
+                            <h5>Cox’s Bazar</h5>
+                            <span>Bangladesh</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="gallery-card" data-index="1">
+                        <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?w=1200" alt="">
+                        <div class="gallery-info">
+                            <h5>Sylhet</h5>
+                            <span>Bangladesh</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="gallery-card" data-index="2">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200" alt="">
+                        <div class="gallery-info">
+                            <h5>Bali</h5>
+                            <span>Indonesia</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- Pagination BELOW slider -->
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 </section>
+
+<!-- FULLSCREEN MODAL -->
+<div class="fullscreen-modal">
+    <div class="swiper fullscreenSwiper">
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2000" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?w=2000" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=2000" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2000" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?w=2000" alt="">
+            </div>
+
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=2000" alt="">
+            </div>
+
+        </div>
+
+        <!-- Arrows -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- Close -->
+        <button class="close-modal">&times;</button>
+    </div>
+</div>
 
 
 <!-- Reviews Section -->
@@ -480,7 +483,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 
 <script>
     /* ===============================
@@ -559,14 +561,14 @@
     })();
 
     /* ===============================
-            COUNTER ANIMATION
-      ================================ */
+   COUNTER ANIMATION (FIXED)
+================================ */
 
     let counterStarted = false;
 
     function animateCounter(el, target) {
         let current = 0;
-        const increment = Math.ceil(target / 80);
+        const increment = Math.max(1, Math.ceil(target / 80));
 
         const interval = setInterval(() => {
             current += increment;
@@ -580,48 +582,70 @@
         }, 25);
     }
 
-    const observer = new IntersectionObserver(
-        entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !counterStarted) {
-                    counterStarted = true;
+    const trustedSection = document.querySelector('#trusted');
 
-                    document.querySelectorAll('.counter').forEach(counter => {
-                        animateCounter(counter, +counter.dataset.count);
-                    });
+    if (trustedSection) {
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !counterStarted) {
+                        counterStarted = true;
 
-                    observer.disconnect();
-                }
-            });
+                        document.querySelectorAll('.counter').forEach(counter => {
+                            animateCounter(counter, Number(counter.dataset.count));
+                        });
+
+                        observer.unobserve(entry.target); // safer than disconnect
+                    }
+                });
+            },
+            {
+                threshold: 0.15,                 // 🔑 mobile-friendly
+                rootMargin: '0px 0px -80px 0px'   // 🔑 triggers earlier
+            }
+        );
+
+        observer.observe(trustedSection);
+    }
+
+    /* Card slider */
+    const cardSwiper = new Swiper('.cardSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        autoplay: {
+            delay: 3500,
+            disableOnInteraction: false
         },
-        { threshold: 0.4 }
-    );
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+        breakpoints: {
+            768: { slidesPerView: 2 },
+            1200: { slidesPerView: 3 }
+        }
+    });
 
-    observer.observe(document.querySelector('#trusted'));
-</script>
-<script>
-    document.querySelectorAll('.gallerySwiper').forEach(swiperEl => {
-        new Swiper(swiperEl, {
-            loop: true,
-            autoplay: {
-                delay: 3500,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: swiperEl.querySelector('.swiper-pagination'),
-                clickable: true,
-            },
-            speed: 900,
+    /* Fullscreen slider */
+    const fullscreenSwiper = new Swiper('.fullscreenSwiper', {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        },
+        loop: true
+    });
+
+    /* Open modal */
+    document.querySelectorAll('.gallery-card').forEach(card => {
+        card.addEventListener('click', () => {
+            document.querySelector('.fullscreen-modal').classList.add('active');
+            fullscreenSwiper.slideToLoop(parseInt(card.dataset.index), 0);
         });
     });
 
-    const lightbox = GLightbox({
-        selector: '.glightbox',
-        touchNavigation: true,
-        loop: true,
-        zoomable: true,
-        openEffect: 'fade',
-        closeEffect: 'fade'
+    /* Close modal */
+    document.querySelector('.close-modal').addEventListener('click', () => {
+        document.querySelector('.fullscreen-modal').classList.remove('active');
     });
 </script>
 
