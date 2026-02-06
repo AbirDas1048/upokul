@@ -311,28 +311,33 @@
             <!-- Card 1 -->
             <div class="col-lg-4 col-md-6">
                 <div class="gallery-card">
-                    <div class="swiper gallerySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
-                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
+                    <div class="gallery-media">
+                        <div class="swiper gallerySwiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
+                                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
+                                        <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
+                                        <img src="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" alt="">
+                                    </a>
+                                </div>
                             </div>
-                            <div class="swiper-slide">
-                                <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
-                                <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
-                            </div>
-                            <div class="swiper-slide">
-                                <a href="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
-                                <img src="https://images.unsplash.com/photo-1660703080906-f4ac0cb7ea43?auto=format&fit=crop&w=800&q=80" alt="">
-                            </div>
+
+                            <div class="swiper-pagination"></div>
                         </div>
 
-                        <div class="swiper-pagination"></div>
-                    </div>
-
-                    <div class="gallery-info">
-                        <h5>Cox’s Bazar</h5>
-                        <span>Bangladesh</span>
+                        <div class="gallery-info text-center">
+                            <h5>Cox’s Bazar</h5>
+                            <span>Bangladesh</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -340,23 +345,27 @@
             <!-- Card 2 -->
             <div class="col-lg-4 col-md-6">
                 <div class="gallery-card">
-                    <div class="swiper gallerySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
-                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
+                    <div class="gallery-media">
+                        <div class="swiper gallerySwiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="sylhet-gallery">
+                                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="sylhet-gallery">
+                                        <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
+                                    </a>
+                                </div>
                             </div>
-                            <div class="swiper-slide">
-                                <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
-                                <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
-                            </div>
+                            <div class="swiper-pagination"></div>
                         </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
 
-                    <div class="gallery-info">
-                        <h5>Sylhet</h5>
-                        <span>Bangladesh</span>
+                        <div class="gallery-info text-center">
+                            <h5>Sylhet</h5>
+                            <span>Bangladesh</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -364,23 +373,27 @@
             <!-- Card 3 -->
             <div class="col-lg-4 col-md-6">
                 <div class="gallery-card">
-                    <div class="swiper gallerySwiper">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
-                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
+                    <div class="gallery-media">
+                        <div class="swiper gallerySwiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <a href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="bali-gallery">
+                                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="">
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="bali-gallery">
+                                        <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
+                                    </a>
+                                </div>
                             </div>
-                            <div class="swiper-slide">
-                                <a href="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" class="glightbox" data-gallery="cox-gallery">
-                                <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=80" alt="">
-                            </div>
+                            <div class="swiper-pagination"></div>
                         </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
 
-                    <div class="gallery-info">
-                        <h5>Bali</h5>
-                        <span>Indonesia</span>
+                        <div class="gallery-info text-center">
+                            <h5>Bali</h5>
+                            <span>Indonesia</span>
+                        </div>
                     </div>
                 </div>
             </div>
