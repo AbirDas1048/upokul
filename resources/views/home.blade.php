@@ -78,8 +78,8 @@
                     <a href="#services" class="btn btn-glossy-primary">
                         <i class="fas fa-route"></i> Our Services
                     </a>
-                    <a href="#contact" class="btn btn-glossy-secondary">
-                        <i class="fas fa-headset"></i> Get Support
+                    <a href="#gallery" class="btn btn-glossy-secondary">
+                        <i class="fas fa-headset"></i> Explore Places
                     </a>
                 </div>
             </div>
@@ -121,8 +121,8 @@
                         <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>
                     </ul>
 
-                    <a href="#services" class="btn btn-glossy-primary mt-3" data-aos="fade-up">
-                        Explore Our Services
+                    <a href="#trusted" class="btn btn-glossy-primary mt-3" data-aos="fade-up">
+                        Why Choice Us?
                     </a>
                 </div>
             </div>
