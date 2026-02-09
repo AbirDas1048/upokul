@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
 </head>
 <body>
 
@@ -406,41 +407,135 @@
 
 
 <!-- Reviews Section -->
-<section id="reviews" class="container">
-    <div class="text-center mb-5">
-        <h2>What Our Clients Say</h2>
-        <p>Testimonials from our happy travelers</p>
-    </div>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="review-card d-flex align-items-center">
-                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client">
-                <div>
-                    <h5>Jane Doe</h5>
-                    <p>"Amazing travel experience! Everything was perfectly organized."</p>
-                </div>
-            </div>
+<section id="reviews" class="reviews-section">
+    <div class="container">
+
+        <div class="section-header text-center">
+            <h2>What Travelers Say</h2>
+            <p>Real experiences from our Google Business Profile</p>
         </div>
-        <div class="col-md-4">
-            <div class="review-card d-flex align-items-center">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client">
-                <div>
-                    <h5>John Smith</h5>
-                    <p>"Highly recommend TravelNow. The tours are exciting and hassle-free."</p>
+
+        <div class="swiper reviewSwiper">
+            <div class="swiper-wrapper">
+
+                <!-- Review Card -->
+                <div class="swiper-slide">
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>
+                            Amazing service! Visa processing and hotel booking
+                            were handled smoothly. Highly recommended.
+                        </p>
+                        <div class="review-author">
+                            <strong>Rahim Ahmed</strong>
+                            <span class="google-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                                Google Review
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="review-card d-flex align-items-center">
-                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client">
-                <div>
-                    <h5>Emily Brown</h5>
-                    <p>"Great service, professional staff, and wonderful destinations!"</p>
+
+                <div class="swiper-slide">
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>
+                            Very professional team. Our family tour was perfectly
+                            planned and stress-free.
+                        </p>
+                        <div class="review-author">
+                            <strong>Nusrat Jahan</strong>
+                            <span class="google-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                                Google Review
+                            </span>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="swiper-slide">
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>
+                            Best travel agency in Bangladesh. Quick support and
+                            transparent pricing.
+                        </p>
+                        <div class="review-author">
+                            <strong>Tanvir Hasan</strong>
+                            <span class="google-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                                Google Review
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>
+                            Amazing service! Visa processing and hotel booking
+                            were handled smoothly. Highly recommended.
+                        </p>
+                        <div class="review-author">
+                            <strong>Rahim Ahmed</strong>
+                            <span class="google-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                                Google Review
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>
+                            Very professional team. Our family tour was perfectly
+                            planned and stress-free.
+                        </p>
+                        <div class="review-author">
+                            <strong>Nusrat Jahan</strong>
+                            <span class="google-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                                Google Review
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p>
+                            Best travel agency in Bangladesh. Quick support and
+                            transparent pricing.
+                        </p>
+                        <div class="review-author">
+                            <strong>Tanvir Hasan</strong>
+                            <span class="google-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+                                Google Review
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
         </div>
+
+        <div class="google-link text-center">
+            <a href="https://g.page/YOUR-BUSINESS" target="_blank">
+                View all reviews on Google
+            </a>
+        </div>
+
     </div>
 </section>
+
 
 <!-- Contact Section -->
 <section id="contact" class="container">
@@ -648,6 +743,30 @@
         document.querySelector('.fullscreen-modal').classList.remove('active');
     });
 </script>
+
+<script>
+    const reviewSwiper = new Swiper('.reviewSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 2
+            },
+            1200: {
+                slidesPerView: 3
+            }
+        }
+    });
+</script>
+
 
 </body>
 </html>
