@@ -480,8 +480,8 @@
                         <div class="review-author">
                             <strong>Rahim Ahmed</strong>
                             <span class="google-badge">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
-                                Google Review
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg" alt="Facebook">
+                                Facebook Review
                             </span>
                         </div>
                     </div>
@@ -497,8 +497,8 @@
                         <div class="review-author">
                             <strong>Nusrat Jahan</strong>
                             <span class="google-badge">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
-                                Google Review
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg" alt="Facebook">
+                                Facebook Review
                             </span>
                         </div>
                     </div>
@@ -514,8 +514,8 @@
                         <div class="review-author">
                             <strong>Tanvir Hasan</strong>
                             <span class="google-badge">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
-                                Google Review
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Facebook_icon.svg" alt="Facebook">
+                                Facebook Review
                             </span>
                         </div>
                     </div>
@@ -527,9 +527,19 @@
             <div class="swiper-pagination"></div>
         </div>
 
-        <div class="google-link text-center">
-            <a href="https://g.page/YOUR-BUSINESS" target="_blank">
-                View all reviews on Google
+        <div class="review-actions mt-5 text-center">
+            <a href="https://search.google.com/local/writereview?placeid=ChIJb5Q_kd_ZrDARzdblKHT4xYo"
+               target="_blank"
+               class="btn btn-glossy-google">
+                <i class="fab fa-google"></i>
+                Google Reviews
+            </a>
+
+            <a href="https://www.facebook.com/profile.php?id=61555938637948&sk=reviews"
+               target="_blank"
+               class="btn btn-glossy-facebook">
+                <i class="fab fa-facebook-f"></i>
+                Facebook Reviews
             </a>
         </div>
 
