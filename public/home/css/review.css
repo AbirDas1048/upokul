@@ -12,6 +12,7 @@
     color: #6b7280;
     margin-top: 8px;
 }
+
 .reviewSwiper .swiper-slide {
     height: auto;
     display: flex;
@@ -26,6 +27,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: transform 0.35s ease;
 }
 
 .review-card:hover {
@@ -59,34 +61,6 @@
     color: #6b7280;
 }
 
-/*.google-link {*/
-/*    margin-top: 35px;*/
-/*}*/
-
-/*.google-link a {*/
-/*    font-weight: 600;*/
-/*    color: #2563eb;*/
-/*    text-decoration: none;*/
-/*}*/
-
-/*.google-link a:hover {*/
-/*    text-decoration: underline;*/
-/*}*/
-
-/* Swiper */
-.reviewSwiper {
-    padding-bottom: 45px;
-}
-
-.swiper-pagination-bullet {
-    background: #111;
-    opacity: 0.3;
-}
-
-.swiper-pagination-bullet-active {
-    opacity: 1;
-}
-
 .google-badge {
     display: inline-flex;
     align-items: center;
@@ -107,6 +81,21 @@
     object-fit: contain;
 }
 
+/* Swiper Pagination */
+.reviewSwiper {
+    padding-bottom: 45px;
+}
+
+.swiper-pagination-bullet {
+    background: #111;
+    opacity: 0.3;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+}
+
+/* Review action buttons */
 .review-actions {
     display: flex;
     justify-content: center;
@@ -135,12 +124,6 @@
 .btn-glossy-facebook {
     background: linear-gradient(135deg, #1877f2, #0d6efd);
     box-shadow: 0 12px 28px rgba(24,119,242,0.4);
-}
-
-.btn-glossy-google img,
-.btn-glossy-facebook img {
-    width: 18px;
-    height: 18px;
 }
 
 .btn-glossy-google i,
