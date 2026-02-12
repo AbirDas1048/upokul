@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
 </head>
 <body>
 
@@ -548,25 +549,79 @@
 
 
 <!-- Contact Section -->
-<section id="contact" class="container">
-    <div class="text-center mb-5">
-        <h2>Contact Us</h2>
-        <p>Get in touch for your next adventure</p>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <form>
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Your Name">
+<section id="contact" class="contact-section">
+    <div class="container">
+
+        <!-- Section Header -->
+        <div class="section-header text-center">
+            <h2>Contact Us</h2>
+            <p>We’d love to hear from you. Get in touch anytime.</p>
+        </div>
+
+        <div class="contact-grid">
+
+            <!-- Contact Form -->
+            <div class="contact-card">
+                <h4>Send a Message</h4>
+                <form>
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" placeholder="Phone Number">
+                    </div>
+
+                    <div class="form-group">
+                        <textarea rows="4" placeholder="Your Message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+
+            <!-- Map + Info -->
+            <div class="contact-card info-card">
+
+                <!-- Google Map -->
+                <div class="map-box">
+                    <iframe
+                        src="https://www.google.com/maps?q=Chattogram,Bangladesh&output=embed"
+                        loading="lazy"
+                        allowfullscreen>
+                    </iframe>
                 </div>
-                <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="Your Email">
+
+                <!-- Company Info -->
+                <div class="company-info">
+                    <h4>Upokul Travels & Holidays</h4>
+
+                    <p>
+                        📍 Chattogram, Bangladesh<br>
+                        ✉️ info@upokultravels.com<br>
+                        📞 +880 1XXX-XXXXXX
+                    </p>
                 </div>
-                <div class="mb-3">
-                    <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
+
+                <!-- Owner Info -->
+                <div class="owner-box">
+                    <img src="https://i.pravatar.cc/150?img=32" alt="Owner">
+
+                    <div>
+                        <strong>Owner: Mr. Rahim Ahmed</strong>
+                        <span>✉️ rahim@upokultravels.com</span>
+                        <span>📞 +880 1XXX-XXXXXX</span>
+                    </div>
                 </div>
-                <button class="btn btn-primary w-100">Send Message</button>
-            </form>
+
+            </div>
+
         </div>
     </div>
 </section>
