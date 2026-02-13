@@ -50,7 +50,8 @@
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #4f46e5;
+    /*border-color: #4f46e5;*/
+    border-color: var(--accent-green);
 }
 
 /* Button */
@@ -58,7 +59,8 @@
     width: 100%;
     padding: 14px;
     border-radius: 50px;
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    /*background: linear-gradient(135deg, #4f46e5, #6366f1);*/
+    background: var(--accent-green);
     color: #fff;
     border: none;
     font-weight: 600;
@@ -117,10 +119,25 @@
     font-size: 0.95rem;
 }
 
+.company-info i,
+.owner-box i {
+    /*color: #4f46e5;*/
+    color: var(--accent-green);
+    width: 18px;
+    text-align: center;
+    margin-right: 6px;
+}
+
+/*.owner-box span {*/
+/*    display: block;*/
+/*    font-size: 0.85rem;*/
+/*    color: #6b7280;*/
+/*}*/
+
 .owner-box span {
-    display: block;
-    font-size: 0.85rem;
-    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 /* Responsive */

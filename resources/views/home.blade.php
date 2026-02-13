@@ -592,7 +592,7 @@
                 <!-- Google Map -->
                 <div class="map-box">
                     <iframe
-                        src="https://www.google.com/maps?q=Chattogram,Bangladesh&output=embed"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.600173850267!2d91.81103287529328!3d22.325913979668194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd9df913f946f%3A0x8ac5f87428e5d6cd!2sUpokul%20Travels%20%26%20Holidays!5e0!3m2!1sen!2sbd!4v1768747684228!5m2!1sen!2sbd"
                         loading="lazy"
                         allowfullscreen>
                     </iframe>
@@ -600,25 +600,43 @@
 
                 <!-- Company Info -->
                 <div class="company-info">
-                    <h4>Upokul Travels & Holidays</h4>
+                    <h4>{{ config('app.name') }}</h4>
 
                     <p>
-                        📍 Chattogram, Bangladesh<br>
-                        ✉️ info@upokultravels.com<br>
-                        📞 +880 1XXX-XXXXXX
+                        <i class="fa-solid fa-location-dot"></i>
+                        {{ config('custom.office_address') }} <br>
+
+                        <i class="fa-solid fa-envelope"></i>
+                        {{ config('custom.office_email') }} <br>
+
+                        <i class="fa-solid fa-phone"></i>
+                        {{ config('custom.office_phone') }}
                     </p>
                 </div>
 
                 <!-- Owner Info -->
                 <div class="owner-box">
-                    <img src="https://i.pravatar.cc/150?img=32" alt="Owner">
+                    <img src="{{ asset('images/avatar.png') }}" alt="Owner">
 
                     <div>
-                        <strong>Owner: Mr. Rahim Ahmed</strong>
-                        <span>✉️ rahim@upokultravels.com</span>
-                        <span>📞 +880 1XXX-XXXXXX</span>
+                        <strong>
+                            <i class="fa-solid fa-user-tie"></i>
+                            {{ config('custom.owner_designation') }}:
+                            Mr. {{ config('custom.owner_name') }}
+                        </strong>
+
+                        <span>
+                            <i class="fa-solid fa-envelope"></i>
+                            {{ config('custom.owner_email') }}
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-phone"></i>
+                            {{ config('custom.owner_phone') }}
+                        </span>
                     </div>
                 </div>
+
 
             </div>
 
