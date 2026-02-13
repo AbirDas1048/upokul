@@ -563,24 +563,29 @@
             <!-- Contact Form -->
             <div class="contact-card">
                 <h4>Send a Message</h4>
-                <form>
+                <form id="contactForm">
+                    @csrf
                     <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
+                        <input type="text" name="name" id="name" placeholder="Your Name *" required>
                     </div>
 
                     <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
+                        <input type="email" name="email" id="email" placeholder="Your Email *" required>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" placeholder="Phone Number">
+                        <input type="text" name="phone" id="phone" placeholder="Phone Number *" required>
                     </div>
 
                     <div class="form-group">
-                        <textarea rows="4" placeholder="Your Message" required></textarea>
+                        <input type="text" name="subject" id="subject" placeholder="Subject *" required>
                     </div>
 
-                    <button type="submit" class="btn-primary">
+                    <div class="form-group">
+                        <textarea rows="4" name="message" id="message" placeholder="Your Message *" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="submitBtn">
                         Send Message
                     </button>
                 </form>
@@ -661,6 +666,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     /* ===============================
@@ -848,6 +854,140 @@
             }
         }
     });
+
+    {{--$('#contactForm').on('submit', function (e) {--}}
+    {{--    e.preventDefault();--}}
+
+    {{--    let form = $(this);--}}
+
+    {{--    Swal.fire({--}}
+    {{--        title: 'Sending Message...',--}}
+    {{--        text: 'Please wait a moment',--}}
+    {{--        allowOutsideClick: false,--}}
+    {{--        didOpen: () => {--}}
+    {{--            Swal.showLoading();--}}
+    {{--        }--}}
+    {{--    });--}}
+
+    {{--    $.ajax({--}}
+    {{--        url: "{{ route('contact.submit') }}",--}}
+    {{--        method: "POST",--}}
+    {{--        data: form.serialize(),--}}
+
+    {{--        success: function (res) {--}}
+    {{--            Swal.fire({--}}
+    {{--                icon: 'success',--}}
+    {{--                title: 'Message Sent!',--}}
+    {{--                text: res.message,--}}
+    {{--                confirmButtonColor: '#4f46e5'--}}
+    {{--            });--}}
+
+    {{--            form.trigger('reset');--}}
+    {{--        },--}}
+
+    {{--        error: function (xhr) {--}}
+    {{--            let errors = xhr.responseJSON?.errors;--}}
+    {{--            let msg = '';--}}
+
+    {{--            if (errors) {--}}
+    {{--                $.each(errors, function (key, value) {--}}
+    {{--                    msg += value[0] + '<br>';--}}
+    {{--                });--}}
+    {{--            } else {--}}
+    {{--                msg = 'Something went wrong. Please try again.';--}}
+    {{--            }--}}
+
+    {{--            Swal.fire({--}}
+    {{--                icon: 'error',--}}
+    {{--                title: 'Submission Failed',--}}
+    {{--                html: msg,--}}
+    {{--                confirmButtonColor: '#ef4444'--}}
+    {{--            });--}}
+    {{--        }--}}
+    {{--    });--}}
+    {{--});--}}
+
+    $('#contactForm').on('submit', function (e) {
+        e.preventDefault();
+
+        let form = $(this);
+
+        Swal.fire({
+            title: 'Send Message?',
+            text: 'Are you sure you want to submit this form?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Send',
+            confirmButtonColor: '#4f46e5'
+        }).then((result) => {
+            if (!result.isConfirmed) return;
+
+            Swal.fire({
+                title: 'Sending Message...',
+                text: 'Please wait a moment',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('contact.submit') }}",
+                method: "POST",
+                data: form.serialize(),
+
+                success: function (res) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Message Sent!',
+                        text: res.message,
+                        confirmButtonColor: '#4f46e5'
+                    });
+
+                    form.trigger('reset');
+                },
+
+                error: function (xhr) {
+                    let errors = xhr.responseJSON?.errors;
+                    let msg = '';
+
+                    if (errors) {
+                        $.each(errors, function (key, value) {
+                            msg += value[0] + '<br>';
+                        });
+                    } else {
+                        msg = 'Something went wrong. Please try again.';
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Submission Failed',
+                        html: msg,
+                        confirmButtonColor: '#ef4444'
+                    });
+                }
+            });
+
+            {{--$.post("{{ route('contact.submit') }}", form.serialize())--}}
+            {{--    .done(res => {--}}
+            {{--        Swal.fire({--}}
+            {{--            icon: 'success',--}}
+            {{--            title: 'Success',--}}
+            {{--            text: res.message--}}
+            {{--        });--}}
+            {{--        form.trigger('reset');--}}
+            {{--    })--}}
+            {{--    .fail(xhr => {--}}
+            {{--        Swal.fire({--}}
+            {{--            icon: 'error',--}}
+            {{--            title: 'Error',--}}
+            {{--            text: 'Please check the form fields'--}}
+            {{--        });--}}
+            {{--    });--}}
+        });
+    });
+
+
 </script>
 
 
