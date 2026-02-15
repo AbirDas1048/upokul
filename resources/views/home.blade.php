@@ -582,7 +582,7 @@
                     </div>
 
                     <div class="form-group">
-                        <textarea rows="4" name="message" id="message" placeholder="Your Message *" required></textarea>
+                        <textarea rows="4" name="mail_message" id="mail_message" placeholder="Your Message *" required></textarea>
                     </div>
 
                     <button type="submit" class="btn-primary" id="submitBtn">

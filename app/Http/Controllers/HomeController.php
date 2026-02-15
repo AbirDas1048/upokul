@@ -20,7 +20,7 @@ class HomeController extends Controller
             'email'   => 'required|email|max:150',
             'phone'   => 'required|string|max:20',
             'subject' => 'required|string|max:150',
-            'message' => 'required|string|max:2000',
+            'mail_message' => 'required|string|max:2000',
         ]);
 
         Mail::send('emails.contact', $validated, function ($mail) use ($validated) {

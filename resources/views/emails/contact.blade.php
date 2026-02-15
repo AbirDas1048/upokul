@@ -7,4 +7,4 @@
 
 <hr>
 
-<p>{{ $message }}</p>
+<p>{{ $mail_message }}</p>
