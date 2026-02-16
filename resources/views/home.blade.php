@@ -919,7 +919,10 @@
                             icon: 'error',
                             title: 'Submission Failed',
                             html: msg,
-                            confirmButtonColor: '#ef4444'
+                            confirmButtonColor: '#ef4444',
+                            customClass: {
+                                htmlContainer: 'swal-html-red-bg'
+                            }
                         });
                     }
                 });
