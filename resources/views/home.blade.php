@@ -893,58 +893,51 @@
                     data: form.serialize(),
 
                     success: function(res) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Message Sent!',
-                            text: res.message,
-                            confirmButtonColor: '#4f46e5'
-                        });
-
-                        form.trigger('reset');
+                        if (res.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Message Sent Successfully!',
+                                text: res.message,
+                                confirmButtonColor: '#4f46e5'
+                            });
+                            form.trigger('reset');
+                        } else {
+                            showErrorSwal(res.data, res.message);
+                        }
                     },
 
-                    error: function(xhr) {
-                        let errors = xhr.responseJSON?.errors;
-                        let msg = '';
-
-                        if (errors) {
-                            $.each(errors, function(key, value) {
-                                msg += value[0] + '<br>';
-                            });
-                        } else {
-                            msg = 'Something went wrong. Please try again.';
-                        }
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Submission Failed',
-                            html: msg,
-                            confirmButtonColor: '#ef4444',
-                            customClass: {
-                                htmlContainer: 'swal-html-red-bg'
-                            }
-                        });
+                    error: function() {
+                        // Only for server crash / network error
+                        showErrorSwal(null, 'Server error. Please try again later.');
                     }
                 });
 
-                {{-- $.post("{{ route('contact.submit') }}", form.serialize()) --}}
-                {{--    .done(res => { --}}
-                {{--        Swal.fire({ --}}
-                {{--            icon: 'success', --}}
-                {{--            title: 'Success', --}}
-                {{--            text: res.message --}}
-                {{--        }); --}}
-                {{--        form.trigger('reset'); --}}
-                {{--    }) --}}
-                {{--    .fail(xhr => { --}}
-                {{--        Swal.fire({ --}}
-                {{--            icon: 'error', --}}
-                {{--            title: 'Error', --}}
-                {{--            text: 'Please check the form fields' --}}
-                {{--        }); --}}
-                {{--    }); --}}
             });
         });
+
+        function showErrorSwal(errors, fallbackMessage = null) {
+            let msg = '';
+
+            if (errors && typeof errors === 'object') {
+                $.each(errors, function(key, value) {
+                    msg += value[0] + '<br>';
+                });
+            } else if (fallbackMessage) {
+                msg = fallbackMessage;
+            } else {
+                msg = 'Something went wrong. Please try again.';
+            }
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Submission Failed',
+                html: msg,
+                confirmButtonColor: '#ef4444',
+                customClass: {
+                    htmlContainer: 'swal-html-red-bg'
+                }
+            });
+        }
     </script>
 
 
