@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +17,7 @@ class ContactService
     public function store(Request $request): array
     {
         $statusCode = ResponseCodeAndMessage::SUCCESS;
-        $data = $request->except('_token');
+        $data = [];
 
         $validator = Validator::make($request->all(), $this->getRules(), $this->getMessages());
 
@@ -25,7 +26,12 @@ class ContactService
             $data = $validator->errors();
         }
 
-        $requestSource = GlobalFunction::getRequestSource($request);
+        if($statusCode === ResponseCodeAndMessage::SUCCESS){
+            $prepareContactData = self::prepareContactData($request);
+            if(ContactMail::saveContactMail($prepareContactData)){
+                $data = $request->except(['_token']);
+            }
+        }
 
         return [$statusCode, ResponseCodeAndMessage::MESSAGES[$statusCode], $data];
     }
@@ -59,6 +65,18 @@ class ContactService
 
             'mail_message.required' => 'Please enter your message.',
             'mail_message.max'      => 'Message may not be greater than :max characters.',
+        ];
+    }
+
+    private static function prepareContactData($request): array
+    {
+        return [
+            'name' => $request->name ?? '',
+            'email' => $request->email ?? '',
+            'phone' => $request->phone ?? '',
+            'subject' => $request->subject ?? '',
+            'mail_message' => $request->mail_message ?? '',
+            'request_source' => GlobalFunction::getRequestSource($request),
         ];
     }
 }
