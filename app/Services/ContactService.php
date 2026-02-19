@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\SendContactMailJob;
 use App\Models\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -14,6 +15,10 @@ class ContactService
     const PHONE_LENGTH = 20;
     const SUBJECT_LENGTH = 100;
     const MESSAGE_LENGTH = 2000;
+
+    const MAIL_SEND_STATUS_PENDING = 0;
+    const MAIL_SEND_STATUS_SUCCESS = 1;
+    const MAIL_SEND_STATUS_FAILED = 2;
     public function store(Request $request): array
     {
         $statusCode = ResponseCodeAndMessage::SUCCESS;
@@ -28,8 +33,12 @@ class ContactService
 
         if($statusCode === ResponseCodeAndMessage::SUCCESS){
             $prepareContactData = self::prepareContactData($request);
-            if(ContactMail::saveContactMail($prepareContactData)){
+            $contactMail = ContactMail::saveContactMail($prepareContactData);
+            if($contactMail->exists()){
+                SendContactMailJob::dispatch($contactMail);
                 $data = $request->except(['_token']);
+            }else{
+                $statusCode = ResponseCodeAndMessage::INTERNAL_SERVER_ERROR;
             }
         }
 
@@ -77,6 +86,7 @@ class ContactService
             'subject' => $request->subject ?? '',
             'mail_message' => $request->mail_message ?? '',
             'request_source' => GlobalFunction::getRequestSource($request),
+            'status' => self::MAIL_SEND_STATUS_PENDING,
         ];
     }
 }

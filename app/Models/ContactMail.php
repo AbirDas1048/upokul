@@ -15,6 +15,9 @@ class ContactMail extends Model
         'subject',
         'mail_message',
         'request_source',
+        'status',
+        'sent_at',
+        'error_message',
     ];
 
     protected $casts = [
