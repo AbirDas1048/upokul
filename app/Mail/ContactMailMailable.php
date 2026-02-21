@@ -30,7 +30,7 @@ class ContactMailMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contact Mail Mailable',
+            subject: 'Contact message send from web: ' . $this->contactMail->subject,
         );
     }
 
@@ -40,7 +40,6 @@ class ContactMailMailable extends Mailable
     public function content(): Content
     {
         return new Content(
-//            subject: 'Contact message from website: ' . ($this->contactMail->subject ?? 'No subject'),
             view: 'emails.contact',
             with: [
                 'contactMail' => $this->contactMail,
@@ -56,12 +55,5 @@ class ContactMailMailable extends Mailable
     public function attachments(): array
     {
         return [];
-    }
-
-    public function build(): ContactMailMailable
-    {
-        return $this->subject('Contact message send from web: ' . $this->contactMail->subject)
-            ->view('emails.contact')
-            ->with('contactMail', $this->contactMail);
     }
 }
