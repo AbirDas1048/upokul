@@ -1,0 +1,49 @@
+/* =========================
+   FOOTER BOTTOM (CENTERED)
+========================= */
+
+.footer-bottom {
+    background: var(--accent-green);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Anchor links container */
+.footer-anchor-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+/* Anchor style */
+.footer-anchor-links a {
+    color: #ffffff;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-anchor-links a:hover {
+    color: #facc15;
+}
+
+/* Copyright */
+.footer-copy {
+    color: #ffffff;
+    font-size: 0.85rem;
+}
+
+/* =========================
+   MOBILE / TABLET (2 PER ROW)
+========================= */
+@media (max-width: 768px) {
+    .footer-anchor-links {
+        max-width: 320px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 12px;
+        column-gap: 24px;
+        text-align: center;
+    }
+}

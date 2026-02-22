@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
 </head>
 
 <body>
@@ -649,22 +650,26 @@
     </section>
 
     <!-- Footer -->
-    <footer class="text-center">
+    <div class="footer-bottom text-center py-4">
         <div class="container">
-            <p>&copy; 2026 TravelNow. All rights reserved.</p>
-            <div>
-                <a href="https://www.facebook.com/profile.php?id=61555938637948" target="_blank">
-                    <i class="fab fa-facebook fa-lg me-3"></i>
-                </a>
-                <a href="#">
-                    <i class="fab fa-twitter fa-lg me-3"></i>
-                </a>
-                <a href="https://www.instagram.com/upokul80/" target="_blank">
-                    <i class="fab fa-instagram fa-lg"></i>
-                </a>
+
+            <!-- Anchor Links -->
+            <div class="footer-anchor-links mb-2">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
             </div>
+
+            <!-- Copyright -->
+            <small class="footer-copy">
+                © {{ date('Y') }} {{ config('app.name') }}.
+                All Rights Reserved.
+            </small>
+
         </div>
-    </footer>
+    </div>
+
 
     <!-- jQuery & Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
