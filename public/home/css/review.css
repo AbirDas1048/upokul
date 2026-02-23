@@ -3,16 +3,6 @@
     background: #f9fafb;
 }
 
-.section-header h2 {
-    font-weight: 700;
-    font-size: 2.2rem;
-}
-
-.section-header p {
-    color: #6b7280;
-    margin-top: 8px;
-}
-
 .reviewSwiper .swiper-slide {
     height: auto;
     display: flex;
@@ -81,18 +71,8 @@
     object-fit: contain;
 }
 
-/* Swiper Pagination */
 .reviewSwiper {
     padding-bottom: 45px;
-}
-
-.swiper-pagination-bullet {
-    background: #111;
-    opacity: 0.3;
-}
-
-.swiper-pagination-bullet-active {
-    opacity: 1;
 }
 
 /* Review action buttons */
@@ -101,41 +81,6 @@
     justify-content: center;
     gap: 16px;
     flex-wrap: wrap;
-}
-
-.btn-glossy-google,
-.btn-glossy-facebook {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 22px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #fff;
-    transition: all 0.35s ease;
-}
-
-.btn-glossy-google {
-    background: linear-gradient(135deg, #4285F4, #34A853);
-    box-shadow: 0 12px 28px rgba(66,133,244,0.4);
-}
-
-.btn-glossy-facebook {
-    background: linear-gradient(135deg, #1877f2, #0d6efd);
-    box-shadow: 0 12px 28px rgba(24,119,242,0.4);
-}
-
-.btn-glossy-google i,
-.btn-glossy-facebook i {
-    color: #fff;
-    font-size: 1rem;
-}
-
-.btn-glossy-google:hover,
-.btn-glossy-facebook:hover {
-    transform: translateY(-4px);
-    color: #fff;
 }
 
 @media (max-width: 768px) {

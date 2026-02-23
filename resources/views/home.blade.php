@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name') }}</title>
-    <link rel="icon" type="image/x-icon" href=" {{ asset('home/images/favicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('home/images/favicon.ico') }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
@@ -80,10 +80,10 @@
                     </p>
 
                     <div class="hero-buttons">
-                        <a href="#services" class="btn btn-glossy-primary">
+                        <a href="#services" class="btn premium-btn premium-btn-pill premium-btn-glossy-primary">
                             <i class="fas fa-route"></i> Our Services
                         </a>
-                        <a href="#gallery" class="btn btn-glossy-secondary">
+                        <a href="#gallery" class="btn premium-btn premium-btn-pill premium-btn-glossy-secondary">
                             <i class="fa-solid fa-magnifying-glass-location"></i> Explore Places
                         </a>
                     </div>
@@ -126,8 +126,8 @@
                             <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>
                         </ul>
 
-                        <a href="#trusted" class="btn btn-glossy-primary mt-3" data-aos="fade-up">
-                            Why Choice Us?
+                        <a href="#trusted" class="btn premium-btn premium-btn-pill premium-btn-glossy-primary mt-3" data-aos="fade-up">
+                            Why Choose Us?
                         </a>
                     </div>
                 </div>
@@ -143,11 +143,11 @@
             <!-- Section Title -->
             <div class="text-center mb-5">
                 <span class="section-badge" data-aos="fade-up">Our Services</span>
-                <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="section-title premium-section-title" data-aos="fade-up" data-aos-delay="100">
                     Everything You Need for a
                     <span>Perfect Journey</span>
                 </h2>
-                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">
+                <p class="section-subtitle premium-section-subtitle" data-aos="fade-up" data-aos-delay="200">
                     We provide complete travel solutions with comfort, reliability,
                     and personalized care.
                 </p>
@@ -242,10 +242,10 @@
     <section class="trust-section" id="trusted">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="section-title" data-aos="fade-up">
+                <h2 class="section-title premium-section-title" data-aos="fade-up">
                     Trusted by Travelers Worldwide
                 </h2>
-                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="150">
+                <p class="section-subtitle premium-section-subtitle" data-aos="fade-up" data-aos-delay="150">
                     Numbers that reflect our experience, trust, and global reach
                 </p>
             </div>
@@ -292,12 +292,12 @@
     <section id="gallery" class="gallery-section py-5">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="section-title">Travel Moments</h2>
-                <p class="text-muted">Explore our unforgettable journeys</p>
+                <h2 class="section-title premium-section-title">Travel Moments</h2>
+                <p class="text-muted premium-section-subtitle">Explore our unforgettable journeys</p>
             </div>
 
             <!-- CARD SLIDER -->
-            <div class="swiper cardSwiper">
+            <div class="swiper cardSwiper swiper-premium">
                 <div class="swiper-wrapper">
 
                     <!-- Card -->
@@ -415,11 +415,11 @@
         <div class="container">
 
             <div class="section-header text-center">
-                <h2>What Travelers Say</h2>
-                <p>Real experiences from our Google Business Profile</p>
+                <h2 class="premium-section-title">What Travelers Say</h2>
+                <p class="premium-section-subtitle">Real experiences from our Google Business Profile</p>
             </div>
 
-            <div class="swiper reviewSwiper">
+            <div class="swiper reviewSwiper swiper-premium">
                 <div class="swiper-wrapper">
 
                     <!-- Review Card -->
@@ -533,13 +533,13 @@
 
             <div class="review-actions mt-5 text-center">
                 <a href="https://search.google.com/local/writereview?placeid=ChIJb5Q_kd_ZrDARzdblKHT4xYo"
-                    target="_blank" class="btn btn-glossy-google">
+                    target="_blank" class="btn premium-btn premium-btn-pill premium-btn-glossy-google">
                     <i class="fab fa-google"></i>
                     Google Reviews
                 </a>
 
                 <a href="https://www.facebook.com/profile.php?id=61555938637948&sk=reviews" target="_blank"
-                    class="btn btn-glossy-facebook">
+                    class="btn premium-btn premium-btn-pill premium-btn-glossy-facebook">
                     <i class="fab fa-facebook-f"></i>
                     Facebook Reviews
                 </a>
@@ -555,16 +555,24 @@
 
             <!-- Section Header -->
             <div class="section-header text-center">
-                <h2>Contact Us</h2>
-                <p>We’d love to hear from you. Get in touch anytime.</p>
+                <h2 class="premium-section-title">Contact Us</h2>
+                <p class="premium-section-subtitle">We’d love to hear from you. Get in touch anytime.</p>
             </div>
+
+            @if (session('success'))
+                <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
+            @endif
 
             <div class="contact-grid">
 
                 <!-- Contact Form -->
                 <div class="contact-card">
                     <h4>Send a Message</h4>
-                    <form id="contactForm">
+                    <form id="contactForm" method="POST" action="{{ route('contact.submit') }}">
                         @csrf
                         <div class="form-group">
                             <input type="text" name="name" id="name" placeholder="Your Name *" required>
@@ -586,7 +594,7 @@
                             <textarea rows="4" name="mail_message" id="mail_message" placeholder="Your Message *" required></textarea>
                         </div>
 
-                        <button type="submit" class="btn-primary" id="submitBtn">
+                        <button type="submit" class="premium-btn premium-btn-pill premium-btn-block premium-btn-solid" id="submitBtn">
                             Send Message
                         </button>
                     </form>
@@ -599,7 +607,7 @@
                     <div class="map-box">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.600173850267!2d91.81103287529328!3d22.325913979668194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd9df913f946f%3A0x8ac5f87428e5d6cd!2sUpokul%20Travels%20%26%20Holidays!5e0!3m2!1sen!2sbd!4v1768747684228!5m2!1sen!2sbd"
-                            loading="lazy" allowfullscreen>
+                            title="Upokul Travels location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
                         </iframe>
                     </div>
 
@@ -872,6 +880,7 @@
             e.preventDefault();
 
             let form = $(this);
+            const submitBtn = $('#submitBtn');
 
             Swal.fire({
                 title: 'Send Message?',
@@ -882,6 +891,8 @@
                 confirmButtonColor: '#4f46e5'
             }).then((result) => {
                 if (!result.isConfirmed) return;
+
+                submitBtn.prop('disabled', true).text('Sending...');
 
                 Swal.fire({
                     title: 'Sending Message...',
@@ -906,13 +917,16 @@
                                 confirmButtonColor: '#4f46e5'
                             });
                             form.trigger('reset');
+                            submitBtn.prop('disabled', false).text('Send Message');
                         } else {
+                            submitBtn.prop('disabled', false).text('Send Message');
                             showErrorSwal(res.data, res.message);
                         }
                     },
 
                     error: function() {
                         // Only for server crash / network error
+                        submitBtn.prop('disabled', false).text('Send Message');
                         showErrorSwal(null, 'Server error. Please try again later.');
                     }
                 });
@@ -925,7 +939,8 @@
 
             if (errors && typeof errors === 'object') {
                 $.each(errors, function(key, value) {
-                    msg += value[0] + '<br>';
+                    const message = Array.isArray(value) ? value[0] : value;
+                    msg += `${message}<br>`;
                 });
             } else if (fallbackMessage) {
                 msg = fallbackMessage;

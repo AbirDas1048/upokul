@@ -24,7 +24,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('contact_mails', function (Blueprint $table) {
-            //
+            $table->dropColumn([
+                'status',
+                'sent_at',
+                'error_message',
+            ]);
         });
     }
 };

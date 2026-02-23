@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\ContactService;
 use App\Services\ResponseCodeAndMessage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -17,16 +16,19 @@ class HomeController extends Controller
 
     public function contact(Request $request)
     {
-        if ($request->ajax()) {
-            [$status, $messages, $data] = (new ContactService())->store($request);
+        [$status, $messages, $data] = (new ContactService())->store($request);
 
+        $isSuccess = $status === ResponseCodeAndMessage::SUCCESS;
+
+        if ($request->ajax() || $request->expectsJson()) {
             return response()->json([
-                'success' => $status === ResponseCodeAndMessage::SUCCESS,
+                'success' => $isSuccess,
                 'status'  => $status,
                 'message' => $messages,
-                'data'    => $data
+                'data'    => $data,
             ]);
         }
-        return response()->json(['success' => false, 'message' => 'Request must be ajax']);
+
+        return back()->with($isSuccess ? 'success' : 'error', $messages);
     }
 }
