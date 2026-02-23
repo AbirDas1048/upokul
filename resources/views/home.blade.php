@@ -84,7 +84,7 @@
                             <i class="fas fa-route"></i> Our Services
                         </a>
                         <a href="#gallery" class="btn btn-glossy-secondary">
-                            <i class="fas fa-headset"></i> Explore Places
+                            <i class="fa-solid fa-magnifying-glass-location"></i> Explore Places
                         </a>
                     </div>
                 </div>
