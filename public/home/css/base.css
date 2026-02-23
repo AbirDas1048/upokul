@@ -20,3 +20,89 @@ section {
     padding: 10px;
     border-radius: 5px;
 }
+
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 2px;
+}
+
+
+/* Reusable premium typography */
+.premium-section-title {
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    line-height: 1.25;
+}
+
+.premium-section-subtitle {
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* Reusable premium buttons */
+.premium-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+}
+
+.premium-btn:hover {
+    transform: translateY(-3px);
+    color: #fff;
+}
+
+.premium-btn-pill {
+    border-radius: 50px;
+    padding: 0.875rem 1.9rem;
+}
+
+.premium-btn-block {
+    width: 100%;
+    padding: 14px;
+}
+
+.premium-btn-glossy-primary {
+    background: linear-gradient(135deg, #ff9f00, #ffc107);
+    box-shadow: 0 12px 30px rgba(255, 193, 7, 0.4);
+}
+
+.premium-btn-glossy-secondary {
+    background: linear-gradient(135deg, #0dcaf0, #0d6efd);
+    box-shadow: 0 12px 30px rgba(13, 110, 253, 0.4);
+}
+
+.premium-btn-glossy-google {
+    background: linear-gradient(135deg, #4285F4, #34A853);
+    box-shadow: 0 12px 28px rgba(66,133,244,0.4);
+}
+
+.premium-btn-glossy-facebook {
+    background: linear-gradient(135deg, #1877f2, #0d6efd);
+    box-shadow: 0 12px 28px rgba(24,119,242,0.4);
+}
+
+.premium-btn-solid {
+    background: var(--accent-green);
+}
+
+/* Reusable swiper pagination */
+.swiper-premium .swiper-pagination-bullet {
+    background: #111;
+    opacity: 0.3;
+}
+
+.swiper-premium .swiper-pagination-bullet-active {
+    opacity: 1;
+}
