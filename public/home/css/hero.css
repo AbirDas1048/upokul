@@ -74,29 +74,11 @@
     animation-delay: 0.4s;
 }
 
-.hero-buttons .btn {
+
+.hero-buttons .premium-btn {
     padding: 0.875rem 1.9rem;
-    border-radius: 50px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.btn-glossy-primary {
-    background: linear-gradient(135deg, #ff9f00, #ffc107);
-    box-shadow: 0 12px 30px rgba(255, 193, 7, 0.4);
-}
-
-.btn-glossy-secondary {
-    background: linear-gradient(135deg, #0dcaf0, #0d6efd);
-    box-shadow: 0 12px 30px rgba(13, 110, 253, 0.4);
-}
-
-.hero-buttons .btn:hover {
-    transform: translateY(-4px);
-}
 
 /* Animation */
 @keyframes fadeUp {
@@ -131,10 +113,9 @@
         margin-inline: auto;
     }
 
-    .hero-buttons .btn {
+    .hero-buttons .premium-btn {
         width: 100%;
-        justify-content: center;
-        padding: 0.7rem 1.6rem; /* ⬅ tighter button height */
+        padding: 0.7rem 1.6rem;
     }
 
     .hero-content p {
