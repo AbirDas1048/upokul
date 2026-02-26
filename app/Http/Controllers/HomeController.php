@@ -12,7 +12,8 @@ class HomeController extends Controller
     public function index()
     {
         // return view('welcome');
-        return view('home');
+//        return view('home');
+        return view('home_new');
     }
 
     public function contact(Request $request)
