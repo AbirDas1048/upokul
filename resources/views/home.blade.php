@@ -100,7 +100,7 @@
             <!-- Image -->
             <div class="col-lg-6" data-aos="fade-right">
                 <div class="about-image-wrapper">
-                    <img src="{{ asset('images/Logo.png') }}" alt="About Upokul Travels">
+                    <img src="{{ asset('images/Logo.png') }}" alt="About {{ config('app.name') }}">
                 </div>
             </div>
 
