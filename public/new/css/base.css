@@ -109,16 +109,27 @@ p {
     box-shadow: 0 2px 24px rgba(0,0,0,0.18);
 }
 
+/* Solid navbar on ALL non-hero sections — triggered by any scroll */
+body:not(.at-top) .navbar,
+.navbar.scrolled {
+    background: rgba(9, 78, 80, 0.96) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.18);
+}
+
 .navbar-brand {
     font-family: var(--font-display);
-    font-size: 1.65rem;
+    font-size: clamp(1.1rem, 2.5vw, 1.55rem);
     font-weight: 700;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
     color: var(--white) !important;
     background: linear-gradient(135deg, var(--white) 40%, var(--teal-bright));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    max-width: 240px;
 }
 
 .nav-link {
@@ -130,13 +141,15 @@ p {
     color: rgba(255,255,255,0.85) !important;
     padding: 0.4rem 0.85rem !important;
     position: relative;
+    display: inline-flex;
+    align-items: center;
     transition: var(--transition-fast);
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -2px; left: 50%;
+    bottom: 0; left: 50%;
     transform: translateX(-50%);
     width: 0; height: 2px;
     background: var(--teal-bright);
@@ -532,6 +545,16 @@ p {
     pointer-events: none;
 }
 
+/* Make columns stretch to equal height */
+.services-section .row.g-4 {
+    align-items: stretch;
+}
+
+.services-section [class*="col-"] {
+    display: flex;
+    flex-direction: column;
+}
+
 .service-card {
     background: var(--white);
     border-radius: var(--radius-md);
@@ -542,7 +565,11 @@ p {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    height: 100%;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .service-card::before {
@@ -707,6 +734,27 @@ p {
 .swiper-premium {
     overflow: visible !important;
     padding-bottom: 3rem !important;
+}
+
+/* Ensure swiper slides stretch to equal height */
+.swiper-premium .swiper-wrapper {
+    align-items: stretch;
+}
+
+.swiper-premium .swiper-slide {
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.reviewSwiper .swiper-slide,
+.cardSwiper .swiper-slide {
+    height: auto !important;
+}
+
+.reviewSwiper .review-card,
+.cardSwiper .gallery-card {
+    height: 100%;
 }
 
 /* Fade edges */
@@ -889,6 +937,9 @@ p {
     height: 100%;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .review-card::before {
@@ -1210,11 +1261,37 @@ p {
 
 /* ─── NAVBAR TOGGLER ─────────────────────────────────────── */
 .navbar-toggler {
-    border: 1.5px solid rgba(255,255,255,0.35) !important;
-    padding: 0.4rem 0.65rem !important;
+    border: 1.5px solid rgba(255,255,255,0.28) !important;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px !important;
+    padding: 0.38rem 0.55rem !important;
+    line-height: 1;
+    transition: all 0.25s ease;
 }
 
-.navbar-toggler:focus { box-shadow: none !important; }
+.navbar-toggler:focus {
+    box-shadow: none !important;
+    outline: none;
+}
+
+.navbar-toggler:hover {
+    background: rgba(35,205,210,0.18);
+    border-color: rgba(35,205,210,0.55) !important;
+}
+
+/* Hide default Bootstrap toggler icon */
+.navbar-toggler .navbar-toggler-icon { display: none; }
+
+/* Custom FA icon inside toggler */
+.navbar-toggler .toggler-icon {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+}
 
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 991.98px) {
@@ -1245,21 +1322,49 @@ p {
     .hero-buttons { flex-direction: column; }
     .hero-buttons .btn { width: 100%; justify-content: center; }
 
-    .contact-card { padding: 1.8rem 1.4rem; }
+    /* Prevent swiper overflow on mobile */
+    .swiper-premium { overflow: hidden !important; }
+    .gallery-section .swiper-premium { overflow: hidden !important; }
 
-    .trust-card h3.counter { font-size: 2.4rem; }
+    /* Service cards full width on mobile */
+    .services-section [class*="col-"] { width: 100%; }
+    .service-card { padding: 1.8rem 1.4rem; }
+
+    /* Trust cards 2 per row on mobile */
+    .trust-section .col-md-6 { width: 50%; }
+    .trust-card { padding: 1.8rem 1rem; }
+    .trust-card h3.counter { font-size: 2rem; }
+
+    .contact-card { padding: 1.8rem 1.4rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 1.4rem; }
 
     .gallery-section .container::before,
     .gallery-section .container::after { display: none; }
 
     .review-actions { flex-direction: column; align-items: center; }
+    .review-actions .btn { width: 100%; justify-content: center; }
 
     .footer-anchor-links { gap: 1.2rem; }
 }
 
 @media (max-width: 480px) {
-    .about-image-wrapper img { max-width: 240px; }
+    :root { --section-pad: 44px; }
+
+    .about-image-wrapper img { max-width: 220px; }
     .owner-box { flex-direction: column; text-align: center; }
+
+    /* Trust cards stack on very small screens */
+    .trust-section .col-md-6 { width: 100%; }
+
+    /* Service cards compact */
+    .service-icon { width: 60px; height: 60px; font-size: 1.4rem; }
+    .service-card h5 { font-size: 1.1rem; }
+
+    .review-card { padding: 1.5rem 1.2rem; }
+    .hero-content h1 { font-size: 1.9rem; }
+
+    /* Nav text smaller */
+    .navbar-brand { font-size: 1.3rem; }
 }
 
 /* ─── AOS SUBTLE OVERRIDES ───────────────────────────────── */
@@ -1269,3 +1374,145 @@ p {
 .swal-html-red-bg { color: #7f1d1d; }
 .swal2-popup { font-family: var(--font-body) !important; border-radius: var(--radius-md) !important; }
 .swal2-title { font-family: var(--font-display) !important; }
+
+/* ─── FLOATING WHATSAPP BUTTON ───────────────────────────── */
+.whatsapp-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* The icon circle */
+.whatsapp-float .wa-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.50);
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+/* Pulse ring animation */
+.whatsapp-float .wa-icon::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(37,211,102,0.55);
+    animation: wa-pulse 2s ease-out infinite;
+}
+
+.whatsapp-float .wa-icon::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 2px solid rgba(37,211,102,0.25);
+    animation: wa-pulse 2s ease-out infinite 0.4s;
+}
+
+@keyframes wa-pulse {
+    0%   { transform: scale(1);   opacity: 1; }
+    100% { transform: scale(1.55); opacity: 0; }
+}
+
+/* Tooltip label */
+.whatsapp-float .wa-label {
+    background: #fff;
+    color: #128C7E;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0.45rem 1rem 0.45rem 1.2rem;
+    border-radius: 999px 0 0 999px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    transform: translateX(16px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid rgba(37,211,102,0.2);
+    border-right: none;
+}
+
+/* Hover effects */
+.whatsapp-float:hover .wa-icon {
+    transform: scale(1.10);
+    box-shadow: 0 10px 32px rgba(37,211,102,0.60);
+}
+
+.whatsapp-float:hover .wa-label {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+@media (max-width: 480px) {
+    .whatsapp-float {
+        bottom: 18px;
+        right: 18px;
+    }
+    .whatsapp-float .wa-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    /* Hide label on small screens to avoid overflow */
+    .whatsapp-float .wa-label { display: none; }
+}
+
+/* ─── NAVBAR BRAND — LOGO ON MOBILE ─────────────────────── */
+.navbar-brand .brand-logo {
+    display: none;
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* makes logo white to match nav */
+}
+
+.navbar-brand .brand-text {
+    display: inline;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-brand .brand-logo {
+        display: block;
+    }
+    .navbar-brand .brand-text {
+        display: none;
+    }
+}
+
+/* ─── HERO MOBILE PADDING FIX ────────────────────────────── */
+@media (max-width: 767.98px) {
+    .hero-section .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .hero-content {
+        padding-top: calc(var(--nav-height) + 3rem);
+        padding-bottom: 5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+}

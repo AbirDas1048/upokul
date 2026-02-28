@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+{{--    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">--}}
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <!-- AOS Library CSS -->
@@ -27,10 +27,14 @@
 <!-- Navbar -->
 <nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-dark">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#">Upokul Travels</a>
+{{--        <a class="navbar-brand fw-bold" href="#hero">{{ config('app.name') }}</a>--}}
+        <a class="navbar-brand fw-bold" href="#hero">
+            <img src="{{ asset('images/Logo.png') }}" alt="{{ config('app.name') }}" class="brand-logo">
+            <span class="brand-text">{{ config('app.name') }}</span>
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-            <span class="navbar-toggler-icon"></span>
+            <span class="toggler-icon"><i class="fa-solid fa-ellipsis-vertical"></i></span>
         </button>
 
         <div id="navMenu" class="collapse navbar-collapse">
@@ -50,7 +54,7 @@
 </nav>
 
 <!-- Hero Section -->
-<section class="hero-section">
+<section id="hero" class="hero-section">
     <video class="hero-video" autoplay muted loop playsinline poster="{{ asset('home/images/banner.jpg') }}">
         <source src="{{ asset('home/videos/bg.mp4') }}" type="video/mp4">
     </video>
@@ -669,6 +673,14 @@
     </div>
 </div>
 
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/{{config('custom.whatsapp_number')}}" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <span class="wa-label">Chat with us!</span>
+    <span class="wa-icon">
+        <i class="fab fa-whatsapp"></i>
+    </span>
+</a>
+
 
 <!-- jQuery & Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -682,14 +694,14 @@
            NAV SHOW / HIDE ON SCROLL
         ================================ */
     $(window).on('scroll', function() {
-        const heroHeight = $('#hero').outerHeight();
-
-        if ($(window).scrollTop() > heroHeight - 120) {
+        if ($(window).scrollTop() > 50) {
             $('#mainNav').addClass('show');
+            $('body').removeClass('at-top');
         } else {
             $('#mainNav').removeClass('show');
+            $('body').addClass('at-top');
         }
-    });
+    }).trigger('scroll'); // run on page load too
 
     /* ===============================
        AOS INIT
