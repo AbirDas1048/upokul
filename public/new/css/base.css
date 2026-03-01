@@ -129,7 +129,7 @@ body:not(.at-top) .navbar,
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    max-width: 240px;
+    max-width: 270px;
 }
 
 .nav-link {
