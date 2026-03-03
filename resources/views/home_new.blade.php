@@ -1600,31 +1600,68 @@
         link.addEventListener('click', closeDrawer);
     });
 
-    /* ── SMOOTH SCROLL (safe, non-stacking) ── */
-    const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+    /* ── CINEMATIC SMOOTH SCROLL (safe, non-stacking) ── */
+    const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+    const filmicEase = t => {
+        // smoothstep curve with gentle acceleration/deceleration
+        const s = t * t * (3 - 2 * t);
+        // tiny extra lift near the end for a "filmy" glide feel
+        return s + (Math.sin(s * Math.PI) * 0.015);
+    };
+
     let scrollRaf = null;
+    let scrollAbort = false;
+
     function cancelActiveScroll(){
         if(scrollRaf){
             cancelAnimationFrame(scrollRaf);
             scrollRaf = null;
         }
+        scrollAbort = true;
     }
-    function scrollToY(y, dur=500){
+
+    function getScrollDuration(distance){
+        // dynamic duration: short jumps feel snappy, long jumps feel cinematic
+        return clamp(520 + Math.abs(distance) * 0.35, 520, 1400);
+    }
+
+    function scrollToY(y, dur=getScrollDuration(y - window.pageYOffset)){
         cancelActiveScroll();
-        const s = window.pageYOffset;
-        const d = y - s;
-        if(Math.abs(d) < 2) return;
-        let t0 = null;
+        scrollAbort = false;
+
+        const startY = window.pageYOffset;
+        const distance = y - startY;
+
+        if(Math.abs(distance) < 2) return;
+
+        let startTime = null;
+
+        const stopOnUserIntent = () => {
+            scrollAbort = true;
+        };
+
+        window.addEventListener('wheel', stopOnUserIntent, {passive:true, once:true});
+        window.addEventListener('touchstart', stopOnUserIntent, {passive:true, once:true});
+        window.addEventListener('keydown', stopOnUserIntent, {once:true});
+
         const step = ts => {
-            if(!t0) t0 = ts;
-            const p = Math.min((ts - t0) / dur, 1);
-            window.scrollTo(0, s + d * ease(p));
-            if(p < 1){
+            if(scrollAbort){
+                scrollRaf = null;
+                return;
+            }
+
+            if(!startTime) startTime = ts;
+            const progress = Math.min((ts - startTime) / dur, 1);
+            const eased = filmicEase(progress);
+            window.scrollTo(0, startY + distance * eased);
+
+            if(progress < 1){
                 scrollRaf = requestAnimationFrame(step);
             }else{
                 scrollRaf = null;
             }
         };
+
         scrollRaf = requestAnimationFrame(step);
     }
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
@@ -1647,7 +1684,7 @@
                 return;
             }
 
-            scrollToY(targetY, 500);
+            scrollToY(targetY);
         });
     });
 
