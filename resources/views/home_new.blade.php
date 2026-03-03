@@ -1760,10 +1760,9 @@
 
     /* ── FULLSCREEN ── */
     const fsModal=document.getElementById('fsModal');
-    const fsSlideCount = document.querySelectorAll('#fsModal .swiper-slide').length;
     const fsSwiper=new Swiper('.fs-swiper',{
         navigation:{nextEl:'#fsModal .swiper-button-next',prevEl:'#fsModal .swiper-button-prev'},
-        loop: fsSlideCount > 2,
+        loop: false,
         watchOverflow: true
     });
     let lastGalleryTrigger = null;
@@ -1771,7 +1770,7 @@
         c.addEventListener('click',()=>{
             lastGalleryTrigger = c;
             fsModal.classList.add('active');
-            fsSwiper.slideToLoop(+(c.dataset.index||0),0);
+            fsSwiper.slideTo(+(c.dataset.index||0), 0);
         });
     });
     function closeFsModal(){
