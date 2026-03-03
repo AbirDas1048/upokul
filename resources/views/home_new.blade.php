@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Upokul Travels & Holidays offers tour planning, visa support, hotel booking, and memorable travel experiences in Bangladesh and beyond.">
-    <title>Upokul Travels & Holidays</title>
+    <title>{{ config('app.name') }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('home/images/favicon.ico') }}">
 
     <!-- Preconnect to speed up external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -943,8 +944,10 @@
         <div class="nav-inner">
 
             <a href="#" class="nav-brand">
-                <div class="nav-brand-icon">✦</div>
-                Upokul Travels<em>.</em>
+                <div class="nav-brand-icon">
+                    <img src="{{ asset('images/Logo.png') }}" alt="{{ config('app.name') }}">
+                </div>
+                {{ config('app.name') }}<em>.</em>
             </a>
 
             <ul class="nav-links">
@@ -988,7 +991,7 @@
             <div class="hero-eyebrow">Trusted Travel Experts — Bangladesh & Beyond</div>
             <h1>
                 Discover Beautiful Places
-                <em>With Upokul Travels</em>
+                <em>With {{ config('app.name') }}</em>
             </h1>
             <p>We create unforgettable travel experiences with comfort, safety and trusted service. Your perfect journey starts here.</p>
             <div class="hero-btns">
@@ -1360,20 +1363,20 @@
                 </div>
 
                 <div class="company-info">
-                    <h4>Upokul Travels & Holidays</h4>
+                    <h4>{{config('app.name')}}</h4>
                     <p>
-                        <i class="fas fa-location-dot"></i> Chittagong, Bangladesh<br>
-                        <i class="fas fa-envelope"></i> info@upokultravel.com<br>
-                        <i class="fas fa-phone"></i> +880 1XXX-XXXXXX
+                        <i class="fas fa-location-dot"></i> {{ config('custom.office_address') }}<br>
+                        <i class="fas fa-envelope"></i> {{ config('custom.office_email') }}<br>
+                        <i class="fas fa-phone"></i> {{ config('custom.office_phone') }}
                     </p>
                 </div>
 
                 <div class="owner-box">
                     <div class="owner-avatar">M</div>
                     <div class="owner-meta">
-                        <strong><i class="fas fa-user-tie"></i> Managing Director: Mr. Owner Name</strong>
-                        <span><i class="fas fa-envelope"></i> owner@upokultravel.com</span>
-                        <span><i class="fas fa-phone"></i> +880 1XXX-XXXXXX</span>
+                        <strong><i class="fas fa-user-tie"></i> {{ config('custom.owner_designation') }}: Mr. {{ config('custom.owner_designation') }}</strong>
+                        <span><i class="fas fa-envelope"></i> {{ config('custom.owner_email') }}</span>
+                        <span><i class="fas fa-phone"></i> {{ config('custom.owner_phone') }}</span>
                     </div>
                 </div>
             </div>
@@ -1391,7 +1394,10 @@
             <a href="#reviews">Reviews</a>
             <a href="#contact">Contact</a>
         </div>
-        <p class="footer-copy">© 2025 Upokul Travels & Holidays. All Rights Reserved.</p>
+        <p class="footer-copy">
+            © {{ date('Y') }} {{ config('app.name') }}.
+            All Rights Reserved.
+        </p>
     </div>
 </footer>
 
