@@ -1754,13 +1754,17 @@
         slidesPerView:1,spaceBetween:20,
         autoplay: prefersReducedMotion ? false : {delay:3500,disableOnInteraction:false},
         pagination:{el:'.cardSwiper .swiper-pagination',clickable:true},
+        watchOverflow:true,
         breakpoints:{640:{slidesPerView:2},1024:{slidesPerView:3}}
     });
 
     /* ── FULLSCREEN ── */
     const fsModal=document.getElementById('fsModal');
+    const fsSlideCount = document.querySelectorAll('#fsModal .swiper-slide').length;
     const fsSwiper=new Swiper('.fs-swiper',{
-        navigation:{nextEl:'#fsModal .swiper-button-next',prevEl:'#fsModal .swiper-button-prev'},loop:true
+        navigation:{nextEl:'#fsModal .swiper-button-next',prevEl:'#fsModal .swiper-button-prev'},
+        loop: fsSlideCount > 2,
+        watchOverflow: true
     });
     let lastGalleryTrigger = null;
     document.querySelectorAll('.gallery-card').forEach(c=>{
@@ -1789,6 +1793,7 @@
         slidesPerView:1,spaceBetween:20,
         autoplay: prefersReducedMotion ? false : {delay:4000,disableOnInteraction:false},
         pagination:{el:'.reviewSwiper .swiper-pagination',clickable:true},
+        watchOverflow:true,
         breakpoints:{640:{slidesPerView:2},1024:{slidesPerView:3}}
     });
 
