@@ -1564,7 +1564,7 @@
 </footer>
 
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/{{config('custom.whatsapp_number')}}" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/{{config('custom.whatsapp_number')}}" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
     <span class="wa-label">Chat with us!</span>
     <span class="wa-icon">
         <i class="fab fa-whatsapp"></i>
@@ -1572,7 +1572,6 @@
 </a>
 
 <!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -1724,16 +1723,29 @@
     /* ── FULLSCREEN ── */
     const fsModal=document.getElementById('fsModal');
     const fsSwiper=new Swiper('.fs-swiper',{
-        navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},loop:true
+        navigation:{nextEl:'#fsModal .swiper-button-next',prevEl:'#fsModal .swiper-button-prev'},loop:true
     });
+    let lastGalleryTrigger = null;
     document.querySelectorAll('.gallery-card').forEach(c=>{
         c.addEventListener('click',()=>{
+            lastGalleryTrigger = c;
             fsModal.classList.add('active');
             fsSwiper.slideToLoop(+(c.dataset.index||0),0);
         });
     });
-    document.getElementById('fsClose').addEventListener('click',()=>fsModal.classList.remove('active'));
-    fsModal.addEventListener('click',e=>{if(e.target===fsModal)fsModal.classList.remove('active')});
+    function closeFsModal(){
+        fsModal.classList.remove('active');
+        if(lastGalleryTrigger){
+            lastGalleryTrigger.focus();
+        }
+    }
+    document.getElementById('fsClose').addEventListener('click', closeFsModal);
+    fsModal.addEventListener('click',e=>{if(e.target===fsModal) closeFsModal()});
+    document.addEventListener('keydown', e => {
+        if(e.key === 'Escape' && fsModal.classList.contains('active')){
+            closeFsModal();
+        }
+    });
 
     /* ── REVIEW SWIPER ── */
     new Swiper('.reviewSwiper',{
@@ -1744,11 +1756,19 @@
     });
 
     /* ── CONTACT FORM (demo) ── */
-    $('#contactForm').on('submit', function(e) {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        let form = $(this);
-        const submitBtn = $('#submitBtn');
+        const form = this;
+        const submitBtn = document.getElementById('submitBtn');
+        const setSubmitBtnState = (isSending) => {
+            submitBtn.disabled = isSending;
+            submitBtn.innerHTML = isSending
+                ? '<i class="fas fa-spinner fa-spin"></i> Sending...'
+                : '<i class="fas fa-paper-plane"></i> Send Message';
+        };
 
         Swal.fire({
             title: 'Send Message?',
@@ -1760,7 +1780,7 @@
         }).then((result) => {
             if (!result.isConfirmed) return;
 
-            submitBtn.prop('disabled', true).text('Sending...');
+            setSubmitBtnState(true);
 
             Swal.fire({
                 title: 'Sending Message...',
@@ -1771,12 +1791,23 @@
                 }
             });
 
-            $.ajax({
-                url: "{{ route('contact.submit') }}",
-                method: "POST",
-                data: form.serialize(),
-
-                success: function(res) {
+            fetch("{{ route('contact.submit') }}", {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
+                    'Accept': 'application/json'
+                },
+                body: new FormData(form)
+            })
+                .then(async response => {
+                    const data = await response.json().catch(() => null);
+                    if (!response.ok) {
+                        throw { status: response.status, data };
+                    }
+                    return data;
+                })
+                .then(res => {
                     if (res.success) {
                         Swal.fire({
                             icon: 'success',
@@ -1784,29 +1815,28 @@
                             text: res.message,
                             confirmButtonColor: '#4f46e5'
                         });
-                        form.trigger('reset');
-                        submitBtn.prop('disabled', false).text('Send Message');
+                        form.reset();
                     } else {
-                        submitBtn.prop('disabled', false).text('Send Message');
                         showErrorSwal(res.data, res.message);
                     }
-                },
-
-                error: function() {
+                })
+                .catch(() => {
                     // Only for server crash / network error
-                    submitBtn.prop('disabled', false).text('Send Message');
                     showErrorSwal(null, 'Server error. Please try again later.');
-                }
-            });
+                })
+                .finally(() => {
+                    setSubmitBtnState(false);
+                });
 
         });
     });
+    }
 
     function showErrorSwal(errors, fallbackMessage = null) {
         let msg = '';
 
         if (errors && typeof errors === 'object') {
-            $.each(errors, function(key, value) {
+            Object.entries(errors).forEach(([, value]) => {
                 const message = Array.isArray(value) ? value[0] : value;
                 msg += `${message}<br>`;
             });
