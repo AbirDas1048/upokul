@@ -11,9 +11,19 @@ class HomeController extends Controller
 {
     public function index()
     {
-//        return view('home');
+        return view('welcome');
+    }
+
+    public function demo1(){
+        return view('home');
+    }
+
+    public function demo2(){
         return view('home_new');
-//        return view('new');
+    }
+
+    public function demo3(){
+        return view('new');
     }
 
     public function contact(Request $request)
