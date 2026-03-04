@@ -13,8 +13,6 @@
 {{--    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">--}}
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- AOS Library CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <!-- Swiper Library CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
@@ -93,14 +91,14 @@
         <div class="row align-items-center gy-5">
 
             <!-- Image -->
-            <div class="col-lg-6" data-aos="fade-right">
+            <div class="col-lg-6" data-reveal>
                 <div class="about-image-wrapper">
                     <img src="{{ asset('images/Logo.png') }}" alt="About {{ config('app.name') }}">
                 </div>
             </div>
 
             <!-- Content -->
-            <div class="col-lg-6" data-aos="fade-light">
+            <div class="col-lg-6" data-reveal>
                 <div class="about-content">
                     <h4 class="about-badge">About Us</h4>
 
@@ -121,7 +119,7 @@
                         <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>
                     </ul>
 
-                    <a href="#trusted" class="btn premium-btn premium-btn-pill premium-btn-glossy-primary mt-3" data-aos="fade-up">
+                    <a href="#trusted" class="btn premium-btn premium-btn-pill premium-btn-glossy-primary mt-3" data-reveal>
                         Why Choose Us?
                     </a>
                 </div>
@@ -137,12 +135,12 @@
 
         <!-- Section Title -->
         <div class="text-center mb-5">
-            <span class="section-badge" data-aos="fade-up">Our Services</span>
-            <h2 class="section-title premium-section-title" data-aos="fade-up" data-aos-delay="100">
+            <span class="section-badge" data-reveal>Our Services</span>
+            <h2 class="section-title premium-section-title" data-reveal data-reveal-delay="100">
                 Everything You Need for a
                 <span>Perfect Journey</span>
             </h2>
-            <p class="section-subtitle premium-section-subtitle" data-aos="fade-up" data-aos-delay="200">
+            <p class="section-subtitle premium-section-subtitle" data-reveal data-reveal-delay="200">
                 We provide complete travel solutions with comfort, reliability,
                 and personalized care.
             </p>
@@ -152,7 +150,7 @@
         <div class="row g-4">
 
             <!-- Service Card -->
-            <div class="col-xl-4 col-md-6" data-aos="fade-up">
+            <div class="col-xl-4 col-md-6" data-reveal>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-route"></i>
@@ -165,7 +163,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-xl-4 col-md-6" data-reveal data-reveal-delay="100">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-hotel"></i>
@@ -178,7 +176,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-xl-4 col-md-6" data-reveal data-reveal-delay="200">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-plane-departure"></i>
@@ -191,7 +189,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-md-6" data-aos="fade-up">
+            <div class="col-xl-4 col-md-6" data-reveal>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-passport"></i>
@@ -204,7 +202,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-xl-4 col-md-6" data-reveal data-reveal-delay="100">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-car"></i>
@@ -217,7 +215,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-xl-4 col-md-6" data-reveal data-reveal-delay="200">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-shield-alt"></i>
@@ -237,17 +235,17 @@
 <section class="trust-section" id="trusted">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="section-title premium-section-title" data-aos="fade-up">
+            <h2 class="section-title premium-section-title" data-reveal>
                 Trusted by Travelers Worldwide
             </h2>
-            <p class="section-subtitle premium-section-subtitle" data-aos="fade-up" data-aos-delay="150">
+            <p class="section-subtitle premium-section-subtitle" data-reveal data-reveal-delay="150">
                 Numbers that reflect our experience, trust, and global reach
             </p>
         </div>
 
         <div class="row g-4">
             <!-- Item -->
-            <div class="col-md-6 col-lg-3" data-aos="fade-up">
+            <div class="col-md-6 col-lg-3" data-reveal>
                 <div class="trust-card">
                     <i class="fas fa-smile-beam"></i>
                     <h3 class="counter" data-count="100">0</h3>
@@ -255,7 +253,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-md-6 col-lg-3" data-reveal data-reveal-delay="100">
                 <div class="trust-card">
                     <i class="fas fa-globe-asia"></i>
                     <h3 class="counter" data-count="300">0</h3>
@@ -263,7 +261,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-md-6 col-lg-3" data-reveal data-reveal-delay="200">
                 <div class="trust-card">
                     <i class="fas fa-hotel"></i>
                     <h3 class="counter" data-count="800">0</h3>
@@ -271,7 +269,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+            <div class="col-md-6 col-lg-3" data-reveal data-reveal-delay="300">
                 <div class="trust-card">
                     <i class="fas fa-handshake"></i>
                     <h3 class="counter" data-count="500">0</h3>
@@ -682,288 +680,10 @@
 </a>
 
 
-<!-- jQuery & Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-    /* ===============================
-           NAV SHOW / HIDE ON SCROLL
-        ================================ */
-    $(window).on('scroll', function() {
-        if ($(window).scrollTop() > 50) {
-            $('#mainNav').addClass('show');
-            $('body').removeClass('at-top');
-        } else {
-            $('#mainNav').removeClass('show');
-            $('body').addClass('at-top');
-        }
-    }).trigger('scroll'); // run on page load too
-
-    /* ===============================
-       AOS INIT
-    ================================ */
-    AOS.init({
-        duration: 1000,
-        once: true,
-        easing: 'ease-out-cubic'
-    });
-
-    /* ===============================
-       PREMIUM SMOOTH SCROLL
-    ================================ */
-    (function() {
-        const easeInOutCubic = t =>
-            t < 0.5 ?
-                4 * t * t * t :
-                1 - Math.pow(-2 * t + 2, 3) / 2;
-
-        function smoothScrollTo(targetY, duration = 1400) {
-            const startY = window.pageYOffset;
-            const diff = targetY - startY;
-            let startTime = null;
-
-            function step(timestamp) {
-                if (!startTime) startTime = timestamp;
-                const time = timestamp - startTime;
-                const progress = Math.min(time / duration, 1);
-                const eased = easeInOutCubic(progress);
-
-                window.scrollTo(0, startY + diff * eased);
-
-                if (time < duration) {
-                    requestAnimationFrame(step);
-                }
-            }
-
-            requestAnimationFrame(step);
-        }
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const id = this.getAttribute('href');
-                if (!id || id === '#') return;
-
-                const target = document.querySelector(id);
-                if (!target) return;
-
-                e.preventDefault();
-
-                const navHeight =
-                    document.getElementById('mainNav')?.offsetHeight || 90;
-
-                const targetY =
-                    target.getBoundingClientRect().top +
-                    window.pageYOffset -
-                    navHeight;
-
-                smoothScrollTo(targetY, 1500); // 🎩 premium timing
-            });
-        });
-    })();
-
-    /* ===============================
-       COUNTER ANIMATION (FIXED)
-    ================================ */
-
-    let counterStarted = false;
-
-    function animateCounter(el, target) {
-        let current = 0;
-        const increment = Math.max(1, Math.ceil(target / 80));
-
-        const interval = setInterval(() => {
-            current += increment;
-
-            if (current >= target) {
-                el.textContent = target;
-                clearInterval(interval);
-            } else {
-                el.textContent = current;
-            }
-        }, 25);
-    }
-
-    const trustedSection = document.querySelector('#trusted');
-
-    if (trustedSection) {
-        const observer = new IntersectionObserver(
-            entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !counterStarted) {
-                        counterStarted = true;
-
-                        document.querySelectorAll('.counter').forEach(counter => {
-                            animateCounter(counter, Number(counter.dataset.count));
-                        });
-
-                        observer.unobserve(entry.target); // safer than disconnect
-                    }
-                });
-            }, {
-                threshold: 0.15, // 🔑 mobile-friendly
-                rootMargin: '0px 0px -80px 0px' // 🔑 triggers earlier
-            }
-        );
-
-        observer.observe(trustedSection);
-    }
-
-    /* Card slider */
-    const cardSwiper = new Swiper('.cardSwiper', {
-        slidesPerView: 1,
-        spaceBetween: 24,
-        autoplay: {
-            delay: 3500,
-            disableOnInteraction: false
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        },
-        breakpoints: {
-            768: {
-                slidesPerView: 2
-            },
-            1200: {
-                slidesPerView: 3
-            }
-        }
-    });
-
-    /* Fullscreen slider */
-    const fullscreenSwiper = new Swiper('.fullscreenSwiper', {
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-        },
-        loop: true
-    });
-
-    /* Open modal */
-    document.querySelectorAll('.gallery-card').forEach(card => {
-        card.addEventListener('click', () => {
-            document.querySelector('.fullscreen-modal').classList.add('active');
-            fullscreenSwiper.slideToLoop(parseInt(card.dataset.index), 0);
-        });
-    });
-
-    /* Close modal */
-    document.querySelector('.close-modal').addEventListener('click', () => {
-        document.querySelector('.fullscreen-modal').classList.remove('active');
-    });
-</script>
-
-<script>
-    const reviewSwiper = new Swiper('.reviewSwiper', {
-        slidesPerView: 1,
-        spaceBetween: 24,
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        },
-        breakpoints: {
-            768: {
-                slidesPerView: 2
-            },
-            1200: {
-                slidesPerView: 3
-            }
-        }
-    });
-
-    $('#contactForm').on('submit', function(e) {
-        e.preventDefault();
-
-        let form = $(this);
-        const submitBtn = $('#submitBtn');
-
-        Swal.fire({
-            title: 'Send Message?',
-            text: 'Are you sure you want to submit this form?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, Send',
-            confirmButtonColor: '#4f46e5'
-        }).then((result) => {
-            if (!result.isConfirmed) return;
-
-            submitBtn.prop('disabled', true).text('Sending...');
-
-            Swal.fire({
-                title: 'Sending Message...',
-                text: 'Please wait a moment',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-
-            $.ajax({
-                url: "{{ route('contact.submit') }}",
-                method: "POST",
-                data: form.serialize(),
-
-                success: function(res) {
-                    if (res.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Message Sent Successfully!',
-                            text: res.message,
-                            confirmButtonColor: '#4f46e5'
-                        });
-                        form.trigger('reset');
-                        submitBtn.prop('disabled', false).text('Send Message');
-                    } else {
-                        submitBtn.prop('disabled', false).text('Send Message');
-                        showErrorSwal(res.data, res.message);
-                    }
-                },
-
-                error: function() {
-                    // Only for server crash / network error
-                    submitBtn.prop('disabled', false).text('Send Message');
-                    showErrorSwal(null, 'Server error. Please try again later.');
-                }
-            });
-
-        });
-    });
-
-    function showErrorSwal(errors, fallbackMessage = null) {
-        let msg = '';
-
-        if (errors && typeof errors === 'object') {
-            $.each(errors, function(key, value) {
-                const message = Array.isArray(value) ? value[0] : value;
-                msg += `${message}<br>`;
-            });
-        } else if (fallbackMessage) {
-            msg = fallbackMessage;
-        } else {
-            msg = 'Something went wrong. Please try again.';
-        }
-
-        Swal.fire({
-            icon: 'error',
-            title: 'Submission Failed',
-            html: msg,
-            confirmButtonColor: '#ef4444',
-            customClass: {
-                htmlContainer: 'swal-html-red-bg'
-            }
-        });
-    }
-</script>
-
-
+<script src="{{ asset('js/common-interactions.js') }}"></script>
 </body>
 
 </html>
