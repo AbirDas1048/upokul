@@ -186,10 +186,20 @@
         }
         .nav-brand-icon{
             width:36px;height:36px;
-            background:linear-gradient(135deg,var(--teal-deep),var(--teal-mid));
-            border-radius:50% 50% 50% 10px;
+            border-radius:50%;
             display:flex;align-items:center;justify-content:center;
             font-size:.85rem;flex-shrink:0;
+            overflow:hidden;
+            border:1px solid rgba(35,205,210,.35);
+            background:rgba(7,26,26,.7);
+        }
+        .nav-brand-icon img{
+            width:80%;
+            height:80%;
+            object-fit:contain;
+            filter:brightness(0) invert(1);
+            opacity:.95;
+            transition:filter var(--dur) var(--ease),opacity var(--dur) var(--ease);
         }
         .nav-brand em{font-style:normal;color:var(--teal-mid)}
 
@@ -212,18 +222,30 @@
 
         .nav-right{display:flex;align-items:center;gap:.8rem}
 
-        /* Hamburger */
+        /* Mobile menu toggle */
+        /*.hamburger{*/
+        /*    display:none;flex-direction:column;gap:5px;*/
+        /*    background:none;border:none;cursor:pointer;padding:4px;*/
+        /*}*/
+        /*.hamburger span{*/
+        /*    width:24px;height:2px;background:var(--white);*/
+        /*    border-radius:2px;display:block;transition:var(--dur) var(--ease);*/
+        /*}*/
         .hamburger{
-            display:none;flex-direction:column;gap:5px;
-            background:none;border:none;cursor:pointer;padding:4px;
+            display:none;align-items:center;justify-content:center;
+            background:none;border:none;cursor:pointer;
+            color:var(--white);
+            font-size:1.35rem;
+            line-height:1;
+            width:34px;height:34px;
+            border-radius:50%;
+            transition:color var(--dur) var(--ease),background var(--dur) var(--ease),transform var(--dur) var(--ease);
         }
-        .hamburger span{
-            width:24px;height:2px;background:var(--white);
-            border-radius:2px;display:block;transition:var(--dur) var(--ease);
-        }
-        .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-        .hamburger.open span:nth-child(2){opacity:0}
-        .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+        /*.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}*/
+        /*.hamburger.open span:nth-child(2){opacity:0}*/
+        /*.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}*/
+        .hamburger:hover{color:var(--teal-mid);background:rgba(35,205,210,.08)}
+        .hamburger.open{color:var(--teal-mid);transform:rotate(90deg)}
 
         /* Mobile drawer */
         .nav-drawer{
@@ -247,6 +269,24 @@
         @media(max-width:991px){
             .nav-links,.nav-right .btn-primary{display:none}
             .hamburger{display:flex}
+            .nav-brand{font-size:1.3rem;max-width:75vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+            .nav-brand-text{display:none}
+            .nav-drawer{max-height:calc(100vh - 70px);overflow-y:auto}
+        }
+
+        @media(max-width:576px){
+            .container{padding:0 1rem}
+            .nav-brand{gap:.45rem;max-width:calc(100vw - 78px)}
+            .nav-brand-icon{width:30px;height:30px}
+            .hero-container{padding-top:5.4rem}
+            .hero-content h1{font-size:2.2rem;line-height:1.12}
+            .hero-content p{font-size:.9rem;line-height:1.65;margin-bottom:1.5rem}
+            .hero-btns{gap:.7rem}
+            .hero-btns .btn{width:100%;justify-content:center;padding:.74rem 1rem}
+            .hero-stat-num{font-size:1.7rem}
+            .hero-stat-lbl{font-size:.58rem}
+            #about,#services,#gallery,#reviews,#contact{padding:5.5rem 0}
+            #trusted{padding:4.5rem 0}
         }
 
         /* ══════════════════════════════════════
@@ -943,11 +983,11 @@
     <div class="container">
         <div class="nav-inner">
 
-            <a href="#" class="nav-brand">
+            <a href="#hero" class="nav-brand">
                 <div class="nav-brand-icon">
                     <img src="{{ asset('images/Logo.png') }}" alt="{{ config('app.name') }}">
                 </div>
-                {{ config('app.name') }}<em>.</em>
+                <span class="nav-brand-text">{{ config('app.name') }}<em>.</em></span>
             </a>
 
             <ul class="nav-links">
@@ -960,7 +1000,7 @@
             <div class="nav-right">
                 <a href="#contact" class="btn btn-primary">Contact Us</a>
                 <button class="hamburger" id="ham" aria-label="Toggle menu" aria-expanded="false" aria-controls="drawer">
-                    <span></span><span></span><span></span>
+                    <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
                 </button>
             </div>
 
@@ -1374,7 +1414,7 @@
                 <div class="owner-box">
                     <div class="owner-avatar">M</div>
                     <div class="owner-meta">
-                        <strong><i class="fas fa-user-tie"></i> {{ config('custom.owner_designation') }}: Mr. {{ config('custom.owner_designation') }}</strong>
+                        <strong><i class="fas fa-user-tie"></i> {{ config('custom.owner_designation') }}: Mr. {{ config('custom.owner_name') }}</strong>
                         <span><i class="fas fa-envelope"></i> {{ config('custom.owner_email') }}</span>
                         <span><i class="fas fa-phone"></i> {{ config('custom.owner_phone') }}</span>
                     </div>
