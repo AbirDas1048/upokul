@@ -152,6 +152,13 @@
         .btn-fb:hover{border-color:#1877F2;color:#1877F2;transform:translateY(-3px)}
 
         .btn-block{width:100%;justify-content:center}
+        .swal-html-red-bg {
+            margin: 10px;
+            background-color: #f27474;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+        }
 
         /* ══════════════════════════════════════
            NAVBAR
@@ -1381,12 +1388,27 @@
             <!-- Form -->
             <div class="contact-card" data-reveal>
                 <h4>Send a Message</h4>
-                <form id="contactForm">
-                    <div class="form-group"><input type="text"  placeholder="Your Name *"    required></div>
-                    <div class="form-group"><input type="email" placeholder="Your Email *"   required></div>
-                    <div class="form-group"><input type="text"  placeholder="Phone Number *" required></div>
-                    <div class="form-group"><input type="text"  placeholder="Subject *"      required></div>
-                    <div class="form-group"><textarea rows="4"  placeholder="Your Message *" required></textarea></div>
+                <form id="contactForm" method="POST" action="{{ route('contact.submit') }}">
+                    @csrf
+                    <div class="form-group">
+                        <input type="text" name="name" id="name" placeholder="Your Name *" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" placeholder="Your Email *" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="phone" id="phone" placeholder="Phone Number *" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="subject" id="subject" placeholder="Subject *" required>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea rows="4" name="mail_message" id="mail_message" placeholder="Your Message *" required></textarea>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
                         <i class="fas fa-paper-plane"></i> Send Message
                     </button>
@@ -1442,7 +1464,9 @@
 </footer>
 
 <!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
     /* ── NAV SCROLL ── */
@@ -1612,17 +1636,88 @@
     });
 
     /* ── CONTACT FORM (demo) ── */
-    document.getElementById('contactForm').addEventListener('submit',function(e){
+    $('#contactForm').on('submit', function(e) {
         e.preventDefault();
-        const btn=document.getElementById('submitBtn');
-        btn.innerHTML='<i class="fas fa-check"></i> Message Sent!';
-        btn.style.background='linear-gradient(135deg,#1a7a1a,#2dd62d)';
-        setTimeout(()=>{
-            btn.innerHTML='<i class="fas fa-paper-plane"></i> Send Message';
-            btn.style.background='';
-            this.reset();
-        },3000);
+
+        let form = $(this);
+        const submitBtn = $('#submitBtn');
+
+        Swal.fire({
+            title: 'Send Message?',
+            text: 'Are you sure you want to submit this form?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Send',
+            confirmButtonColor: '#4f46e5'
+        }).then((result) => {
+            if (!result.isConfirmed) return;
+
+            submitBtn.prop('disabled', true).text('Sending...');
+
+            Swal.fire({
+                title: 'Sending Message...',
+                text: 'Please wait a moment',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('contact.submit') }}",
+                method: "POST",
+                data: form.serialize(),
+
+                success: function(res) {
+                    if (res.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Message Sent Successfully!',
+                            text: res.message,
+                            confirmButtonColor: '#4f46e5'
+                        });
+                        form.trigger('reset');
+                        submitBtn.prop('disabled', false).text('Send Message');
+                    } else {
+                        submitBtn.prop('disabled', false).text('Send Message');
+                        showErrorSwal(res.data, res.message);
+                    }
+                },
+
+                error: function() {
+                    // Only for server crash / network error
+                    submitBtn.prop('disabled', false).text('Send Message');
+                    showErrorSwal(null, 'Server error. Please try again later.');
+                }
+            });
+
+        });
     });
+
+    function showErrorSwal(errors, fallbackMessage = null) {
+        let msg = '';
+
+        if (errors && typeof errors === 'object') {
+            $.each(errors, function(key, value) {
+                const message = Array.isArray(value) ? value[0] : value;
+                msg += `${message}<br>`;
+            });
+        } else if (fallbackMessage) {
+            msg = fallbackMessage;
+        } else {
+            msg = 'Something went wrong. Please try again.';
+        }
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Submission Failed',
+            html: msg,
+            confirmButtonColor: '#ef4444',
+            customClass: {
+                htmlContainer: 'swal-html-red-bg'
+            }
+        });
+    }
 
 </script>
 </body>

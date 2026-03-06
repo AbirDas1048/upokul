@@ -590,7 +590,7 @@
                     </div>
 
                     <button type="submit" class="premium-btn premium-btn-pill premium-btn-block premium-btn-solid" id="submitBtn">
-                        Send Message
+                        <i class="fas fa-paper-plane"></i> Send Message
                     </button>
                 </form>
             </div>
