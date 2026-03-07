@@ -1564,7 +1564,7 @@
 </footer>
 
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/{{config('custom.whatsapp_number')}}" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/{{config('custom.whatsapp_number')}}" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
     <span class="wa-label">Chat with us!</span>
     <span class="wa-icon">
         <i class="fab fa-whatsapp"></i>
@@ -1572,7 +1572,6 @@
 </a>
 
 <!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -1601,31 +1600,68 @@
         link.addEventListener('click', closeDrawer);
     });
 
-    /* ── SMOOTH SCROLL (safe, non-stacking) ── */
-    const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+    /* ── CINEMATIC SMOOTH SCROLL (safe, non-stacking) ── */
+    const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+    const filmicEase = t => {
+        // smoothstep curve with gentle acceleration/deceleration
+        const s = t * t * (3 - 2 * t);
+        // tiny extra lift near the end for a "filmy" glide feel
+        return s + (Math.sin(s * Math.PI) * 0.015);
+    };
+
     let scrollRaf = null;
+    let scrollAbort = false;
+
     function cancelActiveScroll(){
         if(scrollRaf){
             cancelAnimationFrame(scrollRaf);
             scrollRaf = null;
         }
+        scrollAbort = true;
     }
-    function scrollToY(y, dur=500){
+
+    function getScrollDuration(distance){
+        // dynamic duration: short jumps feel snappy, long jumps feel cinematic
+        return clamp(520 + Math.abs(distance) * 0.35, 520, 1400);
+    }
+
+    function scrollToY(y, dur=getScrollDuration(y - window.pageYOffset)){
         cancelActiveScroll();
-        const s = window.pageYOffset;
-        const d = y - s;
-        if(Math.abs(d) < 2) return;
-        let t0 = null;
+        scrollAbort = false;
+
+        const startY = window.pageYOffset;
+        const distance = y - startY;
+
+        if(Math.abs(distance) < 2) return;
+
+        let startTime = null;
+
+        const stopOnUserIntent = () => {
+            scrollAbort = true;
+        };
+
+        window.addEventListener('wheel', stopOnUserIntent, {passive:true, once:true});
+        window.addEventListener('touchstart', stopOnUserIntent, {passive:true, once:true});
+        window.addEventListener('keydown', stopOnUserIntent, {once:true});
+
         const step = ts => {
-            if(!t0) t0 = ts;
-            const p = Math.min((ts - t0) / dur, 1);
-            window.scrollTo(0, s + d * ease(p));
-            if(p < 1){
+            if(scrollAbort){
+                scrollRaf = null;
+                return;
+            }
+
+            if(!startTime) startTime = ts;
+            const progress = Math.min((ts - startTime) / dur, 1);
+            const eased = filmicEase(progress);
+            window.scrollTo(0, startY + distance * eased);
+
+            if(progress < 1){
                 scrollRaf = requestAnimationFrame(step);
             }else{
                 scrollRaf = null;
             }
         };
+
         scrollRaf = requestAnimationFrame(step);
     }
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
@@ -1648,7 +1684,7 @@
                 return;
             }
 
-            scrollToY(targetY, 500);
+            scrollToY(targetY);
         });
     });
 
@@ -1718,95 +1754,130 @@
         slidesPerView:1,spaceBetween:20,
         autoplay: prefersReducedMotion ? false : {delay:3500,disableOnInteraction:false},
         pagination:{el:'.cardSwiper .swiper-pagination',clickable:true},
+        watchOverflow:true,
         breakpoints:{640:{slidesPerView:2},1024:{slidesPerView:3}}
     });
 
     /* ── FULLSCREEN ── */
     const fsModal=document.getElementById('fsModal');
     const fsSwiper=new Swiper('.fs-swiper',{
-        navigation:{nextEl:'.swiper-button-next',prevEl:'.swiper-button-prev'},loop:true
+        navigation:{nextEl:'#fsModal .swiper-button-next',prevEl:'#fsModal .swiper-button-prev'},
+        loop: false,
+        watchOverflow: true
     });
+    let lastGalleryTrigger = null;
     document.querySelectorAll('.gallery-card').forEach(c=>{
         c.addEventListener('click',()=>{
+            lastGalleryTrigger = c;
             fsModal.classList.add('active');
-            fsSwiper.slideToLoop(+(c.dataset.index||0),0);
+            fsSwiper.slideTo(+(c.dataset.index||0), 0);
         });
     });
-    document.getElementById('fsClose').addEventListener('click',()=>fsModal.classList.remove('active'));
-    fsModal.addEventListener('click',e=>{if(e.target===fsModal)fsModal.classList.remove('active')});
+    function closeFsModal(){
+        fsModal.classList.remove('active');
+        if(lastGalleryTrigger){
+            lastGalleryTrigger.focus();
+        }
+    }
+    document.getElementById('fsClose').addEventListener('click', closeFsModal);
+    fsModal.addEventListener('click',e=>{if(e.target===fsModal) closeFsModal()});
+    document.addEventListener('keydown', e => {
+        if(e.key === 'Escape' && fsModal.classList.contains('active')){
+            closeFsModal();
+        }
+    });
 
     /* ── REVIEW SWIPER ── */
     new Swiper('.reviewSwiper',{
         slidesPerView:1,spaceBetween:20,
         autoplay: prefersReducedMotion ? false : {delay:4000,disableOnInteraction:false},
         pagination:{el:'.reviewSwiper .swiper-pagination',clickable:true},
+        watchOverflow:true,
         breakpoints:{640:{slidesPerView:2},1024:{slidesPerView:3}}
     });
 
     /* ── CONTACT FORM (demo) ── */
-    $('#contactForm').on('submit', function(e) {
-        e.preventDefault();
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        let form = $(this);
-        const submitBtn = $('#submitBtn');
-
-        Swal.fire({
-            title: 'Send Message?',
-            text: 'Are you sure you want to submit this form?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, Send',
-            confirmButtonColor: '#4f46e5'
-        }).then((result) => {
-            if (!result.isConfirmed) return;
-
-            submitBtn.prop('disabled', true).text('Sending...');
+            const form = this;
+            const submitBtn = document.getElementById('submitBtn');
+            const setSubmitBtnState = (isSending) => {
+                submitBtn.disabled = isSending;
+                submitBtn.innerHTML = isSending
+                    ? '<i class="fas fa-spinner fa-spin"></i> Sending...'
+                    : '<i class="fas fa-paper-plane"></i> Send Message';
+            };
 
             Swal.fire({
-                title: 'Sending Message...',
-                text: 'Please wait a moment',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
+                title: 'Send Message?',
+                text: 'Are you sure you want to submit this form?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Send',
+                confirmButtonColor: '#4f46e5'
+            }).then((result) => {
+                if (!result.isConfirmed) return;
 
-            $.ajax({
-                url: "{{ route('contact.submit') }}",
-                method: "POST",
-                data: form.serialize(),
+                setSubmitBtnState(true);
 
-                success: function(res) {
-                    if (res.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Message Sent Successfully!',
-                            text: res.message,
-                            confirmButtonColor: '#4f46e5'
-                        });
-                        form.trigger('reset');
-                        submitBtn.prop('disabled', false).text('Send Message');
-                    } else {
-                        submitBtn.prop('disabled', false).text('Send Message');
-                        showErrorSwal(res.data, res.message);
+                Swal.fire({
+                    title: 'Sending Message...',
+                    text: 'Please wait a moment',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
                     }
-                },
+                });
 
-                error: function() {
-                    // Only for server crash / network error
-                    submitBtn.prop('disabled', false).text('Send Message');
-                    showErrorSwal(null, 'Server error. Please try again later.');
-                }
+                fetch("{{ route('contact.submit') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
+                        'Accept': 'application/json'
+                    },
+                    body: new FormData(form)
+                })
+                    .then(async response => {
+                        const data = await response.json().catch(() => null);
+                        if (!response.ok) {
+                            throw { status: response.status, data };
+                        }
+                        return data;
+                    })
+                    .then(res => {
+                        if (res.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Message Sent Successfully!',
+                                text: res.message,
+                                confirmButtonColor: '#4f46e5'
+                            });
+                            form.reset();
+                        } else {
+                            showErrorSwal(res.data, res.message);
+                        }
+                    })
+                    .catch(() => {
+                        // Only for server crash / network error
+                        showErrorSwal(null, 'Server error. Please try again later.');
+                    })
+                    .finally(() => {
+                        setSubmitBtnState(false);
+                    });
+
             });
-
         });
-    });
+    }
 
     function showErrorSwal(errors, fallbackMessage = null) {
         let msg = '';
 
         if (errors && typeof errors === 'object') {
-            $.each(errors, function(key, value) {
+            Object.entries(errors).forEach(([, value]) => {
                 const message = Array.isArray(value) ? value[0] : value;
                 msg += `${message}<br>`;
             });
