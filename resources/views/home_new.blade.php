@@ -932,6 +932,106 @@
             display:none !important;
         }
 
+        /* ─── FLOATING WHATSAPP BUTTON ───────────────────────────── */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* The icon circle */
+        .whatsapp-float .wa-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: #fff;
+            box-shadow: 0 6px 24px rgba(37,211,102,0.50);
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        /* Pulse ring animation */
+        .whatsapp-float .wa-icon::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2.5px solid rgba(37,211,102,0.55);
+            animation: wa-pulse 2s ease-out infinite;
+        }
+
+        .whatsapp-float .wa-icon::after {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            border: 2px solid rgba(37,211,102,0.25);
+            animation: wa-pulse 2s ease-out infinite 0.4s;
+        }
+
+        @keyframes wa-pulse {
+            0%   { transform: scale(1);   opacity: 1; }
+            100% { transform: scale(1.55); opacity: 0; }
+        }
+
+        /* Tooltip label */
+        .whatsapp-float .wa-label {
+            background: #fff;
+            color: #128C7E;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            padding: 0.45rem 1rem 0.45rem 1.2rem;
+            border-radius: 999px 0 0 999px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateX(16px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(37,211,102,0.2);
+            border-right: none;
+        }
+
+        /* Hover effects */
+        .whatsapp-float:hover .wa-icon {
+            transform: scale(1.10);
+            box-shadow: 0 10px 32px rgba(37,211,102,0.60);
+        }
+
+        .whatsapp-float:hover .wa-label {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        @media (max-width: 480px) {
+            .whatsapp-float {
+                bottom: 18px;
+                right: 18px;
+            }
+            .whatsapp-float .wa-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            /* Hide label on small screens to avoid overflow */
+            .whatsapp-float .wa-label { display: none; }
+        }
+
 
         /* Ultra-small devices */
         @media (max-width:349px){
@@ -1462,6 +1562,14 @@
         </p>
     </div>
 </footer>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/{{config('custom.whatsapp_number')}}" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <span class="wa-label">Chat with us!</span>
+    <span class="wa-icon">
+        <i class="fab fa-whatsapp"></i>
+    </span>
+</a>
 
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
