@@ -96,14 +96,14 @@
         <div class="row align-items-center gy-5">
 
             <!-- Image -->
-            <div class="col-lg-6" data-aos="fade-right">
+            <div class="col-lg-6" data-reveal>
                 <div class="about-image-wrapper">
                     <img src="{{ asset('images/Logo.png') }}" alt="About {{ config('app.name') }}">
                 </div>
             </div>
 
             <!-- Content -->
-            <div class="col-lg-6" data-aos="fade-light">
+            <div class="col-lg-6" data-reveal>
                 <div class="about-content">
                     <h4 class="about-badge">About Us</h4>
 
@@ -124,7 +124,7 @@
                         <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>
                     </ul>
 
-                    <a href="#trusted" class="btn premium-btn premium-btn-pill premium-btn-glossy-primary mt-3" data-aos="fade-up">
+                    <a href="#trusted" class="btn premium-btn premium-btn-pill premium-btn-glossy-primary mt-3" data-reveal>
                         Why Choose Us?
                     </a>
                 </div>
@@ -140,12 +140,12 @@
 
         <!-- Section Title -->
         <div class="text-center mb-5">
-            <span class="section-badge" data-aos="fade-up">Our Services</span>
-            <h2 class="section-title premium-section-title" data-aos="fade-up" data-aos-delay="100">
+            <span class="section-badge" data-reveal>Our Services</span>
+            <h2 class="section-title premium-section-title" data-reveal data-reveal-delay="100">
                 Everything You Need for a
                 <span>Perfect Journey</span>
             </h2>
-            <p class="section-subtitle premium-section-subtitle" data-aos="fade-up" data-aos-delay="200">
+            <p class="section-subtitle premium-section-subtitle" data-reveal data-reveal-delay="200">
                 We provide complete travel solutions with comfort, reliability,
                 and personalized care.
             </p>
@@ -155,7 +155,7 @@
         <div class="row g-4">
 
             <!-- Service Card -->
-            <div class="col-xl-4 col-md-6" data-aos="fade-up">
+            <div class="col-xl-4 col-md-6" data-reveal>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-route"></i>
@@ -168,7 +168,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-xl-4 col-md-6" data-reveal data-reveal-delay="100">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-hotel"></i>
@@ -181,7 +181,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-xl-4 col-md-6" data-reveal data-reveal-delay="200">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-plane-departure"></i>
@@ -194,7 +194,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-md-6" data-aos="fade-up">
+            <div class="col-xl-4 col-md-6" data-reveal>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-passport"></i>
@@ -207,7 +207,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-xl-4 col-md-6" data-reveal data-reveal-delay="100">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-car"></i>
@@ -220,7 +220,7 @@
                 </div>
             </div>
 
-            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-xl-4 col-md-6" data-reveal data-reveal-delay="200">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-shield-alt"></i>
@@ -240,17 +240,17 @@
 <section class="trust-section" id="trusted">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="section-title premium-section-title" data-aos="fade-up">
+            <h2 class="section-title premium-section-title" data-reveal>
                 Trusted by Travelers Worldwide
             </h2>
-            <p class="section-subtitle premium-section-subtitle" data-aos="fade-up" data-aos-delay="150">
+            <p class="section-subtitle premium-section-subtitle" data-reveal data-reveal-delay="150">
                 Numbers that reflect our experience, trust, and global reach
             </p>
         </div>
 
         <div class="row g-4">
             <!-- Item -->
-            <div class="col-md-6 col-lg-3" data-aos="fade-up">
+            <div class="col-md-6 col-lg-3" data-reveal>
                 <div class="trust-card">
                     <i class="fas fa-smile-beam"></i>
                     <h3 class="counter" data-count="100">0</h3>
@@ -258,7 +258,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-md-6 col-lg-3" data-reveal data-reveal-delay="100">
                 <div class="trust-card">
                     <i class="fas fa-globe-asia"></i>
                     <h3 class="counter" data-count="300">0</h3>
@@ -266,7 +266,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-md-6 col-lg-3" data-reveal data-reveal-delay="200">
                 <div class="trust-card">
                     <i class="fas fa-hotel"></i>
                     <h3 class="counter" data-count="800">0</h3>
@@ -274,7 +274,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+            <div class="col-md-6 col-lg-3" data-reveal data-reveal-delay="300">
                 <div class="trust-card">
                     <i class="fas fa-handshake"></i>
                     <h3 class="counter" data-count="500">0</h3>
@@ -677,12 +677,10 @@
 </div>
 
 
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script src="{{ asset('js/common-interactions.js') }}"></script>
-
-
 </body>
 
 </html>

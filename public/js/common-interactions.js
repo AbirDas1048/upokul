@@ -154,18 +154,19 @@
     }
 
     function initReveals() {
-        const allReveal = document.querySelectorAll('[data-reveal], [data-aos]');
+        const allReveal = document.querySelectorAll('[data-reveal]');
         if (!allReveal.length) return;
 
         allReveal.forEach((el) => {
-            if (el.hasAttribute('data-aos') && !el.hasAttribute('data-reveal')) {
-                const delay = Number(el.getAttribute('data-aos-delay') || '0');
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(22px)';
-                el.style.transition = `opacity .7s ease, transform .7s ease`;
-                if (delay > 0) {
-                    el.style.transitionDelay = `${delay}ms`;
-                }
+            if (!el.classList.contains('visible')) {
+                if (!el.style.opacity) el.style.opacity = '0';
+                if (!el.style.transform) el.style.transform = 'translateY(22px)';
+                if (!el.style.transition) el.style.transition = 'opacity .7s ease, transform .7s ease';
+            }
+
+            const delay = Number(el.getAttribute('data-reveal-delay') || '0');
+            if (delay > 0 && !el.style.transitionDelay) {
+                el.style.transitionDelay = `${delay}ms`;
             }
         });
 
@@ -173,10 +174,8 @@
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    if (entry.target.hasAttribute('data-aos')) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                     revObs.unobserve(entry.target);
                 }
             });
@@ -197,10 +196,8 @@
                 if (!revealForced) {
                     allReveal.forEach((el) => {
                         el.classList.add('visible');
-                        if (el.hasAttribute('data-aos')) {
-                            el.style.opacity = '1';
-                            el.style.transform = 'translateY(0)';
-                        }
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
                     });
                     revealForced = true;
                 }
