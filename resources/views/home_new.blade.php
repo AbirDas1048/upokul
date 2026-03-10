@@ -1175,49 +1175,51 @@
 </section>
 
 <!-- ░░░ ABOUT ░░░ -->
-<section id="about">
-    <div class="container">
-        <div class="about-grid">
+@include('partials.sections.about', ['variant' => 'modern'])
 
-            <!-- Image -->
-            <div class="about-img-side" data-reveal>
-                <div class="about-img-frame">
-                    <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=700&q=65&auto=format" alt="About Upokul Travels">
-                </div>
-                <div class="about-badge-card">
-                    <div class="badge-big">10+</div>
-                    <div class="badge-txt">
-                        <strong>Years</strong>
-                        of Excellence
-                    </div>
-                </div>
-            </div>
+{{--<section id="about">--}}
+{{--    <div class="container">--}}
+{{--        <div class="about-grid">--}}
 
-            <!-- Content -->
-            <div data-reveal style="transition-delay:.02s">
-                <span class="section-label">About Us</span>
-                <h2 class="section-title" style="margin-bottom:1rem">
-                    Your Trusted Partner for
-                    <span>Unforgettable Journeys</span>
-                </h2>
-                <p style="font-size:.9rem;color:var(--muted);line-height:1.85;margin-bottom:1.8rem">
-                    Upokul Travels is dedicated to creating meaningful travel experiences.
-                    From breathtaking coastal tours to personalized holiday packages,
-                    we ensure comfort, safety, and unforgettable memories for every traveler.
-                </p>
-                <ul class="about-list">
-                    <li><i class="fas fa-check-circle"></i> Trusted & experienced travel experts</li>
-                    <li><i class="fas fa-check-circle"></i> Customized tour packages for every budget</li>
-                    <li><i class="fas fa-check-circle"></i> 24/7 customer support throughout your journey</li>
-                </ul>
-                <a href="#trusted" class="btn btn-primary">
-                    <i class="fas fa-award"></i> Why Choose Us?
-                </a>
-            </div>
+{{--            <!-- Image -->--}}
+{{--            <div class="about-img-side" data-reveal>--}}
+{{--                <div class="about-img-frame">--}}
+{{--                    <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=700&q=65&auto=format" alt="About Upokul Travels">--}}
+{{--                </div>--}}
+{{--                <div class="about-badge-card">--}}
+{{--                    <div class="badge-big">10+</div>--}}
+{{--                    <div class="badge-txt">--}}
+{{--                        <strong>Years</strong>--}}
+{{--                        of Excellence--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-        </div>
-    </div>
-</section>
+{{--            <!-- Content -->--}}
+{{--            <div data-reveal style="transition-delay:.02s">--}}
+{{--                <span class="section-label">About Us</span>--}}
+{{--                <h2 class="section-title" style="margin-bottom:1rem">--}}
+{{--                    Your Trusted Partner for--}}
+{{--                    <span>Unforgettable Journeys</span>--}}
+{{--                </h2>--}}
+{{--                <p style="font-size:.9rem;color:var(--muted);line-height:1.85;margin-bottom:1.8rem">--}}
+{{--                    Upokul Travels is dedicated to creating meaningful travel experiences.--}}
+{{--                    From breathtaking coastal tours to personalized holiday packages,--}}
+{{--                    we ensure comfort, safety, and unforgettable memories for every traveler.--}}
+{{--                </p>--}}
+{{--                <ul class="about-list">--}}
+{{--                    <li><i class="fas fa-check-circle"></i> Trusted & experienced travel experts</li>--}}
+{{--                    <li><i class="fas fa-check-circle"></i> Customized tour packages for every budget</li>--}}
+{{--                    <li><i class="fas fa-check-circle"></i> 24/7 customer support throughout your journey</li>--}}
+{{--                </ul>--}}
+{{--                <a href="#trusted" class="btn btn-primary">--}}
+{{--                    <i class="fas fa-award"></i> Why Choose Us?--}}
+{{--                </a>--}}
+{{--            </div>--}}
+
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</section>--}}
 
 <!-- ░░░ SERVICES ░░░ -->
 <section id="services">

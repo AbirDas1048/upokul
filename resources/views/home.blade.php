@@ -91,48 +91,50 @@
 </section>
 
 <!-- About Section -->
-<section id="about" class="about-section">
-    <div class="container">
-        <div class="row align-items-center gy-5">
+@include('partials.sections.about', ['variant' => 'classic'])
 
-            <!-- Image -->
-            <div class="col-lg-6" data-reveal>
-                <div class="about-image-wrapper">
-                    <img src="{{ asset('images/Logo.png') }}" alt="About {{ config('app.name') }}">
-                </div>
-            </div>
+{{--<section id="about" class="about-section">--}}
+{{--    <div class="container">--}}
+{{--        <div class="row align-items-center gy-5">--}}
 
-            <!-- Content -->
-            <div class="col-lg-6" data-reveal>
-                <div class="about-content">
-                    <h4 class="about-badge">About Us</h4>
+{{--            <!-- Image -->--}}
+{{--            <div class="col-lg-6" data-reveal>--}}
+{{--                <div class="about-image-wrapper">--}}
+{{--                    <img src="{{ asset('images/Logo.png') }}" alt="About {{ config('app.name') }}">--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
-                    <h2>
-                        Your Trusted Partner for
-                        <span>Unforgettable Journeys</span>
-                    </h2>
+{{--            <!-- Content -->--}}
+{{--            <div class="col-lg-6" data-reveal>--}}
+{{--                <div class="about-content">--}}
+{{--                    <h4 class="about-badge">About Us</h4>--}}
 
-                    <p>
-                        Upokul Travels is dedicated to creating meaningful travel experiences.
-                        From breathtaking coastal tours to personalized holiday packages,
-                        we ensure comfort, safety, and unforgettable memories.
-                    </p>
+{{--                    <h2>--}}
+{{--                        Your Trusted Partner for--}}
+{{--                        <span>Unforgettable Journeys</span>--}}
+{{--                    </h2>--}}
 
-                    <ul class="about-list">
-                        <li><i class="fas fa-check-circle"></i> Trusted & experienced travel experts</li>
-                        <li><i class="fas fa-check-circle"></i> Customized tour packages</li>
-                        <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>
-                    </ul>
+{{--                    <p>--}}
+{{--                        Upokul Travels is dedicated to creating meaningful travel experiences.--}}
+{{--                        From breathtaking coastal tours to personalized holiday packages,--}}
+{{--                        we ensure comfort, safety, and unforgettable memories.--}}
+{{--                    </p>--}}
 
-                    <a href="#trusted" class="btn premium-btn premium-btn-pill premium-btn-glossy-primary mt-3" data-reveal>
-                        Why Choose Us?
-                    </a>
-                </div>
-            </div>
+{{--                    <ul class="about-list">--}}
+{{--                        <li><i class="fas fa-check-circle"></i> Trusted & experienced travel experts</li>--}}
+{{--                        <li><i class="fas fa-check-circle"></i> Customized tour packages</li>--}}
+{{--                        <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>--}}
+{{--                    </ul>--}}
 
-        </div>
-    </div>
-</section>
+{{--                    <a href="#trusted" class="btn premium-btn premium-btn-pill premium-btn-glossy-primary mt-3" data-reveal>--}}
+{{--                        Why Choose Us?--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</section>--}}
 
 <!-- Services Section -->
 <section id="services" class="services-section">
