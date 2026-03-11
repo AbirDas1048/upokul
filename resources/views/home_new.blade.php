@@ -36,6 +36,11 @@
             --white     : #ffffff;
             --muted     : rgba(255,255,255,.48);
             --border    : rgba(35,205,210,.1);
+            --footer-bg: rgba(0,0,0,.55);
+            --footer-border: rgba(35,205,210,.07);
+            --footer-link-color: rgba(255,255,255,.28);
+            --footer-link-hover: var(--teal-mid);
+            --footer-copy-color: rgba(255,255,255,.18);
 
             --display : 'Cormorant Garamond', serif;
             --body    : 'Poppins', sans-serif;
@@ -885,25 +890,6 @@
 
         @media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
 
-        /* ══════════════════════════════════════
-           FOOTER
-        ══════════════════════════════════════ */
-        footer{
-            padding:3rem 0;
-            background:rgba(0,0,0,.55);
-            border-top:1px solid rgba(35,205,210,.07);
-            text-align:center;
-        }
-        .footer-links{
-            display:flex;justify-content:center;
-            gap:2.2rem;flex-wrap:wrap;margin-bottom:1.4rem;
-        }
-        .footer-links a{
-            font-size:.7rem;letter-spacing:.17em;text-transform:uppercase;
-            color:rgba(255,255,255,.28);transition:color .25s;
-        }
-        .footer-links a:hover{color:var(--teal-mid)}
-        .footer-copy{font-size:.72rem;color:rgba(255,255,255,.18)}
 
         /* ══════════════════════════════════════
            SCROLL REVEAL
@@ -978,10 +964,10 @@
             .badge-big{font-size:1.7rem}
             .contact-card{padding:1.1rem}
             .review-actions .btn{width:100%;justify-content:center}
-            .footer-links{gap:.75rem}
         }
 
     </style>
+    <link rel="stylesheet" href="{{ asset('home/css/footer-common.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
 </head>
 <body>
@@ -1094,7 +1080,7 @@
 @include('partials.sections.contact', ['variant' => 'modern'])
 
 <!-- Footer Section -->
-@include('partials.sections.footer', ['variant' => 'modern'])
+@include('partials.sections.footer')
 
 <!-- Floating WhatsApp Button -->
 @include('partials.sections.whatsapp')
