@@ -1,7 +1,7 @@
 :root {
-    --footer-bg: rgba(0, 0, 0, 0.55);
-    --footer-border: rgba(35, 205, 210, 0.07);
-    --footer-link-color: rgba(255, 255, 255, 0.28);
-    --footer-link-hover: #23cdd2;
-    --footer-copy-color: rgba(255, 255, 255, 0.18);
+    --footer-bg: rgba(6, 28, 30, 0.90);
+    --footer-border: rgba(250, 204, 21, 0.22);
+    --footer-link-color: rgba(255, 255, 255, 0.62);
+    --footer-link-hover: #facc15;
+    --footer-copy-color: rgba(255, 255, 255, 0.70);
 }

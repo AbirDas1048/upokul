@@ -38,9 +38,9 @@
             --border    : rgba(35,205,210,.1);
             --footer-bg: rgba(0,0,0,.55);
             --footer-border: rgba(35,205,210,.07);
-            --footer-link-color: rgba(255,255,255,.28);
+            --footer-link-color: rgba(255,255,255,.55);
             --footer-link-hover: var(--teal-mid);
-            --footer-copy-color: rgba(255,255,255,.18);
+            --footer-copy-color: rgba(255,255,255,.42);
 
             --display : 'Cormorant Garamond', serif;
             --body    : 'Poppins', sans-serif;
