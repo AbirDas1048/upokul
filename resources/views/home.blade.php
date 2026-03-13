@@ -28,6 +28,26 @@
     <link rel="stylesheet" href="{{ asset('home/css/contact-modern.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
+
+    <style>
+        :root {
+            --contact-dark-900: linear-gradient(135deg, #f8fafc, #eef2ff);
+            --contact-border: rgba(32, 201, 151, 0.2);
+            --contact-white: #0f172a;
+            --contact-muted: #475569;
+            --contact-teal-mid: var(--accent-green);
+            --contact-teal-deep: #0f766e;
+            --contact-teal-sage: #34d399;
+            --contact-card-bg: #ffffff;
+            --contact-input-bg: #ffffff;
+            --contact-input-border: #d1d5db;
+            --contact-placeholder: #9ca3af;
+            --contact-focus-bg: #ffffff;
+            --contact-owner-border: #e5e7eb;
+            --contact-label-bg: rgba(32, 201, 151, 0.08);
+            --contact-label-border: rgba(32, 201, 151, 0.32);
+        }
+    </style>
 </head>
 
 <body>
