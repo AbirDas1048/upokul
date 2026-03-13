@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/contact-modern.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
 </head>
@@ -107,7 +107,7 @@
 @include('partials.sections.reviews', ['variant' => 'classic'])
 
 <!-- Contact Section -->
-@include('partials.sections.contact', ['variant' => 'classic'])
+@include('partials.sections.contact', ['variant' => 'modern'])
 
 <!-- Footer Section -->
 @include('partials.sections.footer')

@@ -20,6 +20,7 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{ asset('home/css/contact-modern.css') }}">
     <style>
 
         /* ══════════════════════════════════════
@@ -810,86 +811,6 @@
         .review-src img{width:14px;height:14px}
 
         .review-actions{text-align:center;margin-top:3.5rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-
-        /* ══════════════════════════════════════
-           CONTACT
-        ══════════════════════════════════════ */
-        #contact{
-            padding:8rem 0;
-            background:var(--dark-900);
-            border-top:1px solid var(--border);
-        }
-        .contact-hd{text-align:center;margin-bottom:3.5rem}
-
-        .contact-grid{
-            display:grid;grid-template-columns:1fr 1fr;
-            gap:2rem;
-        }
-
-        .contact-card{
-            background:rgba(15,109,111,.07);
-            border:1px solid var(--border);
-            border-radius:var(--r);padding:2.6rem;
-        }
-        .contact-card h4{
-            font-family:var(--display);font-size:1.6rem;font-weight:400;
-            color:var(--white);margin-bottom:1.8rem;
-        }
-
-        .form-group{margin-bottom:1.1rem}
-        .form-group input,
-        .form-group textarea{
-            width:100%;
-            padding:.88rem 1.1rem;
-            background:rgba(255,255,255,.04);
-            border:1px solid rgba(255,255,255,.09);
-            border-radius:4px;
-            color:var(--white);
-            font-family:var(--body);font-size:.86rem;
-            outline:none;
-            transition:border-color .3s,background .3s;
-            resize:none;
-        }
-        .form-group input::placeholder,
-        .form-group textarea::placeholder{color:rgba(255,255,255,.26)}
-        .form-group input:focus,
-        .form-group textarea:focus{
-            border-color:var(--teal-mid);
-            background:rgba(35,205,210,.05);
-        }
-
-        /* Map */
-        .map-box{
-            border-radius:var(--r);overflow:hidden;
-            margin-bottom:1.8rem;border:1px solid var(--border);
-        }
-        .map-box iframe{width:100%;height:220px;border:none;display:block}
-
-        .company-info h4{
-            font-family:var(--display);font-size:1.4rem;font-weight:400;
-            color:var(--white);margin-bottom:.9rem;
-        }
-        .company-info p{font-size:.84rem;color:var(--muted);line-height:2.2}
-        .company-info i{color:var(--teal-mid);margin-right:.4rem;width:16px}
-
-        .owner-box{
-            display:flex;align-items:flex-start;gap:1rem;
-            margin-top:1.6rem;padding-top:1.6rem;
-            border-top:1px solid rgba(255,255,255,.05);
-        }
-        .owner-avatar{
-            width:50px;height:50px;border-radius:50%;flex-shrink:0;
-            background:linear-gradient(135deg,var(--teal-deep),var(--teal-sage));
-            border:2px solid var(--teal-mid);
-            display:flex;align-items:center;justify-content:center;
-            font-family:var(--display);font-size:1.3rem;color:#fff;
-        }
-        .owner-meta{display:flex;flex-direction:column;gap:.28rem}
-        .owner-meta strong{font-size:.85rem;color:var(--white)}
-        .owner-meta span{font-size:.78rem;color:var(--muted)}
-        .owner-meta i{color:var(--teal-mid);margin-right:.35rem}
-
-        @media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
 
         /* ══════════════════════════════════════
            SCROLL REVEAL

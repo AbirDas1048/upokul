@@ -18,6 +18,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('new/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/contact-modern.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
 </head>
@@ -102,7 +103,7 @@
 
 
 <!-- Contact Section -->
-@include('partials.sections.contact', ['variant' => 'classic'])
+@include('partials.sections.contact', ['variant' => 'modern'])
 
 <!-- Footer Section -->
 @include('partials.sections.footer')
