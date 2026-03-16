@@ -1191,22 +1191,8 @@
 <!-- ░░░ CONTACT ░░░ -->
 @include('partials.sections.contact', ['variant' => 'modern'])
 
-<!-- ░░░ FOOTER ░░░ -->
-<footer>
-    <div class="container">
-        <div class="footer-links">
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#contact">Contact</a>
-        </div>
-        <p class="footer-copy">
-            © {{ date('Y') }} {{ config('app.name') }}.
-            All Rights Reserved.
-        </p>
-    </div>
-</footer>
+<!-- Footer Section -->
+@include('partials.sections.footer', ['variant' => 'modern'])
 
 <!-- Floating WhatsApp Button -->
 <a href="https://wa.me/{{config('custom.whatsapp_number')}}" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">

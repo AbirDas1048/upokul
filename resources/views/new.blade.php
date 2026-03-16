@@ -103,26 +103,8 @@
 <!-- Contact Section -->
 @include('partials.sections.contact', ['variant' => 'classic'])
 
-<!-- Footer -->
-<div class="footer-bottom text-center py-4">
-    <div class="container">
-
-        <!-- Anchor Links -->
-        <div class="footer-anchor-links mb-2">
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#contact">Contact</a>
-        </div>
-
-        <!-- Copyright -->
-        <small class="footer-copy">
-            © {{ date('Y') }} {{ config('app.name') }}.
-            All Rights Reserved.
-        </small>
-
-    </div>
-</div>
+<!-- Footer Section -->
+@include('partials.sections.footer', ['variant' => 'classic'])
 
 <!-- Floating WhatsApp Button -->
 <a href="https://wa.me/{{config('custom.whatsapp_number')}}" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">

@@ -99,37 +99,17 @@
 <!-- Counter Section -->
 @include('partials.sections.trusted', ['variant' => 'classic'])
 
-
 <!-- Gallery Section -->
 @include('partials.sections.gallery', ['variant' => 'classic'])
 
 <!-- Review Section -->
 @include('partials.sections.reviews', ['variant' => 'classic'])
 
-
 <!-- Contact Section -->
 @include('partials.sections.contact', ['variant' => 'classic'])
 
-<!-- Footer -->
-<div class="footer-bottom text-center py-4">
-    <div class="container">
-
-        <!-- Anchor Links -->
-        <div class="footer-anchor-links mb-2">
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#contact">Contact</a>
-        </div>
-
-        <!-- Copyright -->
-        <small class="footer-copy">
-            © {{ date('Y') }} {{ config('app.name') }}.
-            All Rights Reserved.
-        </small>
-
-    </div>
-</div>
+<!-- Footer Section -->
+@include('partials.sections.footer', ['variant' => 'classic'])
 
 
 <!-- Scripts -->
