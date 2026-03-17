@@ -1174,33 +1174,29 @@
 
 </section>
 
-<!-- ░░░ ABOUT ░░░ -->
+<!-- About Section -->
 @include('partials.sections.about', ['variant' => 'modern'])
-<!-- ░░░ SERVICES ░░░ -->
+
+<!-- Services Section -->
 @include('partials.sections.services', ['variant' => 'modern'])
 
-<!-- ░░░ COUNTER ░░░ -->
+<!-- Counter Section -->
 @include('partials.sections.trusted', ['variant' => 'modern'])
 
-<!-- ░░░ GALLERY ░░░ -->
+<!-- Gallery Section -->
 @include('partials.sections.gallery', ['variant' => 'modern'])
 
 <!-- Review Section -->
 @include('partials.sections.reviews', ['variant' => 'modern'])
 
-<!-- ░░░ CONTACT ░░░ -->
+<!-- Contact Section -->
 @include('partials.sections.contact', ['variant' => 'modern'])
 
 <!-- Footer Section -->
 @include('partials.sections.footer', ['variant' => 'modern'])
 
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/{{config('custom.whatsapp_number')}}" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">
-    <span class="wa-label">Chat with us!</span>
-    <span class="wa-icon">
-        <i class="fab fa-whatsapp"></i>
-    </span>
-</a>
+@include('partials.sections.whatsapp', ['variant' => 'modern'])
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

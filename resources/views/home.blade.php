@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
 </head>
 
 <body>
@@ -110,6 +111,9 @@
 
 <!-- Footer Section -->
 @include('partials.sections.footer', ['variant' => 'classic'])
+
+<!-- Floating WhatsApp Button -->
+@include('partials.sections.whatsapp', ['variant' => 'classic'])
 
 
 <!-- Scripts -->
