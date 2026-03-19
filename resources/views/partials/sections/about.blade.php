@@ -30,9 +30,9 @@
                         we ensure comfort, safety, and unforgettable memories for every traveler.
                     </p>
                     <ul class="about-list">
-                        <li><i class="fas fa-check-circle"></i> Trusted & experienced travel experts</li>
-                        <li><i class="fas fa-check-circle"></i> Customized tour packages for every budget</li>
-                        <li><i class="fas fa-check-circle"></i> 24/7 customer support throughout your journey</li>
+                        <li><i class="fas fa-check-circle"></i><span>Trusted & experienced travel experts</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>Customized tour packages for every budget</span></li>
+                        <li><i class="fas fa-check-circle"></i><span>24/7 customer support throughout your journey</span></li>
                     </ul>
                     <a href="#trusted" class="btn btn-primary">
                         <i class="fas fa-award"></i> Why Choose Us?
@@ -71,9 +71,9 @@
                         </p>
 
                         <ul class="about-list">
-                            <li><i class="fas fa-check-circle"></i> Trusted & experienced travel experts</li>
-                            <li><i class="fas fa-check-circle"></i> Customized tour packages</li>
-                            <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>
+                            <li><i class="fas fa-check-circle"></i><span>Trusted & experienced travel experts</span></li>
+                            <li><i class="fas fa-check-circle"></i><span>Customized tour packages</span></li>
+                            <li><i class="fas fa-check-circle"></i><span>24/7 customer support</span></li>
                         </ul>
 
                         <a href="#trusted" class="btn premium-btn premium-btn-pill premium-btn-glossy-primary mt-3" data-reveal>
