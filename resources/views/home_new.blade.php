@@ -1196,7 +1196,7 @@
 @include('partials.sections.footer', ['variant' => 'modern'])
 
 <!-- Floating WhatsApp Button -->
-@include('partials.sections.whatsapp', ['variant' => 'modern'])
+@include('partials.sections.whatsapp')
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

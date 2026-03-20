@@ -25,7 +25,6 @@
 <!-- Navbar -->
 <nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-dark">
     <div class="container">
-        {{--        <a class="navbar-brand fw-bold" href="#hero">{{ config('app.name') }}</a>--}}
         <a class="navbar-brand fw-bold" href="#hero">
             <img src="{{ asset('images/Logo.png') }}" alt="{{ config('app.name') }}" class="brand-logo">
             <span class="brand-text">{{ config('app.name') }}</span>
@@ -107,7 +106,7 @@
 @include('partials.sections.footer', ['variant' => 'classic'])
 
 <!-- Floating WhatsApp Button -->
-@include('partials.sections.whatsapp', ['variant' => 'classic'])
+@include('partials.sections.whatsapp')
 
 
 <!-- Scripts -->

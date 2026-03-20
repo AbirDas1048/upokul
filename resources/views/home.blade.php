@@ -113,7 +113,7 @@
 @include('partials.sections.footer', ['variant' => 'classic'])
 
 <!-- Floating WhatsApp Button -->
-@include('partials.sections.whatsapp', ['variant' => 'classic'])
+@include('partials.sections.whatsapp')
 
 
 <!-- Scripts -->
