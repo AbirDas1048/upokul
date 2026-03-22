@@ -1,0 +1,43 @@
+/* Shared footer styles for demo1, demo2, demo3 */
+.footer-bottom {
+    background: var(--footer-bg, rgba(0, 0, 0, 0.55));
+    border-top: 1px solid var(--footer-border, rgba(35, 205, 210, 0.07));
+}
+
+.footer-anchor-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--footer-link-gap, 2.2rem);
+}
+
+.footer-anchor-links a {
+    color: var(--footer-link-color, rgba(255, 255, 255, 0.28));
+    font-size: var(--footer-link-size, 0.7rem);
+    letter-spacing: var(--footer-link-spacing, 0.17em);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.footer-anchor-links a:hover {
+    color: var(--footer-link-hover, #23cdd2);
+}
+
+.footer-copy {
+    color: var(--footer-copy-color, rgba(255, 255, 255, 0.18));
+    font-size: var(--footer-copy-size, 0.72rem);
+}
+
+@media (max-width: 768px) {
+    .footer-anchor-links {
+        max-width: 320px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 12px;
+        column-gap: 24px;
+        text-align: center;
+    }
+}

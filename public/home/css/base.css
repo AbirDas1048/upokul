@@ -1,4 +1,11 @@
-:root { --accent-green: #20c997; }
+:root {
+    --accent-green: #20c997;
+    --footer-bg: var(--accent-green);
+    --footer-border: rgba(255,255,255,0.08);
+    --footer-link: #ffffff;
+    --footer-link-hover: #facc15;
+    --footer-copy: #ffffff;
+}
 
 /* --- Global Responsive Typography --- */
 html { font-size: 16px; }

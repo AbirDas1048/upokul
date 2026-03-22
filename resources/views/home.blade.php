@@ -110,7 +110,7 @@
 @include('partials.sections.contact', ['variant' => 'classic'])
 
 <!-- Footer Section -->
-@include('partials.sections.footer', ['variant' => 'classic'])
+@include('partials.sections.footer')
 
 <!-- Floating WhatsApp Button -->
 @include('partials.sections.whatsapp')
