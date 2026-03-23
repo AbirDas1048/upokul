@@ -19,17 +19,32 @@ footer{
     text-transform:uppercase;
     color:var(--footer-link);
     transition:color .25s;
+    position:relative;
+}
+
+/* animated underline */
+.footer-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-4px;
+    width:100%;
+    height:2px;
+    background:var(--footer-link-hover);
+    transform:scaleX(0);
+    transform-origin:center;
+    transition: transform .35s cubic-bezier(.4,0,.2,1);
 }
 
 .footer-links a:hover{
     color:var(--footer-link-hover);
 }
 
+.footer-links a:hover::after{
+    transform:scaleX(1);
+}
+
 .footer-copy{
     font-size:.72rem;
     color:var(--footer-copy);
-}
-
-@media (max-width:349px){
-    .footer-links{gap:.75rem}
 }

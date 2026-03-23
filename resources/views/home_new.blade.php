@@ -43,6 +43,7 @@
             --ease    : cubic-bezier(.4,0,.2,1);
             --dur     : .38s;
             --r       : 8px;
+
             --footer-bg: rgba(0,0,0,.55);
             --footer-border: rgba(35,205,210,.07);
             --footer-link: rgba(255,255,255,.28);
@@ -891,26 +892,6 @@
         @media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
 
         /* ══════════════════════════════════════
-           FOOTER
-        ══════════════════════════════════════ */
-        /*footer{*/
-        /*    padding:3rem 0;*/
-        /*    background:rgba(0,0,0,.55);*/
-        /*    border-top:1px solid rgba(35,205,210,.07);*/
-        /*    text-align:center;*/
-        /*}*/
-        /*.footer-links{*/
-        /*    display:flex;justify-content:center;*/
-        /*    gap:2.2rem;flex-wrap:wrap;margin-bottom:1.4rem;*/
-        /*}*/
-        /*.footer-links a{*/
-        /*    font-size:.7rem;letter-spacing:.17em;text-transform:uppercase;*/
-        /*    color:rgba(255,255,255,.28);transition:color .25s;*/
-        /*}*/
-        /*.footer-links a:hover{color:var(--teal-mid)}*/
-        /*.footer-copy{font-size:.72rem;color:rgba(255,255,255,.18)}*/
-
-        /* ══════════════════════════════════════
            SCROLL REVEAL
         ══════════════════════════════════════ */
         [data-reveal]{
@@ -983,7 +964,6 @@
             .badge-big{font-size:1.7rem}
             .contact-card{padding:1.1rem}
             .review-actions .btn{width:100%;justify-content:center}
-            /*.footer-links{gap:.75rem}*/
         }
 
     </style>
