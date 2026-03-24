@@ -107,7 +107,7 @@
 @include('partials.sections.reviews', ['variant' => 'classic'])
 
 <!-- Contact Section -->
-@include('partials.sections.contact', ['variant' => 'classic'])
+@include('partials.sections.contact')
 
 <!-- Footer Section -->
 @include('partials.sections.footer')
