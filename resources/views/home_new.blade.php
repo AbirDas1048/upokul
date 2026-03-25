@@ -44,21 +44,33 @@
             --dur     : .38s;
             --r       : 8px;
 
-            --contact-bg:var(--dark-900);
+            /*--contact-bg:var(--dark-900);*/
 
+            /*--contact-card-bg:rgba(15,109,111,.07);*/
+            /*--contact-border:var(--border);*/
+            /*--contact-shadow:none;*/
+
+            /*--contact-text:#fff;*/
+            /*--contact-muted:rgba(255,255,255,.5);*/
+
+            /*--contact-accent:var(--teal-mid);*/
+
+            /*--contact-input-bg:rgba(255,255,255,.04);*/
+            /*--contact-input-border:rgba(255,255,255,.09);*/
+
+            /*--contact-owner-border:rgba(255,255,255,.08);*/
+
+            --contact-bg:var(--dark-900);
             --contact-card-bg:rgba(15,109,111,.07);
             --contact-border:var(--border);
-            --contact-shadow:none;
 
-            --contact-text:#fff;
-            --contact-muted:rgba(255,255,255,.5);
-
-            --contact-accent:var(--teal-mid);
+            --contact-text:#ffffff;
+            --contact-muted:rgba(255,255,255,.6);
 
             --contact-input-bg:rgba(255,255,255,.04);
-            --contact-input-border:rgba(255,255,255,.09);
+            --contact-input-border:rgba(255,255,255,.1);
 
-            --contact-owner-border:rgba(255,255,255,.08);
+            --contact-accent:var(--teal-mid);
 
             --footer-bg: rgba(0,0,0,.55);
             --footer-border: rgba(35,205,210,.07);

@@ -45,21 +45,33 @@
     --nav-height:    76px;
     --section-pad:   100px;
 
-    --contact-bg:var(--off-white);
+    /*--contact-bg:var(--off-white);*/
 
-    --contact-card-bg:#fff;
+    /*--contact-card-bg:#fff;*/
+    /*--contact-border:rgba(35,205,210,.18);*/
+    /*--contact-shadow:var(--shadow-md);*/
+
+    /*--contact-text:#0f172a;*/
+    /*--contact-muted:#64748b;*/
+
+    /*--contact-accent:var(--teal-dark);*/
+
+    /*--contact-input-bg:var(--off-white);*/
+    /*--contact-input-border:rgba(35,205,210,.22);*/
+
+    /*--contact-owner-border:rgba(35,205,210,.18);*/
+
+    --contact-bg:var(--off-white);
+    --contact-card-bg:#ffffff;
     --contact-border:rgba(35,205,210,.18);
-    --contact-shadow:var(--shadow-md);
 
     --contact-text:#0f172a;
     --contact-muted:#64748b;
 
-    --contact-accent:var(--teal-dark);
-
-    --contact-input-bg:var(--off-white);
+    --contact-input-bg:#ffffff;
     --contact-input-border:rgba(35,205,210,.22);
 
-    --contact-owner-border:rgba(35,205,210,.18);
+    --contact-accent:var(--teal-dark);
 
     --footer-bg: linear-gradient(135deg, var(--teal-deeper) 0%, var(--teal-dark) 100%);
     --footer-border: rgba(35,205,210,.07);

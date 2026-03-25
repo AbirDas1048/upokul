@@ -1,5 +1,5 @@
 #contact{
-    padding:var(--contact-padding) 0;
+    padding:8rem 0;
     background:var(--contact-bg);
 }
 
@@ -17,16 +17,13 @@
 .contact-card{
     background:var(--contact-card-bg);
     border:1px solid var(--contact-border);
-    border-radius:var(--contact-radius);
-    padding:2.6rem;
-    box-shadow:var(--contact-shadow);
+    border-radius:18px;
+    padding:2.5rem;
 }
 
 .contact-card h4{
-    font-size:1.4rem;
-    font-weight:600;
-    color:var(--contact-text);
     margin-bottom:1.6rem;
+    color:var(--contact-text);
 }
 
 /* FORM */
@@ -39,13 +36,20 @@
 .form-group textarea{
     width:100%;
     padding:.9rem 1.1rem;
+
     background:var(--contact-input-bg);
     border:1px solid var(--contact-input-border);
-    border-radius:var(--contact-input-radius);
+
+    border-radius:12px; /* rounded inputs */
+
     font-size:.95rem;
     color:var(--contact-text);
+
     outline:none;
     transition:.25s;
+}
+
+.form-group textarea{
     resize:none;
 }
 
@@ -59,12 +63,18 @@
     border-color:var(--contact-accent);
 }
 
+/* SUBMIT BUTTON FULL WIDTH */
+
+#contact button[type="submit"]{
+    width:100%;
+}
+
 /* MAP */
 
 .map-box{
-    border-radius:var(--contact-map-radius);
+    border-radius:14px;
     overflow:hidden;
-    margin-bottom:1.6rem;
+    margin-bottom:1.5rem;
     border:1px solid var(--contact-border);
 }
 
@@ -72,41 +82,30 @@
     width:100%;
     height:220px;
     border:none;
-    display:block;
 }
 
 /* COMPANY INFO */
 
-.company-info{
-    margin-bottom:1.4rem;
-}
-
-.company-info h4{
-    font-size:1.2rem;
-    margin-bottom:.5rem;
-    color:var(--contact-text);
-}
-
 .company-info p{
+    color:var(--contact-muted);
     font-size:.9rem;
     line-height:1.9;
-    color:var(--contact-muted);
 }
 
 .company-info i{
     color:var(--contact-accent);
     width:18px;
-    margin-right:.3rem;
 }
 
-/* OWNER BOX */
+/* OWNER */
 
 .owner-box{
     display:flex;
     align-items:center;
     gap:1rem;
-    padding-top:1.2rem;
-    border-top:1px solid var(--contact-owner-border);
+    margin-top:1.3rem;
+    padding-top:1rem;
+    border-top:1px solid var(--contact-border);
 }
 
 .owner-box img{
@@ -114,13 +113,6 @@
     height:60px;
     border-radius:50%;
     object-fit:cover;
-    flex-shrink:0;
-}
-
-.owner-box div{
-    display:flex;
-    flex-direction:column;
-    gap:.2rem;
 }
 
 .owner-box strong{
