@@ -3,6 +3,10 @@
     background:var(--contact-bg);
 }
 
+.contact-hd{
+    text-align:center;
+}
+
 /* GRID */
 
 .contact-grid{
