@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="owner-box">
-                    <div class="owner-avatar">M</div>
+                    <img src="{{ asset('images/avatar.png') }}" alt="Owner">
                     <div class="owner-meta">
                         <strong><i class="fas fa-user-tie"></i> {{ config('custom.owner_designation') }}: Mr. {{ config('custom.owner_name') }}</strong>
                         <span><i class="fas fa-envelope"></i> {{ config('custom.owner_email') }}</span>
