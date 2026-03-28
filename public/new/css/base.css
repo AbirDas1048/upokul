@@ -73,6 +73,11 @@
 
     --contact-accent:var(--teal-dark);
 
+    /* BUTTON */
+    --contact-btn-bg: var(--teal-dark);
+    --contact-btn-border: var(--teal-dark);
+    --contact-btn-text: #ffffff;
+
     --footer-bg: linear-gradient(135deg, var(--teal-deeper) 0%, var(--teal-dark) 100%);
     --footer-border: rgba(35,205,210,.07);
     --footer-link: rgba(255,255,255,0.65);

@@ -41,6 +41,11 @@
 
     --contact-accent:var(--accent-green);
 
+    /* BUTTON */
+    --contact-btn-bg: var(--accent-green);
+    --contact-btn-border: var(--accent-green);
+    --contact-btn-text: #ffffff;
+
     --footer-bg: var(--accent-green);
     --footer-border: rgba(255,255,255,0.08);
     --footer-link: #ffffff;

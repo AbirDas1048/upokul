@@ -70,6 +70,9 @@
 /* SUBMIT BUTTON FULL WIDTH */
 
 #contact button[type="submit"]{
+    background:var(--contact-btn-bg);
+    border-color:var(--contact-btn-border);
+    color:var(--contact-btn-text);
     width:100%;
 }
 
