@@ -70,10 +70,49 @@
 /* SUBMIT BUTTON FULL WIDTH */
 
 #contact button[type="submit"]{
+    position:relative;
+    overflow:hidden;
+
     background:var(--contact-btn-bg);
-    border-color:var(--contact-btn-border);
+    border:1px solid var(--contact-btn-border);
     color:var(--contact-btn-text);
+
     width:100%;
+    transition:all .3s ease;
+}
+
+#contact button[type="submit"]::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-75%;
+    width:50%;
+    height:100%;
+
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.45),
+        transparent
+    );
+
+    transform:skewX(-25deg);
+    transition:.6s;
+}
+
+#contact button[type="submit"]:hover::before{
+    left:125%;
+}
+
+/*#contact button[type="submit"]:hover{*/
+/*    transform:translateY(-2px);*/
+/*    box-shadow:0 10px 25px rgba(0,0,0,0.15);*/
+/*}*/
+
+#contact button[type="submit"]:hover{
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.15),
+        0 0 10px var(--contact-btn-bg);
 }
 
 /* MAP */
