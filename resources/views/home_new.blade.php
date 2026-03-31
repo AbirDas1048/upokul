@@ -44,6 +44,25 @@
             --dur     : .38s;
             --r       : 8px;
 
+            --reviews-bg: linear-gradient(180deg,#0f172a 0%,rgba(15,109,111,.07) 100%);
+
+            --review-card-bg: rgba(15,109,111,.07);
+            --review-card-hover-bg: rgba(15,109,111,.13);
+
+            --review-border: rgba(255,255,255,.08);
+            --review-border-hover: rgba(35,205,210,.25);
+
+            --review-shadow-hover: 0 24px 55px rgba(15,109,111,.2);
+
+            --review-text: rgba(255,255,255,.75);
+            --review-author: #fff;
+            --review-muted: #94a3b8;
+
+            --review-divider: rgba(255,255,255,.08);
+            --review-star: #f5c542;
+
+            --review-quote-bg: rgba(35,205,210,.12);
+
             /*--contact-bg:var(--dark-900);*/
 
             /*--contact-card-bg:rgba(15,109,111,.07);*/
@@ -173,22 +192,6 @@
             color:#fff;
         }
         .btn-outline:hover{border-color:var(--teal-mid);color:var(--teal-mid);background:rgba(35,205,210,.08);transform:translateY(-3px)}
-
-        .btn-google{
-            padding:.72rem 1.7rem;
-            background:rgba(255,255,255,.04);
-            border:1px solid rgba(255,255,255,.12);
-            color:var(--muted);
-        }
-        .btn-google:hover{border-color:#4285F4;color:#4285F4;transform:translateY(-3px)}
-
-        .btn-fb{
-            padding:.72rem 1.7rem;
-            background:rgba(255,255,255,.04);
-            border:1px solid rgba(255,255,255,.12);
-            color:var(--muted);
-        }
-        .btn-fb:hover{border-color:#1877F2;color:#1877F2;transform:translateY(-3px)}
 
         .btn-block{width:100%;justify-content:center}
         .swal-html-red-bg {
@@ -331,7 +334,7 @@
             .hero-btns .btn{width:100%;justify-content:center;padding:.74rem 1rem}
             .hero-stat-num{font-size:1.7rem}
             .hero-stat-lbl{font-size:.58rem}
-            #about,#services,#gallery,#reviews{padding:5.5rem 0}
+            #about,#services,#gallery{padding:5.5rem 0}
             #trusted{padding:4.5rem 0}
         }
 
@@ -799,52 +802,6 @@
         .fs-close:hover{color:var(--teal-mid)}
 
         /* ══════════════════════════════════════
-           REVIEWS
-        ══════════════════════════════════════ */
-        #reviews{
-            padding:8rem 0;
-            background:linear-gradient(180deg,var(--dark-800) 0%,rgba(15,109,111,.07) 100%);
-        }
-        .reviews-hd{text-align:center;margin-bottom:3.5rem}
-
-        .review-card{
-            background:rgba(15,109,111,.07);
-            border:1px solid var(--border);
-            border-radius:var(--r);padding:2rem;
-            height:100%;
-            transition:var(--dur) var(--ease);
-        }
-        .review-card:hover{
-            border-color:rgba(35,205,210,.25);
-            background:rgba(15,109,111,.13);
-            transform:translateY(-5px);
-            box-shadow:0 24px 55px rgba(15,109,111,.2);
-        }
-
-        .review-stars{color:#f5c542;font-size:.92rem;letter-spacing:.1em;margin-bottom:1rem}
-
-        .review-quote{
-            font-family:var(--display);font-style:italic;
-            font-size:1.04rem;color:rgba(255,255,255,.74);
-            line-height:1.72;margin-bottom:1.5rem;
-        }
-
-        .review-author{
-            display:flex;justify-content:space-between;align-items:center;
-            flex-wrap:wrap;gap:.5rem;
-            border-top:1px solid rgba(255,255,255,.05);
-            padding-top:1rem;
-        }
-        .review-author strong{font-size:.85rem;color:var(--white)}
-        .review-src{
-            display:inline-flex;align-items:center;gap:.4rem;
-            font-size:.69rem;color:var(--muted);
-        }
-        .review-src img{width:14px;height:14px}
-
-        .review-actions{text-align:center;margin-top:3.5rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-
-        /* ══════════════════════════════════════
            CONTACT
         ══════════════════════════════════════ */
         /*#contact{*/
@@ -996,10 +953,11 @@
             .about-badge-card{left:.4rem;right:.4rem;padding:.72rem .9rem}
             .badge-big{font-size:1.7rem}
             /*.contact-card{padding:1.1rem}*/
-            .review-actions .btn{width:100%;justify-content:center}
+            /*.review-actions .btn{width:100%;justify-content:center}*/
         }
 
     </style>
+    <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
@@ -1108,7 +1066,7 @@
 @include('partials.sections.gallery', ['variant' => 'modern'])
 
 <!-- Review Section -->
-@include('partials.sections.reviews', ['variant' => 'modern'])
+@include('partials.sections.reviews')
 
 <!-- Contact Section -->
 @include('partials.sections.contact')

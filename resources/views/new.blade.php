@@ -18,6 +18,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('new/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
@@ -99,7 +100,7 @@
 @include('partials.sections.gallery', ['variant' => 'classic'])
 
 <!-- Review Section -->
-@include('partials.sections.reviews', ['variant' => 'classic'])
+@include('partials.sections.reviews')
 
 
 <!-- Contact Section -->

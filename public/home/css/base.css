@@ -1,6 +1,25 @@
 :root {
     --accent-green: #20c997;
 
+    --reviews-bg: #f9fafb;
+
+    --review-card-bg: #ffffff;
+    --review-card-hover-bg: #ffffff;
+
+    --review-border: rgba(0,0,0,0.06);
+    --review-border-hover: rgba(0,0,0,0.12);
+
+    --review-shadow-hover: 0 20px 40px rgba(0,0,0,0.08);
+
+    --review-text: #374151;
+    --review-author: #111827;
+    --review-muted: #6b7280;
+
+    --review-divider: rgba(0,0,0,0.06);
+    --review-star: #fbbf24;
+
+    --review-quote-bg: rgba(0,0,0,0.05);
+
     /* SECTION */
     /*--contact-bg: linear-gradient(135deg,#f8fafc,#eef2ff);*/
     /*--contact-padding: 8rem;*/
