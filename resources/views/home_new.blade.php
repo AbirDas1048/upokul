@@ -44,7 +44,8 @@
             --dur     : .38s;
             --r       : 8px;
 
-            --reviews-bg: linear-gradient(180deg,#0f172a 0%,rgba(15,109,111,.07) 100%);
+            /*--reviews-bg: linear-gradient(180deg,#0f172a 0%,rgba(15,109,111,.07) 100%);*/
+            --reviews-bg: linear-gradient(180deg,var(--dark-800) 0%,rgba(15,109,111,.07) 100%);;
 
             --review-card-bg: rgba(15,109,111,.07);
             --review-card-hover-bg: rgba(15,109,111,.13);
