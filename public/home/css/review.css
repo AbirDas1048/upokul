@@ -12,6 +12,11 @@
     margin-bottom: 3.5rem;
 }
 
+.reviewSwiper {
+    padding-top: 12px;
+    padding-bottom: 45px;
+}
+
 /* CARD */
 .review-card {
     background: var(--review-card-bg);

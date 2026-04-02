@@ -6,7 +6,7 @@
             <p class="section-sub" data-reveal style="transition-delay:.05s">Real experiences from our Google Business & Facebook profiles</p>
         </div>
 
-        <div class="swiper reviewSwiper" style="padding-bottom:3.5rem">
+        <div class="swiper reviewSwiper">
             <div class="swiper-wrapper">
 
                 <div class="swiper-slide">
