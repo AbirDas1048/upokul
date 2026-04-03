@@ -20,33 +20,6 @@
 
     --review-quote-bg: rgba(0,0,0,0.05);
 
-    /* SECTION */
-    /*--contact-bg: linear-gradient(135deg,#f8fafc,#eef2ff);*/
-    /*--contact-padding: 8rem;*/
-
-    /*!* CARD *!*/
-    /*--contact-card-bg:#fff;*/
-    /*--contact-border:#e5e7eb;*/
-    /*--contact-radius:16px;*/
-    /*--contact-shadow:0 25px 50px rgba(0,0,0,.08);*/
-
-    /*!* TEXT *!*/
-    /*--contact-text:#111827;*/
-    /*--contact-muted:#6b7280;*/
-
-    /*!* ACCENT *!*/
-    /*--contact-accent:var(--accent-green);*/
-
-    /*!* INPUT *!*/
-    /*--contact-input-bg:#fff;*/
-    /*--contact-input-border:#e5e7eb;*/
-    /*--contact-input-radius:12px;*/
-
-    /*!* MAP *!*/
-    /*--contact-map-radius:14px;*/
-
-    /*!* OWNER *!*/
-    /*--contact-owner-border:#e5e7eb;*/
 
     --contact-bg:linear-gradient(135deg,#f8fafc,#eef2ff);
     --contact-card-bg:#ffffff;

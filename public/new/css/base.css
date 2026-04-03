@@ -64,22 +64,6 @@
 
     --review-quote-bg: rgba(35,205,210,0.12);
 
-    /*--contact-bg:var(--off-white);*/
-
-    /*--contact-card-bg:#fff;*/
-    /*--contact-border:rgba(35,205,210,.18);*/
-    /*--contact-shadow:var(--shadow-md);*/
-
-    /*--contact-text:#0f172a;*/
-    /*--contact-muted:#64748b;*/
-
-    /*--contact-accent:var(--teal-dark);*/
-
-    /*--contact-input-bg:var(--off-white);*/
-    /*--contact-input-border:rgba(35,205,210,.22);*/
-
-    /*--contact-owner-border:rgba(35,205,210,.18);*/
-
     --contact-bg:var(--off-white);
     --contact-card-bg:#ffffff;
     --contact-border:rgba(35,205,210,.18);
@@ -970,10 +954,6 @@ body:not(.at-top) .navbar,
     border-color: transparent;
 }
 
-
-
-/* ─── CONTACT SECTION ────────────────────────────────────── */
-
 /* ─── ALERT ──────────────────────────────────────────────── */
 .alert {
     border-radius: var(--radius-sm);
@@ -1044,10 +1024,6 @@ body:not(.at-top) .navbar,
 
     .nav-link { padding: 0.55rem 1rem !important; }
     .navbar .btn-warning { margin-top: 0.5rem; margin-left: 1rem; }
-
-    /*.contact-grid {*/
-    /*    grid-template-columns: 1fr;*/
-    /*}*/
 }
 
 @media (max-width: 767.98px) {
@@ -1071,8 +1047,6 @@ body:not(.at-top) .navbar,
     .trust-card { padding: 1.8rem 1rem; }
     .trust-card h3.counter { font-size: 2rem; }
 
-    /*.contact-card { padding: 1.8rem 1.4rem; }*/
-    /*.contact-grid { grid-template-columns: 1fr; gap: 1.4rem; }*/
 
     .gallery-section .container::before,
     .gallery-section .container::after { display: none; }
@@ -1090,8 +1064,6 @@ body:not(.at-top) .navbar,
         font-size: 0.92rem;
     }
 
-    /*.owner-box { flex-direction: column; text-align: center; }*/
-
     /* Trust cards stack on very small screens */
     .trust-section .col-md-6 { width: 100%; }
 
@@ -1103,22 +1075,6 @@ body:not(.at-top) .navbar,
 
     /* Nav text smaller */
     .navbar-brand { font-size: 1.3rem; }
-}
-
-@media (max-width: 360px) {
-    /*.contact-card {*/
-    /*    padding: 1.2rem 0.85rem;*/
-    /*}*/
-
-    /*.form-group input,*/
-    /*.form-group textarea {*/
-    /*    font-size: 0.9rem;*/
-    /*    padding: 0.78rem 0.9rem;*/
-    /*}*/
-
-    /*.owner-box {*/
-    /*    padding: 1rem 0.8rem;*/
-    /*}*/
 }
 
 /* ─── AOS SUBTLE OVERRIDES ───────────────────────────────── */
