@@ -36,6 +36,10 @@
     --radius-lg:     28px;
     --radius-pill:   9999px;
 
+    --ease    : cubic-bezier(.4,0,.2,1);
+    --dur     : .38s;
+    --r       : 8px;
+
     --font-display:  'Cormorant Garamond', Georgia, serif;
     --font-body:     'DM Sans', 'Segoe UI', sans-serif;
 

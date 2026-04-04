@@ -1,6 +1,10 @@
 :root {
     --accent-green: #20c997;
 
+    --ease    : cubic-bezier(.4,0,.2,1);
+    --dur     : .38s;
+    --r       : 8px;
+
     --reviews-bg: #f9fafb;
 
     --review-card-bg: #ffffff;
