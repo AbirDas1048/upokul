@@ -63,6 +63,16 @@
 
             --review-quote-bg: rgba(35,205,210,.12);
 
+            --review-btn-bg: rgba(35,205,210,0.08);
+            --review-btn-border: rgba(35,205,210,0.25);
+            --review-btn-text: #ffffff;
+
+            --review-btn-hover-bg: var(--teal-mid);
+            --review-btn-hover-border: var(--teal-mid);
+            --review-btn-hover-text: #ffffff;
+
+            --review-btn-shadow: 0 14px 36px rgba(35,205,210,.35);
+
             --contact-bg:var(--dark-900);
             --contact-card-bg:rgba(15,109,111,.07);
             --contact-border:var(--border);

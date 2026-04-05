@@ -101,3 +101,42 @@
     gap: 1rem;
     flex-wrap: wrap;
 }
+
+/* ================================
+   REVIEW ACTION BUTTON (GLOBAL)
+================================ */
+
+.review-actions .btn {
+    padding: .82rem 1.8rem;
+    border-radius: 4px;
+    font-size: .75rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 600;
+
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+
+    background: var(--review-btn-bg);
+    border: 1px solid var(--review-btn-border);
+    color: var(--review-btn-text);
+
+    transition:
+        transform var(--dur) var(--ease),
+        box-shadow var(--dur) var(--ease),
+        background var(--dur),
+        border-color var(--dur),
+        color var(--dur);
+}
+
+/* SAME HOVER FOR ALL THEMES */
+.review-actions .btn:hover {
+    transform: translateY(-3px);
+
+    background: var(--review-btn-hover-bg);
+    border-color: var(--review-btn-hover-border);
+    color: var(--review-btn-hover-text);
+
+    box-shadow: var(--review-btn-shadow);
+}
