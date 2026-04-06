@@ -44,21 +44,34 @@
             --dur     : .38s;
             --r       : 8px;
 
-            /*--contact-bg:var(--dark-900);*/
+            --reviews-bg: linear-gradient(180deg,var(--dark-800) 0%,rgba(15,109,111,.07) 100%);;
 
-            /*--contact-card-bg:rgba(15,109,111,.07);*/
-            /*--contact-border:var(--border);*/
-            /*--contact-shadow:none;*/
+            --review-card-bg: rgba(15,109,111,.07);
+            --review-card-hover-bg: rgba(15,109,111,.13);
 
-            /*--contact-text:#fff;*/
-            /*--contact-muted:rgba(255,255,255,.5);*/
+            --review-border: rgba(255,255,255,.08);
+            --review-border-hover: rgba(35,205,210,.25);
 
-            /*--contact-accent:var(--teal-mid);*/
+            --review-shadow-hover: 0 24px 55px rgba(15,109,111,.2);
 
-            /*--contact-input-bg:rgba(255,255,255,.04);*/
-            /*--contact-input-border:rgba(255,255,255,.09);*/
+            --review-text: rgba(255,255,255,.75);
+            --review-author: #fff;
+            --review-muted: #94a3b8;
 
-            /*--contact-owner-border:rgba(255,255,255,.08);*/
+            --review-divider: rgba(255,255,255,.08);
+            --review-star: #f5c542;
+
+            --review-quote-bg: rgba(35,205,210,.12);
+
+            --review-btn-bg: rgba(35,205,210,0.08);
+            --review-btn-border: rgba(35,205,210,0.25);
+            --review-btn-text: #ffffff;
+
+            --review-btn-hover-bg: var(--teal-mid);
+            --review-btn-hover-border: var(--teal-mid);
+            --review-btn-hover-text: #ffffff;
+
+            --review-btn-shadow: 0 14px 36px rgba(35,205,210,.35);
 
             --contact-bg:var(--dark-900);
             --contact-card-bg:rgba(15,109,111,.07);
@@ -174,22 +187,6 @@
         }
         .btn-outline:hover{border-color:var(--teal-mid);color:var(--teal-mid);background:rgba(35,205,210,.08);transform:translateY(-3px)}
 
-        .btn-google{
-            padding:.72rem 1.7rem;
-            background:rgba(255,255,255,.04);
-            border:1px solid rgba(255,255,255,.12);
-            color:var(--muted);
-        }
-        .btn-google:hover{border-color:#4285F4;color:#4285F4;transform:translateY(-3px)}
-
-        .btn-fb{
-            padding:.72rem 1.7rem;
-            background:rgba(255,255,255,.04);
-            border:1px solid rgba(255,255,255,.12);
-            color:var(--muted);
-        }
-        .btn-fb:hover{border-color:#1877F2;color:#1877F2;transform:translateY(-3px)}
-
         .btn-block{width:100%;justify-content:center}
         .swal-html-red-bg {
             margin: 10px;
@@ -269,14 +266,6 @@
         .nav-right{display:flex;align-items:center;gap:.8rem}
 
         /* Mobile menu toggle */
-        /*.hamburger{*/
-        /*    display:none;flex-direction:column;gap:5px;*/
-        /*    background:none;border:none;cursor:pointer;padding:4px;*/
-        /*}*/
-        /*.hamburger span{*/
-        /*    width:24px;height:2px;background:var(--white);*/
-        /*    border-radius:2px;display:block;transition:var(--dur) var(--ease);*/
-        /*}*/
         .hamburger{
             display:none;align-items:center;justify-content:center;
             background:none;border:none;cursor:pointer;
@@ -287,9 +276,6 @@
             border-radius:50%;
             transition:color var(--dur) var(--ease),background var(--dur) var(--ease),transform var(--dur) var(--ease);
         }
-        /*.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}*/
-        /*.hamburger.open span:nth-child(2){opacity:0}*/
-        /*.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}*/
         .hamburger:hover{color:var(--teal-mid);background:rgba(35,205,210,.08)}
         .hamburger.open{color:var(--teal-mid);transform:rotate(90deg)}
 
@@ -331,7 +317,7 @@
             .hero-btns .btn{width:100%;justify-content:center;padding:.74rem 1rem}
             .hero-stat-num{font-size:1.7rem}
             .hero-stat-lbl{font-size:.58rem}
-            #about,#services,#gallery,#reviews{padding:5.5rem 0}
+            #about,#services,#gallery{padding:5.5rem 0}
             #trusted{padding:4.5rem 0}
         }
 
@@ -798,131 +784,6 @@
         }
         .fs-close:hover{color:var(--teal-mid)}
 
-        /* ══════════════════════════════════════
-           REVIEWS
-        ══════════════════════════════════════ */
-        #reviews{
-            padding:8rem 0;
-            background:linear-gradient(180deg,var(--dark-800) 0%,rgba(15,109,111,.07) 100%);
-        }
-        .reviews-hd{text-align:center;margin-bottom:3.5rem}
-
-        .review-card{
-            background:rgba(15,109,111,.07);
-            border:1px solid var(--border);
-            border-radius:var(--r);padding:2rem;
-            height:100%;
-            transition:var(--dur) var(--ease);
-        }
-        .review-card:hover{
-            border-color:rgba(35,205,210,.25);
-            background:rgba(15,109,111,.13);
-            transform:translateY(-5px);
-            box-shadow:0 24px 55px rgba(15,109,111,.2);
-        }
-
-        .review-stars{color:#f5c542;font-size:.92rem;letter-spacing:.1em;margin-bottom:1rem}
-
-        .review-quote{
-            font-family:var(--display);font-style:italic;
-            font-size:1.04rem;color:rgba(255,255,255,.74);
-            line-height:1.72;margin-bottom:1.5rem;
-        }
-
-        .review-author{
-            display:flex;justify-content:space-between;align-items:center;
-            flex-wrap:wrap;gap:.5rem;
-            border-top:1px solid rgba(255,255,255,.05);
-            padding-top:1rem;
-        }
-        .review-author strong{font-size:.85rem;color:var(--white)}
-        .review-src{
-            display:inline-flex;align-items:center;gap:.4rem;
-            font-size:.69rem;color:var(--muted);
-        }
-        .review-src img{width:14px;height:14px}
-
-        .review-actions{text-align:center;margin-top:3.5rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-
-        /* ══════════════════════════════════════
-           CONTACT
-        ══════════════════════════════════════ */
-        /*#contact{*/
-        /*    padding:8rem 0;*/
-        /*    background:var(--dark-900);*/
-        /*    border-top:1px solid var(--border);*/
-        /*}*/
-        /*.contact-hd{text-align:center;margin-bottom:3.5rem}*/
-
-        /*.contact-grid{*/
-        /*    display:grid;grid-template-columns:1fr 1fr;*/
-        /*    gap:2rem;*/
-        /*}*/
-
-        /*.contact-card{*/
-        /*    background:rgba(15,109,111,.07);*/
-        /*    border:1px solid var(--border);*/
-        /*    border-radius:var(--r);padding:2.6rem;*/
-        /*}*/
-        /*.contact-card h4{*/
-        /*    font-family:var(--display);font-size:1.6rem;font-weight:400;*/
-        /*    color:var(--white);margin-bottom:1.8rem;*/
-        /*}*/
-
-        /*.form-group{margin-bottom:1.1rem}*/
-        /*.form-group input,*/
-        /*.form-group textarea{*/
-        /*    width:100%;*/
-        /*    padding:.88rem 1.1rem;*/
-        /*    background:rgba(255,255,255,.04);*/
-        /*    border:1px solid rgba(255,255,255,.09);*/
-        /*    border-radius:4px;*/
-        /*    color:var(--white);*/
-        /*    font-family:var(--body);font-size:.86rem;*/
-        /*    outline:none;*/
-        /*    transition:border-color .3s,background .3s;*/
-        /*    resize:none;*/
-        /*}*/
-        /*.form-group input::placeholder,*/
-        /*.form-group textarea::placeholder{color:rgba(255,255,255,.26)}*/
-        /*.form-group input:focus,*/
-        /*.form-group textarea:focus{*/
-        /*    border-color:var(--teal-mid);*/
-        /*    background:rgba(35,205,210,.05);*/
-        /*}*/
-
-        /*!* Map *!*/
-        /*.map-box{*/
-        /*    border-radius:var(--r);overflow:hidden;*/
-        /*    margin-bottom:1.8rem;border:1px solid var(--border);*/
-        /*}*/
-        /*.map-box iframe{width:100%;height:220px;border:none;display:block}*/
-
-        /*.company-info h4{*/
-        /*    font-family:var(--display);font-size:1.4rem;font-weight:400;*/
-        /*    color:var(--white);margin-bottom:.9rem;*/
-        /*}*/
-        /*.company-info p{font-size:.84rem;color:var(--muted);line-height:2.2}*/
-        /*.company-info i{color:var(--teal-mid);margin-right:.4rem;width:16px}*/
-
-        /*.owner-box{*/
-        /*    display:flex;align-items:flex-start;gap:1rem;*/
-        /*    margin-top:1.6rem;padding-top:1.6rem;*/
-        /*    border-top:1px solid rgba(255,255,255,.05);*/
-        /*}*/
-        /*.owner-avatar{*/
-        /*    width:50px;height:50px;border-radius:50%;flex-shrink:0;*/
-        /*    background:linear-gradient(135deg,var(--teal-deep),var(--teal-sage));*/
-        /*    border:2px solid var(--teal-mid);*/
-        /*    display:flex;align-items:center;justify-content:center;*/
-        /*    font-family:var(--display);font-size:1.3rem;color:#fff;*/
-        /*}*/
-        /*.owner-meta{display:flex;flex-direction:column;gap:.28rem}*/
-        /*.owner-meta strong{font-size:.85rem;color:var(--white)}*/
-        /*.owner-meta span{font-size:.78rem;color:var(--muted)}*/
-        /*.owner-meta i{color:var(--teal-mid);margin-right:.35rem}*/
-
-        /*@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}*/
 
         /* ══════════════════════════════════════
            SCROLL REVEAL
@@ -995,11 +856,10 @@
             .section-sub{font-size:.78rem}
             .about-badge-card{left:.4rem;right:.4rem;padding:.72rem .9rem}
             .badge-big{font-size:1.7rem}
-            /*.contact-card{padding:1.1rem}*/
-            .review-actions .btn{width:100%;justify-content:center}
         }
 
     </style>
+    <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
@@ -1108,7 +968,7 @@
 @include('partials.sections.gallery', ['variant' => 'modern'])
 
 <!-- Review Section -->
-@include('partials.sections.reviews', ['variant' => 'modern'])
+@include('partials.sections.reviews')
 
 <!-- Contact Section -->
 @include('partials.sections.contact')

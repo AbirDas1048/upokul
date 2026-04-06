@@ -1,33 +1,38 @@
 :root {
     --accent-green: #20c997;
 
-    /* SECTION */
-    /*--contact-bg: linear-gradient(135deg,#f8fafc,#eef2ff);*/
-    /*--contact-padding: 8rem;*/
+    --ease    : cubic-bezier(.4,0,.2,1);
+    --dur     : .38s;
+    --r       : 8px;
 
-    /*!* CARD *!*/
-    /*--contact-card-bg:#fff;*/
-    /*--contact-border:#e5e7eb;*/
-    /*--contact-radius:16px;*/
-    /*--contact-shadow:0 25px 50px rgba(0,0,0,.08);*/
+    --reviews-bg: #f9fafb;
 
-    /*!* TEXT *!*/
-    /*--contact-text:#111827;*/
-    /*--contact-muted:#6b7280;*/
+    --review-card-bg: #ffffff;
+    --review-card-hover-bg: #ffffff;
 
-    /*!* ACCENT *!*/
-    /*--contact-accent:var(--accent-green);*/
+    --review-border: rgba(0,0,0,0.06);
+    --review-border-hover: rgba(0,0,0,0.12);
 
-    /*!* INPUT *!*/
-    /*--contact-input-bg:#fff;*/
-    /*--contact-input-border:#e5e7eb;*/
-    /*--contact-input-radius:12px;*/
+    --review-shadow-hover: 0 20px 40px rgba(0,0,0,0.08);
 
-    /*!* MAP *!*/
-    /*--contact-map-radius:14px;*/
+    --review-text: #374151;
+    --review-author: #111827;
+    --review-muted: #6b7280;
 
-    /*!* OWNER *!*/
-    /*--contact-owner-border:#e5e7eb;*/
+    --review-divider: rgba(0,0,0,0.06);
+    --review-star: #fbbf24;
+
+    --review-quote-bg: rgba(0,0,0,0.05);
+
+    --review-btn-bg: #ffffff;
+    --review-btn-border: rgba(0,0,0,0.1);
+    --review-btn-text: #111827;
+
+    --review-btn-hover-bg: #111827;
+    --review-btn-hover-border: #111827;
+    --review-btn-hover-text: #ffffff;
+
+    --review-btn-shadow: 0 10px 25px rgba(0,0,0,0.15);
 
     --contact-bg:linear-gradient(135deg,#f8fafc,#eef2ff);
     --contact-card-bg:#ffffff;

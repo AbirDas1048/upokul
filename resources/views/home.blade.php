@@ -104,7 +104,7 @@
 @include('partials.sections.gallery', ['variant' => 'classic'])
 
 <!-- Review Section -->
-@include('partials.sections.reviews', ['variant' => 'classic'])
+@include('partials.sections.reviews')
 
 <!-- Contact Section -->
 @include('partials.sections.contact')
