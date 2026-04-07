@@ -5,6 +5,33 @@
     --dur     : .38s;
     --r       : 8px;
 
+
+    --gallery-bg: #f9fafb;
+
+    --gallery-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    --gallery-shadow-hover: 0 25px 50px rgba(0,0,0,0.2);
+
+    --gallery-overlay: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+
+    --gallery-title-color: #fff;
+    --gallery-subtitle-color: rgba(255,255,255,0.8);
+
+    --gallery-expand-bg: rgba(255,255,255,0.2);
+    --gallery-expand-border: #fff;
+    --gallery-expand-color: #fff;
+
+    --gallery-img-filter-hover: none;
+
+    --pagination-color: #ccc;
+    --pagination-active: #333;
+
+    --modal-bg: rgba(0,0,0,0.95);
+
+    --nav-color: #fff;
+
+    --close-bg: rgba(255,255,255,0.2);
+    --close-color: #fff;
+
     --reviews-bg: #f9fafb;
 
     --review-card-bg: #ffffff;
