@@ -268,16 +268,15 @@
             });
         }
 
-        const fullscreenModal = document.querySelector('.fullscreen-modal') || document.getElementById('fsModal');
-        const isHomeNewModal = !!document.getElementById('fsModal');
-        const fullscreenSelector = isHomeNewModal ? '.fs-swiper' : '.fullscreenSwiper';
+        const fullscreenModal = document.querySelector('.fullscreen-modal');
+        const fullscreenSelector = '.fullscreenSwiper';
 
         if (fullscreenModal && document.querySelector(fullscreenSelector)) {
-            const closeModalBtn = fullscreenModal.querySelector('.close-modal') || document.getElementById('fsClose');
+            const closeModalBtn = fullscreenModal.querySelector('.close-modal');
             const fullscreenSwiper = new Swiper(fullscreenSelector, {
                 navigation: {
-                    nextEl: isHomeNewModal ? '#fsModal .swiper-button-next' : '.fullscreen-modal .swiper-button-next',
-                    prevEl: isHomeNewModal ? '#fsModal .swiper-button-prev' : '.fullscreen-modal .swiper-button-prev'
+                    nextEl: '.fullscreen-modal .swiper-button-next',
+                    prevEl: '.fullscreen-modal .swiper-button-prev'
                 },
                 loop: false,
                 watchOverflow: true

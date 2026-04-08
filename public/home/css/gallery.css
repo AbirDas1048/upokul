@@ -259,4 +259,5 @@
     cursor: pointer;
     background: var(--close-bg);
     color: var(--close-color);
+    z-index: 10000;
 }
