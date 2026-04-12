@@ -1,94 +1,173 @@
+/* ══════════════════════════════════════
+   GALLERY BASE (STRUCTURE ONLY)
+══════════════════════════════════════ */
+
 .gallery-section {
-    background: #f9fafb;
+    padding: var(--section-pad, 6rem) 0;
+    background: var(--gallery-bg);
+    overflow: hidden;
 }
 
-/* Card Slider */
+.gallery-hd {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+}
+
+/* Swiper */
 .cardSwiper {
-    padding-bottom: 40px;
+    padding-bottom: 3rem;
 }
 
+.cardSwiper .swiper-wrapper {
+    align-items: stretch;
+}
+
+.cardSwiper .swiper-slide {
+    height: auto;
+    display: flex;
+}
+
+/* Card */
 .gallery-card {
     position: relative;
-    border-radius: 18px;
+    width: 100%;
+    border-radius: var(--radius-lg, 18px);
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    aspect-ratio: 3/2;
+    transition: var(--transition, 0.4s ease);
+    box-shadow: var(--gallery-shadow);
 }
 
 .gallery-card img {
     width: 100%;
-    height: 320px;
+    height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
+    transition: transform 0.6s ease, filter 0.4s ease;
 }
 
+/* Hover */
 .gallery-card:hover img {
     transform: scale(1.08);
+    filter: var(--gallery-img-filter-hover);
 }
 
-/* Bottom Center Info */
+.gallery-card:hover {
+    transform: translateY(var(--gallery-hover-y, -6px));
+    box-shadow: var(--gallery-shadow-hover);
+}
+
+/* Overlay Info */
 .gallery-info {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
-    text-align: center;
-    padding: 16px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-    color: #fff;
+    right: 0;
+    padding: 2rem 1.5rem;
+    background: var(--gallery-overlay);
+    transition: var(--transition);
 }
 
 .gallery-info h5 {
     margin: 0;
+    font-size: 1.3rem;
     font-weight: 600;
+    color: var(--gallery-title-color);
 }
 
 .gallery-info span {
-    font-size: 0.85rem;
-    opacity: 0.85;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gallery-subtitle-color);
 }
 
-/* Pagination BELOW */
-.cardSwiper .swiper-pagination {
-    position: relative;
-    margin-top: 20px;
+/* Expand Icon */
+.gallery-expand {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gallery-expand-bg);
+    border: 1px solid var(--gallery-expand-border);
+    color: var(--gallery-expand-color);
+    transition: 0.35s ease;
 }
 
-/* FULLSCREEN MODAL */
+.gallery-card:hover .gallery-expand {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Pagination */
+.swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    transition: 0.3s;
+    background: var(--pagination-color);
+    opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+    width: 24px;
+    border-radius: 999px;
+    opacity: 1;
+    background: var(--pagination-active);
+}
+
+/* Modal */
 .fullscreen-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.95);
-    z-index: 9999;
     display: none;
+    align-items: center;
+    justify-content: center;
+    background: var(--modal-bg);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
 }
 
 .fullscreen-modal.active {
-    display: block;
+    display: flex;
+}
+
+.fullscreenSwiper {
+    width: 92vw;
+    max-width: 1100px;
 }
 
 .fullscreenSwiper img {
     width: 100%;
-    height: 100vh;
+    height: 90vh;
     object-fit: contain;
+    border-radius: var(--radius-md, 12px);
 }
 
-/* Close Button */
+/* Controls */
+.swiper-button-prev,
+.swiper-button-next {
+    color: var(--nav-color) !important;
+}
+
+/* Close */
 .close-modal {
     position: absolute;
-    top: 20px;
-    right: 25px;
-    font-size: 2.5rem;
-    background: none;
-    color: #fff;
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
     border: none;
     cursor: pointer;
-    z-index: 10;
-}
-
-/* Mobile safety */
-@media (max-width: 768px) {
-    .gallery-card img {
-        height: 260px;
-    }
+    background: var(--close-bg);
+    color: var(--close-color);
+    z-index: 10000;
 }
