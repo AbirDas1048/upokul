@@ -5,6 +5,21 @@
     --dur     : .38s;
     --r       : 8px;
 
+    --trust-bg: linear-gradient(180deg, #f8f9fa, #ffffff);
+
+    --trust-title: #212529;
+    --trust-sub: #6c757d;
+
+    --trust-card-bg: #ffffff;
+    --trust-card-border: transparent;
+    --trust-card-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    --trust-card-hover-shadow: 0 25px 60px rgba(0,0,0,0.12);
+
+    --trust-icon: var(--accent-green);
+    --trust-number: #212529;
+    --trust-plus: var(--accent-green);
+    --trust-text: #6c757d;
+
 
     --gallery-bg: #f9fafb;
 

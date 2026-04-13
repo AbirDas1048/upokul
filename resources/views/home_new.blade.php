@@ -16,6 +16,8 @@
 
     <!-- Preload hero image so it shows instantly -->
     <link rel="preload" as="image" href="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1200&q=70&auto=format">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Poppins:wght@300;400;500;600&display=swap&font-display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -43,6 +45,21 @@
             --ease    : cubic-bezier(.4,0,.2,1);
             --dur     : .38s;
             --r       : 8px;
+
+            --trust-bg: rgba(15,109,111,.09);
+
+            --trust-title: var(--teal-deep);
+            --trust-sub: rgba(15,109,111,.7);
+
+            --trust-card-bg: rgba(255,255,255,.05);
+            --trust-card-border: rgba(15,109,111,.2);
+            --trust-card-shadow: none;
+            --trust-card-hover-shadow: 0 20px 50px rgba(15,109,111,.2);
+
+            --trust-icon: var(--teal-mid);
+            --trust-number: var(--teal-mid);
+            --trust-plus: var(--teal-mid);
+            --trust-text: rgba(15,109,111,.6);
 
             --gallery-bg: #071a1a;
 
@@ -669,56 +686,56 @@
         @media(max-width:991px){.svc-grid{grid-template-columns:1fr 1fr}}
         @media(max-width:600px) {.svc-grid{grid-template-columns:1fr}}
 
-        /* ══════════════════════════════════════
-           COUNTER / TRUST
-        ══════════════════════════════════════ */
-        #trusted{
-            padding:6rem 0;
-            background:rgba(15,109,111,.09);
-            border-top:1px solid var(--border);
-            border-bottom:1px solid var(--border);
-            position:relative;overflow:hidden;
-        }
-        #trusted::before{
-            content:'';position:absolute;top:50%;left:50%;
-            transform:translate(-50%,-50%);
-            width:800px;height:400px;
-            background:radial-gradient(ellipse,rgba(35,205,210,.06) 0%,transparent 70%);
-            pointer-events:none;
-        }
+        /*!* ══════════════════════════════════════*/
+        /*   COUNTER / TRUST*/
+        /*══════════════════════════════════════ *!*/
+        /*#trusted{*/
+        /*    padding:6rem 0;*/
+        /*    background:rgba(15,109,111,.09);*/
+        /*    border-top:1px solid var(--border);*/
+        /*    border-bottom:1px solid var(--border);*/
+        /*    position:relative;overflow:hidden;*/
+        /*}*/
+        /*#trusted::before{*/
+        /*    content:'';position:absolute;top:50%;left:50%;*/
+        /*    transform:translate(-50%,-50%);*/
+        /*    width:800px;height:400px;*/
+        /*    background:radial-gradient(ellipse,rgba(35,205,210,.06) 0%,transparent 70%);*/
+        /*    pointer-events:none;*/
+        /*}*/
 
-        .trust-hd{text-align:center;margin-bottom:3.5rem}
+        /*.trust-hd{text-align:center;margin-bottom:3.5rem}*/
 
-        .trust-grid{
-            display:grid;grid-template-columns:repeat(4,1fr);
-            gap:1.4rem;
-        }
+        /*.trust-grid{*/
+        /*    display:grid;grid-template-columns:repeat(4,1fr);*/
+        /*    gap:1.4rem;*/
+        /*}*/
 
-        .trust-card{
-            text-align:center;
-            padding:2.5rem 1.5rem;
-            border-radius:var(--r);
-            background:rgba(255,255,255,.025);
-            border:1px solid var(--border);
-            transition:var(--dur) var(--ease);
-        }
-        .trust-card:hover{
-            background:rgba(15,109,111,.16);
-            border-color:rgba(35,205,210,.26);
-            transform:translateY(-5px);
-            box-shadow:0 20px 50px rgba(15,109,111,.2);
-        }
-        .trust-card>i{font-size:2rem;color:var(--teal-mid);margin-bottom:1rem;display:block}
-        .trust-card h3{
-            font-family:var(--display);font-size:3.8rem;font-weight:300;
-            color:var(--teal-mid);line-height:1;margin-bottom:.4rem;
-        }
-        .trust-card p{
-            font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
-            color:rgba(255,255,255,.35);
-        }
+        /*.trust-card{*/
+        /*    text-align:center;*/
+        /*    padding:2.5rem 1.5rem;*/
+        /*    border-radius:var(--r);*/
+        /*    background:rgba(255,255,255,.025);*/
+        /*    border:1px solid var(--border);*/
+        /*    transition:var(--dur) var(--ease);*/
+        /*}*/
+        /*.trust-card:hover{*/
+        /*    background:rgba(15,109,111,.16);*/
+        /*    border-color:rgba(35,205,210,.26);*/
+        /*    transform:translateY(-5px);*/
+        /*    box-shadow:0 20px 50px rgba(15,109,111,.2);*/
+        /*}*/
+        /*.trust-card>i{font-size:2rem;color:var(--teal-mid);margin-bottom:1rem;display:block}*/
+        /*.trust-card h3{*/
+        /*    font-family:var(--display);font-size:3.8rem;font-weight:300;*/
+        /*    color:var(--teal-mid);line-height:1;margin-bottom:.4rem;*/
+        /*}*/
+        /*.trust-card p{*/
+        /*    font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;*/
+        /*    color:rgba(255,255,255,.35);*/
+        /*}*/
 
-        @media(max-width:768px){.trust-grid{grid-template-columns:1fr 1fr}}
+        /*@media(max-width:768px){.trust-grid{grid-template-columns:1fr 1fr}}*/
 
         /* ══════════════════════════════════════
            SCROLL REVEAL
@@ -794,6 +811,7 @@
         }
 
     </style>
+    <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
