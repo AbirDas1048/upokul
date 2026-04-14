@@ -98,10 +98,10 @@
 @include('partials.sections.services', ['variant' => 'classic'])
 
 <!-- Counter Section -->
-@include('partials.sections.trusted', ['variant' => 'classic'])
+@include('partials.sections.trusted')
 
 <!-- Gallery Section -->
-@include('partials.sections.gallery', ['variant' => 'classic'])
+@include('partials.sections.gallery')
 
 <!-- Review Section -->
 @include('partials.sections.reviews')

@@ -916,10 +916,10 @@
 @include('partials.sections.services', ['variant' => 'modern'])
 
 <!-- Counter Section -->
-@include('partials.sections.trusted', ['variant' => 'modern'])
+@include('partials.sections.trusted')
 
 <!-- Gallery Section -->
-@include('partials.sections.gallery', ['variant' => 'modern'])
+@include('partials.sections.gallery')
 
 <!-- Review Section -->
 @include('partials.sections.reviews')
