@@ -1,73 +1,70 @@
 /* ===============================
-   STATS / COUNTER SECTION
+   TRUST SECTION (UNIFIED)
 ================================ */
 
-/* Trusted Section */
 .trust-section {
     padding: 100px 0;
-    background: linear-gradient(180deg, #f8f9fa, #ffffff);
+    background: var(--trust-bg);
+    position: relative;
+    overflow: hidden;
 }
 
-.section-title {
+/* Titles */
+.trust-section .section-title {
     font-size: 2.6rem;
     font-weight: 800;
     margin-bottom: 0.75rem;
+    color: var(--trust-title);
 }
 
-.section-subtitle {
+.trust-section .section-subtitle,
+.trust-section .section-sub {
     font-size: 1.05rem;
-    color: #6c757d;
     max-width: 620px;
     margin: 0 auto;
+    color: var(--trust-sub);
 }
 
-/* Cards */
+/* Card */
 .trust-card {
-    background: #fff;
+    background: var(--trust-card-bg);
+    border: 1px solid var(--trust-card-border);
     border-radius: 20px;
     padding: 40px 25px;
     text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    box-shadow: var(--trust-card-shadow);
     transition: all 0.4s ease;
     height: 100%;
 }
 
 .trust-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+    box-shadow: var(--trust-card-hover-shadow);
 }
 
+/* Icon */
 .trust-card i {
     font-size: 2.5rem;
-    color: var(--accent-green);
+    color: var(--trust-icon);
     margin-bottom: 15px;
 }
 
+/* Counter */
 .trust-card h3 {
-    font-size: 2.4rem;
+    font-size: 2.5rem;
     font-weight: 800;
-    color: #212529;
+    color: var(--trust-number);
 }
 
 .trust-card h3::after {
     content: "+";
-    color: var(--accent-green);
+    color: var(--trust-plus);
     margin-left: 2px;
 }
 
+/* Text */
 .trust-card p {
     font-size: 0.95rem;
-    color: #6c757d;
     margin-top: 5px;
+    color: var(--trust-text);
 }
-
-/* Responsive */
-@media (max-width: 768px) {
-    .trust-section {
-        padding: 70px 0;
-    }
-    .section-title {
-        font-size: 2.1rem;
-    }
-}
-

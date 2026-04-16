@@ -18,6 +18,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('new/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
@@ -95,10 +96,10 @@
 @include('partials.sections.services', ['variant' => 'classic'])
 
 <!-- Counter Section -->
-@include('partials.sections.trusted', ['variant' => 'classic'])
+@include('partials.sections.trusted')
 
 <!-- Gallery Section -->
-@include('partials.sections.gallery', ['variant' => 'classic'])
+@include('partials.sections.gallery')
 
 <!-- Review Section -->
 @include('partials.sections.reviews')
