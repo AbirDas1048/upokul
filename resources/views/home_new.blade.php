@@ -686,57 +686,6 @@
         @media(max-width:991px){.svc-grid{grid-template-columns:1fr 1fr}}
         @media(max-width:600px) {.svc-grid{grid-template-columns:1fr}}
 
-        /*!* ══════════════════════════════════════*/
-        /*   COUNTER / TRUST*/
-        /*══════════════════════════════════════ *!*/
-        /*#trusted{*/
-        /*    padding:6rem 0;*/
-        /*    background:rgba(15,109,111,.09);*/
-        /*    border-top:1px solid var(--border);*/
-        /*    border-bottom:1px solid var(--border);*/
-        /*    position:relative;overflow:hidden;*/
-        /*}*/
-        /*#trusted::before{*/
-        /*    content:'';position:absolute;top:50%;left:50%;*/
-        /*    transform:translate(-50%,-50%);*/
-        /*    width:800px;height:400px;*/
-        /*    background:radial-gradient(ellipse,rgba(35,205,210,.06) 0%,transparent 70%);*/
-        /*    pointer-events:none;*/
-        /*}*/
-
-        /*.trust-hd{text-align:center;margin-bottom:3.5rem}*/
-
-        /*.trust-grid{*/
-        /*    display:grid;grid-template-columns:repeat(4,1fr);*/
-        /*    gap:1.4rem;*/
-        /*}*/
-
-        /*.trust-card{*/
-        /*    text-align:center;*/
-        /*    padding:2.5rem 1.5rem;*/
-        /*    border-radius:var(--r);*/
-        /*    background:rgba(255,255,255,.025);*/
-        /*    border:1px solid var(--border);*/
-        /*    transition:var(--dur) var(--ease);*/
-        /*}*/
-        /*.trust-card:hover{*/
-        /*    background:rgba(15,109,111,.16);*/
-        /*    border-color:rgba(35,205,210,.26);*/
-        /*    transform:translateY(-5px);*/
-        /*    box-shadow:0 20px 50px rgba(15,109,111,.2);*/
-        /*}*/
-        /*.trust-card>i{font-size:2rem;color:var(--teal-mid);margin-bottom:1rem;display:block}*/
-        /*.trust-card h3{*/
-        /*    font-family:var(--display);font-size:3.8rem;font-weight:300;*/
-        /*    color:var(--teal-mid);line-height:1;margin-bottom:.4rem;*/
-        /*}*/
-        /*.trust-card p{*/
-        /*    font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;*/
-        /*    color:rgba(255,255,255,.35);*/
-        /*}*/
-
-        /*@media(max-width:768px){.trust-grid{grid-template-columns:1fr 1fr}}*/
-
         /* ══════════════════════════════════════
            SCROLL REVEAL
         ══════════════════════════════════════ */
