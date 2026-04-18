@@ -95,7 +95,7 @@
 @include('partials.sections.about', ['variant' => 'classic'])
 
 <!-- Services Section -->
-@include('partials.sections.services', ['variant' => 'classic'])
+@include('partials.sections.services')
 
 <!-- Counter Section -->
 @include('partials.sections.trusted')
@@ -115,11 +115,9 @@
 <!-- Floating WhatsApp Button -->
 @include('partials.sections.whatsapp')
 
-
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/common-interactions.js') }}"></script>
 </body>
-
 </html>

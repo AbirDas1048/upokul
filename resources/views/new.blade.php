@@ -18,6 +18,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('new/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
@@ -92,8 +93,9 @@
 
 <!-- About Section -->
 @include('partials.sections.about', ['variant' => 'classic'])
+
 <!-- Services Section -->
-@include('partials.sections.services', ['variant' => 'classic'])
+@include('partials.sections.services')
 
 <!-- Counter Section -->
 @include('partials.sections.trusted')
@@ -104,7 +106,6 @@
 <!-- Review Section -->
 @include('partials.sections.reviews')
 
-
 <!-- Contact Section -->
 @include('partials.sections.contact')
 
@@ -114,11 +115,9 @@
 <!-- Floating WhatsApp Button -->
 @include('partials.sections.whatsapp')
 
-
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/common-interactions.js') }}"></script>
 </body>
-
 </html>
