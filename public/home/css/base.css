@@ -5,6 +5,33 @@
     --dur     : .38s;
     --r       : 8px;
 
+    --services-bg: #f9fbfc;
+
+    --badge-bg: rgba(32,201,151,0.15);
+    --badge-color: #20c997;
+
+    --title-color: #212529;
+    --title-gradient: linear-gradient(90deg, #ffc107, #20c997);
+
+    --service-text-muted: #6c757d;
+
+    --card-bg: #ffffff;
+    --card-border: rgba(0,0,0,0.05);
+    --card-border-hover: rgba(0,0,0,0.08);
+
+    --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    --card-shadow-hover: 0 18px 45px rgba(0,0,0,0.12);
+
+    --card-gradient: linear-gradient(90deg, #20c997, #ffc107);
+
+    --icon-bg: linear-gradient(135deg, #20c997, #ffc107);
+    --icon-bg-hover: linear-gradient(135deg, #20c997, #ffc107);
+
+    --icon-color: #fff;
+    --icon-color-hover: #fff;
+
+    --icon-shadow-hover: none;
+
     --trust-bg: linear-gradient(180deg, #f8f9fa, #ffffff);
 
     --trust-title: #212529;
