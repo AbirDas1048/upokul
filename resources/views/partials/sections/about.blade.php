@@ -97,27 +97,19 @@
     <div class="container">
         <div class="about-grid">
 
-            <!-- Image -->
+            <!-- Image (Demo 3 style - fixed) -->
             <div class="about-img-side" data-reveal>
-                <div class="about-img-frame">
+                <div class="about-image-wrapper">
                     <img
-                        src="{{ $aboutImage }}"
+                        src="{{ asset($aboutImage ?? 'images/about.jpg') }}"
                         alt="About {{ config('app.name') }}"
                         loading="lazy"
                         decoding="async"
                     >
                 </div>
-
-                <div class="about-badge-card">
-                    <div class="badge-big">10+</div>
-                    <div class="badge-txt">
-                        <strong>Years</strong>
-                        of Excellence
-                    </div>
-                </div>
             </div>
 
-            <!-- Content -->
+            <!-- Content (Demo 2 style - fixed) -->
             <div class="about-content" data-reveal>
                 <span class="section-label">About Us</span>
 
@@ -129,14 +121,13 @@
                 <p>
                     Upokul Travels is dedicated to creating meaningful travel experiences.
                     From breathtaking coastal tours to personalized holiday packages,
-                    we ensure comfort, safety, and unforgettable memories for every traveler.
+                    we ensure comfort, safety, and unforgettable memories.
                 </p>
 
                 <ul class="about-list">
                     <li><i class="fas fa-check-circle"></i><span>Trusted & experienced travel experts</span></li>
-                    <li><i class="fas fa-check-circle"></i><span>Customized tour packages for every budget</span></li>
-                    <li><i class="fas fa-check-circle"></i><span>24/7 customer support throughout your journey</span>
-                    </li>
+                    <li><i class="fas fa-check-circle"></i><span>Customized tour packages</span></li>
+                    <li><i class="fas fa-check-circle"></i><span>24/7 customer support</span></li>
                 </ul>
 
                 <a href="#trusted" class="btn btn-primary">
