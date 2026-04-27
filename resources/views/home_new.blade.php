@@ -48,21 +48,22 @@
 
             --about-bg:#0f172a;
 
-            --about-heading:#ffffff;
+            --about-heading:#fff;
             --about-text:rgba(255,255,255,.75);
             --about-muted:rgba(255,255,255,.6);
-
-            --about-accent-1:#23cdd2;
-            --about-accent-2:#7dd3c7;
+            --about-accent:#23cdd2;
 
             --about-divider:rgba(255,255,255,.05);
 
-            --about-img-border:rgba(35,205,210,.15);
             --about-img-shadow:0 24px 64px rgba(0,0,0,.6);
 
-            --about-card-bg:linear-gradient(135deg,#111827,#0f172a);
-            --about-card-border:rgba(35,205,210,.25);
-            --about-card-shadow:0 16px 40px rgba(0,0,0,.6);
+            --about-glow:none;
+
+            --about-watermark:'';
+            --about-watermark-color:transparent;
+
+            --about-float-icon:'';
+            --about-float-color:transparent;
 
             --services-bg: linear-gradient(180deg,#0f2027,#203a43);
 

@@ -10,18 +10,21 @@
     --about-heading:#111;
     --about-text:#444;
     --about-muted:#666;
-
-    --about-accent-1:#20c997;
-    --about-accent-2:#ffc107;
+    --about-accent:#20c997;
 
     --about-divider:rgba(0,0,0,.08);
 
-    --about-img-border:rgba(0,0,0,.08);
     --about-img-shadow:0 12px 40px rgba(0,0,0,.15);
 
-    --about-card-bg:#ffffff;
-    --about-card-border:rgba(0,0,0,.08);
-    --about-card-shadow:0 10px 30px rgba(0,0,0,.1);
+    --about-glow:
+        radial-gradient(circle at 30% 30%, rgba(35,205,210,0.15), transparent 65%),
+        radial-gradient(circle at 80% 80%, rgba(15,109,111,0.12), transparent 60%);
+
+    --about-watermark:'〰';
+    --about-watermark-color:rgba(35,205,210,0.04);
+
+    --about-float-icon:'✦';
+    --about-float-color:#ffc107;
 
     --services-bg: #f9fbfc;
 
