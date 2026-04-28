@@ -86,12 +86,6 @@
 {{--        </div>--}}
 {{--    </section>--}}
 {{--@endif--}}
-{{--@php--}}
-{{--    $aboutImage = match($variant) {--}}
-{{--        'modern' => 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=700&q=65&auto=format',--}}
-{{--        default => asset('images/Logo.png'),--}}
-{{--    };--}}
-{{--@endphp--}}
 
 <section id="about">
     <div class="container">

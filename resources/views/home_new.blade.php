@@ -46,7 +46,7 @@
             --dur     : .38s;
             --r       : 8px;
 
-            --about-bg:#0f172a;
+            --about-bg:var(--dark-800);
 
             --about-heading:#fff;
             --about-text:rgba(255,255,255,.75);
@@ -62,8 +62,8 @@
             --about-watermark:'';
             --about-watermark-color:transparent;
 
-            --about-float-icon:'';
-            --about-float-color:transparent;
+            --about-float-icon:'✦';
+            --about-float-color:rgba(255,255,255,.75);
 
             --services-bg: linear-gradient(180deg,#0f2027,#203a43);
 
@@ -839,7 +839,7 @@
 </section>
 
 <!-- About Section -->
-@include('partials.sections.about', ['variant' => 'modern'])
+@include('partials.sections.about')
 
 <!-- Services Section -->
 @include('partials.sections.services')

@@ -93,7 +93,7 @@
 </section>
 
 <!-- About Section -->
-@include('partials.sections.about', ['variant' => 'classic'])
+@include('partials.sections.about')
 
 <!-- Services Section -->
 @include('partials.sections.services')
