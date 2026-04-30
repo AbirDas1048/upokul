@@ -18,6 +18,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('new/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/about.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
@@ -92,7 +93,7 @@
 </section>
 
 <!-- About Section -->
-@include('partials.sections.about', ['variant' => 'classic'])
+@include('partials.sections.about')
 
 <!-- Services Section -->
 @include('partials.sections.services')

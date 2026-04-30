@@ -5,6 +5,27 @@
     --dur     : .38s;
     --r       : 8px;
 
+    --about-bg:#ffffff;
+
+    --about-heading:#111;
+    --about-text:#444;
+    --about-muted:#666;
+    --about-accent:#20c997;
+
+    --about-divider:rgba(0,0,0,.08);
+
+    --about-img-shadow:0 12px 40px rgba(0,0,0,.15);
+
+    --about-glow:
+        radial-gradient(circle at 30% 30%, rgba(35,205,210,0.15), transparent 65%),
+        radial-gradient(circle at 80% 80%, rgba(15,109,111,0.12), transparent 60%);
+
+    --about-watermark:'〰';
+    --about-watermark-color:rgba(35,205,210,0.04);
+
+    --about-float-icon:'✦';
+    --about-float-color:#ffc107;
+
     --services-bg: #f9fbfc;
 
     --badge-bg: rgba(32,201,151,0.15);
