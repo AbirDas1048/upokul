@@ -33,29 +33,30 @@
 <body>
 
 <!-- Navbar -->
-<nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-dark">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="#">Upokul Travels</a>
+{{--<nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-dark">--}}
+{{--    <div class="container">--}}
+{{--        <a class="navbar-brand fw-bold" href="#">Upokul Travels</a>--}}
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+{{--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">--}}
+{{--            <span class="navbar-toggler-icon"></span>--}}
+{{--        </button>--}}
 
-        <div id="navMenu" class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto align-items-lg-center">
-                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
-                <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
-                <li class="nav-item">
-                    <a class="btn btn-warning text-dark px-4 ms-lg-3" href="#contact">
-                        Contact
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+{{--        <div id="navMenu" class="collapse navbar-collapse">--}}
+{{--            <ul class="navbar-nav ms-auto align-items-lg-center">--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>--}}
+{{--                <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="btn btn-warning text-dark px-4 ms-lg-3" href="#contact">--}}
+{{--                        Contact--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            </ul>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</nav>--}}
+@include('partials.sections.nav')
 
 <!-- Hero Section -->
 <section class="hero-section">
