@@ -33,11 +33,11 @@
 
         <!-- Mobile Drawer -->
         <div class="nav-drawer" id="drawer">
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#contact" class="btn btn-nav mt-3">Contact</a>
+            <a href="#about" class="drawer-link">About</a>
+            <a href="#services" class="drawer-link">Services</a>
+            <a href="#gallery" class="drawer-link">Gallery</a>
+            <a href="#reviews" class="drawer-link">Reviews</a>
+            <a href="#contact" class="btn btn-nav drawer-link">Contact</a>
         </div>
 
     </div>

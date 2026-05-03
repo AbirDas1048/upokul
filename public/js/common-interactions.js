@@ -8,7 +8,7 @@
 
         const onScroll = () => {
             const y = window.scrollY || window.pageYOffset;
-            nav.classList.toggle('show', y > 50);
+            // nav.classList.toggle('show', y > 50);
             nav.classList.toggle('scrolled', y > 80);
             document.body.classList.toggle('at-top', y <= 50);
         };
@@ -41,28 +41,28 @@
         window.__closeNavDrawer = closeDrawer;
     }
 
-    function initLegacyNavMenu() {
-        const navMenu = document.getElementById('navMenu');
-        const toggler = document.querySelector('.navbar-toggler[data-bs-target="#navMenu"], .navbar-toggler');
-        if (!navMenu || !toggler) return;
-
-        const closeMenu = () => {
-            navMenu.classList.remove('show');
-            toggler.setAttribute('aria-expanded', 'false');
-        };
-
-        toggler.addEventListener('click', () => {
-            const willOpen = !navMenu.classList.contains('show');
-            navMenu.classList.toggle('show');
-            toggler.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-        });
-
-        navMenu.querySelectorAll('a[href^="#"]').forEach((link) => {
-            link.addEventListener('click', closeMenu);
-        });
-
-        window.__closeLegacyNavMenu = closeMenu;
-    }
+    // function initLegacyNavMenu() {
+    //     const navMenu = document.getElementById('navMenu');
+    //     const toggler = document.querySelector('.navbar-toggler[data-bs-target="#navMenu"], .navbar-toggler');
+    //     if (!navMenu || !toggler) return;
+    //
+    //     const closeMenu = () => {
+    //         navMenu.classList.remove('show');
+    //         toggler.setAttribute('aria-expanded', 'false');
+    //     };
+    //
+    //     toggler.addEventListener('click', () => {
+    //         const willOpen = !navMenu.classList.contains('show');
+    //         navMenu.classList.toggle('show');
+    //         toggler.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    //     });
+    //
+    //     navMenu.querySelectorAll('a[href^="#"]').forEach((link) => {
+    //         link.addEventListener('click', closeMenu);
+    //     });
+    //
+    //     window.__closeLegacyNavMenu = closeMenu;
+    // }
 
     function initSmoothScroll() {
         const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
@@ -420,7 +420,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         initNav();
         initDrawer();
-        initLegacyNavMenu();
+        // initLegacyNavMenu();
         initSmoothScroll();
         initReveals();
         initCounter();
