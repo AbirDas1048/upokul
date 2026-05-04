@@ -20,11 +20,21 @@
             </ul>
 
             <!-- Right -->
-            <div class="nav-right d-flex align-items-center">
+{{--            <div class="nav-right d-flex align-items-center">--}}
+{{--                <a href="#contact" class="btn btn-nav d-none d-lg-inline-flex">Contact</a>--}}
+
+{{--                <!-- Mobile toggle -->--}}
+{{--                <button class="hamburger d-lg-none" id="ham">--}}
+{{--                    <i class="fa-solid fa-ellipsis-vertical"></i>--}}
+{{--                </button>--}}
+{{--            </div>--}}
+
+            <div class="nav-right d-flex align-items-center gap-2">
+                <!-- Desktop only -->
                 <a href="#contact" class="btn btn-nav d-none d-lg-inline-flex">Contact</a>
 
-                <!-- Mobile toggle -->
-                <button class="hamburger d-lg-none" id="ham">
+                <!-- Mobile only -->
+                <button class="hamburger d-lg-none" id="ham" aria-expanded="false">
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                 </button>
             </div>

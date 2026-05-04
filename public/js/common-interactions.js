@@ -38,6 +38,12 @@
             link.addEventListener('click', closeDrawer);
         });
 
+        document.addEventListener('click', (e) => {
+            if (!drawer.contains(e.target) && !ham.contains(e.target)) {
+                closeDrawer();
+            }
+        });
+
         window.__closeNavDrawer = closeDrawer;
     }
 
