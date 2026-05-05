@@ -47,29 +47,6 @@
         window.__closeNavDrawer = closeDrawer;
     }
 
-    // function initLegacyNavMenu() {
-    //     const navMenu = document.getElementById('navMenu');
-    //     const toggler = document.querySelector('.navbar-toggler[data-bs-target="#navMenu"], .navbar-toggler');
-    //     if (!navMenu || !toggler) return;
-    //
-    //     const closeMenu = () => {
-    //         navMenu.classList.remove('show');
-    //         toggler.setAttribute('aria-expanded', 'false');
-    //     };
-    //
-    //     toggler.addEventListener('click', () => {
-    //         const willOpen = !navMenu.classList.contains('show');
-    //         navMenu.classList.toggle('show');
-    //         toggler.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-    //     });
-    //
-    //     navMenu.querySelectorAll('a[href^="#"]').forEach((link) => {
-    //         link.addEventListener('click', closeMenu);
-    //     });
-    //
-    //     window.__closeLegacyNavMenu = closeMenu;
-    // }
-
     function initSmoothScroll() {
         const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
         const filmicEase = (t) => {
@@ -426,7 +403,6 @@
     document.addEventListener('DOMContentLoaded', function () {
         initNav();
         initDrawer();
-        // initLegacyNavMenu();
         initSmoothScroll();
         initReveals();
         initCounter();

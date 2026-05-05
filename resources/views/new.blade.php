@@ -32,32 +32,6 @@
 <body>
 
 <!-- Navbar -->
-{{--<nav id="mainNav" class="navbar navbar-expand-lg fixed-top navbar-dark">--}}
-{{--    <div class="container">--}}
-{{--        <a class="navbar-brand fw-bold" href="#hero">--}}
-{{--            <img src="{{ asset('images/Logo.png') }}" alt="{{ config('app.name') }}" class="brand-logo">--}}
-{{--            <span class="brand-text">{{ config('app.name') }}</span>--}}
-{{--        </a>--}}
-
-{{--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">--}}
-{{--            <span class="toggler-icon"><i class="fa-solid fa-ellipsis-vertical"></i></span>--}}
-{{--        </button>--}}
-
-{{--        <div id="navMenu" class="collapse navbar-collapse">--}}
-{{--            <ul class="navbar-nav ms-auto align-items-lg-center">--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>--}}
-{{--                <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>--}}
-{{--                <li class="nav-item">--}}
-{{--                    <a class="btn btn-warning text-dark px-4 ms-lg-3" href="#contact">--}}
-{{--                        Contact--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            </ul>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</nav>--}}
 @include('partials.sections.nav')
 
 <!-- Hero Section -->
