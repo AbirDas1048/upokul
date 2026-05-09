@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/swal.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
 </head>

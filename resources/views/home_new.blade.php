@@ -195,6 +195,14 @@
             --contact-btn-border: var(--teal-mid);
             --contact-btn-text: #ffffff;
 
+            /* SWAL */
+            --swal-error-bg: #f27474;
+            --swal-error-text: #ffffff;
+
+            --swal-popup-radius: 16px;
+            --swal-popup-font: var(--font-body);
+            --swal-title-font: var(--font-display);
+
             --footer-bg: rgba(0,0,0,.55);
             --footer-border: rgba(35,205,210,.07);
             --footer-link: rgba(255,255,255,.28);
@@ -293,13 +301,13 @@
         .btn-outline:hover{border-color:var(--teal-mid);color:var(--teal-mid);background:rgba(35,205,210,.08);transform:translateY(-3px)}
 
         .btn-block{width:100%;justify-content:center}
-        .swal-html-red-bg {
-            margin: 10px;
-            background-color: #f27474;
-            color: #ffffff;
-            padding: 10px;
-            border-radius: 5px;
-        }
+        /*.swal-html-red-bg {*/
+        /*    margin: 10px;*/
+        /*    background-color: #f27474;*/
+        /*    color: #ffffff;*/
+        /*    padding: 10px;*/
+        /*    border-radius: 5px;*/
+        /*}*/
 
         @media(max-width:576px){
             .container{padding:0 1rem}
@@ -557,6 +565,7 @@
     <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/swal.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
 </head>

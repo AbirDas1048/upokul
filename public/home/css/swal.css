@@ -1,0 +1,16 @@
+.swal-html-red-bg {
+    margin: 10px;
+    background: var(--swal-error-bg);
+    color: var(--swal-error-text);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.swal2-popup {
+    font-family: var(--swal-popup-font) !important;
+    border-radius: var(--swal-popup-radius) !important;
+}
+
+.swal2-title {
+    font-family: var(--swal-title-font) !important;
+}

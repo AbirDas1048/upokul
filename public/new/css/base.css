@@ -205,6 +205,14 @@
     --contact-btn-border: var(--teal-dark);
     --contact-btn-text: #ffffff;
 
+    /* SWAL */
+    --swal-error-bg: #fee2e2;
+    --swal-error-text: #7f1d1d;
+
+    --swal-popup-radius: 16px;
+    --swal-popup-font: var(--font-body);
+    --swal-title-font: var(--font-display);
+
     --footer-bg: linear-gradient(135deg, var(--teal-deeper) 0%, var(--teal-dark) 100%);
     --footer-border: rgba(35,205,210,.07);
     --footer-link: rgba(255,255,255,0.65);
@@ -525,10 +533,10 @@ p {
 /* ─── AOS SUBTLE OVERRIDES ───────────────────────────────── */
 [data-aos] { transition-duration: 900ms !important; }
 
-/* ─── SWAL CUSTOM ────────────────────────────────────────── */
-.swal-html-red-bg { color: #7f1d1d; }
-.swal2-popup { font-family: var(--font-body) !important; border-radius: var(--radius-md) !important; }
-.swal2-title { font-family: var(--font-display) !important; }
+/*!* ─── SWAL CUSTOM ────────────────────────────────────────── *!*/
+/*.swal-html-red-bg { color: #7f1d1d; }*/
+/*.swal2-popup { font-family: var(--font-body) !important; border-radius: var(--radius-md) !important; }*/
+/*.swal2-title { font-family: var(--font-display) !important; }*/
 
 /* ─── HERO MOBILE PADDING FIX ────────────────────────────── */
 @media (max-width: 767.98px) {
