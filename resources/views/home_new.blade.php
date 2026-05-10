@@ -301,13 +301,6 @@
         .btn-outline:hover{border-color:var(--teal-mid);color:var(--teal-mid);background:rgba(35,205,210,.08);transform:translateY(-3px)}
 
         .btn-block{width:100%;justify-content:center}
-        /*.swal-html-red-bg {*/
-        /*    margin: 10px;*/
-        /*    background-color: #f27474;*/
-        /*    color: #ffffff;*/
-        /*    padding: 10px;*/
-        /*    border-radius: 5px;*/
-        /*}*/
 
         @media(max-width:576px){
             .container{padding:0 1rem}
