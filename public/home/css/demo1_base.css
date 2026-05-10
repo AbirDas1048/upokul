@@ -161,6 +161,13 @@
     --footer-link: #ffffff;
     --footer-link-hover: #facc15;
     --footer-copy: #ffffff;
+    --section-badge-bg: rgba(255,255,255,0.12);
+    --section-badge-border: rgba(255,255,255,0.28);
+    --section-badge-text: #ffffff;
+    --section-title-color: #ffffff;
+    --section-title-accent: #facc15;
+    --section-subtitle-color: #e5e7eb;
+
 }
 
 /* --- Global Responsive Typography --- */
@@ -186,17 +193,7 @@ textarea:focus-visible {
 
 
 /* Reusable premium typography */
-.premium-section-title {
-    font-weight: 700;
-    font-size: clamp(1.8rem, 3vw, 2.3rem);
-    line-height: 1.25;
-}
 
-.premium-section-subtitle {
-    color: #6b7280;
-    font-size: 1rem;
-    line-height: 1.7;
-}
 
 /* Reusable premium buttons */
 .premium-btn {

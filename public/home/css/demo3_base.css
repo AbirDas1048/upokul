@@ -218,6 +218,14 @@
     --footer-link: rgba(255,255,255,0.65);
     --footer-link-hover: var(--teal-bright);
     --footer-copy: rgba(255,255,255,0.45);
+    --section-badge-bg: var(--teal-pale);
+    --section-badge-border: rgba(35,205,210,0.3);
+    --section-badge-text: var(--teal-dark);
+    --section-title-font: var(--font-display);
+    --section-title-color: var(--text-dark);
+    --section-title-accent: var(--teal-dark);
+    --section-subtitle-color: var(--text-muted);
+
 }
 
 /* ─── RESET & BASE ───────────────────────────────────────── */
@@ -437,29 +445,6 @@ p {
     margin-bottom: 1rem;
 }
 
-.premium-section-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 1rem;
-}
-
-.premium-section-title span {
-    font-style: italic;
-    color: var(--teal-dark);
-    background: linear-gradient(135deg, var(--teal-dark), var(--teal-bright));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.premium-section-subtitle {
-    font-size: 1.05rem;
-    color: var(--text-muted);
-    max-width: 560px;
-    margin: 0 auto;
-    font-weight: 300;
-}
 
 /* ─── ALERT ──────────────────────────────────────────────── */
 .alert {

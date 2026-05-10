@@ -1,10 +1,10 @@
 <section class="trust-section" id="trusted">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="section-title premium-section-title" data-reveal>
+            <h2 class="section-title" data-reveal>
                 Trusted by Travelers Worldwide
             </h2>
-            <p class="section-subtitle premium-section-subtitle" data-reveal data-reveal-delay="150">
+            <p class="section-subtitle" data-reveal data-reveal-delay="150">
                 Numbers that reflect our experience, trust, and global reach
             </p>
         </div>

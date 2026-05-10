@@ -9,35 +9,9 @@
 }
 
 /* Section Heading */
-.section-badge {
-    display: inline-block;
-    background: var(--badge-bg);
-    color: var(--badge-color);
-    padding: 0.4rem 1rem;
-    border-radius: 50px;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
 
-.section-title {
-    font-size: 2.4rem;
-    font-weight: 800;
-    margin-bottom: 0.75rem;
-    color: var(--title-color);
-}
 
-.section-title span {
-    background: var(--title-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
 
-.section-subtitle {
-    max-width: 640px;
-    margin: 0 auto;
-    font-size: 1.05rem;
-    color: var(--service-text-muted);
-}
 
 /* Ensure equal height */
 .services-section .row.g-4 {
@@ -127,8 +101,3 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-    .section-title {
-        font-size: 2rem;
-    }
-}
