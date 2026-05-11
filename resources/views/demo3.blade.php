@@ -10,16 +10,15 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
+    {{--    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">--}}
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <!-- Swiper Library CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('home/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/demo3_base.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/nav.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/hero.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/about.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
@@ -37,7 +36,7 @@
 @include('partials.sections.nav')
 
 <!-- Hero Section -->
-<section class="hero-section">
+<section id="hero" class="hero-section">
     <video class="hero-video" autoplay muted loop playsinline poster="{{ asset('home/images/banner.jpg') }}">
         <source src="{{ asset('home/videos/bg.mp4') }}" type="video/mp4">
     </video>

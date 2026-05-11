@@ -530,9 +530,6 @@ p {
     .hero-content h1 { font-size: 1.9rem; }
 }
 
-/* ─── AOS SUBTLE OVERRIDES ───────────────────────────────── */
-[data-aos] { transition-duration: 900ms !important; }
-
 /* ─── HERO MOBILE PADDING FIX ────────────────────────────── */
 @media (max-width: 767.98px) {
     .hero-section .container {
