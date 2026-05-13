@@ -184,20 +184,6 @@ textarea:focus-visible {
     outline-offset: 2px;
 }
 
-
-/* Reusable premium typography */
-.premium-section-title {
-    font-weight: 700;
-    font-size: clamp(1.8rem, 3vw, 2.3rem);
-    line-height: 1.25;
-}
-
-.premium-section-subtitle {
-    color: #6b7280;
-    font-size: 1rem;
-    line-height: 1.7;
-}
-
 /* Reusable premium buttons */
 .premium-btn {
     display: inline-flex;

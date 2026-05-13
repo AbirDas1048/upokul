@@ -220,32 +220,6 @@ p,h1,h2,h3,h4,h5,h6,a,span,strong{overflow-wrap:anywhere;word-break:break-word}
     padding:0 1.5rem;
 }
 
-.section-label{
-    display:inline-flex;align-items:center;gap:.5rem;
-    padding:.32rem 1.1rem;
-    border:1px solid rgba(35,205,210,.3);
-    border-radius:20px;
-    font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--teal-mid);
-    background:rgba(35,205,210,.06);
-    margin-bottom:1rem;
-}
-.section-label::before{content:'✦';font-size:.55rem}
-
-.section-title{
-    font-family:var(--display);
-    font-size:clamp(2rem,4vw,3.2rem);
-    font-weight:300;line-height:1.1;
-    color:var(--white);
-}
-.section-title em,.section-title span{font-style:italic;color:var(--teal-mid)}
-
-.section-sub{
-    font-size:.9rem;color:var(--muted);
-    max-width:520px;margin:.9rem auto 0;
-    line-height:1.8;
-}
-
 /* ══════════════════════════════════════
    BUTTONS
 ══════════════════════════════════════ */
@@ -518,8 +492,6 @@ body.is-resizing .hero-orb{
     .trust-card h3{font-size:2.15rem}
     .trust-card p{font-size:.58rem;letter-spacing:.1em}
 
-    .section-title{font-size:1.48rem;line-height:1.2}
-    .section-sub{font-size:.78rem}
     .about-badge-card{left:.4rem;right:.4rem;padding:.72rem .9rem}
     .badge-big{font-size:1.7rem}
 }
