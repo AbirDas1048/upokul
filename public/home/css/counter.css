@@ -3,7 +3,7 @@
 ================================ */
 
 .trust-section {
-    padding: 100px 0;
+    padding: 6.25rem 0;
     background: var(--trust-bg);
     position: relative;
     overflow: hidden;
@@ -12,9 +12,9 @@
 /* Card */
 .trust-card {
     background: var(--trust-card-bg);
-    border: 1px solid var(--trust-card-border);
-    border-radius: 20px;
-    padding: 40px 25px;
+    border: 0.0625rem solid var(--trust-card-border);
+    border-radius: 1.25rem;
+    padding: 2.5rem 1.5625rem;
     text-align: center;
     box-shadow: var(--trust-card-shadow);
     transition: all 0.4s ease;
@@ -22,7 +22,7 @@
 }
 
 .trust-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-0.625rem);
     box-shadow: var(--trust-card-hover-shadow);
 }
 
@@ -30,7 +30,7 @@
 .trust-card i {
     font-size: 2.5rem;
     color: var(--trust-icon);
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
 }
 
 /* Counter */
@@ -43,12 +43,12 @@
 .trust-card h3::after {
     content: "+";
     color: var(--trust-plus);
-    margin-left: 2px;
+    margin-left: 0.125rem;
 }
 
 /* Text */
 .trust-card p {
     font-size: 0.95rem;
-    margin-top: 5px;
+    margin-top: 0.3125rem;
     color: var(--trust-text);
 }

@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px; /* allow breathing space on small screens */
+    padding: 1.25rem; /* allow breathing space on small screens */
     background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #000000);
     background-size: 400% 400%;
     animation: gradientBG 12s ease infinite;
@@ -23,63 +23,63 @@ body {
 }
 
 .card {
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(1.25rem);
     background: rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    padding: 60px 40px;
+    border-radius: 1.25rem;
+    padding: 3.75rem 2.5rem;
     width: 90%;
-    max-width: 420px;
+    max-width: 26.25rem;
     text-align: center;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.5);
+    border: 0.0625rem solid rgba(255, 255, 255, 0.15);
     color: #fff;
 }
 
 .logo {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
-    border-radius: 20px;
+    width: 6.25rem;
+    height: 6.25rem;
+    margin-bottom: 1.25rem;
+    border-radius: 1.25rem;
     object-fit: cover;
 }
 
 .app-name {
-    font-size: 28px;
+    font-size: 1.75rem;
     font-weight: 600;
-    margin-bottom: 40px;
-    letter-spacing: 1px;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.0625rem;
 }
 
 .buttons {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .btn {
-    padding: 14px;
-    border-radius: 12px;
+    padding: 0.875rem;
+    border-radius: 0.75rem;
     text-decoration: none;
     color: #fff;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 1rem;
     background: linear-gradient(135deg, #667eea, #764ba2);
     transition: 0.3s ease;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.4);
 }
 
 .btn:hover {
-    transform: translateY(-4px) scale(1.03);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    transform: translateY(-0.25rem) scale(1.03);
+    box-shadow: 0 0.75rem 1.875rem rgba(0, 0, 0, 0.6);
     background: linear-gradient(135deg, #7f9cf5, #9f7aea);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
     .card {
-        padding: 40px 20px;
+        padding: 2.5rem 1.25rem;
     }
 
     .app-name {
-        font-size: 22px;
+        font-size: 1.375rem;
     }
 }
