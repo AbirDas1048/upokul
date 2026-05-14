@@ -9,22 +9,6 @@
     overflow: hidden;
 }
 
-/* Titles */
-.trust-section .section-title {
-    font-size: 2.6rem;
-    font-weight: 800;
-    margin-bottom: 0.75rem;
-    color: var(--trust-title);
-}
-
-.trust-section .section-subtitle,
-.trust-section .section-sub {
-    font-size: 1.05rem;
-    max-width: 620px;
-    margin: 0 auto;
-    color: var(--trust-sub);
-}
-
 /* Card */
 .trust-card {
     background: var(--trust-card-bg);

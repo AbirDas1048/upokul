@@ -16,7 +16,7 @@
 
             <!-- Content (Demo 2 style - fixed) -->
             <div class="about-content" data-reveal>
-                <span class="section-label">About Us</span>
+                <span class="section-badge">About Us</span>
 
                 <h2>
                     Your Trusted Partner for

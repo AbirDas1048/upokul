@@ -1,9 +1,9 @@
 <section id="contact">
     <div class="container">
         <div class="contact-hd">
-            <span class="section-label" data-reveal>Get In Touch</span>
+            <span class="section-badge" data-reveal>Get In Touch</span>
             <h2 class="section-title" data-reveal style="transition-delay:.05s">Contact <span>Us</span></h2>
-            <p class="section-sub" data-reveal style="transition-delay:.05s">We'd love to hear from you. Get in touch anytime.</p>
+            <p class="section-subtitle" data-reveal style="transition-delay:.05s">We'd love to hear from you. Get in touch anytime.</p>
         </div>
 
         <div class="contact-grid">

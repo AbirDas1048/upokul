@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{ asset('home/css/demo2_base.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/section.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/about.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">

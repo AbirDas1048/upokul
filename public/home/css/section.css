@@ -1,0 +1,42 @@
+.section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .35rem 1.05rem;
+    border-radius: 999px;
+    border: 1px solid var(--section-badge-border);
+    background: var(--section-badge-bg);
+    color: var(--section-badge-text);
+    font-size: .72rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.section-badge::before {
+    content: '✦';
+    font-size: .55rem;
+}
+
+.section-title {
+    font-family: var(--section-title-font, inherit);
+    font-size: clamp(1.9rem, 3.8vw, 3.1rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--section-title-color);
+    margin-bottom: .8rem;
+}
+
+.section-title span{
+    color: var(--section-title-accent);
+    font-style: italic;
+}
+
+.section-subtitle{
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--section-subtitle-color);
+}

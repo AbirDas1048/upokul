@@ -2,9 +2,9 @@
     <div class="container">
 
         <div class="gallery-hd">
-            <span class="section-label">Travel Moments</span>
+            <span class="section-badge">Travel Moments</span>
             <h2 class="section-title">Explore Our <span>Destinations</span></h2>
-            <p class="section-sub">Unforgettable journeys captured in every frame</p>
+            <p class="section-subtitle">Unforgettable journeys captured in every frame</p>
         </div>
 
         <div class="swiper cardSwiper">

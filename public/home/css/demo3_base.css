@@ -67,6 +67,14 @@
 
     --nav-icon-bg:rgba(9,78,80,.7);
 
+    --section-badge-bg: var(--teal-pale);
+    --section-badge-border: rgba(35,205,210,0.3);
+    --section-badge-text: var(--teal-dark);
+    --section-title-font: var(--font-display);
+    --section-title-color: var(--text-dark);
+    --section-title-accent: var(--teal-dark);
+    --section-subtitle-color: var(--text-muted);
+
     --about-bg:#f8fafc;
 
     --about-heading:#0f172a;

@@ -19,6 +19,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('home/css/demo1_base.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/nav.css') }}">
+    <link rel="stylesheet" href="{{ asset('home/css/section.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/hero.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/about.css') }}">
     <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">

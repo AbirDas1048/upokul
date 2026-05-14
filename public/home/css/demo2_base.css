@@ -38,6 +38,14 @@
 
     --nav-icon-bg:rgba(7,26,26,.7);
 
+    --section-badge-bg: rgba(35,205,210,.06);
+    --section-badge-border: rgba(35,205,210,.3);
+    --section-badge-text: var(--teal-mid);
+    --section-title-font: var(--display);
+    --section-title-color: var(--white);
+    --section-title-accent: var(--teal-mid);
+    --section-subtitle-color: var(--muted);
+
     --about-bg:var(--dark-800);
 
     --about-heading:#fff;

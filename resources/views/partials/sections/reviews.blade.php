@@ -1,9 +1,9 @@
 <section id="reviews">
     <div class="container">
         <div class="reviews-hd">
-            <span class="section-label" data-reveal>Testimonials</span>
+            <span class="section-badge" data-reveal>Testimonials</span>
             <h2 class="section-title" data-reveal style="transition-delay:.05s">What Travelers <span>Say</span></h2>
-            <p class="section-sub" data-reveal style="transition-delay:.05s">Real experiences from our Google Business & Facebook profiles</p>
+            <p class="section-subtitle" data-reveal style="transition-delay:.05s">Real experiences from our Google Business & Facebook profiles</p>
         </div>
 
         <div class="swiper reviewSwiper">
