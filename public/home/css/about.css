@@ -59,7 +59,7 @@
 }
 
 .about-image-wrapper img{
-    max-width:320px;
+    max-width:20rem;
     width:100%;
     border-radius:var(--radius-md);
     position:relative;
@@ -96,7 +96,7 @@
     font-size:.88rem;
     color:var(--about-text);
     padding:.65rem 0;
-    border-bottom:1px solid var(--about-divider);
+    border-bottom:0.0625rem solid var(--about-divider);
 }
 .about-list li i{
     color:var(--about-accent);
@@ -105,11 +105,11 @@
 /* animation */
 @keyframes float{
     0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-10px)}
+    50%{transform:translateY(-0.625rem)}
 }
 
 /* responsive */
-@media(max-width:991px){
+@media(max-width:61.9375rem){
     .about-grid{
         grid-template-columns:1fr;
         gap:3rem;
