@@ -20,8 +20,8 @@
 
 .contact-card{
     background:var(--contact-card-bg);
-    border:1px solid var(--contact-border);
-    border-radius:18px;
+    border:0.0625rem solid var(--contact-border);
+    border-radius:1.125rem;
     padding:2.5rem;
 }
 
@@ -42,9 +42,9 @@
     padding:.9rem 1.1rem;
 
     background:var(--contact-input-bg);
-    border:1px solid var(--contact-input-border);
+    border:0.0625rem solid var(--contact-input-border);
 
-    border-radius:12px; /* rounded inputs */
+    border-radius:0.75rem; /* rounded inputs */
 
     font-size:.95rem;
     color:var(--contact-text);
@@ -74,7 +74,7 @@
     overflow:hidden;
 
     background:var(--contact-btn-bg);
-    border:1px solid var(--contact-btn-border);
+    border:0.0625rem solid var(--contact-btn-border);
     color:var(--contact-btn-text);
 
     width:100%;
@@ -106,22 +106,22 @@
 
 #contact button[type="submit"]:hover{
     box-shadow:
-        0 10px 25px rgba(0,0,0,0.15),
-        0 0 10px var(--contact-btn-bg);
+        0 0.625rem 1.5625rem rgba(0,0,0,0.15),
+        0 0 0.625rem var(--contact-btn-bg);
 }
 
 /* MAP */
 
 .map-box{
-    border-radius:14px;
+    border-radius:0.875rem;
     overflow:hidden;
     margin-bottom:1.5rem;
-    border:1px solid var(--contact-border);
+    border:0.0625rem solid var(--contact-border);
 }
 
 .map-box iframe{
     width:100%;
-    height:220px;
+    height:13.75rem;
     border:none;
 }
 
@@ -135,7 +135,7 @@
 
 .company-info i{
     color:var(--contact-accent);
-    width:18px;
+    width:1.125rem;
 }
 
 /* OWNER */
@@ -146,16 +146,16 @@
     gap:1rem;
     margin-top:1.3rem;
     padding-top:1rem;
-    border-top:1px solid var(--contact-border);
+    border-top:0.0625rem solid var(--contact-border);
 }
 
 .owner-box img{
-    width:60px;
-    height:60px;
+    width:3.75rem;
+    height:3.75rem;
     border-radius:50%;
     object-fit:cover;
-    border:3px solid var(--contact-accent);
-    box-shadow:0 4px 14px rgba(0,0,0,0.15);
+    border:0.1875rem solid var(--contact-accent);
+    box-shadow:0 0.25rem 0.875rem rgba(0,0,0,0.15);
 }
 
 .owner-box strong{
@@ -177,7 +177,7 @@
 
 /* RESPONSIVE */
 
-@media(max-width:992px){
+@media(max-width:62rem){
 
     .contact-grid{
         grid-template-columns:1fr;
