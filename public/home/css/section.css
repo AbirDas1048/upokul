@@ -3,8 +3,8 @@
     align-items: center;
     gap: .5rem;
     padding: .35rem 1.05rem;
-    border-radius: 999px;
-    border: 1px solid var(--section-badge-border);
+    border-radius: 62.4375rem;
+    border: 0.0625rem solid var(--section-badge-border);
     background: var(--section-badge-bg);
     color: var(--section-badge-text);
     font-size: .72rem;
@@ -34,7 +34,7 @@
 }
 
 .section-subtitle{
-    max-width: 640px;
+    max-width: 40rem;
     margin: 0 auto;
     font-size: 1rem;
     line-height: 1.7;
