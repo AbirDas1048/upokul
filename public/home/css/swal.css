@@ -1,9 +1,9 @@
 .swal-html-red-bg {
-    margin: 10px;
+    margin: 0.625rem;
     background: var(--swal-error-bg);
     color: var(--swal-error-text);
-    padding: 10px;
-    border-radius: 5px;
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
 }
 
 .swal2-popup {
