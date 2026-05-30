@@ -1,8 +1,8 @@
 /* ─── FLOATING WHATSAPP BUTTON ───────────────────────────── */
 .whatsapp-float {
     position: fixed;
-    bottom: 28px;
-    right: 28px;
+    bottom: 1.75rem;
+    right: 1.75rem;
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -13,8 +13,8 @@
 
 /* The icon circle */
 .whatsapp-float .wa-icon {
-    width: 58px;
-    height: 58px;
+    width: 3.625rem;
+    height: 3.625rem;
     border-radius: 50%;
     background: linear-gradient(135deg, #25D366, #128C7E);
     display: flex;
@@ -22,7 +22,7 @@
     justify-content: center;
     font-size: 1.75rem;
     color: #fff;
-    box-shadow: 0 6px 24px rgba(37,211,102,0.50);
+    box-shadow: 0 0.375rem 1.5rem rgba(37,211,102,0.50);
     transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
     flex-shrink: 0;
@@ -33,18 +33,18 @@
 .whatsapp-float .wa-icon::before {
     content: '';
     position: absolute;
-    inset: -4px;
+    inset: -0.25rem;
     border-radius: 50%;
-    border: 2.5px solid rgba(37,211,102,0.55);
+    border: 0.1562rem solid rgba(37,211,102,0.55);
     animation: wa-pulse 2s ease-out infinite;
 }
 
 .whatsapp-float .wa-icon::after {
     content: '';
     position: absolute;
-    inset: -10px;
+    inset: -0.625rem;
     border-radius: 50%;
-    border: 2px solid rgba(37,211,102,0.25);
+    border: 0.125rem solid rgba(37,211,102,0.25);
     animation: wa-pulse 2s ease-out infinite 0.4s;
 }
 
@@ -62,20 +62,20 @@
     font-weight: 600;
     white-space: nowrap;
     padding: 0.45rem 1rem 0.45rem 1.2rem;
-    border-radius: 999px 0 0 999px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-    transform: translateX(16px);
+    border-radius: 62.4375rem 0 0 62.4375rem;
+    box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.12);
+    transform: translateX(1rem);
     opacity: 0;
     pointer-events: none;
     transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-    border: 1px solid rgba(37,211,102,0.2);
+    border: 0.0625rem solid rgba(37,211,102,0.2);
     border-right: none;
 }
 
 /* Hover effects */
 .whatsapp-float:hover .wa-icon {
     transform: scale(1.10);
-    box-shadow: 0 10px 32px rgba(37,211,102,0.60);
+    box-shadow: 0 0.625rem 2rem rgba(37,211,102,0.60);
 }
 
 .whatsapp-float:hover .wa-label {
@@ -84,14 +84,14 @@
     pointer-events: auto;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
     .whatsapp-float {
-        bottom: 18px;
-        right: 18px;
+        bottom: 1.125rem;
+        right: 1.125rem;
     }
     .whatsapp-float .wa-icon {
-        width: 50px;
-        height: 50px;
+        width: 3.125rem;
+        height: 3.125rem;
         font-size: 1.5rem;
     }
     /* Hide label on small screens to avoid overflow */
