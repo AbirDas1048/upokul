@@ -1,0 +1,21 @@
+# Dependencies (installed inside Docker)
+node_modules
+vendor
+
+# Git & IDE
+.git
+.gitignore
+.gitattributes
+.idea
+.vscode
+
+# Environment files (we use .env.docker instead)
+.env
+
+# Logs
+storage/logs/*.log
+
+# Docker files themselves
+Dockerfile
+docker-compose.yml
+.dockerignore
