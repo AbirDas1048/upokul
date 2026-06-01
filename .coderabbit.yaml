@@ -1,0 +1,12 @@
+reviews:
+  profile: "assertive"
+
+path_filters:
+  - "!vendor/**"
+  - "!node_modules/**"
+  - "!storage/**"
+  - "!bootstrap/cache/**"
+  - "!public/build/**"
+
+chat:
+  auto_reply: true
