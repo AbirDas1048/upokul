@@ -1,0 +1,20 @@
+----- With Docker -----
+### To run the project with docker ###
+- Go to the root directory of the project
+- Build- and start-first time only
+    • docker-compose up -d --build
+- Start after the first time
+    • docker-compose up -d
+- Open your browser
+    • App → http://localhost:8080
+    • Database GUI → http://localhost:8081
+- Stop Daily
+    • docker-compose down
+- Runs Queue in foreground
+    • docker-compose exec app php artisan queue:work
+- Runs Queue in background
+    • docker-compose exec -d app php artisan queue:work
+- To check failed jobs
+    • docker-compose exec app php artisan queue:failed
+- To retry failed jobs
+    • docker-compose exec app php artisan queue:retry all
