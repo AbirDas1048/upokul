@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 class GlobalFunction
 {
-    public static function getRequestSource(Request $request){
+    public static function getRequestSource(Request $request)
+    {
 
         return [
             'ip' => $request->ip() ?? '',
@@ -23,5 +24,4 @@ class GlobalFunction
             'timestamp' => now()->toDateTimeString(),
         ];
     }
-
 }

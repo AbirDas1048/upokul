@@ -1,4 +1,5 @@
 <?php
+
 return [
     'owner_name' => env('OWNER_NAME', 'Abir Das'),
     'owner_designation' => env('OWNER_DESIGNATION', 'Owner'),

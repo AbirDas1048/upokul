@@ -17,13 +17,15 @@ class SendContactMailJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public int $tries = 3;
-    public int $backoff  = 10;
+
+    public int $backoff = 10;
+
     public ContactMail $contactMail;
 
     /**
      * Create a new job instance.
      */
-    public function __construct( ContactMail $contactMail)
+    public function __construct(ContactMail $contactMail)
     {
         $this->contactMail = $contactMail;
     }
@@ -34,13 +36,13 @@ class SendContactMailJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            Mail::to(config('custom.office_email'))->send(new contactMailMailable($this->contactMail));
+            Mail::to(config('custom.office_email'))->send(new ContactMailMailable($this->contactMail));
 
             $this->contactMail->update([
-               'status' => ContactService::MAIL_SEND_STATUS_SUCCESS,
-                'sent_at' => now()
+                'status' => ContactService::MAIL_SEND_STATUS_SUCCESS,
+                'sent_at' => now(),
             ]);
-        }catch (\Throwable $e) {
+        } catch (\Throwable $e) {
             $this->contactMail->update([
                 'status' => ContactService::MAIL_SEND_STATUS_FAILED,
                 'error_message' => $e->getMessage(),
