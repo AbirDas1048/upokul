@@ -49,4 +49,25 @@ class ContactServiceTest extends TestCase
         Queue::assertPushed(SendContactMailJob::class);
     }
 
+    public function test_contact_service_returns_validation_errors_for_empty_request(): void
+    {
+        Queue::fake();
+
+        $request = Request::create('/contact', 'POST', []);
+
+        [$status, $message, $data] = (new ContactService())->store($request);
+
+        $this->assertSame(ResponseCodeAndMessage::BAD_REQUEST, $status);
+        $this->assertSame('Bad Request', $message);
+
+        $this->assertSame('Please enter your name.', $data->first('name'));
+        $this->assertSame('Please enter your email address.', $data->first('email'));
+        $this->assertSame('Please enter your phone number.', $data->first('phone'));
+        $this->assertSame('Please enter a subject.', $data->first('subject'));
+        $this->assertSame('Please enter your message.', $data->first('mail_message'));
+
+        $this->assertDatabaseCount('contact_mails', 0);
+
+        Queue::assertNothingPushed();
+    }
 }
