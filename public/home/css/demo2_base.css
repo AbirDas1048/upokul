@@ -131,7 +131,7 @@
     --close-bg: transparent;
     --close-color: rgba(255,255,255,0.6);
 
-    --reviews-bg: linear-gradient(180deg,var(--dark-800) 0%,rgba(15,109,111,.07) 100%);;
+    --reviews-bg: linear-gradient(180deg,var(--dark-800) 0%,rgba(15,109,111,.07) 100%);
 
     --review-card-bg: rgba(15,109,111,.07);
     --review-card-hover-bg: rgba(15,109,111,.13);
