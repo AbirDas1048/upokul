@@ -8,7 +8,6 @@
 
         const onScroll = () => {
             const y = window.scrollY || window.pageYOffset;
-            // nav.classList.toggle('show', y > 50);
             nav.classList.toggle('scrolled', y > 80);
             document.body.classList.toggle('at-top', y <= 50);
         };
