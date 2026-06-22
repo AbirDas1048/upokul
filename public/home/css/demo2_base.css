@@ -250,7 +250,7 @@ p,h1,h2,h3,h4,h5,h6,a,span,strong{overflow-wrap:anywhere;word-break:break-word}
 
 .btn-outline{
     padding:.82rem 2rem;
-    background:rgba(255,255,255,.08);
+    background:rgba(4,14,14,.85);
     border:0.0938rem solid rgba(255,255,255,.7);
     color:#fff;
 }
