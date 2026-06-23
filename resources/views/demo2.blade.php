@@ -8,32 +8,14 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('home/images/favicon.ico') }}">
 
     <!-- Preconnect to speed up external resources -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-    <!-- Preload hero image so it shows instantly -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1200&q=70&auto=format">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Poppins:wght@300;400;500;600&display=swap&font-display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <link rel="stylesheet" href="{{ asset('home/css/demo2_base.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/nav.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/section.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/about.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/swal.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
+    @vite([
+        'resources/css/demo2.css',
+        'resources/js/global.js'
+    ])
 </head>
 <body>
 
@@ -114,9 +96,5 @@
 <!-- Floating WhatsApp Button -->
 @include('partials.sections.whatsapp')
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{ asset('home/js/common-interactions.js') }}"></script>
 </body>
 </html>
