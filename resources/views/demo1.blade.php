@@ -7,29 +7,10 @@
     <title>{{ config('app.name') }}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('home/images/favicon.ico') }}">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- Swiper Library CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('home/css/demo1_base.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/nav.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/section.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/hero.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/about.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/service.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/counter.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/gallery.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/review.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/contact.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/swal.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('home/css/whatsapp.css') }}">
+    @vite([
+        'resources/css/demo1.css',
+        'resources/js/global.js'
+    ])
 </head>
 
 <body>
@@ -41,6 +22,7 @@
 <section class="hero-section">
     <video class="hero-video" autoplay muted loop playsinline poster="{{ asset('home/images/banner.jpg') }}">
         <source src="{{ asset('home/videos/bg.mp4') }}" type="video/mp4">
+        <track kind="captions" srclang="en" src="{{ asset('home/videos/captions.vtt') }}" label="English">
     </video>
 
     <div class="hero-overlay"></div>
@@ -95,9 +77,5 @@
 <!-- Floating WhatsApp Button -->
 @include('partials.sections.whatsapp')
 
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{ asset('home/js/common-interactions.js') }}"></script>
 </body>
 </html>
