@@ -4,6 +4,6 @@ import Swal from 'sweetalert2';
 
 import './common-interactions.js';
 
-window.bootstrap = bootstrap;
-window.Swiper = Swiper;
-window.Swal = Swal;
+globalThis.bootstrap = bootstrap;
+globalThis.Swiper = Swiper;
+globalThis.Swal = Swal;
