@@ -1,12 +1,3 @@
-/* ============================================================
-   UPOKUL TRAVELS & HOLIDAYS — Premium CSS
-   Brand: #0f6d6f | #23cdd2 | #6c9b98
-   Aesthetic: Luxury coastal travel — deep teal meets ocean shimmer
-   ============================================================ */
-
-/* ─── FONTS ─────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
-
 /* ─── CSS VARIABLES ──────────────────────────────────────── */
 :root {
     --teal-dark:     #0f6d6f;

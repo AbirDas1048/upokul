@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/css/demo1.css',
                 'resources/css/demo2.css',
+                'resources/css/demo3.css',
                 'resources/js/global.js',
             ],
             refresh: true,
