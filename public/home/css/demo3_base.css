@@ -437,9 +437,9 @@ p {
 }
 
 .alert-danger {
-    background: rgba(220,38,38,0.08);
-    color: #7f1d1d;
-    border-left: 0.25rem solid #ef4444;
+    background: #f8d7da;
+    color: #842029;
+    border-left: 0.25rem solid #dc3545;
 }
 
 @media (max-width: 47.9988rem) {
