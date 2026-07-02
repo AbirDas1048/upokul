@@ -7,13 +7,13 @@
         if (!nav) return;
 
         const onScroll = () => {
-            const y = window.scrollY || window.pageYOffset;
+            const y = globalThis.scrollY || globalThis.pageYOffset;
             // nav.classList.toggle('show', y > 50);
             nav.classList.toggle('scrolled', y > 80);
             document.body.classList.toggle('at-top', y <= 50);
         };
 
-        window.addEventListener('scroll', onScroll, { passive: true });
+        globalThis.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
     }
 
@@ -44,7 +44,7 @@
             }
         });
 
-        window.__closeNavDrawer = closeDrawer;
+        globalThis.__closeNavDrawer = closeDrawer;
     }
 
     function initSmoothScroll() {
@@ -67,11 +67,11 @@
 
         const getScrollDuration = (distance) => clamp(520 + Math.abs(distance) * 0.35, 520, 1400);
 
-        const smoothScrollTo = (targetY, duration = getScrollDuration(targetY - window.pageYOffset)) => {
+        const smoothScrollTo = (targetY, duration = getScrollDuration(targetY - globalThis.pageYOffset)) => {
             cancelActiveScroll();
             scrollAbort = false;
 
-            const startY = window.pageYOffset;
+            const startY = globalThis.pageYOffset;
             const diff = targetY - startY;
             if (Math.abs(diff) < 2) return;
 
@@ -80,9 +80,9 @@
                 scrollAbort = true;
             };
 
-            window.addEventListener('wheel', stopOnUserIntent, { passive: true, once: true });
-            window.addEventListener('touchstart', stopOnUserIntent, { passive: true, once: true });
-            window.addEventListener('keydown', stopOnUserIntent, { once: true });
+            globalThis.addEventListener('wheel', stopOnUserIntent, { passive: true, once: true });
+            globalThis.addEventListener('touchstart', stopOnUserIntent, { passive: true, once: true });
+            globalThis.addEventListener('keydown', stopOnUserIntent, { once: true });
 
             const step = (timestamp) => {
                 if (scrollAbort) {
@@ -93,7 +93,7 @@
                 if (!startTime) startTime = timestamp;
                 const progress = Math.min((timestamp - startTime) / duration, 1);
                 const eased = filmicEase(progress);
-                window.scrollTo(0, startY + diff * eased);
+                globalThis.scrollTo(0, startY + diff * eased);
 
                 if (progress < 1) {
                     scrollRaf = requestAnimationFrame(step);
@@ -106,8 +106,8 @@
         };
 
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-            anchor.addEventListener('click', function (e) {
-                const id = this.getAttribute('href');
+            anchor.addEventListener('click', (e) => {
+                const id = anchor.hash;
                 if (!id || id === '#') return;
 
                 const target = document.querySelector(id);
@@ -115,19 +115,19 @@
 
                 e.preventDefault();
 
-                if (typeof window.__closeNavDrawer === 'function') {
-                    window.__closeNavDrawer();
+                if (typeof globalThis.__closeNavDrawer === 'function') {
+                    globalThis.__closeNavDrawer();
                 }
-                if (typeof window.__closeLegacyNavMenu === 'function') {
-                    window.__closeLegacyNavMenu();
+                if (typeof globalThis.__closeLegacyNavMenu === 'function') {
+                    globalThis.__closeLegacyNavMenu();
                 }
 
                 const navHeight = nav ? nav.offsetHeight : 90;
-                const targetY = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                const targetY = target.getBoundingClientRect().top + globalThis.pageYOffset - navHeight;
 
-                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                if (globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                     cancelActiveScroll();
-                    window.scrollTo(0, targetY);
+                    globalThis.scrollTo(0, targetY);
                     return;
                 }
 
@@ -147,7 +147,7 @@
                 if (!el.style.transition) el.style.transition = 'opacity .7s ease, transform .7s ease';
             }
 
-            const delay = Number(el.getAttribute('data-reveal-delay') || '0');
+            const delay = Number(el.dataset.revealDelay || '0');
             if (delay > 0 && !el.style.transitionDelay) {
                 el.style.transitionDelay = `${delay}ms`;
             }
@@ -170,7 +170,7 @@
         let resizeRaf = null;
         let revealForced = false;
 
-        window.addEventListener('resize', () => {
+        globalThis.addEventListener('resize', () => {
             if (resizeRaf) return;
 
             resizeRaf = requestAnimationFrame(() => {
@@ -236,12 +236,12 @@
     }
 
     function initSwipers() {
-        if (!window.Swiper) return;
+        if (!globalThis.Swiper) return;
 
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const prefersReducedMotion = globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         if (document.querySelector('.cardSwiper')) {
-            new Swiper('.cardSwiper', {
+            new globalThis.Swiper('.cardSwiper', {
                 slidesPerView: 1,
                 spaceBetween: 24,
                 autoplay: prefersReducedMotion ? false : { delay: 3500, disableOnInteraction: false },
@@ -256,7 +256,7 @@
 
         if (fullscreenModal && document.querySelector(fullscreenSelector)) {
             const closeModalBtn = fullscreenModal.querySelector('.close-modal');
-            const fullscreenSwiper = new Swiper(fullscreenSelector, {
+            const fullscreenSwiper = new globalThis.Swiper(fullscreenSelector, {
                 navigation: {
                     nextEl: '.fullscreen-modal .swiper-button-next',
                     prevEl: '.fullscreen-modal .swiper-button-prev'
@@ -270,7 +270,7 @@
                 card.addEventListener('click', () => {
                     lastGalleryTrigger = card;
                     fullscreenModal.classList.add('active');
-                    fullscreenSwiper.slideTo(parseInt(card.dataset.index || '0', 10), 0);
+                    fullscreenSwiper.slideTo(Number.parseInt(card.dataset.index || '0', 10), 0);
                 });
             });
 
@@ -291,7 +291,7 @@
         }
 
         if (document.querySelector('.reviewSwiper')) {
-            new Swiper('.reviewSwiper', {
+            new globalThis.Swiper('.reviewSwiper', {
                 slidesPerView: 1,
                 spaceBetween: 24,
                 autoplay: prefersReducedMotion ? false : { delay: 4000, disableOnInteraction: false },
@@ -316,8 +316,8 @@
             msg = 'Something went wrong. Please try again.';
         }
 
-        if (window.Swal) {
-            window.Swal.fire({
+        if (globalThis.Swal) {
+            globalThis.Swal.fire({
                 icon: 'error',
                 title: 'Submission Failed',
                 html: msg,
@@ -327,76 +327,94 @@
         }
     }
 
+    function setSubmitBtnState(submitBtn, isSending) {
+        if (!submitBtn) return;
+
+        submitBtn.disabled = isSending;
+        submitBtn.innerHTML = isSending
+            ? '<i class="fas fa-spinner fa-spin"></i> Sending...'
+            : '<i class="fas fa-paper-plane"></i> Send Message';
+    }
+
+    function showSendingSwal() {
+        globalThis.Swal.fire({
+            title: 'Sending Message...',
+            text: 'Please wait a moment',
+            allowOutsideClick: false,
+            didOpen: () => globalThis.Swal.showLoading()
+        });
+    }
+
+    async function postContactForm(contactForm) {
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': contactForm.querySelector('input[name="_token"]')?.value || '',
+                'Accept': 'application/json'
+            },
+            body: new FormData(contactForm)
+        });
+        const data = await response.json().catch(() => null);
+
+        if (!response.ok) {
+            const error = new Error('Contact form submission failed.');
+            error.status = response.status;
+            error.data = data;
+            throw error;
+        }
+
+        return data;
+    }
+
+    async function submitContactForm(contactForm, submitBtn) {
+        setSubmitBtnState(submitBtn, true);
+        showSendingSwal();
+
+        try {
+            const res = await postContactForm(contactForm);
+
+            if (res && res.success) {
+                globalThis.Swal.fire({
+                    icon: 'success',
+                    title: 'Message Sent Successfully!',
+                    text: res.message,
+                    confirmButtonColor: '#4f46e5'
+                });
+                contactForm.reset();
+            } else {
+                showErrorSwal(res?.data, res?.message);
+            }
+        } catch (error) {
+            showErrorSwal(error.data, 'Server error. Please try again later.');
+        } finally {
+            setSubmitBtnState(submitBtn, false);
+        }
+    }
+
+    async function confirmContactSubmission() {
+        const result = await globalThis.Swal.fire({
+            title: 'Send Message?',
+            text: 'Are you sure you want to submit this form?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Send',
+            confirmButtonColor: '#4f46e5'
+        });
+
+        return result.isConfirmed;
+    }
+
     function initContactForm() {
         const contactForm = document.getElementById('contactForm');
-        if (!contactForm || !window.Swal) return;
+        if (!contactForm || !globalThis.Swal) return;
 
-        contactForm.addEventListener('submit', function (e) {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const form = this;
-            const submitBtn = document.getElementById('submitBtn');
-            const setSubmitBtnState = (isSending) => {
-                if (!submitBtn) return;
-                submitBtn.disabled = isSending;
-                submitBtn.innerHTML = isSending
-                    ? '<i class="fas fa-spinner fa-spin"></i> Sending...'
-                    : '<i class="fas fa-paper-plane"></i> Send Message';
-            };
-
-            Swal.fire({
-                title: 'Send Message?',
-                text: 'Are you sure you want to submit this form?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, Send',
-                confirmButtonColor: '#4f46e5'
-            }).then((result) => {
-                if (!result.isConfirmed) return;
-
-                setSubmitBtnState(true);
-
-                Swal.fire({
-                    title: 'Sending Message...',
-                    text: 'Please wait a moment',
-                    allowOutsideClick: false,
-                    didOpen: () => Swal.showLoading()
-                });
-
-                fetch(form.action, {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': form.querySelector('input[name="_token"]')?.value || '',
-                        'Accept': 'application/json'
-                    },
-                    body: new FormData(form)
-                })
-                    .then(async (response) => {
-                        const data = await response.json().catch(() => null);
-                        if (!response.ok) throw { status: response.status, data };
-                        return data;
-                    })
-                    .then((res) => {
-                        if (res && res.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Message Sent Successfully!',
-                                text: res.message,
-                                confirmButtonColor: '#4f46e5'
-                            });
-                            form.reset();
-                        } else {
-                            showErrorSwal(res?.data, res?.message);
-                        }
-                    })
-                    .catch(() => {
-                        showErrorSwal(null, 'Server error. Please try again later.');
-                    })
-                    .finally(() => {
-                        setSubmitBtnState(false);
-                    });
-            });
+            if (await confirmContactSubmission()) {
+                await submitContactForm(contactForm, document.getElementById('submitBtn'));
+            }
         });
     }
 
