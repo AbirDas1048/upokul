@@ -46,9 +46,9 @@ jobs:
         run: chmod -R 777 storage bootstrap/cache
 
       - name: Run Laravel Tests with Coverage
-        run: php artisan test --coverage-clover=coverage.xml
+        run: php artisan test --log-junit=test-results.xml --coverage-clover=coverage.xml
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
