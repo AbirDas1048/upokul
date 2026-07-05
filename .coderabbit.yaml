@@ -1,6 +1,3 @@
-reviews:
-  profile: "assertive"
-
 path_filters:
   - "!vendor/**"
   - "!node_modules/**"
