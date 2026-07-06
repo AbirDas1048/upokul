@@ -1,12 +1,12 @@
-reviews:
-  profile: "assertive"
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
-path_filters:
-  - "!vendor/**"
-  - "!node_modules/**"
-  - "!storage/**"
-  - "!bootstrap/cache/**"
-  - "!public/build/**"
+reviews:
+  path_filters:
+    - "!vendor/**"
+    - "!node_modules/**"
+    - "!storage/**"
+    - "!bootstrap/cache/**"
+    - "!public/build/**"
 
 chat:
   auto_reply: true

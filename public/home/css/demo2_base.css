@@ -131,7 +131,7 @@
     --close-bg: transparent;
     --close-color: rgba(255,255,255,0.6);
 
-    --reviews-bg: linear-gradient(180deg,var(--dark-800) 0%,rgba(15,109,111,.07) 100%);;
+    --reviews-bg: linear-gradient(180deg,var(--dark-800) 0%,rgba(15,109,111,.07) 100%);
 
     --review-card-bg: rgba(15,109,111,.07);
     --review-card-hover-bg: rgba(15,109,111,.13);
@@ -210,7 +210,7 @@ img{display:block;max-width:100%}
 a{text-decoration:none}
 
 /* Prevent text overflow on ultra-small screens */
-p,h1,h2,h3,h4,h5,h6,a,span,strong{overflow-wrap:anywhere;word-break:break-word}
+p,h1,h2,h3,h4,h5,h6,a,span,strong{overflow-wrap:anywhere}
 
 /* Respect reduced-motion and avoid costly animations for sensitive users/devices */
 @media (prefers-reduced-motion: reduce){
@@ -250,7 +250,7 @@ p,h1,h2,h3,h4,h5,h6,a,span,strong{overflow-wrap:anywhere;word-break:break-word}
 
 .btn-outline{
     padding:.82rem 2rem;
-    background:rgba(255,255,255,.08);
+    background:rgba(4,14,14,.85);
     border:0.0938rem solid rgba(255,255,255,.7);
     color:#fff;
 }
@@ -325,30 +325,54 @@ p,h1,h2,h3,h4,h5,h6,a,span,strong{overflow-wrap:anywhere;word-break:break-word}
 
 /* Glow orbs */
 .hero-orb{
-    position:absolute;border-radius:50%;
-    filter:blur(5.625rem);pointer-events:none;z-index:2;
+    position:absolute;
+    border-radius:50%;
+    filter:blur(5.625rem);
+    pointer-events:none;
+    z-index:2;
 }
 .orb-a{
-    width:32.5rem;height:32.5rem;
-    right:-5rem;top:50%;transform:translateY(-50%);
+    width:32.5rem;
+    height:32.5rem;
+    right:-5rem;
+    top:50%;
+    transform:translateY(-50%);
     background:rgba(15,109,111,.28);
-    animation:orbFloat 9s ease-in-out infinite;
+    animation: orb-float 9s ease-in-out infinite;
 }
 .orb-b{
-    width:16.25rem;height:16.25rem;
-    left:8%;bottom:12%;
+    width:16.25rem;
+    height:16.25rem;
+    left:8%;
+    bottom:12%;
     background:rgba(35,205,210,.12);
-    animation:orbFloat 12s ease-in-out infinite reverse;
+    transform:none;
+    animation: orb-float-b 12s ease-in-out infinite reverse;
 }
-@keyframes orbFloat{
-    0%,100%{transform:translateY(-50%)}
-    50%{transform:translateY(calc(-50% - 1.875rem))}
+
+@keyframes orb-float {
+    0%,
+    100% {
+        transform: translateY(-50%);
+    }
+
+    50% {
+        transform: translateY(calc(-50% - 1.875rem));
+    }
 }
-.orb-b{transform:none!important;animation:orbFloatB 12s ease-in-out infinite reverse}
-@keyframes orbFloatB{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5625rem)}}
+
+@keyframes orb-float-b {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-1.5625rem);
+    }
+}
 
 .hero-container{position:relative;z-index:10;width:100%;padding-top:6rem;padding-bottom:13rem}
-
 .hero-eyebrow{
     display:inline-flex;align-items:center;gap:.5rem;
     padding:.38rem 1.2rem;

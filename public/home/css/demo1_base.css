@@ -243,3 +243,130 @@ textarea:focus-visible {
 .swiper-premium .swiper-pagination-bullet-active {
     opacity: 1;
 }
+
+/* =========================
+   Hero Section
+========================= */
+.hero-section {
+    position: relative;
+    height: clamp(35rem, 85vh, 45rem);
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+}
+
+/* Background video */
+.hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlay */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.75),
+        rgba(0, 0, 0, 0.35)
+    );
+    z-index: 1;
+}
+
+/* Content wrapper */
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+}
+
+/* Hero content */
+.hero-content {
+    max-width: 36.25rem;
+}
+
+.hero-content h1 {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    animation: fade-up 0.9s ease both;
+}
+
+.hero-content h1 span {
+    background: linear-gradient(90deg, #ffc107, var(--accent-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+    font-size: 1.05rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    animation: fade-up 0.9s ease both;
+    animation-delay: 0.2s;
+}
+
+/* Buttons */
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fade-up 0.9s ease both;
+    animation-delay: 0.4s;
+}
+
+
+.hero-buttons .premium-btn {
+    padding: 0.875rem 1.9rem;
+}
+
+
+/* Animation */
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(1.125rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Reduce motion (accessibility) */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 48rem) {
+    .hero-content {
+        text-align: center;
+        margin-inline: auto;
+    }
+
+    .hero-buttons {
+        gap: 0.75rem;          /* ⬅ reduces vertical space */
+        max-width: 20rem;
+        margin-inline: auto;
+    }
+
+    .hero-buttons .premium-btn {
+        width: 100%;
+        padding: 0.7rem 1.6rem;
+    }
+
+    .hero-content p {
+        margin-bottom: 1.5rem; /* ⬅ reduces gap before buttons */
+    }
+}
+
