@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^7.3.0",
+        "@popperjs/core": "^2.11.8",
         "bootstrap": "^5.3.8",
         "sweetalert2": "^11.26.25",
         "swiper": "^14.0.0"

@@ -338,7 +338,7 @@ p,h1,h2,h3,h4,h5,h6,a,span,strong{overflow-wrap:anywhere}
     top:50%;
     transform:translateY(-50%);
     background:rgba(15,109,111,.28);
-    animation:orbFloat 9s ease-in-out infinite;
+    animation: orb-float 9s ease-in-out infinite;
 }
 .orb-b{
     width:16.25rem;
@@ -347,23 +347,28 @@ p,h1,h2,h3,h4,h5,h6,a,span,strong{overflow-wrap:anywhere}
     bottom:12%;
     background:rgba(35,205,210,.12);
     transform:none;
-    animation:orbFloatB 12s ease-in-out infinite reverse;
+    animation: orb-float-b 12s ease-in-out infinite reverse;
 }
 
-@keyframes orbFloat{
-    0%,100%{
-        transform:translateY(-50%);
+@keyframes orb-float {
+    0%,
+    100% {
+        transform: translateY(-50%);
     }
-    50%{
-        transform:translateY(calc(-50% - 1.875rem));
+
+    50% {
+        transform: translateY(calc(-50% - 1.875rem));
     }
 }
-@keyframes orbFloatB{
-    0%,100%{
-        transform:translateY(0);
+
+@keyframes orb-float-b {
+    0%,
+    100% {
+        transform: translateY(0);
     }
-    50%{
-        transform:translateY(-1.5625rem);
+
+    50% {
+        transform: translateY(-1.5625rem);
     }
 }
 
