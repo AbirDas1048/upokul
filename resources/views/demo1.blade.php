@@ -20,9 +20,8 @@
 
 <!-- Hero Section -->
 <section class="hero-section">
-    <video class="hero-video" autoplay muted loop playsinline poster="{{ asset('home/images/banner.jpg') }}">
+    <video class="hero-video" autoplay muted loop playsinline tabindex="-1" preload="metadata" poster="{{ asset('home/images/banner.jpg') }}">
         <source src="{{ asset('home/videos/bg.mp4') }}" type="video/mp4">
-        <track kind="captions" srclang="en" src="{{ asset('home/videos/captions.vtt') }}" label="English">
     </video>
 
     <div class="hero-overlay"></div>
