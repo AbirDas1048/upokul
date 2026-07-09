@@ -217,6 +217,10 @@
     --footer-link: rgba(255,255,255,0.65);
     --footer-link-hover: var(--teal-bright);
     --footer-copy: rgba(255,255,255,0.45);
+
+    --danger-bg: #f8d7da;
+    --danger-text: #842029;
+    --danger-border: #dc3545;
 }
 
 /* ─── RESET & BASE ───────────────────────────────────────── */
@@ -437,9 +441,9 @@ p {
 }
 
 .alert-danger {
-    background: #f8d7da;
-    color: #842029;
-    border-left: 0.25rem solid #dc3545;
+    background: var(--danger-bg);
+    color: var(--danger-text);
+    border-left: 0.25rem solid var(--danger-border);
 }
 
 @media (max-width: 47.9988rem) {

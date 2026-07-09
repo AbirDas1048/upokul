@@ -294,7 +294,7 @@ textarea:focus-visible {
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 1.25rem;
-    animation: fadeUp 0.9s ease forwards;
+    animation: fade-up 0.9s ease both;
 }
 
 .hero-content h1 span {
@@ -307,7 +307,7 @@ textarea:focus-visible {
     font-size: 1.05rem;
     opacity: 0.9;
     margin-bottom: 2rem;
-    animation: fadeUp 0.9s ease forwards;
+    animation: fade-up 0.9s ease both;
     animation-delay: 0.2s;
 }
 
@@ -316,7 +316,7 @@ textarea:focus-visible {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    animation: fadeUp 0.9s ease forwards;
+    animation: fade-up 0.9s ease both;
     animation-delay: 0.4s;
 }
 
@@ -327,11 +327,12 @@ textarea:focus-visible {
 
 
 /* Animation */
-@keyframes fadeUp {
+@keyframes fade-up {
     from {
         opacity: 0;
         transform: translateY(1.125rem);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
