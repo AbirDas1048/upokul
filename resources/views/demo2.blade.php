@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Upokul Travels & Holidays offers tour planning, visa support, hotel booking, and memorable travel experiences in Bangladesh and beyond.">
     <title>{{ config('app.name') }}</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('home/images/favicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
 
     <!-- Preconnect to speed up external resources -->
     <link rel="preconnect" href="https://images.unsplash.com">

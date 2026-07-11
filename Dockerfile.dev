@@ -1,0 +1,51 @@
+FROM php:8.2-apache
+
+# NOTE (SonarQube docker:S6471): This image intentionally has no explicit
+# USER directive and starts as root. This is required because:
+#   1) docker-entrypoint.dev.sh performs root-only setup on every start
+#      (composer install, chown of storage/bootstrap/cache).
+#   2) Apache's master process needs root to bind port 80 and to open its
+#      stdout/stderr-backed log files (error.log -> /dev/stderr,
+#      access.log -> /dev/stdout), which are tied to the container's
+#      root-owned initial process by Docker itself.
+# Apache's own worker processes — which handle all actual HTTP requests —
+# already drop to www-data internally via the `User www-data` /
+# `Group www-data` directives in /etc/apache2/apache2.conf. This is the
+# same pattern used by the official php:8.2-apache image itself, which
+# also does not set a non-root USER, for identical reasons.
+# This is a local development image only; not used for production
+# or public-facing deployment. Attempting to force the master process
+# non-root (via gosu) breaks Apache's log-to-stdout/stderr mechanism,
+# since those device pipes are owned by root at container start.
+# Finding accepted as a false positive for this pattern — see SonarQube
+# issue notes.
+
+RUN apt-get update && apt-get install -y \
+        git curl libpng-dev libonig-dev libxml2-dev libzip-dev zip unzip \
+    && docker-php-ext-install \
+        pdo_mysql mbstring exif pcntl bcmath gd zip opcache \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY docker/opcache-dev.ini /usr/local/etc/php/conf.d/opcache-dev.ini
+
+RUN a2enmod rewrite
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
+        /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' \
+        /etc/apache2/apache2.conf \
+        /etc/apache2/conf-available/*.conf
+
+COPY docker-entrypoint.dev.sh /usr/local/bin/docker-entrypoint.dev.sh
+RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.dev.sh \
+    && chmod +x /usr/local/bin/docker-entrypoint.dev.sh
+
+EXPOSE 80
+ENTRYPOINT ["docker-entrypoint.dev.sh"]
+CMD ["apache2-foreground"]

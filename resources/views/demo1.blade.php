@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name') }}</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('home/images/favicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
 
     @vite([
         'resources/css/demo1.css',
@@ -20,8 +20,8 @@
 
 <!-- Hero Section -->
 <section class="hero-section">
-    <video class="hero-video" autoplay muted loop playsinline tabindex="-1" preload="metadata" poster="{{ asset('home/images/banner.jpg') }}">
-        <source src="{{ asset('home/videos/bg.mp4') }}" type="video/mp4">
+    <video class="hero-video" autoplay muted loop playsinline tabindex="-1" preload="metadata" poster="{{ asset('images/banner.jpg') }}">
+        <source src="{{ asset('videos/bg.mp4') }}" type="video/mp4">
     </video>
 
     <div class="hero-overlay"></div>
