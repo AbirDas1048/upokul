@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Jobs\SendContactMailJob;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Queue;
@@ -11,6 +12,14 @@ use Tests\TestCase;
 class ContactPostTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withoutMiddleware(ValidateCsrfToken::class);
+    }
+
     /**
      * A basic feature test example.
      */
