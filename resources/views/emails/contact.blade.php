@@ -34,6 +34,7 @@
         }
 
         .header {
+            background-color: #2563eb; /* Fallback */
             background: linear-gradient(135deg, #2563eb, #0ea5e9);
             color: #ffffff;
             text-align: center;
