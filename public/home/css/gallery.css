@@ -16,8 +16,15 @@
 
 /* Swiper */
 .cardSwiper {
-    padding-bottom: 3rem;
+    padding-bottom: 0;
 }
+
+.cardSwiper > .swiper-pagination {
+    position: static;
+    margin-top: 1.5rem;
+    line-height: 1;
+}
+
 
 .cardSwiper .swiper-wrapper {
     align-items: stretch;

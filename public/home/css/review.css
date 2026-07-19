@@ -14,8 +14,15 @@
 
 .reviewSwiper {
     padding-top: 0.75rem;
-    padding-bottom: 2.8125rem;
+    padding-bottom: 0;
 }
+
+.reviewSwiper > .swiper-pagination {
+    position: static;
+    margin-top: 1.5rem;
+    line-height: 1;
+}
+
 
 /* CARD */
 .review-card {
