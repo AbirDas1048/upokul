@@ -1,0 +1,14 @@
+vendor/
+node_modules/
+storage/
+bootstrap/cache/
+public/build/
+public/hot
+public/vendor/
+public/fonts/
+public/images/
+public/home/images/
+public/home/videos/
+resources/vendor/
+*.min.js
+*.min.css
