@@ -1,0 +1,220 @@
+/* ==========================================================
+   Hero Section
+========================================================== */
+
+.hero-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: min(100dvh, 56rem);
+    overflow: hidden;
+    background-color: #111827;
+}
+
+/* Background Video */
+.hero-video {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Dark Overlay */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.75),
+        rgba(0, 0, 0, 0.35)
+    );
+}
+
+/* Content */
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+    color: #fff;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 50rem;
+    margin-inline: auto;
+    padding-block: 7rem 4rem;
+    text-align: center;
+    overflow-wrap: break-word;
+}
+
+/* Heading */
+.hero-content h1 {
+    margin-bottom: 1.25rem;
+    font-size: clamp(2.25rem, 3vw, 4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    animation: fade-up 0.9s ease both;
+}
+
+.hero-content h1 span {
+    background: linear-gradient(90deg, #ffc107, var(--accent-green));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Description */
+.hero-content p {
+    max-width: 42rem;
+    margin: 0 auto 2rem;
+    font-size: clamp(1rem, 0.95rem + 0.35vw, 1.1rem);
+    line-height: 1.7;
+    opacity: 0.9;
+    animation: fade-up 0.9s ease both;
+    animation-delay: 0.2s;
+}
+
+/* Buttons */
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    animation: fade-up 0.9s ease both;
+    animation-delay: 0.4s;
+}
+
+.hero-buttons .premium-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    max-width: 100%;
+    padding: 0.875rem 1.9rem;
+
+    font-size: clamp(0.95rem, 0.25vw + 0.9rem, 1.05rem);
+    line-height: 1.2;
+    text-align: center;
+}
+
+.hero-buttons .premium-btn i {
+    flex-shrink: 0;
+    font-size: 0.95em;
+}
+
+/* Animation */
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(1.125rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .hero-content h1,
+    .hero-content p,
+    .hero-buttons {
+        animation: none;
+    }
+
+    .hero-section .premium-btn {
+        transition: none;
+    }
+}
+
+/* ==========================================================
+   Tablet & Mobile
+========================================================== */
+
+@media (max-width: 48rem) {
+
+    .hero-section {
+        min-height: auto;
+    }
+
+    .hero-content {
+        padding-block: 6rem 3rem;
+    }
+
+    .hero-content p {
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: min(100%, 22rem);
+        margin-inline: auto;
+        gap: 0.75rem;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+/* ==========================================================
+   Small Phones
+========================================================== */
+
+@media (max-width: 36rem) {
+
+    .hero-content h1 {
+        font-size: clamp(2rem, 8vw, 2.8rem);
+    }
+
+    .hero-content h1 br {
+        display: none;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+}
+
+/* ==========================================================
+   Extra Small Devices (Galaxy Fold, etc.)
+========================================================== */
+
+@media (max-width: 22.5rem) {
+
+    .hero-content {
+        padding-block: 5.5rem 2.5rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-buttons {
+        width: 100%;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .hero-buttons .premium-btn {
+        gap: 0.5rem;
+    }
+
+    .hero-buttons .premium-btn i {
+        font-size: 0.9em;
+    }
+}

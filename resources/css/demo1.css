@@ -1,4 +1,5 @@
-@import "./demo1_fonts.css";
 @import "./global.css";
+@import "./demo1_fonts.css";
 @import "../../public/home/css/demo1_base.css";
+@import "../../public/home/css/demo1_hero.css";
 @import "./common.css";

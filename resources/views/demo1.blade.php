@@ -28,7 +28,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 hero-content">
+            <div class="col-12 col-lg-10 col-xl-8 mx-auto hero-content">
                 <h1>
                     Discover Beautiful Places <br>
                     <span>With {{ config('app.name') }}</span>
