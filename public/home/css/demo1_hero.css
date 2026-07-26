@@ -8,7 +8,7 @@
     align-items: center;
     min-height: min(100dvh, 56rem);
     overflow: hidden;
-    background-color: #111827;
+    background-color: var(--hero-section-background-color);
 }
 
 /* Background Video */
@@ -26,11 +26,7 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0.75),
-        rgba(0, 0, 0, 0.35)
-    );
+    background: var(--hero-overlay-background);
 }
 
 /* Content */
@@ -38,7 +34,7 @@
     position: relative;
     z-index: 2;
     min-width: 0;
-    color: #fff;
+    color: var(--hero-section-container-color);
 }
 
 .hero-content {
@@ -60,7 +56,7 @@
 }
 
 .hero-content h1 span {
-    background: linear-gradient(90deg, #ffc107, var(--accent-green));
+    background: var(--hero-content-h1-span-background);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
