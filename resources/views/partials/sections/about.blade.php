@@ -35,7 +35,7 @@
                     <li><i class="fas fa-check-circle"></i><span>24/7 customer support</span></li>
                 </ul>
 
-                <a href="#trusted" class="btn btn-primary">
+                <a href="#trusted" class="btn premium-btn premium-btn-pill premium-btn-solid">
                     <i class="fas fa-award"></i> Why Choose Us?
                 </a>
             </div>

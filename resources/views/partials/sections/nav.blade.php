@@ -24,7 +24,7 @@
                 <a href="#contact" class="btn btn-nav d-none d-lg-inline-flex">Contact</a>
 
                 <!-- Mobile only -->
-                <button class="hamburger d-lg-none" id="ham" aria-expanded="false">
+                <button class="hamburger d-lg-none" id="ham" aria-expanded="false" aria-label="Toggle menu" aria-controls="drawer">
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                 </button>
             </div>

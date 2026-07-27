@@ -19,14 +19,23 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+    transform: scale(1.05);
+    transition: transform 8s ease-out;
 }
 
-/* Dark Overlay */
+.hero-section:hover .hero-video {
+    transform: scale(1);
+}
+
+/* Dark Overlay (with soft fade into next section) */
 .hero-overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: var(--hero-overlay-background);
+    background:
+        var(--hero-overlay-background),
+        linear-gradient(to bottom, transparent 75%, var(--hero-section-background-color) 100%);
 }
 
 /* Content */
@@ -56,11 +65,17 @@
 }
 
 .hero-content h1 span {
+    color: #ffc107; /* fallback solid color for browsers without background-clip: text support */
     background: var(--hero-content-h1-span-background);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+    .hero-content h1 span {
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+    }
 }
 
 /* Description */
@@ -86,7 +101,7 @@
     animation-delay: 0.4s;
 }
 
-.hero-buttons .premium-btn {
+.hero-buttons a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -98,9 +113,14 @@
     font-size: clamp(0.95rem, 0.25vw + 0.9rem, 1.05rem);
     line-height: 1.2;
     text-align: center;
+
+    font-weight: 600;
+    border: none;
+    color: #fff;
+    text-decoration: none;
 }
 
-.hero-buttons .premium-btn i {
+.hero-buttons a i {
     flex-shrink: 0;
     font-size: 0.95em;
 }
@@ -129,13 +149,36 @@
     .hero-section .premium-btn {
         transition: none;
     }
+
+    .hero-video {
+        transition: none;
+        transform: none;
+    }
+}
+
+/* ==========================================================
+   Large / Ultra-wide Screens
+   (matches the min-width: 87.5rem step in root.css)
+========================================================== */
+
+@media (min-width: 87.5rem) {
+
+    .hero-content {
+        max-width: 56rem;
+        padding-block: 8rem 5rem;
+    }
+
+    .hero-content p {
+        max-width: 46rem;
+    }
 }
 
 /* ==========================================================
    Tablet & Mobile
+   (matches the max-width: 61.9988rem step in root.css)
 ========================================================== */
 
-@media (max-width: 48rem) {
+@media (max-width: 61.9988rem) {
 
     .hero-section {
         min-height: auto;
@@ -156,7 +199,7 @@
         gap: 0.75rem;
     }
 
-    .hero-buttons .btn {
+    .hero-buttons a {
         width: 100%;
         justify-content: center;
         padding: 0.75rem 1.5rem;
@@ -165,9 +208,10 @@
 
 /* ==========================================================
    Small Phones
+   (matches the max-width: 35.9988rem step in root.css)
 ========================================================== */
 
-@media (max-width: 36rem) {
+@media (max-width: 35.9988rem) {
 
     .hero-content h1 {
         font-size: clamp(2rem, 8vw, 2.8rem);
@@ -197,20 +241,47 @@
     }
 
     .hero-buttons {
-        width: 100%;
+        width: min(100%, 18rem);
     }
 
-    .hero-buttons .btn {
+    .hero-buttons a {
         width: 100%;
-        padding: 0.75rem 1rem;
-        font-size: 0.95rem;
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+        gap: 0.4rem;
     }
 
-    .hero-buttons .premium-btn {
+    .hero-buttons a i {
+        font-size: 0.85em;
+    }
+}
+
+/* ==========================================================
+   Short Viewports / Landscape Phones
+   (e.g. phone rotated sideways, short laptop lids)
+========================================================== */
+
+@media (max-height: 28rem) and (orientation: landscape) {
+
+    .hero-section {
+        min-height: auto;
+    }
+
+    .hero-content {
+        padding-block: 3.5rem 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        margin-bottom: 0.75rem;
+    }
+
+    .hero-content p {
+        margin-bottom: 1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: row;
         gap: 0.5rem;
-    }
-
-    .hero-buttons .premium-btn i {
-        font-size: 0.9em;
     }
 }

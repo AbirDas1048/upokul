@@ -14,6 +14,18 @@
 
         globalThis.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
+
+        // Reveal the nav once the hero section has scrolled out of view;
+        // hide it again if the user scrolls back up into the hero.
+        // Requires the hero <section> to have id="hero".
+        const hero = document.getElementById('hero');
+        if (hero) {
+            const heroObserver = new IntersectionObserver(
+                ([entry]) => nav.classList.toggle('nav-visible', !entry.isIntersecting),
+                { threshold: 0 }
+            );
+            heroObserver.observe(hero);
+        }
     }
 
     function initDrawer() {

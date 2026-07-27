@@ -1,4 +1,4 @@
-<section class="hero-section">
+<section id="hero" class="hero-section">
     <video class="hero-video" autoplay muted loop playsinline tabindex="-1" preload="metadata" poster="{{ asset('images/banner.jpg') }}">
         <source src="{{ asset('videos/bg.mp4') }}" type="video/mp4">
     </video>
