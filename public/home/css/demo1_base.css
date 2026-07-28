@@ -10,6 +10,10 @@
     --radius-md: 0.75rem;
     --radius-lg: 1.25rem;
 
+    /* Shared vertical section padding — used by services.css and any
+       future section that wants consistent, overridable spacing */
+    --section-pad: 6.5rem;
+
     /* Shared transition, built from --dur/--ease above */
     --transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 
