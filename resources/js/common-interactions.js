@@ -302,6 +302,15 @@
         };
 
         document.querySelectorAll('.gallery-card').forEach((card) => {
+            // gallery-card is now a native <button>, so the browser
+            // already handles focus and Enter/Space -> click for us.
+            // Just keep a defensive fallback in case a card is ever
+            // missing its aria-label in the template.
+            if (!card.hasAttribute('aria-label')) {
+                const label = card.querySelector('.gallery-info h5')?.textContent?.trim();
+                card.setAttribute('aria-label', label ? `View ${label} full screen` : 'View image full screen');
+            }
+
             card.addEventListener('click', () => openFullscreenModal(card));
         });
 

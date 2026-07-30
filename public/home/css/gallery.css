@@ -37,6 +37,17 @@
 
 /* Card */
 .gallery-card {
+    /* Reset native <button> chrome, since this is now a real button
+       (fixes SonarQube S6819 / keyboard-equivalent warnings) */
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    text-align: inherit;
+    color: inherit;
+
     position: relative;
     width: 100%;
     border-radius: var(--radius-lg, 1.125rem);
@@ -54,15 +65,24 @@
     transition: transform 0.6s ease, filter 0.4s ease;
 }
 
-/* Hover */
-.gallery-card:hover img {
-    transform: scale(1.08);
-    filter: var(--gallery-img-filter-hover);
-}
+/* Hover — only on devices that genuinely support hover (mouse/trackpad).
+   Without this guard, tapping a card on touchscreens leaves the image
+   zoomed and the expand icon visible until the user taps elsewhere. */
+@media (hover: hover) and (pointer: fine) {
+    .gallery-card:hover img {
+        transform: scale(1.08);
+        filter: var(--gallery-img-filter-hover);
+    }
 
-.gallery-card:hover {
-    transform: translateY(var(--gallery-hover-y, -0.375rem));
-    box-shadow: var(--gallery-shadow-hover);
+    .gallery-card:hover {
+        transform: translateY(var(--gallery-hover-y, -0.375rem));
+        box-shadow: var(--gallery-shadow-hover);
+    }
+
+    .gallery-card:hover .gallery-expand {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
 /* Overlay Info */
@@ -109,9 +129,13 @@
     transition: 0.35s ease;
 }
 
-.gallery-card:hover .gallery-expand {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+@media (prefers-reduced-motion: reduce) {
+    .gallery-card,
+    .gallery-card img,
+    .gallery-info,
+    .gallery-expand {
+        transition: none;
+    }
 }
 
 /* Pagination */
@@ -139,6 +163,7 @@
     justify-content: center;
     background: var(--modal-bg);
     backdrop-filter: blur(0.625rem);
+    -webkit-backdrop-filter: blur(0.625rem);
     z-index: 9999;
 }
 
@@ -153,7 +178,7 @@
 
 .fullscreenSwiper img {
     width: 100%;
-    height: 90vh;
+    height: 90dvh;
     object-fit: contain;
     border-radius: var(--radius-md, 0.75rem);
 }
@@ -161,7 +186,7 @@
 /* Controls */
 .swiper-button-prev,
 .swiper-button-next {
-    color: var(--nav-color) !important;
+    color: var(--close-color, #fff) !important;
 }
 
 /* Close */
@@ -177,4 +202,36 @@
     background: var(--close-bg);
     color: var(--close-color);
     z-index: 10000;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   (breakpoints match root.css / hero / nav / about / service / trust —
+   slides-per-view itself is already handled by Swiper's JS breakpoints)
+══════════════════════════════════════ */
+
+@media (max-width: 35.9988rem) {
+    .gallery-info {
+        padding: 1.4rem 1.1rem;
+    }
+
+    .gallery-info h5 {
+        font-size: 1.1rem;
+    }
+
+    .gallery-expand {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .fullscreenSwiper img {
+        height: 80dvh;
+    }
+
+    .close-modal {
+        width: 2.4rem;
+        height: 2.4rem;
+        top: 0.75rem;
+        right: 0.75rem;
+    }
 }
