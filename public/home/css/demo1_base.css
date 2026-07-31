@@ -147,6 +147,24 @@
 
     --review-btn-shadow: 0 0.625rem 1.5625rem rgba(0,0,0,0.15);
 
+    /* Review action buttons — Google / Facebook brand skins */
+    --review-google-bg: #ffffff;
+    --review-google-border: #e5e7eb;
+    --review-google-text: #1f2937;
+    --review-google-icon: #ea4335;
+    --review-google-hover-bg: #f8f9fa;
+    --review-google-hover-border: #dadce0;
+    --review-google-hover-shadow: rgba(0, 0, 0, 0.1);
+
+    /* Facebook blue deepened from the literal brand hex (#1877f2) so
+       white button text clears WCAG AA contrast (~4.2:1 -> ~5.7:1) */
+    --review-fb-bg: #1465c4;
+    --review-fb-border: #1465c4;
+    --review-fb-text: #ffffff;
+    --review-fb-hover-bg: #0f4fa0;
+    --review-fb-hover-border: #0f4fa0;
+    --review-fb-hover-shadow: rgba(20, 101, 196, 0.35);
+
     --contact-bg:linear-gradient(135deg,#f8fafc,#eef2ff);
     --contact-card-bg:#ffffff;
     --contact-border:#e5e7eb;
