@@ -165,6 +165,9 @@
     --review-fb-hover-border: #0f4fa0;
     --review-fb-hover-shadow: rgba(20, 101, 196, 0.35);
 
+    /* Contact form keyboard-focus glow (used alongside border-color) */
+    --contact-focus-ring: rgba(32, 201, 151, 0.25);
+
     --contact-bg:linear-gradient(135deg,#f8fafc,#eef2ff);
     --contact-card-bg:#ffffff;
     --contact-border:#e5e7eb;

@@ -56,11 +56,11 @@
 
                 <div class="company-info">
                     <h4>{{config('app.name')}}</h4>
-                    <p>
-                        <i class="fas fa-location-dot"></i> {{ config('custom.office_address') }}<br>
-                        <i class="fas fa-envelope"></i> {{ config('custom.office_email') }}<br>
-                        <i class="fas fa-phone"></i> {{ config('custom.office_phone') }}
-                    </p>
+                    <ul class="info-list">
+                        <li><i class="fas fa-location-dot"></i><span>{{ config('custom.office_address') }}</span></li>
+                        <li><i class="fas fa-envelope"></i><span>{{ config('custom.office_email') }}</span></li>
+                        <li><i class="fas fa-phone"></i><span>{{ config('custom.office_phone') }}</span></li>
+                    </ul>
                 </div>
 
                 <div class="owner-box">

@@ -1,5 +1,5 @@
 #contact{
-    padding:8rem 0;
+    padding:var(--section-pad) 0;
     background:var(--contact-bg);
 }
 
@@ -11,9 +11,16 @@
 
 .contact-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
     gap:2rem;
     margin-top:3rem;
+}
+
+/* Grid items default to min-width:auto, which lets un-wrappable
+   content (e.g. a long email address inside .owner-box) force the
+   column wider than the viewport — same bug fixed in about.css. */
+.contact-grid > *{
+    min-width:0;
 }
 
 /* CARD */
@@ -61,8 +68,7 @@
     font-size:.95rem;
     color:var(--contact-text);
 
-    outline:none;
-    transition:.25s;
+    transition:border-color .25s ease, box-shadow .25s ease;
 }
 
 .form-group textarea{
@@ -74,9 +80,20 @@
     color:var(--contact-muted);
 }
 
+/* Mouse-click focus: subtle border highlight only */
 .form-group input:focus,
 .form-group textarea:focus{
+    outline:none;
     border-color:var(--contact-accent);
+}
+
+/* Keyboard focus: border highlight + visible glow ring.
+   (No blanket "outline:none" here — that was silently canceling the
+   global input:focus-visible ring for every field on this form.) */
+.form-group input:focus-visible,
+.form-group textarea:focus-visible{
+    border-color:var(--contact-accent);
+    box-shadow:0 0 0 0.1875rem var(--contact-focus-ring);
 }
 
 /* SUBMIT BUTTON FULL WIDTH */
@@ -90,7 +107,7 @@
     color:var(--contact-btn-text);
 
     width:100%;
-    transition:all .3s ease;
+    transition:box-shadow .3s ease;
 }
 
 #contact button[type="submit"]::before{
@@ -112,14 +129,25 @@
     transition:.6s;
 }
 
-#contact button[type="submit"]:hover::before{
-    left:125%;
+@media (hover: hover) and (pointer: fine) {
+    #contact button[type="submit"]:hover::before{
+        left:125%;
+    }
+
+    #contact button[type="submit"]:hover{
+        box-shadow:
+            0 0.625rem 1.5625rem rgba(0,0,0,0.15),
+            0 0 0.625rem var(--contact-btn-bg);
+    }
 }
 
-#contact button[type="submit"]:hover{
-    box-shadow:
-        0 0.625rem 1.5625rem rgba(0,0,0,0.15),
-        0 0 0.625rem var(--contact-btn-bg);
+@media (prefers-reduced-motion: reduce){
+    .form-group input,
+    .form-group textarea,
+    #contact button[type="submit"],
+    #contact button[type="submit"]::before{
+        transition:none;
+    }
 }
 
 /* MAP */
@@ -135,19 +163,40 @@
     width:100%;
     height:13.75rem;
     border:none;
+    display:block;
 }
 
 /* COMPANY INFO */
 
-.company-info p{
-    color:var(--contact-muted);
-    font-size:.9rem;
-    line-height:1.9;
+.info-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:.6rem;
 }
 
-.company-info i{
+.info-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:.6rem;
+    color:var(--contact-muted);
+    font-size:.9rem;
+    line-height:1.6;
+}
+
+.info-list i{
     color:var(--contact-accent);
     width:1.125rem;
+    flex-shrink:0;
+    margin-top:.2rem; /* optically aligns icon with first line of text */
+}
+
+.info-list span{
+    min-width:0;
+    flex:1 1 auto;
+    overflow-wrap:anywhere;
 }
 
 /* OWNER */
@@ -166,8 +215,13 @@
     height:3.75rem;
     border-radius:50%;
     object-fit:cover;
+    flex-shrink:0;
     border:0.1875rem solid var(--contact-accent);
     box-shadow:0 0.25rem 0.875rem rgba(0,0,0,0.15);
+}
+
+.owner-box .owner-meta{
+    min-width:0;
 }
 
 .owner-box strong{
@@ -181,18 +235,80 @@
     display:flex;
     align-items:center;
     gap:.3rem;
+    min-width:0;
+    overflow-wrap:anywhere;
 }
 
 .owner-box span i{
     color:var(--contact-accent);
+    flex-shrink:0;
 }
 
-/* RESPONSIVE */
+/* ══════════════════════════════════════
+   RESPONSIVE
+   (breakpoints match root.css / hero / nav / about / service / trust /
+   gallery / review)
+══════════════════════════════════════ */
 
-@media(max-width:62rem){
+@media (min-width: 87.5rem){
+    .map-box iframe{
+        height:15.5rem;
+    }
+}
+
+@media (max-width:61.9988rem){
 
     .contact-grid{
         grid-template-columns:1fr;
     }
 
+    .contact-card{
+        padding:2rem;
+    }
+}
+
+@media (max-width:35.9988rem){
+
+    .contact-card{
+        padding:1.6rem;
+    }
+
+    .form-group input,
+    .form-group textarea{
+        padding:.8rem 1rem;
+        font-size:.9rem;
+    }
+
+    .map-box iframe{
+        height:12rem;
+    }
+
+    .owner-box img{
+        width:3.25rem;
+        height:3.25rem;
+    }
+}
+
+@media (max-width:22.5rem){
+
+    .contact-card{
+        padding:1.3rem;
+    }
+
+    .owner-box{
+        gap:.75rem;
+    }
+
+    .owner-box img{
+        width:2.75rem;
+        height:2.75rem;
+    }
+
+    .owner-box strong{
+        font-size:.88rem;
+    }
+
+    .owner-box span{
+        font-size:.78rem;
+    }
 }
