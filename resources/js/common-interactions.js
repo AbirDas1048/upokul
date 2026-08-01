@@ -14,6 +14,18 @@
 
         globalThis.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
+
+        // Reveal the nav once the hero section has scrolled out of view;
+        // hide it again if the user scrolls back up into the hero.
+        // Requires the hero <section> to have id="hero".
+        const hero = document.getElementById('hero');
+        if (hero) {
+            const heroObserver = new IntersectionObserver(
+                ([entry]) => nav.classList.toggle('nav-visible', !entry.isIntersecting),
+                { threshold: 0 }
+            );
+            heroObserver.observe(hero);
+        }
     }
 
     function initDrawer() {
@@ -264,9 +276,12 @@
         const fullscreenModal = document.querySelector('.fullscreen-modal');
         const fullscreenSelector = '.fullscreenSwiper';
 
-        if (!fullscreenModal || !document.querySelector(fullscreenSelector)) return null;
+        if (!fullscreenModal || !document.querySelector(fullscreenSelector)) {
+            return null;
+        }
 
         const closeModalBtn = fullscreenModal.querySelector('.close-modal');
+
         const fullscreenSwiper = new globalThis.Swiper(fullscreenSelector, {
             navigation: {
                 nextEl: '.fullscreen-modal .swiper-button-next',
@@ -278,28 +293,92 @@
 
         let lastGalleryTrigger = null;
 
+        const getFocusableElements = () => [...fullscreenModal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )].filter((el) => !el.disabled);
+
         const closeFullscreenModal = () => {
             fullscreenModal.classList.remove('active');
+            fullscreenModal.setAttribute('aria-hidden', 'true');
+
+            document.body.style.overflow = '';
+
             lastGalleryTrigger?.focus();
         };
 
         const openFullscreenModal = (card) => {
             lastGalleryTrigger = card;
+
             fullscreenModal.classList.add('active');
-            fullscreenSwiper.slideTo(Number.parseInt(card.dataset.index || '0', 10), 0);
+            fullscreenModal.setAttribute('aria-hidden', 'false');
+
+            document.body.style.overflow = 'hidden';
+
+            fullscreenSwiper.slideTo(
+                Number.parseInt(card.dataset.index || '0', 10),
+                0
+            );
+
+            closeModalBtn?.focus();
         };
 
         document.querySelectorAll('.gallery-card').forEach((card) => {
-            card.addEventListener('click', () => openFullscreenModal(card));
+            if (!card.hasAttribute('aria-label')) {
+                const label = card.querySelector('.gallery-info h5')?.textContent?.trim();
+
+                card.setAttribute(
+                    'aria-label',
+                    label
+                        ? `View ${label} full screen`
+                        : 'View image full screen'
+                );
+            }
+
+            card.addEventListener('click', () => {
+                openFullscreenModal(card);
+            });
         });
 
         closeModalBtn?.addEventListener('click', closeFullscreenModal);
+
         fullscreenModal.addEventListener('click', (e) => {
-            if (e.target === fullscreenModal) closeFullscreenModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && fullscreenModal.classList.contains('active')) {
+            if (e.target === fullscreenModal) {
                 closeFullscreenModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!fullscreenModal.classList.contains('active')) {
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                closeFullscreenModal();
+                return;
+            }
+
+            if (e.key !== 'Tab') {
+                return;
+            }
+
+            const focusable = getFocusableElements();
+
+            if (!focusable.length) {
+                e.preventDefault();
+                return;
+            }
+
+            const first = focusable[0];
+            const last = focusable.at(-1);
+
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                }
+            } else if (document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
             }
         });
 

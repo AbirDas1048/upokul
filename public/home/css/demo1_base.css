@@ -1,161 +1,219 @@
 :root {
-    --accent-green: #20c997;
+    /* ==========================================================
+       CORE PALETTE — 5 colors, everything below derives from these
+       1. Emerald   #0E9F76  — primary brand accent
+       2. Ink Navy  #0B1120  — dark surfaces (hero, nav, modals)
+       3. Champagne #D9A441  — CTA / secondary accent
+       4. Ivory     #FAF8F3  — warm page/section backgrounds
+       5. Charcoal  #1F2937  — body text
+       Supporting neutrals (#6b7280 muted gray, white for elevated
+       cards) round these out but aren't brand colors.
+    ========================================================== */
+    --accent-green:#0E9F76;
+    --accent-green-light:#14B88A;
+
+    --champagne:#D9A441;
+    --champagne-dark:#C48A2E;
+
+    --btn-primary-shadow:0 0.75rem 1.875rem rgba(217,164,65,.4);
+    --btn-secondary-shadow:0 0.75rem 1.875rem rgba(14,159,118,.4);
+
+    --ink-navy: #0B1120;
+    --ivory: #FAF8F3;
+    --charcoal: #1F2937;
+    --muted-gray: #6b7280;
 
     --ease    : cubic-bezier(.4,0,.2,1);
     --dur     : .38s;
     --r       : 0.5rem;
 
-    --nav-bg: rgba(0,0,0,0.85);
-    --nav-bg-scrolled: rgba(0,0,0,0.95);
-    --nav-text:#fff;
-    --nav-link:rgba(255,255,255,0.7);
-    --nav-accent:#22c55e;
-    --nav-accent-soft:rgba(34,197,94,.3);
-    --nav-border:rgba(255,255,255,.1);
-    --nav-shadow:0 0.5rem 1.875rem rgba(0,0,0,.4);
+    /* Radius scale (used by about.css and any future card/media components) */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1.25rem;
 
-    --btn-bg:#facc15;
-    --btn-text:#000;
-    --btn-shadow:0 0.375rem 1.25rem rgba(250,204,21,.4);
+    /* Shared vertical section padding — used by services.css and any
+       future section that wants consistent, overridable spacing */
+    --section-pad: 6.5rem;
 
-    --nav-icon-bg:rgba(0,0,0,.5);
+    /* Shared transition, built from --dur/--ease above */
+    --transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 
-    --about-bg:#ffffff;
+    --nav-bg: rgba(11,17,32,0.85);
+    --nav-bg-scrolled: rgba(11,17,32,0.95);
+    --nav-text: var(--ivory);
+    --nav-link: rgba(250,248,243,0.7);
+    --nav-accent: var(--accent-green);
+    --nav-accent-soft: rgba(14,159,118,.3);
+    --nav-border: rgba(250,248,243,.1);
+    --nav-shadow: 0 0.5rem 1.875rem rgba(11,17,32,.4);
+    --nav-icon-bg: rgba(11,17,32,.5);
 
-    --section-badge-bg: rgba(255,255,255,0.12);
-    --section-badge-border: rgba(255,255,255,0.28);
-    --section-badge-text: #336171;
-    --section-title-color: #1ffbfb;
-    --section-title-accent: #facc15;
-    --section-subtitle-color: #394980;
+    --btn-bg: var(--champagne);
+    --btn-text: var(--charcoal);
+    --btn-shadow: 0 0.375rem 1.25rem rgba(217,164,65,.4);
 
-    --about-heading:#111;
-    --about-text:#444;
-    --about-muted:#666;
-    --about-accent:#20c997;
+    --hero-section-background-color: var(--ink-navy);
+    --hero-section-container-color: var(--ivory);
+    --hero-overlay-background: linear-gradient(90deg, rgba(11,17,32,.75), rgba(11,17,32,.35));
+    --hero-content-h1-span-background: linear-gradient(90deg, var(--champagne), var(--accent-green));
 
-    --about-divider:rgba(0,0,0,.08);
+    --section-badge-bg: rgba(250,248,243,0.12);
+    --section-badge-border: rgba(250,248,243,0.28);
+    --section-badge-text: var(--accent-green);
+    --section-title-color: var(--charcoal);
+    --section-title-accent: var(--champagne);
+    --section-title-font: var(--font-display);
+    --section-subtitle-color: var(--muted-gray);
 
-    --about-img-shadow:0 0.75rem 2.5rem rgba(0,0,0,.15);
-
+    --about-bg: var(--ivory);
+    --about-heading: var(--charcoal);
+    --about-text: #374151;
+    --about-muted: var(--muted-gray);
+    --about-accent: var(--accent-green);
+    --about-divider: rgba(31,41,55,.08);
+    --about-img-shadow: 0 0.75rem 2.5rem rgba(11,17,32,.15);
     --about-glow:
-        radial-gradient(circle at 30% 30%, rgba(35,205,210,0.15), transparent 65%),
-        radial-gradient(circle at 80% 80%, rgba(15,109,111,0.12), transparent 60%);
-
+        radial-gradient(circle at 30% 30%, rgba(14,159,118,0.15), transparent 65%),
+        radial-gradient(circle at 80% 80%, rgba(11,17,32,0.08), transparent 60%);
     --about-watermark:'〰';
-    --about-watermark-color:rgba(35,205,210,0.04);
-
+    --about-watermark-color: rgba(14,159,118,0.04);
     --about-float-icon:'✦';
-    --about-float-color:#ffc107;
+    --about-float-color: var(--champagne);
 
-    --services-bg: #f9fbfc;
+    --services-bg: var(--ivory);
+    --badge-bg: rgba(14,159,118,0.15);
+    --badge-color: var(--accent-green);
 
-    --badge-bg: rgba(32,201,151,0.15);
-    --badge-color: #20c997;
+    --title-color: var(--charcoal);
+    --title-gradient: linear-gradient(90deg, var(--champagne), var(--accent-green));
 
-    --title-color: #212529;
-    --title-gradient: linear-gradient(90deg, #ffc107, #20c997);
-
-    --service-text-muted: #6c757d;
+    --service-text-muted: var(--muted-gray);
 
     --card-bg: #ffffff;
-    --card-border: rgba(0,0,0,0.05);
-    --card-border-hover: rgba(0,0,0,0.08);
+    --card-border: rgba(31,41,55,0.05);
+    --card-border-hover: rgba(31,41,55,0.08);
 
-    --card-shadow: 0 0.625rem 1.875rem rgba(0,0,0,0.08);
-    --card-shadow-hover: 0 1.125rem 2.8125rem rgba(0,0,0,0.12);
+    --card-shadow: 0 0.625rem 1.875rem rgba(11,17,32,0.08);
+    --card-shadow-hover: 0 1.125rem 2.8125rem rgba(11,17,32,0.12);
 
-    --card-gradient: linear-gradient(90deg, #20c997, #ffc107);
+    --card-gradient: linear-gradient(90deg, var(--accent-green), var(--champagne));
 
-    --icon-bg: linear-gradient(135deg, #20c997, #ffc107);
-    --icon-bg-hover: linear-gradient(135deg, #20c997, #ffc107);
+    --icon-bg: linear-gradient(135deg, var(--accent-green), var(--champagne));
+    --icon-bg-hover: linear-gradient(135deg, var(--champagne), var(--accent-green));
 
-    --icon-color: #fff;
-    --icon-color-hover: #fff;
+    --icon-color: var(--ivory);
+    --icon-color-hover: var(--ivory);
 
-    --icon-shadow-hover: none;
+    --icon-shadow-hover: 0 0.5rem 1rem rgba(14,159,118,.35);
 
-    --trust-bg: linear-gradient(180deg, #f8f9fa, #ffffff);
+    --trust-bg: linear-gradient(180deg, var(--ivory), #ffffff);
 
-    --trust-title: #212529;
-    --trust-sub: #6c757d;
+    --trust-title: var(--charcoal);
+    --trust-sub: var(--muted-gray);
 
     --trust-card-bg: #ffffff;
     --trust-card-border: transparent;
-    --trust-card-shadow: 0 0.9375rem 2.5rem rgba(0,0,0,0.08);
-    --trust-card-hover-shadow: 0 1.5625rem 3.75rem rgba(0,0,0,0.12);
+    --trust-card-shadow: 0 0.9375rem 2.5rem rgba(11,17,32,0.08);
+    --trust-card-hover-shadow: 0 1.5625rem 3.75rem rgba(11,17,32,0.12);
 
     --trust-icon: var(--accent-green);
-    --trust-number: #212529;
+    --trust-number: var(--charcoal);
     --trust-plus: var(--accent-green);
-    --trust-text: #6c757d;
+    --trust-text: var(--muted-gray);
 
-    --gallery-bg: #f9fafb;
-    --gallery-shadow: 0 1.25rem 2.5rem rgba(0,0,0,0.15);
-    --gallery-shadow-hover: 0 1.5625rem 3.125rem rgba(0,0,0,0.2);
-    --gallery-overlay: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-    --gallery-title-color: #fff;
-    --gallery-subtitle-color: rgba(255,255,255,0.8);
-    --gallery-expand-bg: rgba(255,255,255,0.2);
-    --gallery-expand-border: #fff;
-    --gallery-expand-color: #fff;
-    --gallery-img-filter-hover: none;
+    --gallery-bg: var(--ivory);
+    --gallery-shadow: 0 1.25rem 2.5rem rgba(11,17,32,0.15);
+    --gallery-shadow-hover: 0 1.5625rem 3.125rem rgba(11,17,32,0.2);
+    --gallery-overlay: linear-gradient(to top, rgba(11,17,32,0.75), transparent);
+    --gallery-title-color: var(--ivory);
+    --gallery-subtitle-color: rgba(250,248,243,0.8);
+    --gallery-expand-bg: rgba(250,248,243,0.2);
+    --gallery-expand-border: var(--ivory);
+    --gallery-expand-color: var(--ivory);
+    --gallery-img-filter-hover: brightness(1.05);
+    --gallery-hover-y: -0.375rem;
 
-    --pagination-color: #ccc;
-    --pagination-active: #333;
+    --pagination-color: rgba(31,41,55,0.25);
+    --pagination-active: var(--accent-green);
 
-    --modal-bg: rgba(0,0,0,0.95);
+    --modal-bg: rgba(11,17,32,0.95);
 
-    --close-bg: rgba(255,255,255,0.2);
-    --close-color: #fff;
+    --close-bg: rgba(250,248,243,0.2);
+    --close-color: var(--ivory);
 
-    --reviews-bg: #f9fafb;
+    --reviews-bg: var(--ivory);
 
     --review-card-bg: #ffffff;
-    --review-card-hover-bg: #ffffff;
+    --review-card-hover-bg: #FEFCF8;
 
-    --review-border: rgba(0,0,0,0.06);
-    --review-border-hover: rgba(0,0,0,0.12);
+    --review-border: rgba(31,41,55,0.06);
+    --review-border-hover: rgba(14,159,118,0.25);
 
-    --review-shadow-hover: 0 1.25rem 2.5rem rgba(0,0,0,0.08);
+    --review-shadow-hover: 0 1.25rem 2.5rem rgba(11,17,32,0.08);
 
-    --review-text: #374151;
-    --review-author: #111827;
-    --review-muted: #6b7280;
+    --review-text: var(--charcoal);
+    --review-author: var(--charcoal);
+    --review-muted: var(--muted-gray);
 
-    --review-divider: rgba(0,0,0,0.06);
-    --review-star: #fbbf24;
+    --review-divider: rgba(31,41,55,0.06);
+    --review-star: var(--champagne);
 
-    --review-quote-bg: rgba(0,0,0,0.05);
+    --review-quote-bg: rgba(31,41,55,0.05);
 
     --review-btn-bg: #ffffff;
-    --review-btn-border: rgba(0,0,0,0.1);
-    --review-btn-text: #111827;
+    --review-btn-border: rgba(31,41,55,0.1);
+    --review-btn-text: var(--charcoal);
 
-    --review-btn-hover-bg: #111827;
-    --review-btn-hover-border: #111827;
-    --review-btn-hover-text: #ffffff;
+    --review-btn-hover-bg: var(--ink-navy);
+    --review-btn-hover-border: var(--ink-navy);
+    --review-btn-hover-text: var(--ivory);
 
-    --review-btn-shadow: 0 0.625rem 1.5625rem rgba(0,0,0,0.15);
+    --review-btn-shadow: 0 0.625rem 1.5625rem rgba(11,17,32,0.15);
 
-    --contact-bg:linear-gradient(135deg,#f8fafc,#eef2ff);
-    --contact-card-bg:#ffffff;
-    --contact-border:#e5e7eb;
+    /* Review action buttons — Google / Facebook brand skins.
+       Intentionally OFF the core palette: these need to stay
+       recognizable as their respective brands. */
+    --review-google-bg: #ffffff;
+    --review-google-border: #e5e7eb;
+    --review-google-text: #1f2937;
+    --review-google-icon: #ea4335;
+    --review-google-hover-bg: #f8f9fa;
+    --review-google-hover-border: #dadce0;
+    --review-google-hover-shadow: rgba(0, 0, 0, 0.1);
 
-    --contact-text:#111827;
-    --contact-muted:#6b7280;
+    /* Facebook blue deepened from the literal brand hex (#1877f2) so
+       white button text clears WCAG AA contrast (~4.2:1 -> ~5.7:1) */
+    --review-fb-bg: #1465c4;
+    --review-fb-border: #1465c4;
+    --review-fb-text: #ffffff;
+    --review-fb-hover-bg: #0f4fa0;
+    --review-fb-hover-border: #0f4fa0;
+    --review-fb-hover-shadow: rgba(20, 101, 196, 0.35);
 
-    --contact-input-bg:#ffffff;
-    --contact-input-border:#e5e7eb;
+    /* Contact form keyboard-focus glow (used alongside border-color) */
+    --contact-focus-ring: rgba(14, 159, 118, 0.25);
 
-    --contact-accent:var(--accent-green);
+    --contact-bg: linear-gradient(135deg, var(--ivory), #EAF5F1);
+    --contact-card-bg: #ffffff;
+    --contact-border: rgba(31,41,55,0.1);
+
+    --contact-text: var(--charcoal);
+    --contact-muted: var(--muted-gray);
+
+    --contact-input-bg: #ffffff;
+    --contact-input-border: rgba(31,41,55,0.12);
+
+    --contact-accent: var(--accent-green);
 
     /* BUTTON */
     --contact-btn-bg: var(--accent-green);
     --contact-btn-border: var(--accent-green);
-    --contact-btn-text: #ffffff;
+    --contact-btn-text: var(--ivory);
 
-    /* SWAL */
+    /* SWAL — error stays semantic red on purpose (universal "error"
+       meaning); forcing it onto the brand palette would read as a
+       success/neutral state instead of a warning. */
     --swal-error-bg: #f27474;
     --swal-error-text: #ffffff;
 
@@ -163,11 +221,14 @@
     --swal-popup-font: var(--font-body);
     --swal-title-font: var(--font-display);
 
-    --footer-bg: var(--accent-green);
-    --footer-border: rgba(255,255,255,0.08);
-    --footer-link: #ffffff;
-    --footer-link-hover: #facc15;
-    --footer-copy: #ffffff;
+    /* Deep green, not the vibrant --accent-green — the accent color
+       only gives ~2.1:1 contrast with white text as a full background,
+       badly failing WCAG AA (needs 4.5:1). This gives ~7.9:1. */
+    --footer-bg: #0f5c50;
+    --footer-border: rgba(250,248,243,0.08);
+    --footer-link: var(--ivory);
+    --footer-link-hover: var(--champagne);
+    --footer-copy: var(--ivory);
 }
 
 /* --- Global Responsive Typography --- */
@@ -177,10 +238,19 @@ html { font-size: 1rem; }
 @media (max-width: 35.9988rem) { html { font-size: 0.875rem; } }
 
 html, body { overflow-x: hidden; scroll-behavior: auto;}
-body { font-family: 'Poppins', sans-serif;}
+body { font-family: var(--font-body); }
 a { text-decoration: none; }
 section {
     scroll-margin-top: 5.625rem; /* height of navbar */
+}
+
+/* Global safety net: lets any long/unbreakable text (a long word,
+   a URL, an unbroken string) wrap instead of overflowing its box.
+   This is a second layer of defense — it does NOT fix flex/grid
+   items refusing to shrink (that needs min-width:0 on the item
+   itself, applied per-section where needed). */
+* {
+    overflow-wrap: break-word;
 }
 
 a:focus-visible,
@@ -191,43 +261,48 @@ textarea:focus-visible {
     outline-offset: 0.125rem;
 }
 
-/* Reusable premium buttons */
+/* ==========================================================
+   Premium Buttons
+   -----------------------------------------------------------
+   .premium-btn        -> INTERACTION / ANIMATION ONLY.
+                          No size, no alignment, no color here.
+                          Every section owns its own button
+                          class (e.g. .hero-buttons) for layout,
+                          sizing, and text-decoration.
+   .premium-btn-pill    -> shape variant (border-radius only)
+   .premium-btn-glossy-* / -solid -> skin variants (background +
+                          shadow only, still no layout)
+========================================================== */
+
 .premium-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    border: none;
-    color: #fff;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-decoration: none;
 }
 
 .premium-btn:hover {
     transform: translateY(-0.1875rem);
-    color: #fff;
 }
 
 .premium-btn-pill {
     border-radius: 3.125rem;
-    padding: 0.875rem 1.9rem;
 }
 
-.premium-btn-block {
-    width: 100%;
-    padding: 0.875rem;
+.premium-btn-glossy-primary{
+    background:linear-gradient(
+        135deg,
+        var(--champagne),
+        var(--champagne-dark)
+    );
+    box-shadow:var(--btn-primary-shadow);
 }
 
-.premium-btn-glossy-primary {
-    background: linear-gradient(135deg, #ff9f00, #ffc107);
-    box-shadow: 0 0.75rem 1.875rem rgba(255, 193, 7, 0.4);
-}
-
-.premium-btn-glossy-secondary {
-    background: linear-gradient(135deg, #0dcaf0, #0d6efd);
-    box-shadow: 0 0.75rem 1.875rem rgba(13, 110, 253, 0.4);
+.premium-btn-glossy-secondary{
+    background:linear-gradient(
+        135deg,
+        var(--accent-green-light),
+        var(--accent-green)
+    );
+    box-shadow:var(--btn-secondary-shadow);
 }
 
 .premium-btn-solid {
@@ -236,137 +311,10 @@ textarea:focus-visible {
 
 /* Reusable swiper pagination */
 .swiper-premium .swiper-pagination-bullet {
-    background: #111;
+    background: var(--charcoal);
     opacity: 0.3;
 }
 
 .swiper-premium .swiper-pagination-bullet-active {
     opacity: 1;
 }
-
-/* =========================
-   Hero Section
-========================= */
-.hero-section {
-    position: relative;
-    height: clamp(35rem, 85vh, 45rem);
-    overflow: hidden;
-
-    display: flex;
-    align-items: center;
-}
-
-/* Background video */
-.hero-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Overlay */
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0.75),
-        rgba(0, 0, 0, 0.35)
-    );
-    z-index: 1;
-}
-
-/* Content wrapper */
-.hero-section .container {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-}
-
-/* Hero content */
-.hero-content {
-    max-width: 36.25rem;
-}
-
-.hero-content h1 {
-    font-size: clamp(2.2rem, 4vw, 3.4rem);
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 1.25rem;
-    animation: fade-up 0.9s ease both;
-}
-
-.hero-content h1 span {
-    background: linear-gradient(90deg, #ffc107, var(--accent-green));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-content p {
-    font-size: 1.05rem;
-    opacity: 0.9;
-    margin-bottom: 2rem;
-    animation: fade-up 0.9s ease both;
-    animation-delay: 0.2s;
-}
-
-/* Buttons */
-.hero-buttons {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    animation: fade-up 0.9s ease both;
-    animation-delay: 0.4s;
-}
-
-
-.hero-buttons .premium-btn {
-    padding: 0.875rem 1.9rem;
-}
-
-
-/* Animation */
-@keyframes fade-up {
-    from {
-        opacity: 0;
-        transform: translateY(1.125rem);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Reduce motion (accessibility) */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation: none !important;
-        transition: none !important;
-    }
-}
-
-/* Mobile */
-@media (max-width: 48rem) {
-    .hero-content {
-        text-align: center;
-        margin-inline: auto;
-    }
-
-    .hero-buttons {
-        gap: 0.75rem;          /* ⬅ reduces vertical space */
-        max-width: 20rem;
-        margin-inline: auto;
-    }
-
-    .hero-buttons .premium-btn {
-        width: 100%;
-        padding: 0.7rem 1.6rem;
-    }
-
-    .hero-content p {
-        margin-bottom: 1.5rem; /* ⬅ reduces gap before buttons */
-    }
-}
-

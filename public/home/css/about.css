@@ -1,6 +1,4 @@
-/* ══════════════════════════════════════
-   ABOUT SECTION (FINAL UNIFIED)
-══════════════════════════════════════ */
+/* ABOUT SECTION */
 
 #about{
     padding:8rem 0;
@@ -9,7 +7,7 @@
     overflow:hidden;
 }
 
-/* Demo 3 watermark */
+/* Watermark */
 #about::before{
     content:var(--about-watermark, '');
     position:absolute;
@@ -24,18 +22,26 @@
 /* Layout */
 .about-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
     gap:5rem;
     align-items:center;
 }
 
-/* ===== IMAGE (DEMO 3) ===== */
+/* Grid items default to min-width:auto, which lets un-wrappable
+   content (e.g. the CTA button's text) force the column wider than
+   the viewport. Overriding this is what actually stops the overflow. */
+.about-grid > *{
+    min-width:0;
+}
+
+/* ===== IMAGE ===== */
 .about-image-wrapper{
     position:relative;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:2.5rem;
+    max-width:100%;
+    padding:clamp(1rem, 4vw, 2.5rem);
 }
 
 /* glow */
@@ -72,7 +78,7 @@
     transform:scale(1.03) rotate(-1deg);
 }
 
-/* ===== TEXT (DEMO 2) ===== */
+/* ===== TEXT ===== */
 .about-content h2{
     font-size:clamp(1.9rem,3.5vw,3rem);
     font-weight:300;
@@ -90,6 +96,11 @@
 }
 
 /* list */
+.about-list{
+    list-style:none;
+    margin:0;
+    padding-left:0;
+}
 .about-list li{
     display:flex;
     gap:.75rem;
@@ -100,6 +111,33 @@
 }
 .about-list li i{
     color:var(--about-accent);
+    flex-shrink:0;
+}
+.about-list li span{
+    min-width:0;
+    flex:1 1 auto;
+}
+
+/* CTA — layout/alignment only; color + hover animation come from
+   the shared .premium-btn(-pill/-solid) classes applied in the HTML */
+.about-content .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.6rem;
+    max-width:100%;
+    margin-top:.5rem;
+    padding:.875rem 1.9rem;
+    font-size:clamp(0.85rem, 0.6vw + 0.78rem, 0.95rem);
+    font-weight:600;
+    border:none;
+    text-decoration:none;
+    white-space:normal;
+}
+
+.about-content .btn i{
+    font-size:.95em;
+    flex-shrink:0;
 }
 
 /* animation */
@@ -108,10 +146,47 @@
     50%{transform:translateY(-0.625rem)}
 }
 
-/* responsive */
-@media(max-width:61.9375rem){
+@media (prefers-reduced-motion: reduce){
+    .about-image-wrapper::after{
+        animation:none;
+    }
+    .about-image-wrapper img{
+        transition:none;
+    }
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   (breakpoints match root.css / hero.css / nav.css)
+══════════════════════════════════════ */
+
+@media (max-width:61.9988rem){
     .about-grid{
         grid-template-columns:1fr;
         gap:3rem;
+    }
+
+    .about-img-side{ order:-1; }
+    .about-content{ text-align:center; }
+    .about-list li{ text-align:left; }
+    .about-content .btn{ justify-content:center; margin-inline:auto; }
+}
+
+@media (max-width:35.9988rem){
+    .about-image-wrapper img{
+        max-width:min(16rem, 85vw);
+    }
+}
+
+@media (max-width:22.5rem){
+    .about-content h2{
+        font-size:1.6rem;
+    }
+    .about-content p{
+        font-size:.85rem;
+    }
+    .about-list li{
+        font-size:.82rem;
+        gap:.55rem;
     }
 }

@@ -36,15 +36,56 @@ footer{
     transition: transform .35s cubic-bezier(.4,0,.2,1);
 }
 
-.footer-links a:hover{
-    color:var(--footer-link-hover);
+@media (hover: hover) and (pointer: fine) {
+    .footer-links a:hover{
+        color:var(--footer-link-hover);
+    }
+
+    .footer-links a:hover::after{
+        transform:scaleX(1);
+    }
 }
 
-.footer-links a:hover::after{
-    transform:scaleX(1);
+@media (prefers-reduced-motion: reduce){
+    .footer-links a,
+    .footer-links a::after{
+        transition:none;
+    }
 }
 
 .footer-copy{
     font-size:.72rem;
     color:var(--footer-copy);
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   (breakpoints match root.css / hero / nav / about / service / trust /
+   gallery / review / contact)
+══════════════════════════════════════ */
+
+@media (max-width:35.9988rem){
+    footer{
+        padding:2.4rem 0;
+    }
+
+    .footer-links{
+        gap:1.4rem 1.8rem;
+        margin-bottom:1.1rem;
+    }
+}
+
+@media (max-width:22.5rem){
+    footer{
+        padding:2rem 0;
+    }
+
+    .footer-links{
+        gap:1rem 1.4rem;
+    }
+
+    .footer-links a{
+        font-size:.65rem;
+        letter-spacing:.14em;
+    }
 }

@@ -3,7 +3,7 @@
 ================================ */
 
 .trust-section {
-    padding: 6.25rem 0;
+    padding: var(--section-pad) 0;
     background: var(--trust-bg);
     position: relative;
     overflow: hidden;
@@ -13,17 +13,21 @@
 .trust-card {
     background: var(--trust-card-bg);
     border: 0.0625rem solid var(--trust-card-border);
-    border-radius: 1.25rem;
+    border-radius: var(--radius-lg);
     padding: 2.5rem 1.5625rem;
     text-align: center;
     box-shadow: var(--trust-card-shadow);
-    transition: all 0.4s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
     height: 100%;
 }
 
-.trust-card:hover {
-    transform: translateY(-0.625rem);
-    box-shadow: var(--trust-card-hover-shadow);
+/* Hover — only on devices that genuinely support hover (mouse/trackpad),
+   so tapping a card on touchscreens doesn't leave it stuck lifted. */
+@media (hover: hover) and (pointer: fine) {
+    .trust-card:hover {
+        transform: translateY(-0.625rem);
+        box-shadow: var(--trust-card-hover-shadow);
+    }
 }
 
 /* Icon */
@@ -51,4 +55,68 @@
     font-size: 0.95rem;
     margin-top: 0.3125rem;
     color: var(--trust-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .trust-card {
+        transition: none;
+    }
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   (breakpoints match root.css / hero / nav / about / service —
+   column count itself is already handled by Bootstrap's
+   col-md-6 / col-lg-3 classes in the HTML)
+══════════════════════════════════════ */
+
+@media (max-width: 61.9988rem) {
+    .trust-card {
+        padding: 2.1rem 1.3rem;
+    }
+
+    .trust-card i {
+        font-size: 2.2rem;
+    }
+
+    .trust-card h3 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 35.9988rem) {
+    .trust-card {
+        padding: 1.8rem 1.1rem;
+    }
+
+    .trust-card i {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .trust-card h3 {
+        font-size: 2rem;
+    }
+
+    .trust-card p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 22.5rem) {
+    .trust-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .trust-card i {
+        font-size: 1.8rem;
+    }
+
+    .trust-card h3 {
+        font-size: 1.8rem;
+    }
+
+    .trust-card p {
+        font-size: 0.85rem;
+    }
 }

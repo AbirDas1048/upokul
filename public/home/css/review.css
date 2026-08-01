@@ -3,7 +3,7 @@
 ================================= */
 
 #reviews {
-    padding: 8rem 0;
+    padding: var(--section-pad) 0;
     background: var(--reviews-bg);
 }
 
@@ -23,24 +23,38 @@
     line-height: 1;
 }
 
+/* Ensure equal height (matches gallery/service swiper setup) */
+.reviewSwiper .swiper-wrapper {
+    align-items: stretch;
+}
+.reviewSwiper .swiper-slide {
+    height: auto;
+    display: flex;
+}
 
 /* CARD */
 .review-card {
     background: var(--review-card-bg);
     border: 0.0625rem solid var(--review-border);
-    border-radius: var(--r);
+    border-radius: var(--radius-lg);
     padding: 2rem;
+    width: 100%;
     height: 100%;
-    transition: var(--dur) var(--ease);
+    transition: transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    background var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
     position: relative;
     overflow: hidden;
 }
 
-.review-card:hover {
-    border-color: var(--review-border-hover);
-    background: var(--review-card-hover-bg);
-    transform: translateY(-0.375rem);
-    box-shadow: var(--review-shadow-hover);
+@media (hover: hover) and (pointer: fine) {
+    .review-card:hover {
+        border-color: var(--review-border-hover);
+        background: var(--review-card-hover-bg);
+        transform: translateY(-0.375rem);
+        box-shadow: var(--review-shadow-hover);
+    }
 }
 
 /* OPTIONAL QUOTE STYLE (from demo 3) */
@@ -97,6 +111,14 @@
 .review-src img {
     width: 0.875rem;
     height: 0.875rem;
+    flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .review-card,
+    .review-actions .btn {
+        transition: none;
+    }
 }
 
 /* ACTIONS */
@@ -137,13 +159,95 @@
         color var(--dur);
 }
 
-/* SAME HOVER FOR ALL THEMES */
-.review-actions .btn:hover {
-    transform: translateY(-0.1875rem);
+@media (hover: hover) and (pointer: fine) {
+    /* Fallback hover for the base .btn (kept for any future generic use) */
+    .review-actions .btn:hover {
+        transform: translateY(-0.1875rem);
+        background: var(--review-btn-hover-bg);
+        border-color: var(--review-btn-hover-border);
+        color: var(--review-btn-hover-text);
+        box-shadow: var(--review-btn-shadow);
+    }
+}
 
-    background: var(--review-btn-hover-bg);
-    border-color: var(--review-btn-hover-border);
-    color: var(--review-btn-hover-text);
+/* GOOGLE — white/outlined, brand-colored icon */
+.review-actions .btn-google {
+    background: var(--review-google-bg);
+    border-color: var(--review-google-border);
+    color: var(--review-google-text);
+}
+.review-actions .btn-google i {
+    color: var(--review-google-icon);
+}
+@media (hover: hover) and (pointer: fine) {
+    .review-actions .btn-google:hover {
+        background: var(--review-google-hover-bg);
+        border-color: var(--review-google-hover-border);
+        color: var(--review-google-text);
+        box-shadow: 0 0.625rem 1.5625rem var(--review-google-hover-shadow);
+    }
+}
 
-    box-shadow: var(--review-btn-shadow);
+/* FACEBOOK — brand blue (see --review-fb-bg in demo1_base.css for
+   why it's deepened from the literal Facebook hex) */
+.review-actions .btn-fb {
+    background: var(--review-fb-bg);
+    border-color: var(--review-fb-border);
+    color: var(--review-fb-text);
+}
+@media (hover: hover) and (pointer: fine) {
+    .review-actions .btn-fb:hover {
+        background: var(--review-fb-hover-bg);
+        border-color: var(--review-fb-hover-border);
+        color: var(--review-fb-text);
+        box-shadow: 0 0.625rem 1.5625rem var(--review-fb-hover-shadow);
+    }
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   (breakpoints match root.css / hero / nav / about / service / trust / gallery)
+══════════════════════════════════════ */
+
+@media (max-width: 61.9988rem) {
+    .review-card {
+        padding: 1.6rem;
+    }
+}
+
+@media (max-width: 35.9988rem) {
+    .review-card {
+        padding: 1.4rem;
+    }
+
+    .review-quote {
+        font-size: .92rem;
+    }
+
+    .review-actions {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 20rem;
+        margin-inline: auto;
+    }
+
+    .review-actions .btn {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 22.5rem) {
+    .review-card {
+        padding: 1.2rem;
+    }
+
+    .review-card::before {
+        font-size: 3.8rem;
+        top: -0.5rem;
+    }
+
+    .review-actions .btn {
+        padding: .7rem 1.3rem;
+        font-size: .7rem;
+    }
 }
