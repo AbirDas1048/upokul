@@ -193,7 +193,10 @@
     --swal-popup-font: var(--font-body);
     --swal-title-font: var(--font-display);
 
-    --footer-bg: var(--accent-green);
+    /* Deep green, not the vibrant --accent-green — the accent color
+       only gives ~2.1:1 contrast with white text as a full background,
+       badly failing WCAG AA (needs 4.5:1). This gives ~7.9:1. */
+    --footer-bg: #0f5c50;
     --footer-border: rgba(255,255,255,0.08);
     --footer-link: #ffffff;
     --footer-link-hover: #facc15;
