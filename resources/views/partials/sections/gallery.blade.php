@@ -92,7 +92,7 @@
 
 
 <!-- ✅ FULLSCREEN MODAL -->
-<div class="fullscreen-modal" id="galleryModal">
+<div class="fullscreen-modal" id="galleryModal" role="dialog" aria-modal="true" aria-label="Image gallery" aria-hidden="true">
     <div class="swiper fullscreenSwiper">
         <div class="swiper-wrapper">
 

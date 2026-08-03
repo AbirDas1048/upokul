@@ -2,24 +2,30 @@
 #mainNav{
     min-height:4.5rem;
     position:fixed;
-    top:0;left:0;right:0;
+    top:0;
+    left:0;
+    right:0;
     z-index:9999;
     padding:1.4rem 0;
-
-    background: var(--nav-bg);
+    background:var(--nav-bg);
     border-bottom:0.0625rem solid transparent;
-
-    /* Hidden above the viewport on landing; revealed once the
-       hero section has scrolled past (see .nav-visible below) */
-    transform: translateY(-100%);
-    transition: transform .4s ease, background .4s ease,
-    padding .4s ease, box-shadow .4s ease,
-    border-color .4s ease;
+    visibility:hidden;
+    transform:translateY(-100%);
+    transition:
+        transform .4s ease,
+        visibility 0s linear .4s,
+        background .4s ease,
+        padding .4s ease,
+        box-shadow .4s ease,
+        border-color .4s ease;
 }
 
-/* SHOWN STATE — toggled by JS once the hero leaves the viewport */
 #mainNav.nav-visible{
-    transform: translateY(0);
+    visibility:visible;
+    transform:translateY(0);
+    transition:
+        transform .4s ease,
+        visibility 0s;
 }
 
 /* SCROLLED STATE */
@@ -129,7 +135,6 @@
     display:flex;
     align-items:center;
     justify-content:center;
-
     background:transparent;
     border:none;
     color:var(--nav-text);
@@ -154,21 +159,16 @@
     top:100%;
     left:0;
     width:100%;
-
     background:var(--nav-bg-scrolled);
     backdrop-filter: blur(1.25rem);
     -webkit-backdrop-filter: blur(1.25rem);
-
     border-bottom:0.0625rem solid var(--nav-border);
-
     padding:1.2rem;
     display:flex;
     flex-direction:column;
     gap:.3rem;
-
     max-height: calc(100dvh - 4.5rem);
     overflow-y: auto;
-
     /* animation */
     opacity:0;
     transform:translateY(-0.625rem);

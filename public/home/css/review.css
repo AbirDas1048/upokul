@@ -163,11 +163,9 @@
     /* Fallback hover for the base .btn (kept for any future generic use) */
     .review-actions .btn:hover {
         transform: translateY(-0.1875rem);
-
         background: var(--review-btn-hover-bg);
         border-color: var(--review-btn-hover-border);
         color: var(--review-btn-hover-text);
-
         box-shadow: var(--review-btn-shadow);
     }
 }
