@@ -272,61 +272,6 @@
         });
     }
 
-    // function initFullscreenSwiper() {
-    //     const fullscreenModal = document.querySelector('.fullscreen-modal');
-    //     const fullscreenSelector = '.fullscreenSwiper';
-    //
-    //     if (!fullscreenModal || !document.querySelector(fullscreenSelector)) return null;
-    //
-    //     const closeModalBtn = fullscreenModal.querySelector('.close-modal');
-    //     const fullscreenSwiper = new globalThis.Swiper(fullscreenSelector, {
-    //         navigation: {
-    //             nextEl: '.fullscreen-modal .swiper-button-next',
-    //             prevEl: '.fullscreen-modal .swiper-button-prev'
-    //         },
-    //         loop: false,
-    //         watchOverflow: true
-    //     });
-    //
-    //     let lastGalleryTrigger = null;
-    //
-    //     const closeFullscreenModal = () => {
-    //         fullscreenModal.classList.remove('active');
-    //         lastGalleryTrigger?.focus();
-    //     };
-    //
-    //     const openFullscreenModal = (card) => {
-    //         lastGalleryTrigger = card;
-    //         fullscreenModal.classList.add('active');
-    //         fullscreenSwiper.slideTo(Number.parseInt(card.dataset.index || '0', 10), 0);
-    //     };
-    //
-    //     document.querySelectorAll('.gallery-card').forEach((card) => {
-    //         // gallery-card is now a native <button>, so the browser
-    //         // already handles focus and Enter/Space -> click for us.
-    //         // Just keep a defensive fallback in case a card is ever
-    //         // missing its aria-label in the template.
-    //         if (!card.hasAttribute('aria-label')) {
-    //             const label = card.querySelector('.gallery-info h5')?.textContent?.trim();
-    //             card.setAttribute('aria-label', label ? `View ${label} full screen` : 'View image full screen');
-    //         }
-    //
-    //         card.addEventListener('click', () => openFullscreenModal(card));
-    //     });
-    //
-    //     closeModalBtn?.addEventListener('click', closeFullscreenModal);
-    //     fullscreenModal.addEventListener('click', (e) => {
-    //         if (e.target === fullscreenModal) closeFullscreenModal();
-    //     });
-    //     document.addEventListener('keydown', (e) => {
-    //         if (e.key === 'Escape' && fullscreenModal.classList.contains('active')) {
-    //             closeFullscreenModal();
-    //         }
-    //     });
-    //
-    //     return fullscreenSwiper;
-    // }
-
     function initFullscreenSwiper() {
         const fullscreenModal = document.querySelector('.fullscreen-modal');
         const fullscreenSelector = '.fullscreenSwiper';
@@ -424,7 +369,7 @@
             }
 
             const first = focusable[0];
-            const last = focusable[focusable.length - 1];
+            const last = focusable.at(-1);
 
             if (e.shiftKey) {
                 if (document.activeElement === first) {

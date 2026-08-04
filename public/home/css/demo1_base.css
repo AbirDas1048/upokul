@@ -9,15 +9,19 @@
        Supporting neutrals (#6b7280 muted gray, white for elevated
        cards) round these out but aren't brand colors.
     ========================================================== */
-    --accent-green: #0E9F76;
+    --accent-green:#0E9F76;
+    --accent-green-light:#14B88A;
+
+    --champagne:#D9A441;
+    --champagne-dark:#C48A2E;
+
+    --btn-primary-shadow:0 0.75rem 1.875rem rgba(217,164,65,.4);
+    --btn-secondary-shadow:0 0.75rem 1.875rem rgba(14,159,118,.4);
+
     --ink-navy: #0B1120;
-    --champagne: #D9A441;
     --ivory: #FAF8F3;
     --charcoal: #1F2937;
     --muted-gray: #6b7280;
-
-    --font-body: 'Poppins', sans-serif;
-    --font-display: 'Poppins', sans-serif;
 
     --ease    : cubic-bezier(.4,0,.2,1);
     --dur     : .38s;
@@ -283,14 +287,22 @@ textarea:focus-visible {
     border-radius: 3.125rem;
 }
 
-.premium-btn-glossy-primary {
-    background: linear-gradient(135deg, #D9A441, #C48A2E);
-    box-shadow: 0 0.75rem 1.875rem rgba(217, 164, 65, 0.4);
+.premium-btn-glossy-primary{
+    background:linear-gradient(
+        135deg,
+        var(--champagne),
+        var(--champagne-dark)
+    );
+    box-shadow:var(--btn-primary-shadow);
 }
 
-.premium-btn-glossy-secondary {
-    background: linear-gradient(135deg, #14B88A, #0E9F76);
-    box-shadow: 0 0.75rem 1.875rem rgba(14, 159, 118, 0.4);
+.premium-btn-glossy-secondary{
+    background:linear-gradient(
+        135deg,
+        var(--accent-green-light),
+        var(--accent-green)
+    );
+    box-shadow:var(--btn-secondary-shadow);
 }
 
 .premium-btn-solid {
