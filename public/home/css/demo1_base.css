@@ -139,8 +139,10 @@
     --trust-text: var(--muted-gray);
 
     --gallery-bg: var(--ivory);
-    --gallery-shadow: 0 1.25rem 2.5rem rgba(var(--ink-navy-rgb),0.15);
-    --gallery-shadow-hover: 0 1.5625rem 3.125rem rgba(var(--ink-navy-rgb),0.2);
+    --gallery-shadow: none;
+    --gallery-shadow-hover:
+        0 0.75rem 1.5rem rgba(var(--ink-navy-rgb),0.25),
+        0 0 0 0.125rem rgba(var(--accent-green-rgb),0.2);
     --gallery-overlay: linear-gradient(to top, rgba(var(--ink-navy-rgb),0.75), transparent);
     --gallery-title-color: var(--ivory);
     --gallery-subtitle-color: rgba(var(--ivory-rgb),0.8);
