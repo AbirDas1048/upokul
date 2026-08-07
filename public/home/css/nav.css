@@ -77,7 +77,7 @@
     font-style:normal;
 }
 
-/* LINKS */
+/* LINKS — identical rules power both the desktop nav and the mobile drawer */
 .nav-links{
     list-style:none;
     margin:0;
@@ -85,16 +85,20 @@
     gap:.4rem;
 }
 
-.nav-links a{
+.nav-links a,
+.nav-drawer-links a{
     font-size:.75rem;
     letter-spacing:.12em;
     text-transform:uppercase;
     color:var(--nav-link);
     padding:.5rem .9rem;
     position:relative;
+    display:inline-block;
 }
 
-.nav-links a::after{
+
+.nav-links a::after,
+.nav-drawer-links a::after{
     content:'';
     position:absolute;
     bottom:0;left:.9rem;right:.9rem;
@@ -104,10 +108,13 @@
     transition:.3s;
 }
 
-.nav-links a:hover{
+.nav-links a:hover,
+.nav-drawer-links a:hover{
     color:var(--nav-accent);
 }
-.nav-links a:hover::after{
+
+.nav-links a:hover::after,
+.nav-drawer-links a:hover::after{
     transform:scaleX(1);
 }
 
@@ -166,7 +173,7 @@
     padding:1.2rem;
     display:flex;
     flex-direction:column;
-    gap:.3rem;
+    gap:.8rem;
     max-height: calc(100dvh - 4.5rem);
     overflow-y: auto;
     /* animation */
@@ -184,20 +191,17 @@
     pointer-events:auto;
 }
 
-/* LINKS */
-.nav-drawer a{
-    padding:.8rem 0;
-    color:var(--nav-link);
-    border-bottom:0.0625rem solid rgba(255,255,255,.05);
-}
-.nav-drawer a:hover{
-    color:var(--nav-accent);
+/* links laid out inline, wrapping onto new rows as needed */
+.nav-drawer-links{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:.2rem .6rem;
 }
 
 .nav-drawer .btn-nav{
     width:100%;
     text-align:center;
-    border-bottom:none;
 }
 
 @media (min-width: 62rem){
