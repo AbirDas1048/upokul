@@ -1,7 +1,6 @@
 footer{
-    padding:3rem 0;
+    padding:1rem 0;
     background:var(--footer-bg);
-    border-top:0.0625rem solid var(--footer-border);
     text-align:center;
 }
 

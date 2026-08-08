@@ -32,13 +32,6 @@
         </div>
 
         <!-- Mobile Drawer -->
-{{--        <div class="nav-drawer" id="drawer">--}}
-{{--            <a href="#about" class="drawer-link">About</a>--}}
-{{--            <a href="#services" class="drawer-link">Services</a>--}}
-{{--            <a href="#gallery" class="drawer-link">Gallery</a>--}}
-{{--            <a href="#reviews" class="drawer-link">Reviews</a>--}}
-{{--            <a href="#contact" class="btn-nav drawer-link">Contact</a>--}}
-{{--        </div>--}}
         <div class="nav-drawer" id="drawer">
             <div class="nav-drawer-links">
                 <a href="#about" class="drawer-link">About</a>

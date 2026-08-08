@@ -7,7 +7,6 @@
     right:0;
     z-index:9999;
     padding:1.4rem 0;
-    background:var(--nav-bg);
     border-bottom:0.0625rem solid transparent;
     visibility:hidden;
     transform:translateY(-100%);

@@ -246,10 +246,10 @@
     /* Deep green, not the vibrant --accent-green — the accent color
        only gives ~2.1:1 contrast with white text as a full background,
        badly failing WCAG AA (needs 4.5:1). --forest-green gives ~7.9:1. */
-    --footer-bg: var(--forest-green);
+    --footer-bg: rgba(var(--ink-navy-rgb),0.95);
     --footer-border: rgba(var(--ivory-rgb),0.08);
     --footer-link: var(--ivory);
-    --footer-link-hover: var(--champagne);
+    --footer-link-hover: var(--accent-green);
     --footer-copy: var(--ivory);
 }
 
