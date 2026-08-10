@@ -30,7 +30,6 @@
 
     --white:#ffffff; /* neutral, used for elevated card surfaces */
 
-    --forest-green:#0f5c50; /* deep green for footer — see note near --footer-bg */
     --emerald-tint:#EAF5F1; /* faint emerald wash, used in the contact gradient */
 
     --btn-primary-shadow:0 0.75rem 1.875rem rgba(var(--champagne-rgb),.4);
@@ -243,9 +242,6 @@
     --swal-popup-font: var(--font-body);
     --swal-title-font: var(--font-display);
 
-    /* Deep green, not the vibrant --accent-green — the accent color
-       only gives ~2.1:1 contrast with white text as a full background,
-       badly failing WCAG AA (needs 4.5:1). --forest-green gives ~7.9:1. */
     --footer-bg: rgba(var(--ink-navy-rgb),0.95);
     --footer-border: rgba(var(--ivory-rgb),0.08);
     --footer-link: var(--ivory);
