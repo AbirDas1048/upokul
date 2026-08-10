@@ -21,7 +21,7 @@
 
             <div class="nav-right d-flex align-items-center gap-2">
                 <!-- Desktop only -->
-                <a href="#contact" class="btn btn-nav d-none d-lg-inline-flex">Contact</a>
+                <a href="#contact" class="btn-nav d-none d-lg-inline-flex">Contact</a>
 
                 <!-- Mobile only -->
                 <button class="hamburger d-lg-none" id="ham" aria-expanded="false" aria-label="Toggle menu" aria-controls="drawer">
@@ -33,11 +33,13 @@
 
         <!-- Mobile Drawer -->
         <div class="nav-drawer" id="drawer">
-            <a href="#about" class="drawer-link">About</a>
-            <a href="#services" class="drawer-link">Services</a>
-            <a href="#gallery" class="drawer-link">Gallery</a>
-            <a href="#reviews" class="drawer-link">Reviews</a>
-            <a href="#contact" class="btn btn-nav drawer-link">Contact</a>
+            <div class="nav-drawer-links">
+                <a href="#about" class="drawer-link">About</a>
+                <a href="#services" class="drawer-link">Services</a>
+                <a href="#gallery" class="drawer-link">Gallery</a>
+                <a href="#reviews" class="drawer-link">Reviews</a>
+            </div>
+            <a href="#contact" class="btn-nav drawer-link">Contact</a>
         </div>
 
     </div>

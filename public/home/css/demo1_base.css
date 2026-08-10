@@ -1,27 +1,39 @@
 :root {
     /* ==========================================================
-       CORE PALETTE — 5 colors, everything below derives from these
-       1. Emerald   #0E9F76  — primary brand accent
-       2. Ink Navy  #0B1120  — dark surfaces (hero, nav, modals)
-       3. Champagne #D9A441  — CTA / secondary accent
-       4. Ivory     #FAF8F3  — warm page/section backgrounds
-       5. Charcoal  #1F2937  — body text
-       Supporting neutrals (#6b7280 muted gray, white for elevated
-       cards) round these out but aren't brand colors.
+       CORE PALETTE — every color anywhere in the site traces back
+       to one of these. Each core color also has an "-rgb" channel
+       companion so rgba() calls elsewhere can vary opacity while
+       still being driven entirely by the named color (e.g.
+       rgba(var(--ink-navy-rgb), .85) instead of a raw rgba triplet).
     ========================================================== */
     --accent-green:#0E9F76;
+    --accent-green-rgb:14,159,118;
     --accent-green-light:#14B88A;
 
     --champagne:#D9A441;
+    --champagne-rgb:217,164,65;
     --champagne-dark:#C48A2E;
 
-    --btn-primary-shadow:0 0.75rem 1.875rem rgba(217,164,65,.4);
-    --btn-secondary-shadow:0 0.75rem 1.875rem rgba(14,159,118,.4);
+    --ink-navy:#0B1120;
+    --ink-navy-rgb:11,17,32;
 
-    --ink-navy: #0B1120;
-    --ivory: #FAF8F3;
-    --charcoal: #1F2937;
-    --muted-gray: #6b7280;
+    --ivory:#FAF8F3;
+    --ivory-rgb:250,248,243;
+    --ivory-soft:#FEFCF8; /* barely-there ivory tint, used for subtle hover states */
+
+    --charcoal:#1F2937;
+    --charcoal-rgb:31,41,55;
+    --slate-text:#374151; /* secondary body-text tone, between charcoal and muted-gray */
+
+    --muted-gray:#6b7280;
+    --muted-gray-rgb:107,114,128;
+
+    --white:#ffffff; /* neutral, used for elevated card surfaces */
+
+    --emerald-tint:#EAF5F1; /* faint emerald wash, used in the contact gradient */
+
+    --btn-primary-shadow:0 0.75rem 1.875rem rgba(var(--champagne-rgb),.4);
+    --btn-secondary-shadow:0 0.75rem 1.875rem rgba(var(--accent-green-rgb),.4);
 
     --ease    : cubic-bezier(.4,0,.2,1);
     --dur     : .38s;
@@ -39,27 +51,30 @@
     /* Shared transition, built from --dur/--ease above */
     --transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 
-    --nav-bg: rgba(11,17,32,0.85);
-    --nav-bg-scrolled: rgba(11,17,32,0.95);
+    --font-body: 'Poppins', sans-serif;
+    --font-display: 'Poppins', sans-serif;
+
+    --nav-bg: rgba(var(--ink-navy-rgb),0.85);
+    --nav-bg-scrolled: rgba(var(--ink-navy-rgb),0.95);
     --nav-text: var(--ivory);
-    --nav-link: rgba(250,248,243,0.7);
+    --nav-link: rgba(var(--ivory-rgb),0.7);
     --nav-accent: var(--accent-green);
-    --nav-accent-soft: rgba(14,159,118,.3);
-    --nav-border: rgba(250,248,243,.1);
-    --nav-shadow: 0 0.5rem 1.875rem rgba(11,17,32,.4);
-    --nav-icon-bg: rgba(11,17,32,.5);
+    --nav-accent-soft: rgba(var(--accent-green-rgb),.3);
+    --nav-border: rgba(var(--ivory-rgb),.1);
+    --nav-shadow: 0 0.5rem 1.875rem rgba(var(--ink-navy-rgb),.4);
+    --nav-icon-bg: rgba(var(--ink-navy-rgb),.5);
 
     --btn-bg: var(--champagne);
     --btn-text: var(--charcoal);
-    --btn-shadow: 0 0.375rem 1.25rem rgba(217,164,65,.4);
+    --btn-shadow: 0 0.375rem 1.25rem rgba(var(--champagne-rgb),.4);
 
     --hero-section-background-color: var(--ink-navy);
     --hero-section-container-color: var(--ivory);
-    --hero-overlay-background: linear-gradient(90deg, rgba(11,17,32,.75), rgba(11,17,32,.35));
+    --hero-overlay-background: linear-gradient(90deg, rgba(var(--ink-navy-rgb),.75), rgba(var(--ink-navy-rgb),.35));
     --hero-content-h1-span-background: linear-gradient(90deg, var(--champagne), var(--accent-green));
 
-    --section-badge-bg: rgba(250,248,243,0.12);
-    --section-badge-border: rgba(250,248,243,0.28);
+    --section-badge-bg: rgba(var(--ivory-rgb),0.12);
+    --section-badge-border: rgba(var(--ivory-rgb),0.28);
     --section-badge-text: var(--accent-green);
     --section-title-color: var(--charcoal);
     --section-title-accent: var(--champagne);
@@ -68,21 +83,21 @@
 
     --about-bg: var(--ivory);
     --about-heading: var(--charcoal);
-    --about-text: #374151;
+    --about-text: var(--slate-text);
     --about-muted: var(--muted-gray);
     --about-accent: var(--accent-green);
-    --about-divider: rgba(31,41,55,.08);
-    --about-img-shadow: 0 0.75rem 2.5rem rgba(11,17,32,.15);
+    --about-divider: rgba(var(--charcoal-rgb),.08);
+    --about-img-shadow: 0 0.75rem 2.5rem rgba(var(--ink-navy-rgb),.15);
     --about-glow:
-        radial-gradient(circle at 30% 30%, rgba(14,159,118,0.15), transparent 65%),
-        radial-gradient(circle at 80% 80%, rgba(11,17,32,0.08), transparent 60%);
+        radial-gradient(circle at 30% 30%, rgba(var(--accent-green-rgb),0.15), transparent 65%),
+        radial-gradient(circle at 80% 80%, rgba(var(--ink-navy-rgb),0.08), transparent 60%);
     --about-watermark:'〰';
-    --about-watermark-color: rgba(14,159,118,0.04);
+    --about-watermark-color: rgba(var(--accent-green-rgb),0.04);
     --about-float-icon:'✦';
     --about-float-color: var(--champagne);
 
     --services-bg: var(--ivory);
-    --badge-bg: rgba(14,159,118,0.15);
+    --badge-bg: rgba(var(--accent-green-rgb),0.15);
     --badge-color: var(--accent-green);
 
     --title-color: var(--charcoal);
@@ -90,12 +105,12 @@
 
     --service-text-muted: var(--muted-gray);
 
-    --card-bg: #ffffff;
-    --card-border: rgba(31,41,55,0.05);
-    --card-border-hover: rgba(31,41,55,0.08);
+    --card-bg: var(--white);
+    --card-border: rgba(var(--charcoal-rgb),0.05);
+    --card-border-hover: rgba(var(--charcoal-rgb),0.08);
 
-    --card-shadow: 0 0.625rem 1.875rem rgba(11,17,32,0.08);
-    --card-shadow-hover: 0 1.125rem 2.8125rem rgba(11,17,32,0.12);
+    --card-shadow: 0 0.625rem 1.875rem rgba(var(--ink-navy-rgb),0.08);
+    --card-shadow-hover: 0 1.125rem 2.8125rem rgba(var(--ink-navy-rgb),0.12);
 
     --card-gradient: linear-gradient(90deg, var(--accent-green), var(--champagne));
 
@@ -105,17 +120,17 @@
     --icon-color: var(--ivory);
     --icon-color-hover: var(--ivory);
 
-    --icon-shadow-hover: 0 0.5rem 1rem rgba(14,159,118,.35);
+    --icon-shadow-hover: 0 0.5rem 1rem rgba(var(--accent-green-rgb),.35);
 
-    --trust-bg: linear-gradient(180deg, var(--ivory), #ffffff);
+    --trust-bg: linear-gradient(180deg, var(--ivory), var(--white));
 
     --trust-title: var(--charcoal);
     --trust-sub: var(--muted-gray);
 
-    --trust-card-bg: #ffffff;
+    --trust-card-bg: var(--white);
     --trust-card-border: transparent;
-    --trust-card-shadow: 0 0.9375rem 2.5rem rgba(11,17,32,0.08);
-    --trust-card-hover-shadow: 0 1.5625rem 3.75rem rgba(11,17,32,0.12);
+    --trust-card-shadow: 0 0.9375rem 2.5rem rgba(var(--ink-navy-rgb),0.08);
+    --trust-card-hover-shadow: 0 1.5625rem 3.75rem rgba(var(--ink-navy-rgb),0.12);
 
     --trust-icon: var(--accent-green);
     --trust-number: var(--charcoal);
@@ -123,86 +138,91 @@
     --trust-text: var(--muted-gray);
 
     --gallery-bg: var(--ivory);
-    --gallery-shadow: 0 1.25rem 2.5rem rgba(11,17,32,0.15);
-    --gallery-shadow-hover: 0 1.5625rem 3.125rem rgba(11,17,32,0.2);
-    --gallery-overlay: linear-gradient(to top, rgba(11,17,32,0.75), transparent);
+    --gallery-shadow: none;
+    --gallery-shadow-hover:
+        0 0.75rem 1.5rem rgba(var(--ink-navy-rgb),0.25),
+        0 0 0 0.125rem rgba(var(--accent-green-rgb),0.2);
+    --gallery-overlay: linear-gradient(to top, rgba(var(--ink-navy-rgb),0.75), transparent);
     --gallery-title-color: var(--ivory);
-    --gallery-subtitle-color: rgba(250,248,243,0.8);
-    --gallery-expand-bg: rgba(250,248,243,0.2);
+    --gallery-subtitle-color: rgba(var(--ivory-rgb),0.8);
+    --gallery-expand-bg: rgba(var(--ivory-rgb),0.2);
     --gallery-expand-border: var(--ivory);
     --gallery-expand-color: var(--ivory);
     --gallery-img-filter-hover: brightness(1.05);
     --gallery-hover-y: -0.375rem;
 
-    --pagination-color: rgba(31,41,55,0.25);
+    --pagination-color: rgba(var(--charcoal-rgb),0.25);
     --pagination-active: var(--accent-green);
 
-    --modal-bg: rgba(11,17,32,0.95);
+    --modal-bg: rgba(var(--ink-navy-rgb),0.95);
 
-    --close-bg: rgba(250,248,243,0.2);
+    --close-bg: rgba(var(--ivory-rgb),0.2);
     --close-color: var(--ivory);
 
     --reviews-bg: var(--ivory);
 
-    --review-card-bg: #ffffff;
-    --review-card-hover-bg: #FEFCF8;
+    --review-card-bg: var(--white);
+    --review-card-hover-bg: var(--ivory-soft);
 
-    --review-border: rgba(31,41,55,0.06);
-    --review-border-hover: rgba(14,159,118,0.25);
+    --review-border: rgba(var(--charcoal-rgb),0.06);
+    --review-border-hover: rgba(var(--accent-green-rgb),0.25);
 
-    --review-shadow-hover: 0 1.25rem 2.5rem rgba(11,17,32,0.08);
+    --review-shadow-hover: 0 1.25rem 2.5rem rgba(var(--ink-navy-rgb),0.08);
 
     --review-text: var(--charcoal);
     --review-author: var(--charcoal);
     --review-muted: var(--muted-gray);
 
-    --review-divider: rgba(31,41,55,0.06);
+    --review-divider: rgba(var(--charcoal-rgb),0.06);
     --review-star: var(--champagne);
 
-    --review-quote-bg: rgba(31,41,55,0.05);
+    --review-quote-bg: rgba(var(--charcoal-rgb),0.05);
 
-    --review-btn-bg: #ffffff;
-    --review-btn-border: rgba(31,41,55,0.1);
+    --review-btn-bg: var(--white);
+    --review-btn-border: rgba(var(--charcoal-rgb),0.1);
     --review-btn-text: var(--charcoal);
 
     --review-btn-hover-bg: var(--ink-navy);
     --review-btn-hover-border: var(--ink-navy);
     --review-btn-hover-text: var(--ivory);
 
-    --review-btn-shadow: 0 0.625rem 1.5625rem rgba(11,17,32,0.15);
+    --review-btn-shadow: 0 0.625rem 1.5625rem rgba(var(--ink-navy-rgb),0.15);
 
     /* Review action buttons — Google / Facebook brand skins.
        Intentionally OFF the core palette: these need to stay
-       recognizable as their respective brands. */
-    --review-google-bg: #ffffff;
+       recognizable as their respective brands. Still fully named,
+       just with their own dedicated RGB companions instead of the
+       core palette's, since they're not derived from it on purpose. */
+    --review-google-bg: var(--white);
     --review-google-border: #e5e7eb;
     --review-google-text: #1f2937;
     --review-google-icon: #ea4335;
     --review-google-hover-bg: #f8f9fa;
     --review-google-hover-border: #dadce0;
-    --review-google-hover-shadow: rgba(0, 0, 0, 0.1);
+    --review-google-hover-shadow: rgba(var(--charcoal-rgb),0.1);
 
     /* Facebook blue deepened from the literal brand hex (#1877f2) so
        white button text clears WCAG AA contrast (~4.2:1 -> ~5.7:1) */
     --review-fb-bg: #1465c4;
+    --review-fb-bg-rgb: 20,101,196;
     --review-fb-border: #1465c4;
-    --review-fb-text: #ffffff;
+    --review-fb-text: var(--white);
     --review-fb-hover-bg: #0f4fa0;
     --review-fb-hover-border: #0f4fa0;
-    --review-fb-hover-shadow: rgba(20, 101, 196, 0.35);
+    --review-fb-hover-shadow: rgba(var(--review-fb-bg-rgb),0.35);
 
     /* Contact form keyboard-focus glow (used alongside border-color) */
-    --contact-focus-ring: rgba(14, 159, 118, 0.25);
+    --contact-focus-ring: rgba(var(--accent-green-rgb),0.25);
 
-    --contact-bg: linear-gradient(135deg, var(--ivory), #EAF5F1);
-    --contact-card-bg: #ffffff;
-    --contact-border: rgba(31,41,55,0.1);
+    --contact-bg: linear-gradient(135deg, var(--ivory), var(--emerald-tint));
+    --contact-card-bg: var(--white);
+    --contact-border: rgba(var(--charcoal-rgb),0.1);
 
     --contact-text: var(--charcoal);
     --contact-muted: var(--muted-gray);
 
-    --contact-input-bg: #ffffff;
-    --contact-input-border: rgba(31,41,55,0.12);
+    --contact-input-bg: var(--white);
+    --contact-input-border: rgba(var(--charcoal-rgb),0.12);
 
     --contact-accent: var(--accent-green);
 
@@ -213,21 +233,19 @@
 
     /* SWAL — error stays semantic red on purpose (universal "error"
        meaning); forcing it onto the brand palette would read as a
-       success/neutral state instead of a warning. */
+       success/neutral state instead of a warning. Still named, just
+       not derived from the core palette, by design. */
     --swal-error-bg: #f27474;
-    --swal-error-text: #ffffff;
+    --swal-error-text: var(--white);
 
     --swal-popup-radius: 1rem;
     --swal-popup-font: var(--font-body);
     --swal-title-font: var(--font-display);
 
-    /* Deep green, not the vibrant --accent-green — the accent color
-       only gives ~2.1:1 contrast with white text as a full background,
-       badly failing WCAG AA (needs 4.5:1). This gives ~7.9:1. */
-    --footer-bg: #0f5c50;
-    --footer-border: rgba(250,248,243,0.08);
+    --footer-bg: rgba(var(--ink-navy-rgb),0.95);
+    --footer-border: rgba(var(--ivory-rgb),0.08);
     --footer-link: var(--ivory);
-    --footer-link-hover: var(--champagne);
+    --footer-link-hover: var(--accent-green);
     --footer-copy: var(--ivory);
 }
 
