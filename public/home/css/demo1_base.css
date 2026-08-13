@@ -31,6 +31,7 @@
     --white:#ffffff; /* neutral, used for elevated card surfaces */
 
     --emerald-tint:#EAF5F1; /* faint emerald wash, used in the contact gradient */
+    --raisin-black: #252129;
 
     --btn-primary-shadow:0 0.75rem 1.875rem rgba(var(--champagne-rgb),.4);
     --btn-secondary-shadow:0 0.75rem 1.875rem rgba(var(--accent-green-rgb),.4);
@@ -95,6 +96,7 @@
     --about-watermark-color: rgba(var(--accent-green-rgb),0.04);
     --about-float-icon:'✦';
     --about-float-color: var(--champagne);
+    --about-button-text-color: var(--raisin-black);
 
     --services-bg: var(--ivory);
     --badge-bg: rgba(var(--accent-green-rgb),0.15);
