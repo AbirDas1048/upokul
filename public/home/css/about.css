@@ -120,7 +120,7 @@
 
 /* CTA — layout/alignment only; color + hover animation come from
    the shared .premium-btn(-pill/-solid) classes applied in the HTML */
-.about-content .btn{
+.about-content .about-btn{
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -133,9 +133,10 @@
     border:none;
     text-decoration:none;
     white-space:normal;
+    color: var(--about-button-text-color);
 }
 
-.about-content .btn i{
+.about-content .about-btn i{
     font-size:.95em;
     flex-shrink:0;
 }
@@ -169,7 +170,7 @@
     .about-img-side{ order:-1; }
     .about-content{ text-align:center; }
     .about-list li{ text-align:left; }
-    .about-content .btn{ justify-content:center; margin-inline:auto; }
+    .about-content .about-btn{ justify-content:center; margin-inline:auto; }
 }
 
 @media (max-width:35.9988rem){
