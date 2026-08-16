@@ -1,7 +1,6 @@
 /* ==========================================================
    Hero Section
 ========================================================== */
-
 .hero-section {
     position: relative;
     display: flex;
@@ -21,11 +20,26 @@
     object-fit: cover;
     object-position: center;
     transform: scale(1.05);
-    transition: transform 8s ease-out;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) ease-out;
 }
 
 .hero-section:hover .hero-video {
     transform: scale(1);
+}
+
+.hero-section:active .hero-video {
+    transform: scale(0.98);
+    transition: transform 0.1s ease-in-out;
+}
+
+/* Video gradient overlay for better text readability on mobile */
+.hero-video::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(var(--ink-navy-rgb), 0.6) 100%);
+    pointer-events: none;
+    z-index: 1;
 }
 
 /* Dark Overlay (with soft fade into next section) */
@@ -53,6 +67,8 @@
     padding-block: 7rem 4rem;
     text-align: center;
     overflow-wrap: break-word;
+    position: relative;
+    z-index: 2;
 }
 
 /* Heading */
@@ -96,7 +112,6 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-
     animation: fade-up 0.9s ease both;
     animation-delay: 0.4s;
 }
@@ -115,11 +130,51 @@
     border: none;
     color: #fff;
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-buttons a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+.hero-buttons a:hover::before {
+    transform: translateX(100%);
 }
 
 .hero-buttons a i {
     flex-shrink: 0;
     font-size: 0.95em;
+}
+
+/* Primary button gradient animation */
+.hero-buttons a.premium-btn-glossy-primary {
+    background: linear-gradient(135deg, var(--champagne), var(--champagne-dark));
+    box-shadow: var(--btn-primary-shadow);
+}
+
+.hero-buttons a.premium-btn-glossy-primary:hover {
+    background: linear-gradient(135deg, var(--champagne-light), var(--champagne));
+    box-shadow: 0 1rem 2rem rgba(var(--champagne-rgb), 0.5);
+    transform: translateY(-0.25rem);
+}
+
+/* Secondary button gradient animation */
+.hero-buttons a.premium-btn-glossy-secondary {
+    background: linear-gradient(135deg, var(--accent-green-light), var(--accent-green));
+    box-shadow: var(--btn-secondary-shadow);
+}
+
+.hero-buttons a.premium-btn-glossy-secondary:hover {
+    background: linear-gradient(135deg, var(--accent-green), var(--accent-green-light));
+    box-shadow: 0 1rem 2rem rgba(var(--accent-green-rgb), 0.5);
+    transform: translateY(-0.25rem);
 }
 
 /* Animation */
@@ -150,6 +205,14 @@
     .hero-video {
         transition: none;
         transform: none;
+    }
+
+    .hero-buttons a:hover {
+        transform: none;
+    }
+
+    .hero-buttons a::before {
+        display: none;
     }
 }
 
@@ -200,6 +263,10 @@
         width: 100%;
         justify-content: center;
         padding: 0.75rem 1.5rem;
+    }
+
+    .hero-buttons a::before {
+        display: none;
     }
 }
 
@@ -280,5 +347,10 @@
     .hero-buttons {
         flex-direction: row;
         gap: 0.5rem;
+    }
+
+    .hero-buttons a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
     }
 }
