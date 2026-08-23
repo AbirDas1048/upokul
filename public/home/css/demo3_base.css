@@ -269,86 +269,6 @@ p {
     color: var(--text-mid);
 }
 
-/* ─── HERO ───────────────────────────────────────────────── */
-.hero-section {
-    position: relative;
-    min-height: 100dvh;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-}
-
-.hero-video {
-    position: absolute;
-    inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    filter: saturate(1.1);
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(9, 55, 57, 0.88) 0%,
-            rgba(9, 55, 57, 0.60) 50%,
-            rgba(35, 205, 210, 0.18) 100%
-        );
-    z-index: 1;
-}
-
-/* Decorative shimmer line */
-.hero-overlay::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 0.1875rem;
-    background: linear-gradient(90deg, transparent, var(--teal-bright), var(--gold), transparent);
-}
-
-.hero-section .container {
-    position: relative;
-    z-index: 2;
-}
-
-.hero-content {
-    padding: calc(var(--nav-height) + 2rem) 0 4rem;
-}
-
-.hero-content h1 {
-    font-family: var(--font-display);
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: -0.01em;
-    margin-bottom: 1.4rem;
-    text-shadow: 0 0.25rem 1.875rem rgba(0,0,0,0.3);
-}
-
-.hero-content h1 span {
-    font-style: italic;
-    background: linear-gradient(135deg, var(--teal-bright), var(--gold-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-content p {
-    color: rgba(255,255,255,0.82);
-    font-size: 1.1rem;
-    max-width: 30rem;
-    margin-bottom: 2.4rem;
-    font-weight: 300;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
 /* ─── BUTTONS — PREMIUM SYSTEM ───────────────────────────── */
 .btn.premium-btn {
     font-family: var(--font-body);
@@ -449,11 +369,6 @@ p {
 @media (max-width: 47.9988rem) {
     :root { --section-pad: 3.5rem; }
 
-    .hero-content h1 { font-size: 2.2rem; }
-    .hero-content p   { font-size: 0.97rem; }
-    .hero-buttons { flex-direction: column; }
-    .hero-buttons .btn { width: 100%; justify-content: center; }
-
     /* Prevent swiper overflow on mobile */
     .swiper-premium { overflow: hidden !important; }
     .gallery-section .swiper-premium { overflow: hidden !important; }
@@ -491,25 +406,5 @@ p {
     .service-icon { width: 3.75rem; height: 3.75rem; font-size: 1.4rem; }
     .service-card h5 { font-size: 1.1rem; }
 
-    .hero-content h1 { font-size: 1.9rem; }
 }
 
-/* ─── HERO MOBILE PADDING FIX ────────────────────────────── */
-@media (max-width: 47.9988rem) {
-    .hero-section .container {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-    }
-
-    .hero-content {
-        padding-top: calc(var(--nav-height) + 3rem);
-        padding-bottom: 5rem;
-    }
-}
-
-@media (max-width: 30rem) {
-    .hero-section .container {
-        padding-left: 1.25rem;
-        padding-right: 1.25rem;
-    }
-}

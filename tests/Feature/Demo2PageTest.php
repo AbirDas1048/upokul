@@ -15,7 +15,10 @@ class Demo2PageTest extends TestCase
     {
         $response = $this->get('/demo2');
 
-        $response->assertStatus(200);
+        $response->assertStatus(200)
+            ->assertSee('id="demo2-hero-title"', false)
+            ->assertSee('Travel agency highlights')
+            ->assertSee('4.9★');
     }
 
     public function test_demo2_named_route_loads_successfully(): void

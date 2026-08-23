@@ -4,8 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Upokul Travels & Holidays offers premium video-led travel planning, visa support, hotel booking, and memorable holiday experiences.">
     <title>{{ config('app.name') }}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
+
+    <!-- Preconnect to speed up external resources used by shared sections -->
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
     @vite([
         'resources/css/demo3.css',
@@ -19,39 +25,7 @@
 @include('partials.sections.nav')
 
 <!-- Hero Section -->
-<section id="hero" class="hero-section">
-    <video class="hero-video" autoplay muted loop playsinline poster="{{ asset('images/banner.jpg') }}">
-        <source src="{{ asset('videos/bg.mp4') }}" type="video/mp4">
-        <track kind="captions" srclang="en" src="{{ asset('videos/captions.vtt') }}" label="English">
-    </video>
-
-    <div class="hero-overlay"></div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 hero-content">
-                <h1>
-                    Discover Beautiful Places <br>
-                    <span>With {{ config('app.name') }}</span>
-                </h1>
-
-                <p>
-                    We create unforgettable travel experiences with comfort,
-                    safety and trusted service across Bangladesh & beyond.
-                </p>
-
-                <div class="hero-buttons">
-                    <a href="#services" class="btn premium-btn premium-btn-pill premium-btn-glossy-primary">
-                        <i class="fas fa-route"></i> Our Services
-                    </a>
-                    <a href="#gallery" class="btn premium-btn premium-btn-pill premium-btn-glossy-secondary">
-                        <i class="fa-solid fa-magnifying-glass-location"></i> Explore Places
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@include('partials.sections.demo3_hero')
 
 <!-- About Section -->
 @include('partials.sections.about')
