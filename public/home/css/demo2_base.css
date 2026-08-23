@@ -16,9 +16,33 @@
     --display : 'Cormorant Garamond', serif;
     --body    : 'Poppins', sans-serif;
 
+    /* Aliases so shared component CSS (and the SWAL tokens right
+       below) that expect --font-body/--font-display resolve
+       correctly — previously these two names were referenced but
+       never defined here, an invalid var() that silently fell
+       through. */
+    --font-body: var(--body);
+    --font-display: var(--display);
+
     --ease    : cubic-bezier(.4,0,.2,1);
     --dur     : .38s;
     --r       : 0.5rem;
+
+    /* Radius scale — was entirely missing. about.css/service.css
+       reference these with NO fallback, so corners were rendering
+       with zero rounding without this. */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1.25rem;
+
+    /* Shared vertical section padding — was entirely missing.
+       service.css/counter.css/gallery.css/review.css/contact.css/
+       footer.css all use var(--section-pad) with no fallback. */
+    --section-pad: 7rem;
+
+    /* Shared transition, built from the --dur/--ease already above —
+       about.css uses var(--transition) with no fallback. */
+    --transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 
     --nav-bg: transparent;
     --nav-bg-scrolled: rgba(7,26,26,.93);
@@ -64,6 +88,11 @@
 
     --about-float-icon:'✦';
     --about-float-color:rgba(255,255,255,.75);
+
+    /* CTA text color on the About button — reuses the same dark
+       teal-black already proven to work on the bright --btn-bg cyan
+       (see --btn-text above), rather than introducing a new color. */
+    --about-button-text-color: var(--btn-text);
 
     --services-bg: linear-gradient(180deg,#0f2027,#203a43);
 
@@ -112,6 +141,11 @@
     --gallery-shadow: none;
     --gallery-shadow-hover: none;
 
+    /* Was entirely missing — gallery.css uses this with a fallback
+       (-0.375rem), so not broken without it, but adding it formally
+       for consistency with demo1's token architecture. */
+    --gallery-hover-y: -0.375rem;
+
     --gallery-overlay: linear-gradient(to top, rgba(7,26,26,0.96), transparent);
 
     --gallery-title-color: #fff;
@@ -159,6 +193,30 @@
     --review-btn-hover-text: #ffffff;
 
     --review-btn-shadow: 0 0.875rem 2.25rem rgba(35,205,210,.35);
+
+    /* Review action buttons — Google / Facebook brand skins.
+       Same values as demo1: these are absolute brand colors, not
+       theme-dependent, so they stay identical across every demo. */
+    --review-google-bg: var(--white);
+    --review-google-border: #e5e7eb;
+    --review-google-text: #1f2937;
+    --review-google-icon: #ea4335;
+    --review-google-hover-bg: #f8f9fa;
+    --review-google-hover-border: #dadce0;
+    --review-google-hover-shadow: rgba(0, 0, 0, 0.1);
+
+    --review-fb-bg: #1465c4;
+    --review-fb-bg-rgb: 20,101,196;
+    --review-fb-border: #1465c4;
+    --review-fb-text: var(--white);
+    --review-fb-hover-bg: #0f4fa0;
+    --review-fb-hover-border: #0f4fa0;
+    --review-fb-hover-shadow: rgba(20,101,196,.35);
+
+    /* Contact form keyboard-focus glow — was entirely missing,
+       contact.css uses this with no fallback. Matches the existing
+       --nav-accent-soft teal-tint convention already used above. */
+    --contact-focus-ring: rgba(35,205,210,.25);
 
     --contact-bg:var(--dark-900);
     --contact-card-bg:rgba(15,109,111,.07);
@@ -215,7 +273,6 @@ p,h1,h2,h3,h4,h5,h6,a,span,strong{overflow-wrap:anywhere}
 /* Respect reduced-motion and avoid costly animations for sensitive users/devices */
 @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation:none !important;transition:none !important;scroll-behavior:auto !important}
-    .hero-bg{transform:none !important}
 }
 
 /* ══════════════════════════════════════
@@ -258,206 +315,9 @@ p,h1,h2,h3,h4,h5,h6,a,span,strong{overflow-wrap:anywhere}
 
 .btn-block{width:100%;justify-content:center}
 
-@media(max-width:36rem){
+@media(max-width:35.9988rem){
     .container{padding:0 1rem}
-    .hero-container{padding-top:5.4rem}
-    .hero-content h1{font-size:2.2rem;line-height:1.12}
-    .hero-content p{font-size:.9rem;line-height:1.65;margin-bottom:1.5rem}
-    .hero-btns{gap:.7rem}
-    .hero-btns .btn{width:100%;justify-content:center;padding:.74rem 1rem}
-    .hero-stat-num{font-size:1.7rem}
-    .hero-stat-lbl{font-size:.58rem}
     #about{padding:5.5rem 0}
-}
-
-/* ══════════════════════════════════════
-   HERO
-══════════════════════════════════════ */
-#hero{
-    position:relative;min-height:100vh;
-    display:flex;align-items:center;
-    overflow:hidden;
-}
-
-.hero-bg{
-    position:absolute;inset:0;
-    background:url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1200&q=70&auto=format')
-    center/cover no-repeat;
-    transform:scale(1.0);
-    animation:kenBurns 18s ease-in-out infinite alternate;
-    z-index:0;
-    will-change:transform;
-}
-@keyframes kenBurns{
-    from{transform:scale(1.0)}
-    to  {transform:scale(1.05)}
-}
-
-.hero-overlay{
-    position:absolute;inset:0;z-index:1;
-    /* Base dark layer — always opaque enough */
-    background:rgba(4,14,14,.78);
-}
-/* Second overlay for teal tint — layered on top */
-.hero-overlay::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(
-        135deg,
-        rgba(4,14,14,.55)   0%,
-        rgba(15,109,111,.25) 55%,
-        rgba(4,14,14,.45)   100%
-    );
-}
-
-.hero-noise{
-    position:absolute;inset:0;z-index:2;opacity:.03;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-size:16rem;
-}
-
-.hero-grid{
-    position:absolute;inset:0;z-index:2;
-    background-image:
-        linear-gradient(rgba(35,205,210,.035) 0.0625rem,transparent 0.0625rem),
-        linear-gradient(90deg,rgba(35,205,210,.035) 0.0625rem,transparent 0.0625rem);
-    background-size:4.25rem 4.25rem;
-}
-
-/* Glow orbs */
-.hero-orb{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(5.625rem);
-    pointer-events:none;
-    z-index:2;
-}
-.orb-a{
-    width:32.5rem;
-    height:32.5rem;
-    right:-5rem;
-    top:50%;
-    transform:translateY(-50%);
-    background:rgba(15,109,111,.28);
-    animation: orb-float 9s ease-in-out infinite;
-}
-.orb-b{
-    width:16.25rem;
-    height:16.25rem;
-    left:8%;
-    bottom:12%;
-    background:rgba(35,205,210,.12);
-    transform:none;
-    animation: orb-float-b 12s ease-in-out infinite reverse;
-}
-
-@keyframes orb-float {
-    0%,
-    100% {
-        transform: translateY(-50%);
-    }
-
-    50% {
-        transform: translateY(calc(-50% - 1.875rem));
-    }
-}
-
-@keyframes orb-float-b {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-1.5625rem);
-    }
-}
-
-.hero-container{position:relative;z-index:10;width:100%;padding-top:6rem;padding-bottom:13rem}
-.hero-eyebrow{
-    display:inline-flex;align-items:center;gap:.5rem;
-    padding:.38rem 1.2rem;
-    border:0.0625rem solid rgba(35,205,210,.6);border-radius:1.25rem;
-    font-size:.67rem;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--teal-mid);
-    background:rgba(4,14,14,.6);
-    backdrop-filter:blur(0.5rem);
-    margin-bottom:1.6rem;
-    animation:fadeUp .9s ease .1s both;
-}
-.hero-eyebrow::before{content:'✦';font-size:.55rem}
-
-.hero-content{max-width:40rem}
-
-.hero-content h1{
-    font-family:var(--display);
-    font-size:clamp(3rem,7.5vw,6rem);
-    font-weight:300;line-height:1.05;
-    margin-bottom:1.4rem;
-    color:#fff;
-    text-shadow:0 0.125rem 1.25rem rgba(0,0,0,.7);
-    animation:fadeUp .9s ease .2s both;
-}
-.hero-content h1 em{
-    display:block;font-style:italic;
-    color:var(--teal-mid);
-}
-
-.hero-content p{
-    font-size:1rem;
-    color:rgba(255,255,255,.88);
-    line-height:1.82;max-width:31.25rem;
-    margin-bottom:2.5rem;
-    text-shadow:0 0.0625rem 0.5rem rgba(0,0,0,.6);
-    animation:fadeUp .9s ease .3s both;
-}
-
-.hero-btns{
-    display:flex;gap:1rem;flex-wrap:wrap;
-    animation:fadeUp .9s ease .4s both;
-}
-
-/* Stats strip inside hero */
-.hero-stats{
-    position:absolute;bottom:0;left:0;right:0;z-index:10;
-    background:rgba(4,14,14,.94);
-    backdrop-filter:none;
-    -webkit-backdrop-filter:none;
-    border-top:0.0625rem solid var(--border);
-}
-.hero-stats-inner{
-    display:grid;grid-template-columns:repeat(4,1fr);
-}
-.hero-stat{
-    padding:1.4rem 2rem;text-align:center;
-    border-right:0.0625rem solid var(--border);
-}
-.hero-stat:last-child{border-right:none}
-.hero-stat-num{
-    font-family:var(--display);font-size:2.1rem;font-weight:300;
-    color:var(--teal-mid);line-height:1;
-}
-.hero-stat-lbl{
-    font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--muted);margin-top:.25rem;
-}
-
-@keyframes fadeUp{
-    from{opacity:0;transform:translateY(1.75rem)}
-    to  {opacity:1;transform:translateY(0)}
-}
-
-@media(max-width:48rem){
-    .hero-content h1{font-size:2.8rem}
-    .hero-btns{flex-direction:column}
-    .hero-btns .btn{justify-content:center}
-    .hero-stats-inner{grid-template-columns:1fr 1fr}
-    .hero-stat{padding:1rem}
-    .hero-stat:nth-child(2){border-right:none}
-    .hero-container{padding-bottom:18rem} /* stats are 2 rows tall on mobile */
-}
-
-@media(max-width:48rem){
-    .hero-noise,.hero-grid,.hero-orb{display:none}
 }
 
 /* ══════════════════════════════════════
@@ -481,41 +341,10 @@ body.is-resizing [data-reveal].visible{
     opacity:1 !important;
     transform:none !important;
 }
-body.is-resizing .hero-noise,
-body.is-resizing .hero-grid,
-body.is-resizing .hero-orb{
-    display:none !important;
-}
-
-
 /* Ultra-small devices */
-@media (max-width:21.8125rem){
+@media (max-width:22.5rem){
     .container{padding:0 .85rem}
     .btn{white-space:normal}
-
-    /* Keep hero content visible on ultra-small screens */
-    #hero{min-height:auto;display:block;overflow:hidden}
-    .hero-container{padding-top:4.9rem;padding-bottom:0}
-    .hero-content{max-width:100%;min-width:0}
-    .hero-content h1{font-size:1.76rem;line-height:1.14}
-    .hero-content p{font-size:.82rem;line-height:1.58;max-width:100%;margin-bottom:1rem}
-    .hero-btns{gap:.55rem}
-    .hero-btns .btn{width:100%;justify-content:center;padding:.72rem .8rem;white-space:normal;line-height:1.35}
-
-    /* Remove overlay collision from sticky stats */
-    .hero-stats{
-        position:relative !important;
-        left:auto;right:auto;bottom:auto;
-        display:block !important;
-        visibility:visible !important;
-        opacity:1 !important;
-        width:100%;
-        margin-top:.35rem;
-        z-index:20;
-    }
-    .hero-stats-inner{grid-template-columns:1fr}
-    .hero-stat{padding:.82rem .65rem;border-right:none;border-bottom:0.0625rem solid var(--border)}
-    .hero-stat:last-child{border-bottom:none}
 
     /* Trusted counter section fit */
     #trusted{padding:3.2rem 0}
