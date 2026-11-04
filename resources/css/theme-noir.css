@@ -1,0 +1,88 @@
+/* ==========================================================================
+   THEME — NOIR (demo 2)
+   Dark editorial. Cormorant Garamond display + Poppins body, deep-teal
+   surfaces, cyan call-to-actions, split hero with a stats strip.
+   ========================================================================== */
+.theme-noir {
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Poppins', system-ui, sans-serif;
+    --display-weight: 600;
+    --em-style: italic;
+    --em-weight: 400;
+
+    --bg: #051a1c;
+    --bg-alt: #072326;
+    --surface: #0b2e31;
+    --heading: #fff;
+    --text: rgba(255, 255, 255, .82);
+    --muted: rgba(255, 255, 255, .66);
+    --line: rgba(35, 205, 210, .16);
+    --line-strong: rgba(35, 205, 210, .42);
+    --line-grad: linear-gradient(90deg, var(--teal-400), var(--gold-500));
+
+    --accent: var(--teal-400);
+    --accent-on: var(--teal-950);
+    --em: var(--teal-300);
+    --hero-em: var(--teal-300);
+    --focus: var(--teal-300);
+
+    --cta-bg: linear-gradient(135deg, var(--teal-300), var(--teal-400));
+    --cta-on: #032a2c;
+    --cta-shadow: 0 .6rem 1.6rem rgba(35, 205, 210, .32);
+
+    --eyebrow-bg: rgba(35, 205, 210, .08);
+    --eyebrow-line: rgba(35, 205, 210, .35);
+    --eyebrow-text: var(--teal-300);
+    --icon-bg: rgba(35, 205, 210, .12);
+    --icon-fg: var(--teal-300);
+    --input-bg: rgba(255, 255, 255, .05);
+    --input-line: rgba(255, 255, 255, .18);
+
+    --shadow-sm: 0 .25rem 1rem rgba(0, 0, 0, .25);
+    --shadow-md: 0 .75rem 2rem rgba(0, 0, 0, .4);
+    --shadow-lg: 0 1.5rem 3.5rem rgba(0, 0, 0, .55);
+
+    --about-glow: radial-gradient(circle at 30% 30%, rgba(35, 205, 210, .22), transparent 60%), radial-gradient(circle at 80% 85%, rgba(201, 162, 78, .16), transparent 55%);
+    --nav-solid: rgba(5, 26, 28, .92);
+    --hero-overlay: linear-gradient(95deg, rgba(4, 24, 26, .94) 8%, rgba(4, 24, 26, .66) 52%, rgba(4, 24, 26, .38) 100%), linear-gradient(0deg, rgba(4, 24, 26, .9), transparent 40%);
+    --footer-bg: #031314;
+    --footer-text: rgba(255, 255, 255, .66);
+    --footer-muted: rgba(255, 255, 255, .45);
+}
+.theme-noir h1, .theme-noir h2, .theme-noir h3 { letter-spacing: 0; }
+.theme-noir .hero h1 { font-size: clamp(2.7rem, 5.5vw + .6rem, 5.2rem); line-height: 1.02; }
+.theme-noir .sec-title { font-size: clamp(2.2rem, 3.6vw + .6rem, 3.6rem); }
+.theme-noir .service-card h3, .theme-noir .journey h3 { font-size: 1.7rem; }
+.theme-noir .cta-band { background: linear-gradient(120deg, #0a4a4d, #051a1c); }
+
+/* Hero */
+.hero-noir .hero-inner { padding-bottom: 12rem; }
+.hero-noir .hero-copy { max-width: 42rem; }
+.hero-noir .hero-orb { position: absolute; z-index: -1; border-radius: 50%; filter: blur(4rem); pointer-events: none; }
+.hero-noir .orb-a { width: 26rem; height: 26rem; right: -6rem; top: 10%; background: rgba(35, 205, 210, .28); animation: orb 12s ease-in-out infinite; }
+.hero-noir .orb-b { width: 20rem; height: 20rem; left: 30%; bottom: -6rem; background: rgba(201, 162, 78, .2); animation: orb 15s ease-in-out infinite reverse; }
+@keyframes orb { 50% { transform: translate(-2rem, 1.5rem) scale(1.1); } }
+.hero-aside { display: none; }
+.hero-stats { position: absolute; inset: auto 0 0; background: rgba(4, 24, 26, .72); backdrop-filter: blur(1rem); -webkit-backdrop-filter: blur(1rem); border-top: .0625rem solid var(--line); }
+.hero-stats-inner { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.hero-stat { padding: 1.6rem 1rem; text-align: center; border-right: .0625rem solid var(--line); }
+.hero-stat:last-child { border-right: 0; }
+.hero-stat b { display: block; font: 600 clamp(1.8rem, 3vw, 2.6rem)/1 var(--font-display); color: var(--teal-300); }
+.hero-stat span { font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255, 255, 255, .7); }
+@media (min-width: 62rem) {
+    .hero-noir .hero-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 3rem; align-items: center; }
+    .hero-aside { display: block; }
+}
+.hero-card { padding: 2rem; border-radius: var(--radius-lg); background: rgba(255, 255, 255, .07); border: .0625rem solid rgba(255, 255, 255, .18); backdrop-filter: blur(1.1rem); -webkit-backdrop-filter: blur(1.1rem); box-shadow: var(--shadow-lg); }
+.hero-card h2 { margin: 0 0 1rem; font-size: 1.6rem; color: #fff; }
+.hero-card ul { margin: 0 0 1.4rem; padding: 0; list-style: none; display: grid; gap: .9rem; }
+.hero-card li { display: flex; gap: .8rem; font-size: .92rem; color: rgba(255, 255, 255, .85); }
+.hero-card li i { color: var(--gold-400); margin-top: .3rem; }
+.hero-card li b { display: block; color: #fff; }
+@media (max-width: 47.99rem) {
+    .hero-noir .hero-inner { padding-bottom: 14rem; }
+    .hero-stats-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero-stat { padding: 1rem .5rem; border-bottom: .0625rem solid var(--line); }
+    .hero-stat:nth-child(2) { border-right: 0; }
+    .hero-stat:nth-child(n+3) { border-bottom: 0; }
+}

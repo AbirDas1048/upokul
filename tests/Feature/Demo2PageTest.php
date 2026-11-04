@@ -18,7 +18,7 @@ class Demo2PageTest extends TestCase
         $response->assertStatus(200)
             ->assertSee('id="demo2-hero-title"', false)
             ->assertSee('Travel agency highlights')
-            ->assertSee('4.9★');
+            ->assertSee('24/7');
     }
 
     public function test_demo2_named_route_loads_successfully(): void

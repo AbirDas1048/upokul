@@ -1,59 +1,95 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Upokul Travels & Holidays
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel 12 (PHP ^8.2) + Vite. Two ways to run it: **Docker** or **Laragon**.
 
-## About Laravel
+## Option A — Docker (no PHP/Node needed on your PC)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Requires only Docker Desktop. `vendor/` and `node_modules/` are installed
+**inside** the containers, so you do not need them on your machine.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```bash
+git clone <repo-url> upokul && cd upokul
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# 1. Create the Docker env file (it is git-ignored)
+cp .env.docker.example .env.docker          # Windows cmd: copy .env.docker.example .env.docker
 
-## Learning Laravel
+# 2. Generate an APP_KEY and paste it into .env.docker (APP_KEY=base64:...)
+docker run --rm php:8.2-cli php -r "echo 'base64:'.base64_encode(random_bytes(32)).PHP_EOL;"
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+# 3. Fill in OWNER_*, OFFICE_*, MAIL_* values in .env.docker
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# 4a. Development (live code reload + Vite hot reload)
+docker compose -f docker-compose.dev.yml up -d --build
 
-## Laravel Sponsors
+# 4b. Or production-like (assets built into the image)
+docker compose up -d --build
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| Service | URL |
+|---|---|
+| App | http://localhost:8080 |
+| phpMyAdmin | http://localhost:8081 (root / secret) |
+| Vite (dev only) | http://localhost:5173 |
+| MySQL from host | `127.0.0.1:3307` |
 
-### Premium Partners
+The first dev start runs `composer install` and `npm install` automatically, so
+give it a minute or two; follow progress with `docker compose -f docker-compose.dev.yml logs -f app`.
+Migrations run on every start.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Useful commands (add `-f docker-compose.dev.yml` for the dev stack):
 
-## Contributing
+```bash
+docker compose exec app php artisan queue:work      # process the contact-mail queue
+docker compose exec app php artisan test            # run tests
+docker compose exec app composer require <pkg>      # add a PHP package
+docker compose down                                 # stop (add -v to also wipe DB/vendor volumes)
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contact-form emails are queued (`QUEUE_CONNECTION=database`), so keep a
+`queue:work` process running or mails will never send.
 
-## Code of Conduct
+## Option B — Laragon (Windows)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Requires Laragon with PHP 8.2+, Composer and Node 20+ (all bundled in Laragon Full).
 
-## Security Vulnerabilities
+```bash
+# Put the project in D:\laragon\www\upokul (or any folder) and open Laragon's terminal
+composer install                 # creates vendor/
+npm install && npm run build     # creates node_modules/ and public/build
+cp .env.example .env
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Pick a database in `.env`:
 
-## License
+- **SQLite (simplest):** keep `DB_CONNECTION=sqlite` and run
+  `type nul > database\database.sqlite`
+- **MySQL (Laragon):** create a database `upokul_travels` in HeidiSQL, then set
+  `DB_CONNECTION=mysql`, `DB_HOST=127.0.0.1`, `DB_PORT=3306`,
+  `DB_DATABASE=upokul_travels`, `DB_USERNAME=root`, `DB_PASSWORD=`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Then:
+
+```bash
+php artisan migrate --force
+php artisan queue:work           # separate terminal, needed for contact emails
+```
+
+Open `http://upokul.test` (Laragon auto virtual host: Menu → Apache → Reload),
+or run `composer dev` and use `http://localhost:8000`.
+Fill in `OWNER_*`, `OFFICE_*` and `MAIL_*` in `.env` (use Mailtrap or `MAIL_MAILER=log` locally).
+
+## Tests & formatting
+
+```bash
+composer test          # php artisan test
+vendor/bin/pint        # format PHP
+```
+
+## Troubleshooting
+
+- **`vendor/autoload.php` not found** → run `composer install` (Laragon) or restart the dev container.
+- **"No application encryption key"** → `APP_KEY` empty in `.env` / `.env.docker`.
+- **Port 8080/8081/3307 in use** → change the left side of the port mapping in the compose file.
+- **Laragon MySQL conflict** → Docker MySQL is on 3307 on purpose, so both can run together.
+- **Vite assets 404 in Docker prod build** → rebuild with `docker compose up -d --build`.

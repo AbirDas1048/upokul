@@ -27,7 +27,11 @@ export default defineConfig({
             host: 'localhost',
         },
         watch: {
-            ignored: ['**/storage/framework/views/**'],
+            ignored: ['**/storage/**', '**/vendor/**', '**/public/**', '**/tests/**', '**/.git/**', '**/node_modules/**'],
+            // Docker Desktop on Windows/macOS does not forward file-change events
+            // from bind mounts, so HMR needs polling there (set in docker-compose.dev.yml).
+            usePolling: process.env.CHOKIDAR_USEPOLLING === 'true',
+            interval: 1000,
         },
     },
 });

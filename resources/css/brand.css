@@ -1,0 +1,45 @@
+/* ==========================================================================
+   UPOKUL — BRAND TOKENS
+   One palette for every landing page. It is sampled from the logo
+   (deep teal #0f6d6f -> bright cyan #23cdd2) with a warm gold accent.
+   Themes (theme-aurora / theme-noir / theme-glass) only re-map these
+   into semantic tokens; they never introduce new hues.
+   ========================================================================== */
+:root {
+    /* Teal scale (logo) */
+    --teal-950: #04181a;
+    --teal-900: #072f31;
+    --teal-800: #0a4a4d;
+    --teal-700: #0f6d6f;
+    --teal-600: #12868a;
+    --teal-500: #1aa7ab;
+    --teal-400: #23cdd2;
+    --teal-300: #6fe0e3;
+    --teal-200: #aeeef0;
+    --teal-100: #d9f6f6;
+    --teal-50: #f0fbfb;
+
+    /* Gold accent */
+    --gold-700: #8a6a24;
+    --gold-600: #a8812f;
+    --gold-500: #c9a24e;
+    --gold-400: #ddb967;
+    --gold-300: #ecd193;
+
+    --white: #fff;
+    --whatsapp: #25d366;
+    --danger: #c0392b;
+
+    /* Shape & motion */
+    --radius-sm: .5rem;
+    --radius-md: .875rem;
+    --radius-lg: 1.5rem;
+    --radius-pill: 62.5rem;
+    --ease: cubic-bezier(.4, 0, .2, 1);
+    --section-pad: clamp(4.25rem, 8vw, 7.5rem);
+    --nav-h: 4.5rem;
+
+    /* Fallback fonts (themes override) */
+    --font-display: 'Poppins', system-ui, sans-serif;
+    --font-body: 'Poppins', system-ui, sans-serif;
+}

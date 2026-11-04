@@ -1,0 +1,52 @@
+/* ==========================================================================
+   THEME — AURORA (demo 1)
+   Bright & airy. Poppins throughout, centred full-bleed video hero,
+   white / pale-teal sections, teal call-to-actions with gold highlights.
+   ========================================================================== */
+.theme-aurora {
+    --font-display: 'Poppins', system-ui, sans-serif;
+    --font-body: 'Poppins', system-ui, sans-serif;
+    --display-weight: 700;
+
+    --bg: #fff;
+    --bg-alt: var(--teal-50);
+    --surface: #fff;
+    --heading: var(--teal-900);
+    --text: #2f4f51;
+    --muted: #4d6a6c;
+    --line: rgba(7, 47, 49, .09);
+    --line-strong: rgba(15, 109, 111, .28);
+    --line-grad: linear-gradient(90deg, var(--teal-500), var(--gold-500));
+
+    --accent: var(--teal-700);
+    --accent-on: #fff;
+    --em: var(--teal-600);
+    --hero-em: var(--teal-300);
+
+    --cta-bg: linear-gradient(135deg, var(--teal-600), var(--teal-700));
+    --cta-on: #fff;
+    --cta-shadow: 0 .6rem 1.5rem rgba(15, 109, 111, .35);
+
+    --eyebrow-bg: var(--teal-100);
+    --eyebrow-line: rgba(15, 109, 111, .22);
+    --eyebrow-text: var(--teal-800);
+    --icon-bg: var(--teal-100);
+    --icon-fg: var(--teal-700);
+    --input-bg: #fff;
+    --input-line: rgba(7, 47, 49, .16);
+
+    --shadow-sm: 0 .25rem 1rem rgba(7, 47, 49, .06);
+    --shadow-md: 0 .75rem 2rem rgba(7, 47, 49, .12);
+    --shadow-lg: 0 1.5rem 3rem rgba(7, 47, 49, .18);
+
+    --about-glow: radial-gradient(circle at 25% 25%, rgba(35, 205, 210, .22), transparent 60%), radial-gradient(circle at 80% 85%, rgba(201, 162, 78, .18), transparent 55%);
+    --nav-solid: rgba(7, 47, 49, .92);
+    --hero-overlay: linear-gradient(180deg, rgba(4, 24, 26, .62) 0%, rgba(7, 47, 49, .48) 45%, rgba(4, 24, 26, .86) 100%);
+    --footer-bg: var(--teal-950);
+    --footer-text: rgba(255, 255, 255, .7);
+    --footer-muted: rgba(255, 255, 255, .5);
+}
+.theme-aurora .hero-inner { text-align: center; }
+.theme-aurora .hero-lead { margin-inline: auto; }
+.theme-aurora .hero-actions, .theme-aurora .hero-chips { justify-content: center; }
+.theme-aurora .hero h1 em { background: linear-gradient(90deg, var(--teal-300), var(--gold-300)); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }

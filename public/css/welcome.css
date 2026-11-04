@@ -1,85 +1,72 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
+@font-face { font-family: Poppins; src: url("/fonts/poppins/Poppins-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: Poppins; src: url("/fonts/poppins/Poppins-SemiBold.ttf") format("truetype"); font-weight: 600; font-display: swap; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    min-height: 100vh; /* instead of height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1.25rem; /* allow breathing space on small screens */
-    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #000000);
-    background-size: 400% 400%;
-    animation: gradientBG 12s ease infinite;
-}
-
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 1.25rem;
+    font-family: Poppins, system-ui, sans-serif;
+    color: #fff;
+    background:
+        radial-gradient(40rem 26rem at 90% 0%, rgba(35, 205, 210, .28), transparent 60%),
+        radial-gradient(34rem 22rem at 0% 100%, rgba(201, 162, 78, .18), transparent 60%),
+        linear-gradient(135deg, #04181a, #072f31 55%, #0a4a4d);
 }
 
 .card {
-    backdrop-filter: blur(1.25rem);
-    background: rgba(20, 25, 40, 0.75);
-    border-radius: 1.25rem;
-    padding: 3.75rem 2.5rem;
-    width: 90%;
-    max-width: 26.25rem;
+    width: 100%;
+    max-width: 27rem;
+    padding: 3rem 2rem;
     text-align: center;
-    box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.5);
-    border: 0.0625rem solid rgba(255, 255, 255, 0.15);
-    color: #fff;
+    border-radius: 1.5rem;
+    background: rgba(255, 255, 255, .07);
+    border: .0625rem solid rgba(255, 255, 255, .16);
+    backdrop-filter: blur(1.25rem);
+    -webkit-backdrop-filter: blur(1.25rem);
+    box-shadow: 0 1.5rem 3.5rem rgba(0, 0, 0, .45);
 }
 
 .logo {
-    width: 6.25rem;
-    height: 6.25rem;
+    width: 7rem;
+    height: 7rem;
     margin-bottom: 1.25rem;
-    border-radius: 1.25rem;
-    object-fit: cover;
+    padding: .6rem;
+    border-radius: 1.5rem;
+    background: #fff;
+    object-fit: contain;
+    box-shadow: 0 0 0 .25rem rgba(35, 205, 210, .35);
 }
 
-.app-name {
-    font-size: 1.75rem;
-    font-weight: 600;
-    margin-bottom: 2.5rem;
-    letter-spacing: 0.0625rem;
-}
+.app-name { font-size: 1.5rem; font-weight: 600; letter-spacing: .01em; }
+.tagline { margin: .35rem 0 2rem; font-size: .85rem; color: #aeeef0; letter-spacing: .08em; }
 
-.buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
+.buttons { display: grid; gap: .9rem; }
 
 .btn {
-    padding: 0.875rem;
-    border-radius: 0.75rem;
+    display: block;
+    padding: 1rem 1.25rem;
+    border-radius: .9rem;
     text-decoration: none;
     color: #fff;
-    font-weight: 500;
-    font-size: 1rem;
-    background: linear-gradient(135deg, #4f6bdc, #5b3d99);
-    transition: 0.3s ease;
-    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, .08);
+    border: .0625rem solid rgba(255, 255, 255, .18);
+    transition: transform .3s ease, background .3s ease, border-color .3s ease;
 }
-
-.btn:hover {
-    transform: translateY(-0.25rem) scale(1.03);
-    box-shadow: 0 0.75rem 1.875rem rgba(0, 0, 0, 0.6);
-    background: linear-gradient(135deg, #7f9cf5, #9f7aea);
+.btn b { display: block; font-weight: 600; font-size: 1rem; }
+.btn span { font-size: .8rem; color: rgba(255, 255, 255, .72); }
+.btn:hover, .btn:focus-visible {
+    transform: translateY(-.2rem);
+    background: linear-gradient(135deg, #12868a, #0f6d6f);
+    border-color: #23cdd2;
+    outline: none;
 }
 
 @media (max-width: 30rem) {
-    .card {
-        padding: 2.5rem 1.25rem;
-    }
-
-    .app-name {
-        font-size: 1.375rem;
-    }
+    .card { padding: 2.25rem 1.25rem; }
+    .app-name { font-size: 1.25rem; }
 }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }

@@ -1,102 +1,33 @@
-<section id="services" class="services-section">
+@php
+    $services = [
+        ['fa-route', 'Tour Planning', 'Custom itineraries built around your pace, budget and interests — domestic escapes to multi-country trips.', 'Tour Planning'],
+        ['fa-hotel', 'Hotel Booking', 'Hand-picked stays at fair rates, chosen for comfort, safety and location.', 'Hotel Booking'],
+        ['fa-plane-departure', 'Air Ticket Booking', 'Flexible, competitively priced flights with trusted airlines worldwide.', 'Air Ticket Booking'],
+        ['fa-passport', 'Visa Processing', 'Clear guidance on documents and timelines, with expert help at every step.', 'Visa Processing'],
+        ['fa-van-shuttle', 'Transport & Transfers', 'Safe, comfortable airport pick-ups, city transfers and tour transport.', 'Transport & Transfers'],
+        ['fa-shield-heart', 'Travel Insurance', 'Dependable cover so you can travel with real peace of mind.', 'Travel Insurance'],
+    ];
+@endphp
+
+<section id="services" class="section section-alt" aria-labelledby="services-title">
     <div class="container">
-
-        <!-- Section Title -->
-        <div class="text-center mb-5">
-            <span class="section-badge">Our Services</span>
-
-            <h2 class="section-title">
-                Everything You Need for a
-                <span>Perfect Journey</span>
-            </h2>
-
-            <p class="section-subtitle">
-                We provide complete travel solutions with comfort, reliability,
-                and personalized care.
-            </p>
+        <div class="sec-head" data-reveal>
+            <span class="eyebrow">Our Services</span>
+            <h2 class="sec-title" id="services-title">Everything You Need for a <em>Perfect Journey</em></h2>
+            <p class="sec-sub">One team for every step — planning, booking, paperwork and on-trip support.</p>
         </div>
 
-        <!-- Services Grid (Bootstrap) -->
         <div class="row g-4">
-
-            <div class="col-xl-4 col-md-6">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-route"></i>
-                    </div>
-                    <h5>Tour Planning</h5>
-                    <p>
-                        Customized tour plans designed to give you unforgettable
-                        experiences and hassle-free journeys.
-                    </p>
+            @foreach ($services as [$icon, $title, $text, $subject])
+                <div class="col-md-6 col-xl-4" data-reveal style="--d:{{ ($loop->index % 3) * .1 }}s">
+                    <article class="card-x service-card">
+                        <div class="service-icon"><i class="fa-solid {{ $icon }}" aria-hidden="true"></i></div>
+                        <h3>{{ $title }}</h3>
+                        <p>{{ $text }}</p>
+                        <a href="#contact" class="link-arrow" data-enquiry="{{ $subject }}">Enquire now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                    </article>
                 </div>
-            </div>
-
-            <div class="col-xl-4 col-md-6">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-hotel"></i>
-                    </div>
-                    <h5>Hotel Booking</h5>
-                    <p>
-                        Hand-picked hotels at the best prices ensuring comfort,
-                        safety, and quality stays.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-xl-4 col-md-6">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-plane-departure"></i>
-                    </div>
-                    <h5>Air Ticket Booking</h5>
-                    <p>
-                        Affordable and flexible flight bookings with trusted
-                        airlines worldwide.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-xl-4 col-md-6">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-passport"></i>
-                    </div>
-                    <h5>Visa Processing</h5>
-                    <p>
-                        Smooth and reliable visa processing with expert guidance
-                        at every step.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-xl-4 col-md-6">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <h5>Transport & Transfer</h5>
-                    <p>
-                        Comfortable and safe transport solutions for airport
-                        transfers and tours.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-xl-4 col-md-6">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h5>Travel Insurance</h5>
-                    <p>
-                        Secure your journey with reliable travel insurance
-                        coverage and peace of mind.
-                    </p>
-                </div>
-            </div>
-
+            @endforeach
         </div>
     </div>
 </section>

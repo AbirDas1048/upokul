@@ -11,4 +11,10 @@ return [
     'facebook_page_link' => env('FACEBOOK_PAGE_LINK', 'https://www.facebook.com'),
     'facebook_page_name' => env('FACEBOOK_PAGE_NAME', 'Facebook'),
     'whatsapp_number' => env('WHATSAPP_NUMBER', '018xx-xxxxxx'),
+
+    // Digits-only / dial-safe variants for wa.me and tel: links
+    // (wa.me rejects "+", spaces and dashes).
+    'whatsapp_digits' => preg_replace('/\D+/', '', (string) env('WHATSAPP_NUMBER', '')),
+    'office_phone_tel' => preg_replace('/[^\d+]/', '', (string) env('OFFICE_PHONE', '')),
+    'owner_phone_tel' => preg_replace('/[^\d+]/', '', (string) env('OWNER_PHONE', '')),
 ];
