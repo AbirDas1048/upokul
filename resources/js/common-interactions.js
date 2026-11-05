@@ -17,27 +17,34 @@
         globalThis.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
 
+        // Scroll-spy: the active link is the section crossing a probe line
+        // ~35% down the viewport (pixel maths, so it works at any viewport size).
         const links = [...nav.querySelectorAll('.nav-links a[href^="#"]')];
-        const map = new Map();
-        links.forEach((a) => {
-            const section = document.querySelector(a.hash);
-            if (section) map.set(section, a);
-        });
-        if (!map.size) return;
+        const sections = links
+            .map((a) => ({ a, el: document.querySelector(a.hash) }))
+            .filter((x) => x.el);
+        if (!sections.length) return;
 
-        const spy = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                const link = map.get(entry.target);
-                if (!link) return;
-                if (entry.isIntersecting) {
-                    links.forEach((l) => l.classList.remove('active'));
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
+        let ticking = false;
+        const updateActive = () => {
+            ticking = false;
+            const probe = nav.offsetHeight + globalThis.innerHeight * 0.35;
+            let current = null;
+            sections.forEach(({ a, el }) => {
+                const r = el.getBoundingClientRect();
+                if (r.top <= probe && r.bottom > probe) current = a;
             });
-        }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-        map.forEach((_, section) => spy.observe(section));
+            links.forEach((l) => l.classList.toggle('active', l === current));
+        };
+        const requestUpdate = () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(updateActive);
+            }
+        };
+        globalThis.addEventListener('scroll', requestUpdate, { passive: true });
+        globalThis.addEventListener('resize', requestUpdate, { passive: true });
+        updateActive();
     }
 
     /* ---------------------------------------------------------------
@@ -111,6 +118,9 @@
        Scroll reveal (CSS hides [data-reveal] only when the .js class is set)
     --------------------------------------------------------------- */
     function initReveals() {
+        // Tells the inline safety-net in the layout that reveal code is running.
+        document.documentElement.classList.add('reveal-ready');
+
         const items = document.querySelectorAll('[data-reveal]');
         if (!items.length) return;
 
@@ -356,6 +366,34 @@
         });
     }
 
+    /* ---------------------------------------------------------------
+       Hero video: user-operable pause / play (WCAG 2.2.2)
+    --------------------------------------------------------------- */
+    function initHeroVideo() {
+        const video = document.querySelector('.hero-video');
+        const btn = document.getElementById('heroVideoToggle');
+        if (!video || !btn) return;
+
+        const icon = btn.querySelector('i');
+        const sync = (paused) => {
+            btn.setAttribute('aria-pressed', String(paused));
+            btn.setAttribute('aria-label', paused ? 'Play background video' : 'Pause background video');
+            icon?.classList.toggle('fa-play', paused);
+            icon?.classList.toggle('fa-pause', !paused);
+        };
+
+        btn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play().catch(() => {});
+                sync(false);
+            } else {
+                video.pause();
+                sync(true);
+            }
+        });
+        sync(video.paused);
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         initNav();
         initDrawer();
@@ -363,6 +401,7 @@
         initReveals();
         initCounter();
         initSwipers();
+        initHeroVideo();
         initEnquiryLinks();
         initContactForm();
     });

@@ -4,6 +4,9 @@
         <track kind="captions" srclang="en" src="{{ asset('videos/captions.vtt') }}" label="English">
     </video>
     <div class="hero-overlay"></div>
+    <button type="button" class="hero-video-toggle" id="heroVideoToggle" aria-pressed="false" aria-label="Pause background video">
+        <i class="fa-solid fa-pause" aria-hidden="true"></i>
+    </button>
 
     <div class="container hero-inner">
         <div class="hero-row">

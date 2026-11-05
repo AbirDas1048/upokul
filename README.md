@@ -40,9 +40,14 @@ Useful commands (add `-f docker-compose.dev.yml` for the dev stack):
 
 ```bash
 docker compose exec app php artisan queue:work      # process the contact-mail queue
-docker compose exec app php artisan test            # run tests
-docker compose exec app composer require <pkg>      # add a PHP package
 docker compose down                                 # stop (add -v to also wipe DB/vendor volumes)
+```
+
+Development-only commands (the production-like image installs with `--no-dev`, so it has no PHPUnit or Composer dev tools; use the dev stack):
+
+```bash
+docker compose -f docker-compose.dev.yml exec app php artisan test        # run tests
+docker compose -f docker-compose.dev.yml exec app composer require <pkg>  # add a PHP package
 ```
 
 Contact-form emails are queued (`QUEUE_CONNECTION=database`), so keep a
@@ -50,7 +55,7 @@ Contact-form emails are queued (`QUEUE_CONNECTION=database`), so keep a
 
 ## Option B — Laragon (Windows)
 
-Requires Laragon with PHP 8.2+, Composer and Node 20+ (all bundled in Laragon Full).
+Requires Laragon with PHP 8.2+, Composer and Node `^20.19.0` or `>=22.12.0` (required by Vite 7; Node 22 LTS recommended).
 
 ```bash
 # Put the project in D:\laragon\www\upokul (or any folder) and open Laragon's terminal

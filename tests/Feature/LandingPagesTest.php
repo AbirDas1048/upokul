@@ -2,10 +2,14 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class LandingPagesTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @return array<string, array{0: string, 1: string}> */
     public static function pages(): array
     {
@@ -16,7 +20,7 @@ class LandingPagesTest extends TestCase
         ];
     }
 
-    /** @dataProvider pages */
+    #[DataProvider('pages')]
     public function test_each_landing_page_renders_every_section_and_its_theme(string $url, string $themeClass): void
     {
         $html = $this->get($url)->assertOk()->getContent();
@@ -28,7 +32,7 @@ class LandingPagesTest extends TestCase
         }
     }
 
-    /** @dataProvider pages */
+    #[DataProvider('pages')]
     public function test_each_landing_page_has_seo_metadata(string $url): void
     {
         $this->get($url)

@@ -28,8 +28,16 @@
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     <link rel="preconnect" href="https://www.google.com">
 
-    {{-- Lets CSS hide [data-reveal] elements only when JS is actually running --}}
-    <script>document.documentElement.classList.add('js');</script>
+    {{-- [data-reveal] is hidden only while JS runs. If the reveal code never starts
+         (script blocked / failed to load), content is force-shown after 3s. --}}
+    <script>
+        (function (d) {
+            d.classList.add('js');
+            setTimeout(function () {
+                if (!d.classList.contains('reveal-ready')) d.classList.add('reveal-failed');
+            }, 3000);
+        })(document.documentElement);
+    </script>
 
     @vite([$css, 'resources/js/global.js'])
 
