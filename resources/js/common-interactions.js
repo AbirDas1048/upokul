@@ -382,13 +382,17 @@
             icon?.classList.toggle('fa-pause', !paused);
         };
 
+        // The control mirrors the video's real state: it is updated from the
+        // media events, never assumed, so a rejected play() (autoplay policy,
+        // data saver, ...) cannot leave a "Pause" label on a stopped video.
+        video.addEventListener('play', () => sync(false));
+        video.addEventListener('pause', () => sync(true));
+
         btn.addEventListener('click', () => {
             if (video.paused) {
-                video.play().catch(() => {});
-                sync(false);
+                video.play().catch(() => sync(true));
             } else {
                 video.pause();
-                sync(true);
             }
         });
         sync(video.paused);
