@@ -5,6 +5,7 @@ namespace App\Mail;
 use App\Models\ContactMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -30,6 +31,7 @@ class ContactMailMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            replyTo: [new Address($this->contactMail->email, $this->contactMail->name)],
             subject: 'Contact message send from web: '.$this->contactMail->subject,
         );
     }

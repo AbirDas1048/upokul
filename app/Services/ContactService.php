@@ -25,6 +25,8 @@ class ContactService
 
     const MAIL_SEND_STATUS_FAILED = 2;
 
+    const MAIL_SEND_STATUS_PROCESSING = 3;
+
     public function store(Request $request): array
     {
         $statusCode = ResponseCodeAndMessage::SUCCESS;
