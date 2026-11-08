@@ -44,13 +44,27 @@ class ResendFailedContactMails extends Command
         }
 
         $count = 0;
-        $query->each(function (ContactMail $contactMail) use (&$count) {
-            $contactMail->update([
-                'status' => ContactService::MAIL_SEND_STATUS_PENDING,
-                'error_message' => null,
-            ]);
-            SendContactMailJob::dispatch($contactMail);
-            $count++;
+
+        // eachById (keyset paging): the callback changes the status, which removes rows
+        // from this result set, so offset paging (each) would skip later rows.
+        $query->eachById(function (ContactMail $contactMail) use (&$count) {
+            // Reset only if the row is still exactly as it was when selected. If a retry
+            // finished in the meantime (Completed) or another worker touched it, 0 rows
+            // match and we neither overwrite that newer state nor queue a duplicate.
+            $reset = ContactMail::query()
+                ->whereKey($contactMail->getKey())
+                ->where('status', $contactMail->status)
+                ->where('updated_at', $contactMail->updated_at)
+                ->update([
+                    'status' => ContactService::MAIL_SEND_STATUS_PENDING,
+                    'error_message' => null,
+                    'updated_at' => now(),
+                ]);
+
+            if ($reset === 1) {
+                SendContactMailJob::dispatch($contactMail->refresh());
+                $count++;
+            }
         });
 
         $this->info("Re-queued {$count} contact mail(s).");

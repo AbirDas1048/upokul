@@ -8,6 +8,8 @@ use App\Mail\ContactThankYouMailable;
 use App\Models\ContactMail;
 use App\Services\ContactService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Mail\Events\MessageSending;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -56,19 +58,15 @@ class ContactMailJobTest extends TestCase
         $contact = $this->makeContact();
         $this->assertSame(ContactService::MAIL_SEND_STATUS_PENDING, $contact->status);
 
-        $seen = null;
-        Mail::fake();
-
-        // Record that the row passed through Processing (3) before Completed (1).
-        ContactMail::updating(function ($model) use (&$seen) {
-            if ($model->status === ContactService::MAIL_SEND_STATUS_PROCESSING) {
-                $seen = ContactService::MAIL_SEND_STATUS_PROCESSING;
-            }
+        // Read the row from the database at the exact moment the message is sent.
+        $statusWhileSending = null;
+        Event::listen(MessageSending::class, function () use ($contact, &$statusWhileSending) {
+            $statusWhileSending ??= ContactMail::find($contact->id)->status;
         });
 
         (new SendContactMailJob($contact))->handle();
 
-        $this->assertSame(ContactService::MAIL_SEND_STATUS_PROCESSING, $seen);
+        $this->assertSame(ContactService::MAIL_SEND_STATUS_PROCESSING, $statusWhileSending);
         $this->assertSame(ContactService::MAIL_SEND_STATUS_SUCCESS, $contact->fresh()->status);
     }
 
@@ -99,5 +97,68 @@ class ContactMailJobTest extends TestCase
         (new SendContactMailJob($contact))->handle();
 
         Mail::assertNothingSent();
+    }
+
+    public function test_row_already_being_processed_is_not_claimed_by_a_second_copy(): void
+    {
+        Mail::fake();
+
+        $contact = $this->makeContact();
+        // Another worker has just claimed it (fresh Processing).
+        $contact->update(['status' => ContactService::MAIL_SEND_STATUS_PROCESSING]);
+
+        (new SendContactMailJob($contact))->handle();
+
+        Mail::assertNothingSent();
+        $this->assertSame(ContactService::MAIL_SEND_STATUS_PROCESSING, $contact->fresh()->status);
+    }
+
+    public function test_two_copies_of_the_job_send_only_one_owner_mail(): void
+    {
+        Mail::fake();
+        config(['custom.office_email' => 'office@example.com']);
+
+        $contact = $this->makeContact();
+
+        // Both copies were deserialized while the row was still Pending...
+        $first = new SendContactMailJob($contact);
+        $second = new SendContactMailJob(ContactMail::find($contact->id));
+
+        $first->handle();
+        $second->handle();
+
+        Mail::assertSent(ContactMailMailable::class, 1);
+    }
+
+    public function test_stale_processing_row_from_a_crashed_worker_can_be_claimed_again(): void
+    {
+        Mail::fake();
+        config(['custom.office_email' => 'office@example.com']);
+
+        $contact = $this->makeContact();
+        $contact->update(['status' => ContactService::MAIL_SEND_STATUS_PROCESSING]);
+        ContactMail::whereKey($contact->id)->update([
+            'updated_at' => now()->subMinutes(SendContactMailJob::STALE_PROCESSING_MINUTES + 1),
+        ]);
+
+        (new SendContactMailJob($contact->fresh()))->handle();
+
+        Mail::assertSent(ContactMailMailable::class, 1);
+        $this->assertSame(ContactService::MAIL_SEND_STATUS_SUCCESS, $contact->fresh()->status);
+    }
+
+    public function test_failed_row_can_be_claimed_again_on_retry(): void
+    {
+        Mail::fake();
+        config(['custom.office_email' => 'office@example.com']);
+
+        $contact = $this->makeContact();
+        $contact->update(['status' => ContactService::MAIL_SEND_STATUS_FAILED, 'error_message' => 'SMTP down']);
+
+        (new SendContactMailJob($contact->fresh()))->handle();
+
+        Mail::assertSent(ContactMailMailable::class, 1);
+        $this->assertSame(ContactService::MAIL_SEND_STATUS_SUCCESS, $contact->fresh()->status);
+        $this->assertNull($contact->fresh()->error_message);
     }
 }
