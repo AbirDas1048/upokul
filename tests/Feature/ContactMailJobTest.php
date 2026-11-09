@@ -55,6 +55,11 @@ class ContactMailJobTest extends TestCase
 
     public function test_status_is_processing_while_sending_then_completed(): void
     {
+        // This test uses the real (array) mail transport, which validates addresses, so it must
+        // not depend on the environment: CI builds .env from .env.example where OFFICE_EMAIL is
+        // the non-address placeholder "OFFICE_EMAIL".
+        config(['custom.office_email' => 'office@example.com']);
+
         $contact = $this->makeContact();
         $this->assertSame(ContactService::MAIL_SEND_STATUS_PENDING, $contact->status);
 
