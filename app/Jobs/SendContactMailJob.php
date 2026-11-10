@@ -75,9 +75,11 @@ class SendContactMailJob implements ShouldQueue
             return;
         }
 
-        $this->contactMail->refresh();
-
         try {
+            // Inside the try: if this read fails after the claim, the row must not stay in
+            // Processing (the retry could not claim it and the job would be deleted unsent).
+            $this->contactMail->refresh();
+
             Mail::to(config('custom.office_email'))->send(new ContactMailMailable($this->contactMail));
 
             // Processing (3) -> Completed (1)
@@ -87,7 +89,9 @@ class SendContactMailJob implements ShouldQueue
                 'error_message' => null,
             ]);
         } catch (\Throwable $e) {
-            $this->contactMail->update([
+            // Query-builder update by key: it does not depend on the in-memory model state
+            // (which may be stale or unrefreshed), so the row always lands in Failed (retryable).
+            ContactMail::query()->whereKey($this->contactMail->getKey())->update([
                 'status' => ContactService::MAIL_SEND_STATUS_FAILED,
                 'error_message' => $e->getMessage(),
             ]);

@@ -21,7 +21,7 @@
                 @foreach ($reviews as [$name, $source, $quote])
                     <div class="swiper-slide">
                         <figure class="card-x review-card m-0">
-                            <div class="review-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+                            <div class="review-stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden-x">5 out of 5 stars</span></div>
                             <blockquote class="review-quote">“{{ $quote }}”</blockquote>
                             <figcaption class="review-author">
                                 <span class="avatar" aria-hidden="true">{{ mb_substr($name, 0, 1) }}</span>

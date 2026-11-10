@@ -182,7 +182,7 @@
     function initCardSwiper(autoplay) {
         if (!document.querySelector('.cardSwiper')) return;
 
-        new globalThis.Swiper('.cardSwiper', {
+        return new globalThis.Swiper('.cardSwiper', {
             slidesPerView: 1.08,
             spaceBetween: 20,
             grabCursor: true,
@@ -243,7 +243,7 @@
     function initReviewSwiper(autoplay) {
         if (!document.querySelector('.reviewSwiper')) return;
 
-        new globalThis.Swiper('.reviewSwiper', {
+        return new globalThis.Swiper('.reviewSwiper', {
             slidesPerView: 1.05,
             spaceBetween: 20,
             grabCursor: true,
@@ -290,7 +290,7 @@
             html = escapeHtml(fallbackMessage || 'Something went wrong. Please try again.');
         }
 
-        globalThis.Swal?.fire({
+        void globalThis.Swal?.fire({
             icon: 'error',
             title: 'Please check your details',
             html: `<div class="swal-error-box">${html}</div>`,
@@ -328,7 +328,7 @@
 
     async function submitContactForm(form, btn) {
         setSubmitBtnState(btn, true);
-        globalThis.Swal.fire({
+        void globalThis.Swal.fire({
             title: 'Sending your message…',
             text: 'Please wait a moment',
             allowOutsideClick: false,
@@ -338,7 +338,7 @@
         try {
             const res = await postContactForm(form);
             if (res?.success) {
-                globalThis.Swal.fire({
+                void globalThis.Swal.fire({
                     icon: 'success',
                     title: 'Message sent!',
                     text: res.message || 'Thank you — our team will be in touch shortly.',

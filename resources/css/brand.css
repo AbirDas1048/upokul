@@ -29,6 +29,7 @@
     --white: #fff;
     --whatsapp: #25d366;
     --danger: #c0392b;
+    --glass-dark: rgba(7, 47, 49, .75); /* translucent dark teal behind light text */
 
     /* Shape & motion */
     --radius-sm: .5rem;

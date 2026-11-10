@@ -67,14 +67,14 @@ section[id], header[id] { scroll-margin-top: calc(var(--nav-h) - .5rem); }
 .btn-x-sm { padding: .6rem 1.2rem; font-size: .85rem; }
 .btn-x-primary { background: var(--cta-bg); color: var(--cta-on); box-shadow: var(--cta-shadow); }
 .btn-x-gold { background: linear-gradient(135deg, var(--gold-300), var(--gold-500)); color: #1d1604; box-shadow: 0 .6rem 1.6rem rgba(201, 162, 78, .38); }
-.btn-x-ghost { background: rgba(255, 255, 255, .1); color: #fff; border-color: rgba(255, 255, 255, .38); backdrop-filter: blur(.5rem); -webkit-backdrop-filter: blur(.5rem); }
+.btn-x-ghost { background: var(--glass-dark); color: #fff; border-color: rgba(255, 255, 255, .38); backdrop-filter: blur(.5rem); -webkit-backdrop-filter: blur(.5rem); }
 .btn-x-outline { background: transparent; color: var(--accent); border-color: var(--accent); }
 .btn-x-light { background: #fff; color: var(--teal-800); box-shadow: 0 .6rem 1.6rem rgba(0, 0, 0, .18); }
 .btn-x-wa { background: var(--whatsapp); color: #052e16; box-shadow: 0 .6rem 1.6rem rgba(37, 211, 102, .35); }
 @media (hover: hover) and (pointer: fine) {
     .btn-x:hover { transform: translateY(-.15rem); }
     .btn-x-primary:hover, .btn-x-gold:hover { filter: brightness(1.06); }
-    .btn-x-ghost:hover { background: rgba(255, 255, 255, .2); border-color: #fff; }
+    .btn-x-ghost:hover { background: rgba(7, 47, 49, .9); border-color: #fff; }
     .btn-x-outline:hover { background: var(--accent); color: var(--accent-on); }
     .btn-x-light:hover { background: var(--teal-50); }
 }
@@ -118,7 +118,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--nav-h) - .5rem); }
 .nav-cta { display: none; }
 .nav-toggle {
     width: 2.75rem; height: 2.75rem; border-radius: 50%; border: .0625rem solid rgba(255, 255, 255, .28);
-    background: rgba(255, 255, 255, .08); color: #fff; font-size: 1.05rem; cursor: pointer;
+    background: var(--glass-dark); color: #fff; font-size: 1.05rem; cursor: pointer;
     display: grid; place-items: center; transition: background .25s, transform .3s var(--ease);
 }
 .nav-toggle[aria-expanded="true"] { background: var(--teal-400); color: var(--teal-950); transform: rotate(90deg); }
@@ -151,7 +151,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--nav-h) - .5rem); }
 .hero-eyebrow {
     display: inline-flex; align-items: center; gap: .55rem; margin-bottom: 1.4rem;
     padding: .45rem 1.1rem; border-radius: var(--radius-pill);
-    border: .0625rem solid rgba(255, 255, 255, .28); background: rgba(255, 255, 255, .1);
+    border: .0625rem solid rgba(255, 255, 255, .28); background: var(--glass-dark);
     backdrop-filter: blur(.5rem); -webkit-backdrop-filter: blur(.5rem);
     font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: #fff;
 }
@@ -348,7 +348,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--nav-h) - .5rem); }
 .fullscreenSwiper { width: min(92vw, 68rem); }
 .fullscreenSwiper img { width: 100%; height: 84dvh; object-fit: contain; border-radius: var(--radius-md); }
 .fullscreen-modal .swiper-button-prev, .fullscreen-modal .swiper-button-next { color: #fff; }
-.close-modal { position: absolute; top: 1rem; right: 1rem; z-index: 10; width: 2.9rem; height: 2.9rem; border-radius: 50%; border: .0625rem solid rgba(255, 255, 255, .4); background: rgba(255, 255, 255, .14); color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.close-modal { position: absolute; top: 1rem; right: 1rem; z-index: 10; width: 2.9rem; height: 2.9rem; border-radius: 50%; border: .0625rem solid rgba(255, 255, 255, .4); background: var(--glass-dark); color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; }
 
 /* ---------- Reviews ---------- */
 .review-card { position: relative; width: 100%; padding: 2.1rem 1.9rem; display: flex; flex-direction: column; overflow: hidden; }
@@ -444,7 +444,7 @@ section[id], header[id] { scroll-margin-top: calc(var(--nav-h) - .5rem); }
 
 /* ---------- WhatsApp float ---------- */
 .whatsapp-float { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 1040; display: flex; align-items: center; }
-.wa-icon { position: relative; width: 3.5rem; height: 3.5rem; border-radius: 50%; display: grid; place-items: center; font-size: 1.8rem; color: #fff; background: linear-gradient(135deg, #25d366, #128c7e); box-shadow: 0 .4rem 1.4rem rgba(37, 211, 102, .5); transition: transform .35s var(--ease); }
+.wa-icon { position: relative; width: 3.5rem; height: 3.5rem; border-radius: 50%; display: grid; place-items: center; font-size: 1.8rem; color: #fff; background: linear-gradient(135deg, #1a9d50, #128c7e); box-shadow: 0 .4rem 1.4rem rgba(37, 211, 102, .5); transition: transform .35s var(--ease); }
 .wa-icon::before { content: ''; position: absolute; inset: -.25rem; border-radius: 50%; border: .125rem solid rgba(37, 211, 102, .55); animation: wa-pulse 2.2s ease-out infinite; }
 @keyframes wa-pulse { to { transform: scale(1.5); opacity: 0; } }
 .wa-label { margin-right: -1.6rem; padding: .5rem 2.2rem .5rem 1.1rem; border-radius: var(--radius-pill) 0 0 var(--radius-pill); background: #fff; color: #0a6b5b; font-size: .85rem; font-weight: 600; white-space: nowrap; box-shadow: 0 .25rem 1rem rgba(0, 0, 0, .14); opacity: 0; transform: translateX(1rem); pointer-events: none; transition: .35s var(--ease); }

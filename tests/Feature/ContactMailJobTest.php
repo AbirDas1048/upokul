@@ -9,6 +9,7 @@ use App\Models\ContactMail;
 use App\Services\ContactService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Mail\Events\MessageSending;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
@@ -165,5 +166,42 @@ class ContactMailJobTest extends TestCase
         Mail::assertSent(ContactMailMailable::class, 1);
         $this->assertSame(ContactService::MAIL_SEND_STATUS_SUCCESS, $contact->fresh()->status);
         $this->assertNull($contact->fresh()->error_message);
+    }
+
+    public function test_failed_refresh_after_claim_leaves_a_retryable_failed_row(): void
+    {
+        Mail::fake();
+        config(['custom.office_email' => 'office@example.com']);
+
+        $contact = $this->makeContact();
+        $job = new SendContactMailJob($contact);
+
+        // The database read inside the job (refresh) fails once, after the row was claimed.
+        $dbIsDown = true;
+        ContactMail::retrieved(function () use (&$dbIsDown) {
+            if ($dbIsDown) {
+                throw new \RuntimeException('db read failed');
+            }
+        });
+
+        try {
+            $job->handle();
+            $this->fail('Exception expected so the queue retries the job');
+        } catch (\RuntimeException $e) {
+            $this->assertSame('db read failed', $e->getMessage());
+        }
+
+        // Must NOT be left in Processing (a retry could not claim it and the mail would be lost).
+        $row = DB::table('contact_mails')->where('id', $contact->id)->first();
+        $this->assertSame(ContactService::MAIL_SEND_STATUS_FAILED, (int) $row->status);
+        $this->assertSame('db read failed', $row->error_message);
+        Mail::assertNothingSent();
+
+        // The retry (database is back) can claim the row and delivers exactly once.
+        $dbIsDown = false;
+        (new SendContactMailJob($contact))->handle();
+
+        Mail::assertSent(ContactMailMailable::class, 1);
+        $this->assertSame(ContactService::MAIL_SEND_STATUS_SUCCESS, $contact->fresh()->status);
     }
 }

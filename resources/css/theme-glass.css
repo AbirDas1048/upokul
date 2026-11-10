@@ -69,7 +69,7 @@
 /* Hero */
 .hero-glass .hero-copy { max-width: 40rem; }
 .hero-glass .hero-aside { display: none; }
-.hero-glass .hero-card { padding: 2rem; border-radius: var(--radius-lg); background: rgba(255, 255, 255, .12); border: .0625rem solid rgba(255, 255, 255, .32); backdrop-filter: blur(1.2rem); -webkit-backdrop-filter: blur(1.2rem); box-shadow: 0 2rem 4rem rgba(0, 0, 0, .3); color: #fff; }
+.hero-glass .hero-card { padding: 2rem; border-radius: var(--radius-lg); background: var(--glass-dark); border: .0625rem solid rgba(255, 255, 255, .32); backdrop-filter: blur(1.2rem); -webkit-backdrop-filter: blur(1.2rem); box-shadow: 0 2rem 4rem rgba(0, 0, 0, .3); color: #fff; }
 .hero-glass .hero-card h2 { margin: 0 0 1.2rem; font-size: 1.65rem; color: #fff; }
 .hero-glass .hero-card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 1.1rem; }
 .hero-glass .hero-card li { display: flex; gap: .9rem; font-size: .92rem; color: rgba(255, 255, 255, .86); }

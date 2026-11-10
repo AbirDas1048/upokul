@@ -73,7 +73,7 @@
     .hero-noir .hero-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 3rem; align-items: center; }
     .hero-aside { display: block; }
 }
-.hero-card { padding: 2rem; border-radius: var(--radius-lg); background: rgba(255, 255, 255, .07); border: .0625rem solid rgba(255, 255, 255, .18); backdrop-filter: blur(1.1rem); -webkit-backdrop-filter: blur(1.1rem); box-shadow: var(--shadow-lg); }
+.hero-card { padding: 2rem; border-radius: var(--radius-lg); background: var(--glass-dark); border: .0625rem solid rgba(255, 255, 255, .18); backdrop-filter: blur(1.1rem); -webkit-backdrop-filter: blur(1.1rem); box-shadow: var(--shadow-lg); }
 .hero-card h2 { margin: 0 0 1rem; font-size: 1.6rem; color: #fff; }
 .hero-card ul { margin: 0 0 1.4rem; padding: 0; list-style: none; display: grid; gap: .9rem; }
 .hero-card li { display: flex; gap: .8rem; font-size: .92rem; color: rgba(255, 255, 255, .85); }

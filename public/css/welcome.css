@@ -52,7 +52,7 @@ body {
     border-radius: .9rem;
     text-decoration: none;
     color: #fff;
-    background: rgba(255, 255, 255, .08);
+    background: rgba(7, 47, 49, .75);
     border: .0625rem solid rgba(255, 255, 255, .18);
     transition: transform .3s ease, background .3s ease, border-color .3s ease;
 }
