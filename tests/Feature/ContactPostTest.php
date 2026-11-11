@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Jobs\SendContactMailJob;
+use App\Services\ContactSpamGuard;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -35,7 +36,10 @@ class ContactPostTest extends TestCase
             'mail_message' => 'This is a test contact message.',
         ];
 
-        $response = $this->postJson(route('contact.submit'), $payload, [
+        // A real visitor's form carries the signed token the page issued when it was rendered.
+        $response = $this->postJson(route('contact.submit'), $payload + [
+            ContactSpamGuard::TOKEN_FIELD => ContactSpamGuard::issueToken(now()->subSeconds(10)),
+        ], [
             'X-Requested-With' => 'XMLHttpRequest',
         ]);
 

@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Jobs\SendContactMailJob;
 use App\Services\ContactService;
+use App\Services\ContactSpamGuard;
 use App\Services\ResponseCodeAndMessage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class ContactServiceTest extends TestCase
             'phone' => '01700000000',
             'subject' => 'Test Subject',
             'mail_message' => 'This is a test message.',
+            ContactSpamGuard::TOKEN_FIELD => ContactSpamGuard::issueToken(now()->subSeconds(10)),
         ]);
 
         [$status, $message, $data] = (new ContactService())->store($request);

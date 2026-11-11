@@ -320,6 +320,7 @@
 
         if (!response.ok) {
             const error = new Error('Contact form submission failed.');
+            error.status = response.status;
             error.data = data?.errors || data?.data || null;
             throw error;
         }
@@ -349,8 +350,15 @@
                 showErrorSwal(res?.data, res?.message);
             }
         } catch (error) {
-            showErrorSwal(error.data, 'Server error. Please try again later.');
+            showErrorSwal(
+                error.data,
+                error.status === 419
+                    ? 'Your session has expired. Please refresh the page and try again.'
+                    : 'Server error. Please try again later.'
+            );
         } finally {
+            // A Turnstile token is single-use: get a fresh challenge for the next attempt.
+            globalThis.turnstile?.reset();
             setSubmitBtnState(btn, false);
         }
     }

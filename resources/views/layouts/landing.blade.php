@@ -30,7 +30,7 @@
 
     {{-- [data-reveal] is hidden only while JS runs. If the reveal code never starts
          (script blocked / failed to load), content is force-shown after 3s. --}}
-    <script>
+    <script nonce="{{ \Illuminate\Support\Facades\Vite::cspNonce() }}">
         (function (d) {
             d.classList.add('js');
             setTimeout(function () {

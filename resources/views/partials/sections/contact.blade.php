@@ -34,6 +34,20 @@
                         <label for="mail_message">Your message</label>
                         <textarea rows="5" name="mail_message" id="mail_message" placeholder="Destination, travel dates, number of travelers…" maxlength="2000" required></textarea>
                     </div>
+
+                    {{-- Bot traps: the signed token proves this page was loaded (and when); the extra field
+                         is invisible to people but bots fill every input. See App\Services\ContactSpamGuard. --}}
+                    <input type="hidden" name="{{ \App\Services\ContactSpamGuard::TOKEN_FIELD }}" value="{{ \App\Services\ContactSpamGuard::issueToken() }}">
+                    <div class="field-hp" aria-hidden="true">
+                        <label for="contact_extra">Leave this field empty</label>
+                        <input type="text" name="{{ \App\Services\ContactSpamGuard::HONEYPOT_FIELD }}" id="contact_extra" tabindex="-1" autocomplete="off" value="">
+                    </div>
+
+                    @if (\App\Services\ContactSpamGuard::turnstileEnabled())
+                        <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}" data-theme="auto"></div>
+                        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer nonce="{{ \Illuminate\Support\Facades\Vite::cspNonce() }}"></script>
+                    @endif
+
                     <button type="submit" class="btn-x btn-x-primary" id="submitBtn">
                         <i class="fa-solid fa-paper-plane"></i> Send Message
                     </button>

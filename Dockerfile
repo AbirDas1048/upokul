@@ -38,6 +38,11 @@ RUN docker-php-ext-install \
 # Enable Apache mod_rewrite (needed for Laravel routing)
 RUN a2enmod rewrite
 
+# Security hardening: do not advertise software versions to scanners / attackers.
+RUN printf 'expose_php = Off\n' > /usr/local/etc/php/conf.d/zz-security.ini \
+    && printf 'ServerTokens Prod\nServerSignature Off\nTraceEnable Off\n' > /etc/apache2/conf-available/zz-security.conf \
+    && a2enconf zz-security
+
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 

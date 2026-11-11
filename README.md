@@ -84,6 +84,32 @@ Open `http://upokul.test` (Laragon auto virtual host: Menu → Apache → Reload
 or run `composer dev` and use `http://localhost:8000`.
 Fill in `OWNER_*`, `OFFICE_*` and `MAIL_*` in `.env` (use Mailtrap or `MAIL_MAILER=log` locally).
 
+## Security & anti-spam
+
+The contact form is the only public endpoint that writes data, so it is layered:
+
+| Threat | Protection |
+|---|---|
+| Floods / repeated submits by a bot | Rate limiter `contact` on `POST /contact`: per IP (3/min, 10/hour), per e-mail (3/hour) and whole site (200/hour). Over the limit → HTTP 429 + `Retry-After`. Tunable with `CONTACT_LIMIT_*` in `.env`. |
+| Bots that fill every field | Invisible honeypot field. A filled honeypot is answered with a fake "success" and nothing is stored or sent. |
+| Scripts posting without loading the page | Signed (encrypted) form token that proves the page was loaded, cannot be forged, expires after 6 h and must be at least 3 s old. |
+| Double-click / replay | The same message from the same address is accepted once per 10 minutes. |
+| Real bots (optional) | Cloudflare Turnstile: set `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` and the widget appears and is verified server-side (fails closed). |
+| Using the site to mail-bomb someone | The "thank you" mail goes to the typed address, so there is a per-address limit, and links are limited (name/subject: none, message: 1). |
+| SQL injection | Only Eloquent / bound parameters are used; there is no raw SQL. |
+| Header injection | Control characters (CR/LF) are stripped from single-line fields and the address must be RFC-valid. |
+| XSS | All output is escaped (Blade `{{ }}`, escaped popups, e-mail templates) and a strict, nonce-based Content-Security-Policy blocks injected scripts. |
+| CSRF | `POST /contact` is inside the `web` group (token required). |
+| Browser hardening | `Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, HSTS (HTTPS only). |
+| Known-vulnerable packages | Run `composer audit` and `npm audit` regularly (both are clean today). |
+
+**Production checklist**
+
+- `APP_ENV=production`, `APP_DEBUG=false`, `SESSION_SECURE_COOKIE=true`, serve over HTTPS.
+- Behind a proxy / CDN set `TRUSTED_PROXIES` (otherwise every visitor shares the proxy's IP and IP limits are useless).
+- Change the database password (`secret` is a development default) and do not expose MySQL or phpMyAdmin publicly; the compose files already bind them to `127.0.0.1`.
+- If HTML pages are cached by a CDN, exclude the contact section or the form token will go stale (re-load fixes it).
+
 ## Tests & formatting
 
 ```bash
