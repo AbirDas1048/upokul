@@ -6,6 +6,7 @@ use App\Jobs\SendContactMailJob;
 use App\Models\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Validator as ValidatorInstance;
 
 class ContactService
 {
@@ -44,34 +45,39 @@ class ContactService
             return $this->respond(ResponseCodeAndMessage::SUCCESS, []);
         }
 
-        // 2. Clean the input (control characters, CR/LF -> no header injection) and validate.
-        $this->sanitize($request);
+        // 2. Clean + validate, then 3. signed token / fill-time / optional Turnstile challenge.
+        $validator = $this->validator($request);
+        $rejection = $validator->fails() ? $validator->errors() : $this->spamRejection($guard, $request);
 
-        $validator = Validator::make($request->all(), $this->getRules(), $this->getMessages());
-
-        if ($validator->fails()) {
-            return $this->respond(ResponseCodeAndMessage::BAD_REQUEST, $validator->errors());
-        }
-
-        // 3. Signed form token / fill-time / optional Turnstile challenge.
-        $verdict = $guard->verdict($request);
-
-        if ($verdict !== null) {
-            return $this->respond(ResponseCodeAndMessage::BAD_REQUEST, ['form' => [self::SPAM_MESSAGES[$verdict]]]);
+        if ($rejection !== null) {
+            return $this->respond(ResponseCodeAndMessage::BAD_REQUEST, $rejection);
         }
 
         // Only validated fields are used from here on; nothing else from the request is trusted or echoed.
-        $data = $validator->validated();
+        return $this->saveOnce($guard, $validator->validated(), $request);
+    }
 
-        // 4. Double-submit / replay: the same message from the same address is accepted once.
-        //    Answer "success" (it was already received) without saving or e-mailing again.
+    /**
+     * 4. Double-submit / replay: the same message from the same address is stored once. The
+     *    duplicate reservation is released if storing fails, so an honest retry still works.
+     */
+    private function saveOnce(ContactSpamGuard $guard, array $data, Request $request): array
+    {
         if ($guard->isDuplicate($data['email'], $data['mail_message'])) {
-            return $this->respond(ResponseCodeAndMessage::SUCCESS, $data);
+            return $this->respond(ResponseCodeAndMessage::SUCCESS, $data); // already received
         }
 
-        $contactMail = ContactMail::saveContactMail(self::prepareContactData($data, $request));
+        try {
+            $contactMail = ContactMail::saveContactMail(self::prepareContactData($data, $request));
+        } catch (\Throwable $e) {
+            $guard->forgetDuplicate($data['email'], $data['mail_message']);
+
+            throw $e;
+        }
 
         if (! $contactMail->exists) {
+            $guard->forgetDuplicate($data['email'], $data['mail_message']);
+
             return $this->respond(ResponseCodeAndMessage::INTERNAL_SERVER_ERROR, []);
         }
 
@@ -80,15 +86,45 @@ class ContactService
         return $this->respond(ResponseCodeAndMessage::SUCCESS, $data);
     }
 
+    /** @return array<string, array<int, string>>|null */
+    private function spamRejection(ContactSpamGuard $guard, Request $request): ?array
+    {
+        $verdict = $guard->verdict($request);
+
+        return $verdict === null ? null : ['form' => [self::SPAM_MESSAGES[$verdict]]];
+    }
+
+    private function validator(Request $request): ValidatorInstance
+    {
+        $this->sanitize($request);
+
+        return Validator::make($request->all(), $this->getRules(), $this->getMessages());
+    }
+
     private function respond(int $status, mixed $data): array
     {
         return [$status, ResponseCodeAndMessage::MESSAGES[$status], $data];
     }
 
     /**
-     * Single-line fields lose every control character (including CR/LF, which are what header
-     * injection into Reply-To / Subject relies on); the message keeps its line breaks and tabs.
-     * Output is always escaped, so this is defence in depth, not the XSS protection itself.
+     * Control characters (CR/LF included, which header injection into Reply-To / Subject relies
+     * on) replaced by a space, then trimmed. Used for every single-line field AND by the rate
+     * limiter, so throttling and storage always see the same canonical value.
+     */
+    public static function cleanSingleLine(string $value): string
+    {
+        return trim((string) preg_replace('/[\x00-\x1F\x7F\x{2028}\x{2029}]+/u', ' ', $value));
+    }
+
+    /** Canonical e-mail used to count submissions per address (never trust the raw input). */
+    public static function canonicalEmail(mixed $value): string
+    {
+        return is_string($value) ? mb_strtolower(self::cleanSingleLine($value)) : '';
+    }
+
+    /**
+     * The message keeps its line breaks and tabs. Output is always escaped, so this is defence
+     * in depth, not the XSS protection itself.
      */
     private function sanitize(Request $request): void
     {
@@ -98,7 +134,7 @@ class ContactService
             $value = $request->input($field);
 
             if (is_string($value)) {
-                $clean[$field] = trim((string) preg_replace('/[\x00-\x1F\x7F\x{2028}\x{2029}]+/u', ' ', $value));
+                $clean[$field] = self::cleanSingleLine($value);
             }
         }
 

@@ -23,6 +23,12 @@ class SendContactMailJob implements ShouldQueue
     public int $backoff = 10;
 
     /**
+     * Kill a hung attempt well before the queue redelivers the job (retry_after defaults to 90s), so a
+     * redelivery always means the previous attempt is gone and may safely be taken over.
+     */
+    public int $timeout = 60;
+
+    /**
      * A row left in Processing longer than this is treated as a crashed attempt
      * and may be claimed again (matches the `contact:resend-failed --stuck` default).
      */
@@ -40,21 +46,27 @@ class SendContactMailJob implements ShouldQueue
 
     /**
      * Single conditional UPDATE (check + write in one statement, so it cannot race):
-     *   Pending (0) / Failed (2)               -> Processing (3)
-     *   Processing (3) older than the stale window (crashed worker) -> Processing (3)
-     * Completed (1) and a fresh Processing row are never claimed.
+     *   Pending (0) / Failed (2)  -> Processing (3)
+     *   Processing (3)            -> Processing (3) only if the previous attempt is dead:
+     *                                 - this is a REDELIVERY (attempts() > 1: the queue only redelivers
+     *                                   after the earlier attempt crashed or hit its timeout), or
+     *                                 - the row has sat in Processing longer than the stale window
+     *                                   (picked up by `contact:resend-failed`).
+     * Completed (1) and another worker's fresh Processing row are never claimed.
      */
     private function claim(): bool
     {
+        $isRedelivery = $this->attempts() > 1;
+
         return ContactMail::query()
             ->whereKey($this->contactMail->getKey())
-            ->where(function ($q) {
+            ->where(function ($q) use ($isRedelivery) {
                 $q->whereIn('status', [
                     ContactService::MAIL_SEND_STATUS_PENDING,
                     ContactService::MAIL_SEND_STATUS_FAILED,
-                ])->orWhere(function ($q) {
+                ])->orWhere(function ($q) use ($isRedelivery) {
                     $q->where('status', ContactService::MAIL_SEND_STATUS_PROCESSING)
-                        ->where('updated_at', '<', now()->subMinutes(self::STALE_PROCESSING_MINUTES));
+                        ->when(! $isRedelivery, fn ($q) => $q->where('updated_at', '<', now()->subMinutes(self::STALE_PROCESSING_MINUTES)));
                 });
             })
             ->update([

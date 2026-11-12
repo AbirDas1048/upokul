@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
+use App\Services\ContactService;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->configureTrustedProxies();
         $this->configureRateLimiting();
+    }
+
+    /**
+     * Behind Docker / nginx / Cloudflare the real visitor IP arrives in X-Forwarded-For. It is only
+     * believed from the proxies listed in TRUSTED_PROXIES (comma separated IPs/CIDRs, or * for all);
+     * trusting nobody (the default) means a visitor cannot spoof their IP to dodge the rate limits.
+     *
+     * Read through config() and applied here, after configuration has loaded: calling env() while
+     * the middleware stack is being built (or when `config:cache` is in use) returns nothing.
+     */
+    private function configureTrustedProxies(): void
+    {
+        $proxies = trim((string) config('custom.trusted_proxies'));
+
+        if ($proxies !== '') {
+            TrustProxies::at($proxies === '*' ? '*' : array_map('trim', explode(',', $proxies)));
+        }
     }
 
     /**
@@ -35,7 +54,6 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('contact', function (Request $request) {
             $config = config('custom.contact');
             $ip = (string) $request->ip();
-            $email = Str::lower(trim((string) $request->input('email')));
 
             $limits = [
                 Limit::perMinute($config['per_minute'])->by('contact:ip-minute:'.$ip),
@@ -43,10 +61,15 @@ class AppServiceProvider extends ServiceProvider
                 Limit::perHour($config['global_per_hour'])->by('contact:global'),
             ];
 
-            // Per address (hashed, so no e-mail is stored in the cache key): stops the site from
-            // being used to mail-bomb one victim with "thank you" messages from many IPs.
-            if ($email !== '' && mb_strlen($email) <= 254) {
-                $limits[] = Limit::perHour($config['per_email_hour'])->by('contact:email:'.sha1($email));
+            // Per address: stops the site from being used to mail-bomb one victim with "thank you"
+            // messages from many IPs. The address is canonicalised exactly like the contact service
+            // does (control characters removed, lower-cased) so padding tricks cannot dodge the
+            // bucket; non-string input (email[]=...) simply gets no e-mail bucket and is rejected
+            // later by validation. SHA-256 keeps the e-mail out of the cache key.
+            $email = ContactService::canonicalEmail($request->input('email'));
+
+            if ($email !== '') {
+                $limits[] = Limit::perHour($config['per_email_hour'])->by('contact:email:'.hash('sha256', $email));
             }
 
             return array_map(

@@ -71,47 +71,64 @@ class ContactSpamGuard
             return self::VERDICT_TOO_FAST;
         }
 
-        if (self::turnstileEnabled() && ! $this->turnstilePasses($request)) {
-            return self::VERDICT_CAPTCHA;
-        }
-
-        return null;
+        return $this->challengeFailed($request) ? self::VERDICT_CAPTCHA : null;
     }
 
     /**
      * Atomic "first one wins": Cache::add only succeeds if the key did not exist, so a
      * double-click, a retry loop or a replaying bot is accepted exactly once per window.
+     * The caller must call forgetDuplicate() if it then fails to store the message, so an
+     * honest retry is not mistaken for a duplicate of something that was never saved.
      */
     public function isDuplicate(string $email, string $message): bool
     {
-        $fingerprint = hash('sha256', mb_strtolower(trim($email))."\n".preg_replace('/\s+/u', ' ', trim($message)));
-
         return ! Cache::add(
-            'contact:dup:'.$fingerprint,
+            $this->duplicateKey($email, $message),
             true,
             now()->addMinutes(max(1, (int) config('custom.contact.duplicate_minutes')))
         );
     }
 
+    /** Releases the reservation made by isDuplicate() (used when persisting the message failed). */
+    public function forgetDuplicate(string $email, string $message): void
+    {
+        Cache::forget($this->duplicateKey($email, $message));
+    }
+
+    private function duplicateKey(string $email, string $message): string
+    {
+        return 'contact:dup:'.hash('sha256', mb_strtolower(trim($email))."\n".preg_replace('/\s+/u', ' ', trim($message)));
+    }
+
+    private function challengeFailed(Request $request): bool
+    {
+        return self::turnstileEnabled() && ! $this->turnstilePasses($request);
+    }
+
     private function tokenAgeSeconds(mixed $token): ?int
     {
-        if (! is_string($token) || $token === '') {
-            return null;
-        }
+        $issuedAt = $this->decryptToken($token);
 
-        try {
-            $issuedAt = Crypt::decryptString($token);
-        } catch (DecryptException) {
-            return null; // tampered / forged / from another app key
-        }
-
-        if (! ctype_digit($issuedAt)) {
+        if ($issuedAt === null || ! ctype_digit($issuedAt)) {
             return null;
         }
 
         $age = now()->getTimestamp() - (int) $issuedAt;
 
         return $age >= 0 ? $age : null;
+    }
+
+    private function decryptToken(mixed $token): ?string
+    {
+        if (! is_string($token) || $token === '') {
+            return null;
+        }
+
+        try {
+            return Crypt::decryptString($token);
+        } catch (DecryptException) {
+            return null; // tampered / forged / from another app key
+        }
     }
 
     private function turnstilePasses(Request $request): bool

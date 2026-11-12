@@ -6,13 +6,17 @@ use App\Http\Middleware\SecurityHeaders;
 use App\Jobs\SendContactMailJob;
 use App\Mail\ContactMailMailable;
 use App\Models\ContactMail;
+use App\Providers\AppServiceProvider;
 use App\Services\ContactSpamGuard;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Middleware\TrustProxies;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
@@ -370,5 +374,80 @@ class ContactSecurityTest extends TestCase
             ->assertSee('name="form_token"', false)
             ->assertSee('name="contact_extra"', false)
             ->assertDontSee('cf-turnstile'); // only when keys are configured
+    }
+
+    // --------------------------------------------------------------- review follow-ups
+
+    public function test_array_valued_email_is_rejected_by_validation_not_a_server_error(): void
+    {
+        // email[]=... used to blow up inside the rate limiter (array-to-string) before validation ran.
+        $this->submit($this->payload(['email' => ['victim@example.com']]))
+            ->assertOk()
+            ->assertJson(['success' => false])
+            ->assertJsonStructure(['data' => ['email']]);
+
+        $this->assertDatabaseCount('contact_mails', 0);
+    }
+
+    public function test_control_character_padding_cannot_dodge_the_per_email_limit(): void
+    {
+        config(['custom.contact.per_minute' => 100, 'custom.contact.per_hour' => 100]);
+
+        // 300 control characters in front: the old limiter skipped the e-mail bucket (too long),
+        // while the service cleaned the value back to victim@example.com and accepted it.
+        $padded = str_repeat("\x01", 300).'victim@example.com';
+
+        foreach (range(1, 3) as $i) {
+            $this->submit($this->payload(['email' => $padded, 'mail_message' => "padded message {$i}"]))->assertOk();
+        }
+
+        $this->submit($this->payload(['email' => 'Victim@Example.com', 'mail_message' => 'plain message 4']))
+            ->assertStatus(429);
+
+        $this->assertDatabaseCount('contact_mails', 3);
+    }
+
+    public function test_duplicate_reservation_is_released_when_saving_fails(): void
+    {
+        $failInsert = true;
+        ContactMail::creating(function () use (&$failInsert) {
+            if ($failInsert) {
+                throw new \RuntimeException('database unavailable');
+            }
+        });
+
+        $this->submit($this->payload())->assertStatus(500);
+        $this->assertDatabaseCount('contact_mails', 0);
+
+        // The identical, honest retry must NOT be mistaken for a duplicate of something never stored.
+        $failInsert = false;
+        $this->submit($this->payload())->assertOk()->assertJson(['success' => true]);
+
+        $this->assertDatabaseCount('contact_mails', 1);
+        Queue::assertPushed(SendContactMailJob::class, 1);
+    }
+
+    public function test_trusted_proxies_come_from_config_so_they_survive_config_cache(): void
+    {
+        Route::get('/__client-ip', fn (Request $request) => $request->ip());
+
+        try {
+            config(['custom.trusted_proxies' => '10.0.0.0/8']);
+            (new AppServiceProvider($this->app))->boot();
+
+            // From a trusted proxy the forwarded client address is believed...
+            $this->withServerVariables(['REMOTE_ADDR' => '10.0.0.5'])
+                ->withHeaders(['X-Forwarded-For' => '203.0.113.7'])
+                ->get('/__client-ip')
+                ->assertSee('203.0.113.7');
+
+            // ...but anyone else cannot spoof their address with the same header.
+            $this->withServerVariables(['REMOTE_ADDR' => '198.51.100.9'])
+                ->withHeaders(['X-Forwarded-For' => '203.0.113.7'])
+                ->get('/__client-ip')
+                ->assertSee('198.51.100.9');
+        } finally {
+            TrustProxies::flushState();
+        }
     }
 }

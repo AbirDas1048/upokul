@@ -18,6 +18,9 @@ return [
     'office_phone_tel' => preg_replace('/[^\d+]/', '', (string) env('OFFICE_PHONE', '')),
     'owner_phone_tel' => preg_replace('/[^\d+]/', '', (string) env('OWNER_PHONE', '')),
 
+    // Proxies whose X-Forwarded-For header is believed (comma separated IPs/CIDRs, or *). Empty = none.
+    'trusted_proxies' => env('TRUSTED_PROXIES', ''),
+
     // Contact-form abuse protection (see App\Services\ContactSpamGuard + the "contact" rate limiter).
     'contact' => [
         // Per visitor IP.

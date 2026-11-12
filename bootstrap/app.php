@@ -13,13 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [SecurityHeaders::class]);
-
-        // Behind Docker / nginx / Cloudflare the real visitor IP arrives in X-Forwarded-For. It is
-        // only believed from proxies listed here (comma separated IPs/CIDRs, or * for all);
-        // trusting nobody (the default) means a visitor cannot spoof their IP to dodge rate limits.
-        if ($proxies = env('TRUSTED_PROXIES')) {
-            $middleware->trustProxies(at: $proxies === '*' ? '*' : array_map('trim', explode(',', $proxies)));
-        }
+        // Trusted proxies (TRUSTED_PROXIES) are applied in AppServiceProvider::boot(), after config loads.
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

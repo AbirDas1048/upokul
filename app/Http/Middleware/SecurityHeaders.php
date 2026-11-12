@@ -83,21 +83,19 @@ class SecurityHeaders
      */
     private function viteDevOrigins(): array
     {
+        $origin = $this->hotOrigin();
+
+        return $origin === null
+            ? ['http' => '', 'ws' => '']
+            : ['http' => ' '.$origin, 'ws' => ' '.preg_replace('~^http~', 'ws', $origin)];
+    }
+
+    /** The dev-server origin from public/hot, or null when absent / not a plain http(s) origin. */
+    private function hotOrigin(): ?string
+    {
         $hot = public_path('hot');
+        $origin = is_file($hot) ? trim((string) file_get_contents($hot)) : '';
 
-        if (! is_file($hot)) {
-            return ['http' => '', 'ws' => ''];
-        }
-
-        $origin = trim((string) file_get_contents($hot));
-
-        if (! preg_match('~^https?://[A-Za-z0-9.\-]+(:\d+)?$~', $origin)) {
-            return ['http' => '', 'ws' => ''];
-        }
-
-        return [
-            'http' => ' '.$origin,
-            'ws' => ' '.preg_replace('~^http~', 'ws', $origin),
-        ];
+        return preg_match('~^https?://[A-Za-z0-9.\-]+(:\d+)?$~', $origin) === 1 ? $origin : null;
     }
 }
