@@ -8,6 +8,7 @@ use App\Mail\ContactMailMailable;
 use App\Models\ContactMail;
 use App\Providers\AppServiceProvider;
 use App\Services\ContactSpamGuard;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -449,5 +450,23 @@ class ContactSecurityTest extends TestCase
         } finally {
             TrustProxies::flushState();
         }
+    }
+
+    public function test_failure_to_queue_rolls_the_row_back_so_the_visitors_retry_is_processed(): void
+    {
+        $realDispatcher = $this->app->make(Dispatcher::class);
+        $this->instance(Dispatcher::class, \Mockery::mock(Dispatcher::class, function ($mock) {
+            $mock->shouldReceive('dispatch')->andThrow(new \RuntimeException('queue unavailable'));
+        }));
+
+        $this->submit($this->payload())->assertStatus(500);
+        $this->assertDatabaseCount('contact_mails', 0); // nothing left Pending without a job
+
+        // The queue is back. The identical retry must go through, not be answered as a "duplicate".
+        $this->instance(Dispatcher::class, $realDispatcher);
+        $this->submit($this->payload())->assertOk()->assertJson(['success' => true]);
+
+        $this->assertDatabaseCount('contact_mails', 1);
+        Queue::assertPushed(SendContactMailJob::class, 1);
     }
 }

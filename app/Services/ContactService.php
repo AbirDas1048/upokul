@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Jobs\SendContactMailJob;
 use App\Models\ContactMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Validator as ValidatorInstance;
 
@@ -68,7 +69,19 @@ class ContactService
         }
 
         try {
-            $contactMail = ContactMail::saveContactMail(self::prepareContactData($data, $request));
+            // Row and queued job commit together (with the default `database` queue both live in the
+            // same database). If queuing fails the row is rolled back too, so nothing is left Pending
+            // without a job, and the visitor's retry is processed instead of being mistaken for a
+            // duplicate. (With a non-database queue such as Redis, dispatch ->afterCommit() instead.)
+            $contactMail = DB::transaction(function () use ($data, $request) {
+                $contactMail = ContactMail::saveContactMail(self::prepareContactData($data, $request));
+
+                if ($contactMail->exists) {
+                    SendContactMailJob::dispatch($contactMail);
+                }
+
+                return $contactMail;
+            });
         } catch (\Throwable $e) {
             $guard->forgetDuplicate($data['email'], $data['mail_message']);
 
@@ -80,8 +93,6 @@ class ContactService
 
             return $this->respond(ResponseCodeAndMessage::INTERNAL_SERVER_ERROR, []);
         }
-
-        SendContactMailJob::dispatch($contactMail);
 
         return $this->respond(ResponseCodeAndMessage::SUCCESS, $data);
     }

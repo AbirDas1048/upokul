@@ -22,17 +22,23 @@ class SendContactMailJob implements ShouldQueue
 
     public int $backoff = 10;
 
-    /**
-     * Kill a hung attempt well before the queue redelivers the job (retry_after defaults to 90s), so a
-     * redelivery always means the previous attempt is gone and may safely be taken over.
-     */
+    /** A live attempt is killed by the worker after this many seconds. */
     public int $timeout = 60;
 
     /**
-     * A row left in Processing longer than this is treated as a crashed attempt
-     * and may be claimed again (matches the `contact:resend-failed --stuck` default).
+     * A row is "abandoned" (its attempt is dead) only once it has sat in Processing this long.
+     * Chosen to sit strictly between the two timings that matter:
+     *
+     *     timeout (60s)  <  STALE (75s)  <  queue retry_after / redelivery (90s)
+     *
+     *  - A LIVE attempt always finishes or is killed within 60s, so its claim is always younger than
+     *    75s: no other job (a retry of an older message, the recovery command's new message, a
+     *    duplicate...) can take it over, which is what prevents a double send.
+     *  - A CRASHED attempt's claim is already older than 75s when the queue redelivers the message at
+     *    90s, so the redelivery recovers it automatically and the e-mail is still sent.
+     * (JobTest asserts this ordering against config('queue').)
      */
-    public const STALE_PROCESSING_MINUTES = 15;
+    public const STALE_PROCESSING_SECONDS = 75;
 
     public ContactMail $contactMail;
 
@@ -47,26 +53,25 @@ class SendContactMailJob implements ShouldQueue
     /**
      * Single conditional UPDATE (check + write in one statement, so it cannot race):
      *   Pending (0) / Failed (2)  -> Processing (3)
-     *   Processing (3)            -> Processing (3) only if the previous attempt is dead:
-     *                                 - this is a REDELIVERY (attempts() > 1: the queue only redelivers
-     *                                   after the earlier attempt crashed or hit its timeout), or
-     *                                 - the row has sat in Processing longer than the stale window
-     *                                   (picked up by `contact:resend-failed`).
-     * Completed (1) and another worker's fresh Processing row are never claimed.
+     *   Processing (3)            -> Processing (3) only when the claim is provably abandoned, i.e. it
+     *                                is older than STALE_PROCESSING_SECONDS (see the constant for why
+     *                                that is safe). It deliberately does NOT depend on attempts():
+     *                                that counts the queue message's tries, not the age or owner of
+     *                                the current claim, so a retry of one message could otherwise
+     *                                take over a live claim made by a different message.
+     * Completed (1) and any live (fresh) Processing row are never claimed.
      */
     private function claim(): bool
     {
-        $isRedelivery = $this->attempts() > 1;
-
         return ContactMail::query()
             ->whereKey($this->contactMail->getKey())
-            ->where(function ($q) use ($isRedelivery) {
+            ->where(function ($q) {
                 $q->whereIn('status', [
                     ContactService::MAIL_SEND_STATUS_PENDING,
                     ContactService::MAIL_SEND_STATUS_FAILED,
-                ])->orWhere(function ($q) use ($isRedelivery) {
+                ])->orWhere(function ($q) {
                     $q->where('status', ContactService::MAIL_SEND_STATUS_PROCESSING)
-                        ->when(! $isRedelivery, fn ($q) => $q->where('updated_at', '<', now()->subMinutes(self::STALE_PROCESSING_MINUTES)));
+                        ->where('updated_at', '<', now()->subSeconds(self::STALE_PROCESSING_SECONDS));
                 });
             })
             ->update([

@@ -7,6 +7,7 @@ use App\Mail\ContactMailMailable;
 use App\Mail\ContactThankYouMailable;
 use App\Models\ContactMail;
 use App\Services\ContactService;
+use Illuminate\Contracts\Queue\Job;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,17 @@ class ContactMailJobTest extends TestCase
             'request_source' => [],
             'status' => ContactService::MAIL_SEND_STATUS_PENDING,
         ]);
+    }
+
+    /** Runs the job the way a worker does: with a queue job whose attempt number is $attempt. */
+    private function runAsQueueAttempt(ContactMail $contact, int $attempt): void
+    {
+        $queueJob = \Mockery::mock(Job::class);
+        $queueJob->shouldReceive('attempts')->andReturn($attempt);
+
+        $job = new SendContactMailJob($contact);
+        $job->setJob($queueJob);
+        $job->handle();
     }
 
     public function test_job_sends_owner_mail_and_customer_thank_you(): void
@@ -144,7 +156,7 @@ class ContactMailJobTest extends TestCase
         $contact = $this->makeContact();
         $contact->update(['status' => ContactService::MAIL_SEND_STATUS_PROCESSING]);
         ContactMail::whereKey($contact->id)->update([
-            'updated_at' => now()->subMinutes(SendContactMailJob::STALE_PROCESSING_MINUTES + 1),
+            'updated_at' => now()->subSeconds(SendContactMailJob::STALE_PROCESSING_SECONDS + 5),
         ]);
 
         (new SendContactMailJob($contact->fresh()))->handle();
@@ -205,46 +217,60 @@ class ContactMailJobTest extends TestCase
         $this->assertSame(ContactService::MAIL_SEND_STATUS_SUCCESS, $contact->fresh()->status);
     }
 
-    public function test_redelivered_job_takes_over_a_row_left_in_processing_by_a_dead_attempt(): void
+    public function test_redelivered_job_recovers_the_claim_of_a_worker_that_crashed(): void
     {
         Mail::fake();
         config(['custom.office_email' => 'office@example.com']);
 
-        // A worker claimed the row and died before sending: Processing, updated just now (not "stale" yet).
+        // A worker claimed the row and died without sending. The queue redelivers the message after
+        // retry_after (90s), by which time that claim is 90s old - older than the 75s stale window.
         $contact = $this->makeContact();
         $contact->update(['status' => ContactService::MAIL_SEND_STATUS_PROCESSING]);
+        ContactMail::whereKey($contact->id)->update(['updated_at' => now()->subSeconds(90)]);
 
-        // The queue redelivers the job after retry_after: attempts() is now 2.
-        $queueJob = \Mockery::mock(\Illuminate\Contracts\Queue\Job::class);
-        $queueJob->shouldReceive('attempts')->andReturn(2);
-
-        $job = new SendContactMailJob($contact->fresh());
-        $job->setJob($queueJob);
-        $job->handle();
+        $this->runAsQueueAttempt($contact->fresh(), 2);
 
         Mail::assertSent(ContactMailMailable::class, 1);
         $this->assertSame(ContactService::MAIL_SEND_STATUS_SUCCESS, $contact->fresh()->status);
     }
 
-    public function test_first_attempt_still_leaves_another_workers_fresh_processing_row_alone(): void
+    public function test_first_attempt_leaves_another_workers_fresh_processing_row_alone(): void
     {
         Mail::fake();
 
         $contact = $this->makeContact();
         $contact->update(['status' => ContactService::MAIL_SEND_STATUS_PROCESSING]);
 
-        $queueJob = \Mockery::mock(\Illuminate\Contracts\Queue\Job::class);
-        $queueJob->shouldReceive('attempts')->andReturn(1);
-
-        $job = new SendContactMailJob($contact->fresh());
-        $job->setJob($queueJob);
-        $job->handle();
+        $this->runAsQueueAttempt($contact->fresh(), 1);
 
         Mail::assertNothingSent();
     }
 
-    public function test_job_timeout_is_shorter_than_the_default_redelivery_delay(): void
+    public function test_a_retry_of_an_older_message_cannot_take_over_a_live_claim_of_another_message(): void
     {
-        $this->assertLessThan(90, (new SendContactMailJob($this->makeContact()))->timeout);
+        Mail::fake();
+
+        // Message A failed and is waiting for its queue retry. `contact:resend-failed` reset the row and
+        // queued message B, whose first attempt has just claimed it (a live, 10-second-old claim).
+        $contact = $this->makeContact();
+        $contact->update(['status' => ContactService::MAIL_SEND_STATUS_PROCESSING]);
+        ContactMail::whereKey($contact->id)->update(['updated_at' => now()->subSeconds(10)]);
+
+        // A's retry has attempts() > 1 but must NOT touch B's live claim (that would send the mail twice).
+        $this->runAsQueueAttempt($contact->fresh(), 2);
+
+        Mail::assertNothingSent();
+        $this->assertSame(ContactService::MAIL_SEND_STATUS_PROCESSING, $contact->fresh()->status);
+    }
+
+    public function test_stale_window_sits_between_the_job_timeout_and_the_queue_redelivery_delay(): void
+    {
+        $timeout = (new SendContactMailJob($this->makeContact()))->timeout;
+        $retryAfter = (int) config('queue.connections.database.retry_after');
+
+        // A live attempt (<= timeout) must never look abandoned, and a crashed one must already look
+        // abandoned when the queue redelivers the message.
+        $this->assertLessThan(SendContactMailJob::STALE_PROCESSING_SECONDS, $timeout);
+        $this->assertLessThan($retryAfter, SendContactMailJob::STALE_PROCESSING_SECONDS);
     }
 }
