@@ -15,6 +15,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Route;
@@ -468,5 +469,54 @@ class ContactSecurityTest extends TestCase
 
         $this->assertDatabaseCount('contact_mails', 1);
         Queue::assertPushed(SendContactMailJob::class, 1);
+    }
+
+    public function test_database_queue_dispatches_inside_the_transaction_and_other_queues_only_after_commit(): void
+    {
+        $base = DB::transactionLevel(); // RefreshDatabase already wraps every test in a transaction
+
+        $levels = [];
+        $realDispatcher = $this->app->make(Dispatcher::class);
+        $this->instance(Dispatcher::class, \Mockery::mock(Dispatcher::class, function ($mock) use (&$levels) {
+            $mock->shouldReceive('dispatch')->andReturnUsing(function () use (&$levels) {
+                $levels[] = DB::transactionLevel();
+
+                return 0;
+            });
+        }));
+
+        // `database` queue: the job row shares the database, so it is written in the same transaction.
+        config(['queue.default' => 'database']);
+        $this->submit($this->payload(['mail_message' => 'via the database queue']))->assertOk();
+
+        // `redis` (any external queue): a worker must never see the job before the contact has committed.
+        config(['queue.default' => 'redis']);
+        $this->submit($this->payload(['mail_message' => 'via an external queue']))->assertOk();
+
+        $this->assertSame([$base + 1, $base], $levels);
+        $this->assertDatabaseCount('contact_mails', 2);
+        $this->instance(Dispatcher::class, $realDispatcher);
+    }
+
+    public function test_external_queue_failure_removes_the_unqueued_contact_so_the_retry_works(): void
+    {
+        config(['queue.default' => 'redis']);
+
+        $realDispatcher = $this->app->make(Dispatcher::class);
+        $this->instance(Dispatcher::class, \Mockery::mock(Dispatcher::class, function ($mock) {
+            $mock->shouldReceive('dispatch')->andThrow(new \RuntimeException('redis down'));
+        }));
+
+        $this->submit($this->payload())->assertStatus(500);
+        $this->assertDatabaseCount('contact_mails', 0);
+
+        $this->instance(Dispatcher::class, $realDispatcher);
+        $this->submit($this->payload())->assertOk()->assertJson(['success' => true]);
+        $this->assertDatabaseCount('contact_mails', 1);
+    }
+
+    public function test_recovery_command_is_scheduled_automatically(): void
+    {
+        $this->artisan('schedule:list')->expectsOutputToContain('contact:resend-failed')->assertSuccessful();
     }
 }

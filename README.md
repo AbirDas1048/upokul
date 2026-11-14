@@ -40,6 +40,7 @@ Useful commands (add `-f docker-compose.dev.yml` for the dev stack):
 
 ```bash
 docker compose exec app php artisan queue:work      # process the contact-mail queue
+docker compose exec app php artisan schedule:work  # runs the 5-minute safety net that re-queues failed / stuck contact mails
 docker compose down                                 # stop (add -v to also wipe DB/vendor volumes)
 ```
 

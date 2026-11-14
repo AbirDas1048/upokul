@@ -69,19 +69,7 @@ class ContactService
         }
 
         try {
-            // Row and queued job commit together (with the default `database` queue both live in the
-            // same database). If queuing fails the row is rolled back too, so nothing is left Pending
-            // without a job, and the visitor's retry is processed instead of being mistaken for a
-            // duplicate. (With a non-database queue such as Redis, dispatch ->afterCommit() instead.)
-            $contactMail = DB::transaction(function () use ($data, $request) {
-                $contactMail = ContactMail::saveContactMail(self::prepareContactData($data, $request));
-
-                if ($contactMail->exists) {
-                    SendContactMailJob::dispatch($contactMail);
-                }
-
-                return $contactMail;
-            });
+            $contactMail = $this->persistAndQueue($data, $request);
         } catch (\Throwable $e) {
             $guard->forgetDuplicate($data['email'], $data['mail_message']);
 
@@ -95,6 +83,50 @@ class ContactService
         }
 
         return $this->respond(ResponseCodeAndMessage::SUCCESS, $data);
+    }
+
+    /**
+     * Stores the contact and queues its e-mail job so that nothing is ever left saved-but-unqueued
+     * from the visitor's point of view:
+     *
+     *  - `database` queue: the job row lives in the same database, so row and job commit in ONE
+     *    transaction; if queuing fails, the contact is rolled back with it.
+     *  - any other queue (redis, sqs, sync...): the job must NOT be published before the contact is
+     *    committed (a worker could pick it up and fail to find the model), so it is dispatched after
+     *    the commit; if that dispatch fails the contact is removed again (compensation). A crash
+     *    between commit and dispatch leaves a Pending row that the scheduled `contact:resend-failed`
+     *    command queues.
+     */
+    private function persistAndQueue(array $data, Request $request): ContactMail
+    {
+        $atomic = config('queue.connections.'.config('queue.default').'.driver') === 'database';
+
+        $contactMail = DB::transaction(function () use ($data, $request, $atomic) {
+            $contactMail = ContactMail::saveContactMail(self::prepareContactData($data, $request));
+
+            if ($atomic && $contactMail->exists) {
+                SendContactMailJob::dispatch($contactMail);
+            }
+
+            return $contactMail;
+        });
+
+        if (! $atomic && $contactMail->exists) {
+            $this->dispatchAfterCommit($contactMail);
+        }
+
+        return $contactMail;
+    }
+
+    private function dispatchAfterCommit(ContactMail $contactMail): void
+    {
+        try {
+            SendContactMailJob::dispatch($contactMail);
+        } catch (\Throwable $e) {
+            $contactMail->delete(); // not queued, so do not leave an orphan; the visitor can retry
+
+            throw $e;
+        }
     }
 
     /** @return array<string, array<int, string>>|null */

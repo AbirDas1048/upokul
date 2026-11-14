@@ -32,11 +32,22 @@ class ContactMailJobTest extends TestCase
         ]);
     }
 
-    /** Runs the job the way a worker does: with a queue job whose attempt number is $attempt. */
-    private function runAsQueueAttempt(ContactMail $contact, int $attempt): void
+    /**
+     * Runs the job the way a worker does: with a queue job whose attempt number is $attempt.
+     *
+     * @param  int|false|null  $expectRelease  int = must be released with exactly that delay,
+     *                                         false = must NOT be released, null = don't care
+     */
+    private function runAsQueueAttempt(ContactMail $contact, int $attempt, int|false|null $expectRelease = null): void
     {
         $queueJob = \Mockery::mock(Job::class);
         $queueJob->shouldReceive('attempts')->andReturn($attempt);
+
+        match (true) {
+            $expectRelease === false => $queueJob->shouldReceive('release')->never(),
+            is_int($expectRelease) => $queueJob->shouldReceive('release')->once()->with($expectRelease),
+            default => $queueJob->shouldReceive('release')->andReturnNull(),
+        };
 
         $job = new SendContactMailJob($contact);
         $job->setJob($queueJob);
@@ -272,5 +283,54 @@ class ContactMailJobTest extends TestCase
         // abandoned when the queue redelivers the message.
         $this->assertLessThan(SendContactMailJob::STALE_PROCESSING_SECONDS, $timeout);
         $this->assertLessThan($retryAfter, SendContactMailJob::STALE_PROCESSING_SECONDS);
+    }
+
+    public function test_job_blocked_by_a_live_claim_is_released_so_it_can_recover_if_that_worker_crashes(): void
+    {
+        Mail::fake();
+
+        // Another attempt claimed the row 20s ago and is (as far as we can tell) still working on it.
+        $contact = $this->makeContact();
+        $contact->update(['status' => ContactService::MAIL_SEND_STATUS_PROCESSING]);
+        ContactMail::whereKey($contact->id)->update(['updated_at' => now()->subSeconds(20)]);
+
+        // We must not send (the live claim is respected) and must not simply end (the job would be
+        // deleted and, if that worker then crashes, the enquiry lost): release for a later attempt that
+        // lands after the claim has gone stale.
+        $this->runAsQueueAttempt($contact->fresh(), 1, SendContactMailJob::STALE_PROCESSING_SECONDS + 5);
+
+        Mail::assertNothingSent();
+    }
+
+    public function test_job_is_not_released_when_the_contact_is_already_completed(): void
+    {
+        Mail::fake();
+
+        $contact = $this->makeContact();
+        $contact->update(['status' => ContactService::MAIL_SEND_STATUS_SUCCESS]);
+
+        $this->runAsQueueAttempt($contact->fresh(), 1, false);
+
+        Mail::assertNothingSent();
+    }
+
+    public function test_released_job_sends_once_the_blocking_claim_has_gone_stale(): void
+    {
+        Mail::fake();
+        config(['custom.office_email' => 'office@example.com']);
+
+        $contact = $this->makeContact();
+        $contact->update(['status' => ContactService::MAIL_SEND_STATUS_PROCESSING]);
+        ContactMail::whereKey($contact->id)->update(['updated_at' => now()->subSeconds(20)]);
+
+        $this->runAsQueueAttempt($contact->fresh(), 1);            // blocked, released
+        Mail::assertNothingSent();
+
+        // ...the other worker died; by the time the released job runs again the claim is stale.
+        ContactMail::whereKey($contact->id)->update(['updated_at' => now()->subSeconds(SendContactMailJob::STALE_PROCESSING_SECONDS + 5)]);
+        $this->runAsQueueAttempt($contact->fresh(), 2, false);
+
+        Mail::assertSent(ContactMailMailable::class, 1);
+        $this->assertSame(ContactService::MAIL_SEND_STATUS_SUCCESS, $contact->fresh()->status);
     }
 }

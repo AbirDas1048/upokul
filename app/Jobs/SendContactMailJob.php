@@ -81,6 +81,22 @@ class SendContactMailJob implements ShouldQueue
     }
 
     /**
+     * The claim was lost. If the contact is Completed (or gone) there is nothing left to do. If it is
+     * still Processing, another attempt owns it right now but may yet crash; returning would make
+     * Laravel delete this job and the enquiry would be lost. So release the job to try again once that
+     * claim has gone stale: a live owner will have finished by then (the next attempt sees Completed),
+     * a crashed one is recovered and the e-mail is sent.
+     */
+    private function deferIfStillProcessing(): void
+    {
+        $status = ContactMail::query()->whereKey($this->contactMail->getKey())->value('status');
+
+        if ($status !== null && (int) $status === ContactService::MAIL_SEND_STATUS_PROCESSING) {
+            $this->release(self::STALE_PROCESSING_SECONDS + 5);
+        }
+    }
+
+    /**
      * Execute the job.
      */
     public function handle(): void
@@ -89,6 +105,8 @@ class SendContactMailJob implements ShouldQueue
         // A copy that loses (already Completed, or another worker is Processing) stops
         // here, so the owner e-mail can never be sent twice.
         if (! $this->claim()) {
+            $this->deferIfStillProcessing();
+
             return;
         }
 
