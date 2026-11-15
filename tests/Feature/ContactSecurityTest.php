@@ -495,6 +495,9 @@ class ContactSecurityTest extends TestCase
 
         $this->assertSame([$base + 1, $base], $levels);
         $this->assertDatabaseCount('contact_mails', 2);
+
+        // Both paths record that a job was queued, so the recovery command never double-queues them.
+        $this->assertSame(0, ContactMail::whereNull('queued_at')->count());
         $this->instance(Dispatcher::class, $realDispatcher);
     }
 

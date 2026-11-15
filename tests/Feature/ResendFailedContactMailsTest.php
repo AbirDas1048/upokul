@@ -115,4 +115,62 @@ class ResendFailedContactMailsTest extends TestCase
         Queue::assertNothingPushed();
         $this->assertSame(ContactService::MAIL_SEND_STATUS_SUCCESS, $failed->fresh()->status);
     }
+
+    public function test_pending_row_with_a_recently_queued_job_is_left_alone(): void
+    {
+        Queue::fake();
+
+        // Workers are down: the job was queued 5 minutes ago and is simply waiting. Re-queuing it on every
+        // scheduled run would add another job per waiting contact per run.
+        $waiting = $this->make(ContactService::MAIL_SEND_STATUS_PENDING);
+        ContactMail::whereKey($waiting->id)->update(['created_at' => now()->subMinutes(10), 'queued_at' => now()->subMinutes(5)]);
+
+        $this->artisan('contact:resend-failed')->expectsOutput('Re-queued 0 contact mail(s).')->assertSuccessful();
+
+        Queue::assertNothingPushed();
+    }
+
+    public function test_running_the_command_repeatedly_queues_a_waiting_contact_only_once(): void
+    {
+        Queue::fake();
+
+        // Saved but never queued (dispatch failed / process died): genuinely needs recovery.
+        $orphan = $this->make(ContactService::MAIL_SEND_STATUS_PENDING);
+        ContactMail::whereKey($orphan->id)->update(['created_at' => now()->subMinutes(10), 'queued_at' => null]);
+
+        foreach (range(1, 5) as $run) { // five scheduler runs while no worker is processing the queue
+            $this->artisan('contact:resend-failed')->assertSuccessful();
+        }
+
+        Queue::assertPushed(SendContactMailJob::class, 1);
+        $this->assertNotNull($orphan->fresh()->queued_at);
+    }
+
+    public function test_pending_row_whose_job_is_old_enough_to_be_presumed_lost_is_recovered(): void
+    {
+        Queue::fake();
+
+        $lost = $this->make(ContactService::MAIL_SEND_STATUS_PENDING);
+        ContactMail::whereKey($lost->id)->update(['created_at' => now()->subHours(3), 'queued_at' => now()->subHours(2)]);
+
+        $this->artisan('contact:resend-failed')->expectsOutput('Re-queued 1 contact mail(s).')->assertSuccessful();
+
+        Queue::assertPushed(SendContactMailJob::class, 1);
+        $this->assertTrue($lost->fresh()->queued_at->gt(now()->subMinute()));
+    }
+
+    public function test_failed_rows_are_retried_only_after_the_backoff_when_asked(): void
+    {
+        Queue::fake();
+
+        $recent = $this->make(ContactService::MAIL_SEND_STATUS_FAILED);   // failed just now
+        $old = $this->make(ContactService::MAIL_SEND_STATUS_FAILED);
+        ContactMail::whereKey($old->id)->update(['updated_at' => now()->subMinutes(20)]);
+
+        $this->artisan('contact:resend-failed', ['--failed-after' => 15])->assertSuccessful();
+
+        Queue::assertPushed(SendContactMailJob::class, 1);
+        Queue::assertPushed(SendContactMailJob::class, fn ($job) => $job->contactMail->id === $old->id);
+        $this->assertSame(ContactService::MAIL_SEND_STATUS_FAILED, $recent->fresh()->status);
+    }
 }

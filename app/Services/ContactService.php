@@ -102,7 +102,8 @@ class ContactService
         $atomic = config('queue.connections.'.config('queue.default').'.driver') === 'database';
 
         $contactMail = DB::transaction(function () use ($data, $request, $atomic) {
-            $contactMail = ContactMail::saveContactMail(self::prepareContactData($data, $request));
+            // `database` queue: the job is written in this very transaction, so the marker is too.
+            $contactMail = ContactMail::saveContactMail(self::prepareContactData($data, $request, $atomic));
 
             if ($atomic && $contactMail->exists) {
                 SendContactMailJob::dispatch($contactMail);
@@ -127,6 +128,9 @@ class ContactService
 
             throw $e;
         }
+
+        // Durable marker, written only once the job really is queued (query builder: no model events).
+        ContactMail::query()->whereKey($contactMail->getKey())->update(['queued_at' => now()]);
     }
 
     /** @return array<string, array<int, string>>|null */
@@ -237,7 +241,7 @@ class ContactService
         ];
     }
 
-    private static function prepareContactData(array $data, Request $request): array
+    private static function prepareContactData(array $data, Request $request, bool $queuedNow = false): array
     {
         return [
             'name' => $data['name'],
@@ -247,6 +251,7 @@ class ContactService
             'mail_message' => $data['mail_message'],
             'request_source' => GlobalFunction::getRequestSource($request),
             'status' => self::MAIL_SEND_STATUS_PENDING,
+            'queued_at' => $queuedNow ? now() : null,
         ];
     }
 }
