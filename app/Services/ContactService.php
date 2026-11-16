@@ -6,6 +6,7 @@ use App\Jobs\SendContactMailJob;
 use App\Models\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Validator as ValidatorInstance;
 
@@ -129,8 +130,23 @@ class ContactService
             throw $e;
         }
 
-        // Durable marker, written only once the job really is queued (query builder: no model events).
-        ContactMail::query()->whereKey($contactMail->getKey())->update(['queued_at' => now()]);
+        $this->recordQueued($contactMail);
+    }
+
+    /**
+     * Durable "a job is queued" marker, written only once the job really is queued (query builder: no
+     * model events). The contact is already committed AND queued at this point, so it must stay accepted
+     * (and keep its duplicate reservation) whatever happens here: a failed marker write is only reported.
+     * Without the marker the recovery command may queue the row once more, which the job's atomic claim
+     * turns into a no-op, so the worst case is one redundant job, never a lost or doubled enquiry.
+     */
+    private function recordQueued(ContactMail $contactMail): void
+    {
+        try {
+            ContactMail::query()->whereKey($contactMail->getKey())->update(['queued_at' => now()]);
+        } catch (\Throwable $e) {
+            Log::warning('Could not record queued_at for contact '.$contactMail->getKey().': '.$e->getMessage());
+        }
     }
 
     /** @return array<string, array<int, string>>|null */

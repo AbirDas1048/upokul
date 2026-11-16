@@ -522,4 +522,24 @@ class ContactSecurityTest extends TestCase
     {
         $this->artisan('schedule:list')->expectsOutputToContain('contact:resend-failed')->assertSuccessful();
     }
+
+    public function test_a_marker_write_failure_after_a_successful_queue_does_not_undo_the_accepted_contact(): void
+    {
+        config(['queue.default' => 'redis']); // external queue: the marker is written after dispatch
+
+        // Make ONLY the queued_at update fail (the INSERT and everything else still work).
+        DB::unprepared("CREATE TRIGGER fail_queued_marker BEFORE UPDATE OF queued_at ON contact_mails
+            BEGIN SELECT RAISE(ABORT, 'marker write failed'); END");
+
+        $this->submit($this->payload())->assertOk()->assertJson(['success' => true]);
+
+        $this->assertDatabaseCount('contact_mails', 1);
+        Queue::assertPushed(SendContactMailJob::class, 1);
+
+        // An identical retry is still recognised as a duplicate: no second contact, no second job.
+        $this->submit($this->payload())->assertOk()->assertJson(['success' => true]);
+
+        $this->assertDatabaseCount('contact_mails', 1);
+        Queue::assertPushed(SendContactMailJob::class, 1);
+    }
 }

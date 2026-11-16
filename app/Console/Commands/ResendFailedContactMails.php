@@ -6,6 +6,7 @@ use App\Jobs\SendContactMailJob;
 use App\Models\ContactMail;
 use App\Services\ContactService;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class ResendFailedContactMails extends Command
 {
@@ -62,23 +63,17 @@ class ResendFailedContactMails extends Command
 
         // eachById (keyset paging): the callback changes the status, which removes rows
         // from this result set, so offset paging (each) would skip later rows.
-        $query->eachById(function (ContactMail $contactMail) use (&$count) {
-            // Reset only if the row is still exactly as it was when selected. If a retry
-            // finished in the meantime (Completed) or another worker touched it, 0 rows
-            // match and we neither overwrite that newer state nor queue a duplicate.
-            $reset = ContactMail::query()
-                ->whereKey($contactMail->getKey())
-                ->where('status', $contactMail->status)
-                ->where('updated_at', $contactMail->updated_at)
-                ->update([
-                    'status' => ContactService::MAIL_SEND_STATUS_PENDING,
-                    'error_message' => null,
-                    'queued_at' => now(), // the job queued just below; stops the next run re-queuing it
-                    'updated_at' => now(),
-                ]);
+        // With the `database` queue the job row lives in the same database, so reset + enqueue are one
+        // transaction (a failed dispatch rolls the reset back too). Other queues cannot join it, so
+        // requeue() compensates instead.
+        $atomic = config('queue.connections.'.config('queue.default').'.driver') === 'database';
 
-            if ($reset === 1) {
-                SendContactMailJob::dispatch($contactMail->refresh());
+        $query->eachById(function (ContactMail $contactMail) use (&$count, $atomic) {
+            $queued = $atomic
+                ? DB::transaction(fn () => $this->requeue($contactMail))
+                : $this->requeue($contactMail);
+
+            if ($queued) {
                 $count++;
             }
         });
@@ -86,5 +81,47 @@ class ResendFailedContactMails extends Command
         $this->info("Re-queued {$count} contact mail(s).");
 
         return self::SUCCESS;
+    }
+
+    /**
+     * Resets the row and queues its job. Returns false when nothing was queued.
+     *
+     * The reset only applies if the row is still exactly as it was when selected: if a retry finished in
+     * the meantime (Completed) or another worker touched it, 0 rows match and we neither overwrite that
+     * newer state nor queue a duplicate. `queued_at` is set in the same statement so the next scheduled
+     * run does not queue it again; if the dispatch then fails there is no job, so the marker is released
+     * (only if nobody changed it since) and the row stays eligible for the next run.
+     */
+    private function requeue(ContactMail $contactMail): bool
+    {
+        $markedAt = now();
+
+        $reset = ContactMail::query()
+            ->whereKey($contactMail->getKey())
+            ->where('status', $contactMail->status)
+            ->where('updated_at', $contactMail->updated_at)
+            ->update([
+                'status' => ContactService::MAIL_SEND_STATUS_PENDING,
+                'error_message' => null,
+                'queued_at' => $markedAt,
+                'updated_at' => $markedAt,
+            ]);
+
+        if ($reset !== 1) {
+            return false;
+        }
+
+        try {
+            SendContactMailJob::dispatch($contactMail->refresh());
+        } catch (\Throwable $e) {
+            ContactMail::query()
+                ->whereKey($contactMail->getKey())
+                ->where('queued_at', $markedAt)
+                ->update(['queued_at' => null]);
+
+            throw $e;
+        }
+
+        return true;
     }
 }

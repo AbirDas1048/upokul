@@ -5,8 +5,10 @@ namespace Tests\Feature;
 use App\Jobs\SendContactMailJob;
 use App\Models\ContactMail;
 use App\Services\ContactService;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class ResendFailedContactMailsTest extends TestCase
@@ -172,5 +174,48 @@ class ResendFailedContactMailsTest extends TestCase
         Queue::assertPushed(SendContactMailJob::class, 1);
         Queue::assertPushed(SendContactMailJob::class, fn ($job) => $job->contactMail->id === $old->id);
         $this->assertSame(ContactService::MAIL_SEND_STATUS_FAILED, $recent->fresh()->status);
+    }
+
+    /** @return array<string, array{0: string, 1: int}> queue driver => status the row must have afterwards */
+    public static function queueDrivers(): array
+    {
+        return [
+            // database queue: reset + enqueue are one transaction, so the failed dispatch rolls everything back
+            'database queue (atomic)' => ['database', ContactService::MAIL_SEND_STATUS_FAILED],
+            // external queue: cannot join the transaction, so the marker is released but the reset stays
+            'external queue (compensated)' => ['redis', ContactService::MAIL_SEND_STATUS_PENDING],
+        ];
+    }
+
+    #[DataProvider('queueDrivers')]
+    public function test_a_failed_dispatch_does_not_leave_the_row_marked_as_queued(string $driver, int $expectedStatus): void
+    {
+        Queue::fake();
+        config(['queue.default' => $driver]);
+
+        $failed = $this->make(ContactService::MAIL_SEND_STATUS_FAILED);
+        ContactMail::whereKey($failed->id)->update(['created_at' => now()->subMinutes(30)]); // a real failure is not brand new
+
+        $real = $this->app->make(Dispatcher::class);
+        $this->instance(Dispatcher::class, \Mockery::mock(Dispatcher::class, function ($mock) {
+            $mock->shouldReceive('dispatch')->andThrow(new \RuntimeException('queue unavailable'));
+        }));
+
+        try {
+            $this->artisan('contact:resend-failed')->run();
+            $this->fail('the dispatch failure must surface so the run is not reported as a success');
+        } catch (\RuntimeException $e) {
+            $this->assertSame('queue unavailable', $e->getMessage());
+        }
+
+        // No job exists, so the row must NOT look queued (otherwise it is skipped for 60 minutes).
+        $row = $failed->fresh();
+        $this->assertNull($row->queued_at);
+        $this->assertSame($expectedStatus, $row->status);
+
+        // The queue is back: the very next run recovers it.
+        $this->instance(Dispatcher::class, $real);
+        $this->artisan('contact:resend-failed')->expectsOutput('Re-queued 1 contact mail(s).')->assertSuccessful();
+        Queue::assertPushed(SendContactMailJob::class, 1);
     }
 }
