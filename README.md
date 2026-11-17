@@ -113,6 +113,8 @@ The contact form is the only public endpoint that writes data, so it is layered:
 
 ## Tests & formatting
 
+The test suite always runs against an **in-memory SQLite database** with the array mailer, array cache and sync queue (pinned in `tests/bootstrap.php`), so it never touches your development MySQL data or sends real e-mail, including when run inside the Docker containers.
+
 ```bash
 composer test          # php artisan test
 vendor/bin/pint        # format PHP

@@ -525,6 +525,13 @@ class ContactSecurityTest extends TestCase
 
     public function test_a_marker_write_failure_after_a_successful_queue_does_not_undo_the_accepted_contact(): void
     {
+        // The failure is injected with a SQLite trigger (`BEFORE UPDATE OF` / `RAISE` are SQLite syntax).
+        // phpunit.xml forces the in-memory SQLite database, so this always runs; the guard only protects
+        // anyone who deliberately points the suite at another driver.
+        if (DB::getDriverName() !== 'sqlite') {
+            $this->markTestSkipped('Failure injection uses a SQLite trigger.');
+        }
+
         config(['queue.default' => 'redis']); // external queue: the marker is written after dispatch
 
         // Make ONLY the queued_at update fail (the INSERT and everything else still work).
