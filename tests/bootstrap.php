@@ -22,6 +22,8 @@ $testEnvironment = [
     'APP_ENV' => 'testing',
     'DB_CONNECTION' => 'sqlite',
     'DB_DATABASE' => ':memory:',
+    // Laravel merges a DB_URL (e.g. mysql://...) OVER the connection's driver/database, so it must be empty.
+    'DB_URL' => '',
     'MAIL_MAILER' => 'array',
     'QUEUE_CONNECTION' => 'sync',
     'CACHE_STORE' => 'array',
@@ -37,6 +39,8 @@ $testEnvironment = [
     'CONTACT_LIMIT_PER_EMAIL_HOUR' => '3',
     'CONTACT_LIMIT_GLOBAL_PER_HOUR' => '200',
     'CONTACT_MIN_FILL_SECONDS' => '3',
+    'CONTACT_TOKEN_MAX_HOURS' => '6',
+    'CONTACT_DUPLICATE_MINUTES' => '10',
     'CONTACT_MAX_LINKS' => '1',
 ];
 
