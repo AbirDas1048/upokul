@@ -56,7 +56,7 @@ class SecurityHeaders
             "script-src 'self' 'nonce-{$nonce}'{$turnstile}{$dev['http']}",
             // Inline style="" attributes are used for reveal delays / hero backgrounds.
             "style-src 'self' 'unsafe-inline'{$dev['http']}",
-            "img-src 'self' data: https://images.unsplash.com{$dev['http']}",
+            "img-src 'self' data:{$dev['http']}",
             "font-src 'self' data:{$dev['http']}",
             "media-src 'self'",
             "connect-src 'self'{$turnstile}{$dev['http']}{$dev['ws']}",

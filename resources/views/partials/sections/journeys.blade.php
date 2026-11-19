@@ -1,10 +1,10 @@
 @php
-    $unsplash = fn (string $id) => "https://images.unsplash.com/photo-{$id}?w=800&q=70&auto=format&fit=crop";
+    $photo = fn (string $slug) => asset(config('destinations.path')."/{$slug}-800.jpg");
     $journeys = [
-        ['Domestic', 'Escapes in Bangladesh', $unsplash('1507525428034-b723cf961d3e'), 'Beach, hills & heritage getaways', ['Coastal & hill-country escapes', 'Comfortable transport & stays', 'Weekend to week-long plans'], 'Domestic tour'],
-        ['International', 'World Tours', $unsplash('1537996194471-e657df975ab4'), 'Handled start to finish', ['Visa & documentation guidance', 'Flights, hotels & transfers', 'Local-expert recommendations'], 'International tour'],
-        ['Couples', 'Honeymoon Retreats', $unsplash('1518548419970-58e3b4079ab2'), 'Romantic, private, effortless', ['Sunset-view stays', 'Private transfers & experiences', 'Surprise-ready planning'], 'Honeymoon package'],
-        ['Groups', 'Family & Group Holidays', $unsplash('1493558103817-58b2924bce98'), 'Fun for every age', ['Flexible, kid-friendly pacing', 'Group-friendly rooms & transport', 'One point of contact for all'], 'Family / group holiday'],
+        ['Domestic', 'Escapes in Bangladesh', $photo('sunset-shores'), 'Beach, hills & heritage getaways', ['Coastal & hill-country escapes', 'Comfortable transport & stays', 'Weekend to week-long plans'], 'Domestic tour'],
+        ['International', 'World Tours', $photo('temples-of-bali'), 'Handled start to finish', ['Visa & documentation guidance', 'Flights, hotels & transfers', 'Local-expert recommendations'], 'International tour'],
+        ['Couples', 'Honeymoon Retreats', $photo('bali-sunsets'), 'Romantic, private, effortless', ['Sunset-view stays', 'Private transfers & experiences', 'Surprise-ready planning'], 'Honeymoon package'],
+        ['Groups', 'Family & Group Holidays', $photo('golden-coastlines'), 'Fun for every age', ['Flexible, kid-friendly pacing', 'Group-friendly rooms & transport', 'One point of contact for all'], 'Family / group holiday'],
     ];
 @endphp
 

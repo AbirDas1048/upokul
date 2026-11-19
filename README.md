@@ -127,3 +127,23 @@ vendor/bin/pint        # format PHP
 - **Port 8080/8081/3307 in use** → change the left side of the port mapping in the compose file.
 - **Laragon MySQL conflict** → Docker MySQL is on 3307 on purpose, so both can run together.
 - **Vite assets 404 in Docker prod build** → rebuild with `docker compose up -d --build`.
+
+## Assets (images, video, PDFs, fonts)
+
+All site assets are served from this app — no hot-linked third-party images (keeps the CSP strict, avoids broken links and third-party tracking, and lets the browser cache everything).
+
+| Type | Location | Linked with |
+|---|---|---|
+| Logo, banner, favicon | `public/images/` | `asset('images/…')` |
+| Destination photos | `public/images/destinations/{slug}-800.jpg` (cards) and `{slug}-1400.jpg` (full-screen) | metadata in `config/destinations.php` |
+| Video + captions | `public/videos/` | `asset('videos/…')` |
+| Downloadable PDFs/brochures | `public/docs/` | `asset('docs/…')` |
+| Fonts | `public/fonts/` | `@font-face` in `resources/css/*_fonts.css` |
+| User/admin uploads (future) | `storage/app/public/` via `Storage::disk('public')` after `php artisan storage:link` | store only the relative path in the DB; show with `Storage::url($path)` |
+
+Rules of thumb:
+- **Static, code-reviewed assets → committed to Git** under `public/`. **Uploaded or large/changing assets → storage disk, path in the DB, not in Git** (swap the disk to S3/R2 later without code changes).
+- Never store image bytes (base64/BLOB) in the database.
+- Name files in lowercase kebab-case; optimise before committing (JPEG/WebP ≈ 100–400 KB for photos, MP4 H.264 for video).
+- Keep `width`/`height`, `alt` and `loading="lazy"` on `<img>`; use `fetchpriority="high"` only for the hero image.
+- To change a destination photo: overwrite the two files with the same slug (or add a row in `config/destinations.php` plus both sizes).

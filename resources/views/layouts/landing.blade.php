@@ -25,7 +25,6 @@
     <meta property="og:image" content="{{ asset('images/banner.jpg') }}">
     <meta name="twitter:card" content="summary_large_image">
 
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     <link rel="preconnect" href="https://www.google.com">
 
     {{-- [data-reveal] is hidden only while JS runs. If the reveal code never starts
