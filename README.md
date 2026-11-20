@@ -139,10 +139,10 @@ All site assets are served from this app — no hot-linked third-party images (k
 | Video + captions | `public/videos/` | `asset('videos/…')` |
 | Downloadable PDFs/brochures | `public/docs/` | `asset('docs/…')` |
 | Fonts | `public/fonts/` | `@font-face` in `resources/css/*_fonts.css` |
-| User/admin uploads (future) | `storage/app/public/` via `Storage::disk('public')` after `php artisan storage:link` | store only the relative path in the DB; show with `Storage::url($path)` |
+| User/admin uploads (future) | `storage/app/public/` via `Storage::disk('public')` after `php artisan storage:link` | store only the relative path in the DB; show with `Storage::disk('public')->url($path)` (not `Storage::url()`, which follows `FILESYSTEM_DISK` and may point at a different disk than the one that received the upload) |
 
 Rules of thumb:
-- **Static, code-reviewed assets → committed to Git** under `public/`. **Uploaded or large/changing assets → storage disk, path in the DB, not in Git** (swap the disk to S3/R2 later without code changes).
+- **Static, code-reviewed assets → committed to Git** under `public/`. **Uploaded or large/changing assets → storage disk, path in the DB, not in Git** (swap the disk to S3/R2 later without changing the upload/URL code). **If the new disk returns cross-origin URLs, also add the bucket/CDN origin to `img-src` (and `media-src` for video) in `app/Http/Middleware/SecurityHeaders.php`, or serve files through the app origin; otherwise the CSP blocks them.**
 - Never store image bytes (base64/BLOB) in the database.
 - Name files in lowercase kebab-case; optimise before committing (JPEG/WebP ≈ 100–400 KB for photos, MP4 H.264 for video).
 - Keep `width`/`height`, `alt` and `loading="lazy"` on `<img>`; use `fetchpriority="high"` only for the hero image.
