@@ -16,12 +16,14 @@ class ContactMail extends Model
         'mail_message',
         'request_source',
         'status',
+        'queued_at',
         'sent_at',
         'error_message',
     ];
 
     protected $casts = [
         'request_source' => 'array',
+        'queued_at' => 'datetime',
     ];
 
     public static function saveContactMail(array $data): self

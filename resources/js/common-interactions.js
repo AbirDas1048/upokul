@@ -1,121 +1,91 @@
 (function () {
     'use strict';
 
+    const reducedMotion = () => globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const nav = document.getElementById('mainNav');
 
+    /* ---------------------------------------------------------------
+       Navbar: transparent over the hero, solid once scrolled.
+       Scroll-spy highlights the link of the section in view.
+    --------------------------------------------------------------- */
     function initNav() {
         if (!nav) return;
 
         const onScroll = () => {
-            const y = globalThis.scrollY || globalThis.pageYOffset;
-            nav.classList.toggle('scrolled', y > 80);
-            document.body.classList.toggle('at-top', y <= 50);
+            nav.classList.toggle('scrolled', (globalThis.scrollY || 0) > 40);
         };
-
         globalThis.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
 
-        // Reveal the nav once the hero section has scrolled out of view;
-        // hide it again if the user scrolls back up into the hero.
-        // Requires the hero <section> to have id="hero".
-        const hero = document.getElementById('hero');
-        if (hero) {
-            const heroObserver = new IntersectionObserver(
-                ([entry]) => nav.classList.toggle('nav-visible', !entry.isIntersecting),
-                { threshold: 0 }
-            );
-            heroObserver.observe(hero);
-        }
+        // Scroll-spy: the active link is the section crossing a probe line
+        // ~35% down the viewport (pixel maths, so it works at any viewport size).
+        const links = [...nav.querySelectorAll('.nav-links a[href^="#"]')];
+        const sections = links
+            .map((a) => ({ a, el: document.querySelector(a.hash) }))
+            .filter((x) => x.el);
+        if (!sections.length) return;
+
+        let ticking = false;
+        const updateActive = () => {
+            ticking = false;
+            const probe = nav.offsetHeight + globalThis.innerHeight * 0.35;
+            let current = null;
+            sections.forEach(({ a, el }) => {
+                const r = el.getBoundingClientRect();
+                if (r.top <= probe && r.bottom > probe) current = a;
+            });
+            links.forEach((l) => l.classList.toggle('active', l === current));
+        };
+        const requestUpdate = () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(updateActive);
+            }
+        };
+        globalThis.addEventListener('scroll', requestUpdate, { passive: true });
+        globalThis.addEventListener('resize', requestUpdate, { passive: true });
+        updateActive();
     }
 
+    /* ---------------------------------------------------------------
+       Mobile drawer (closes on link click, outside click, Escape)
+    --------------------------------------------------------------- */
     function initDrawer() {
         const ham = document.getElementById('ham');
         const drawer = document.getElementById('drawer');
-        if (!ham || !drawer) return;
+        if (!ham || !drawer || !nav) return;
 
-        const closeDrawer = () => {
-            ham.classList.remove('open');
-            drawer.classList.remove('open');
-            ham.setAttribute('aria-expanded', 'false');
+        const setOpen = (open) => {
+            drawer.classList.toggle('open', open);
+            nav.classList.toggle('menu-open', open);
+            ham.setAttribute('aria-expanded', String(open));
+            ham.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            ham.firstElementChild?.classList.toggle('fa-bars', !open);
+            ham.firstElementChild?.classList.toggle('fa-xmark', open);
         };
 
-        ham.addEventListener('click', () => {
-            ham.classList.toggle('open');
-            drawer.classList.toggle('open');
-            ham.setAttribute('aria-expanded', drawer.classList.contains('open') ? 'true' : 'false');
-        });
-
-        document.querySelectorAll('.drawer-link').forEach((link) => {
-            link.addEventListener('click', closeDrawer);
-        });
-
+        ham.addEventListener('click', () => setOpen(!drawer.classList.contains('open')));
+        drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
         document.addEventListener('click', (e) => {
-            if (!drawer.contains(e.target) && !ham.contains(e.target)) {
-                closeDrawer();
+            if (!nav.contains(e.target)) setOpen(false);
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && drawer.classList.contains('open')) {
+                setOpen(false);
+                ham.focus();
             }
         });
+        globalThis.matchMedia('(min-width: 75rem)').addEventListener('change', (e) => {
+            if (e.matches) setOpen(false);
+        });
 
-        globalThis.__closeNavDrawer = closeDrawer;
+        globalThis.__closeNavDrawer = () => setOpen(false);
     }
 
+    /* ---------------------------------------------------------------
+       Smooth in-page anchor scrolling (respects reduced motion)
+    --------------------------------------------------------------- */
     function initSmoothScroll() {
-        const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
-        const filmicEase = (t) => {
-            const s = t * t * (3 - 2 * t);
-            return s + (Math.sin(s * Math.PI) * 0.015);
-        };
-
-        let scrollRaf = null;
-        let scrollAbort = false;
-
-        const cancelActiveScroll = () => {
-            if (scrollRaf) {
-                cancelAnimationFrame(scrollRaf);
-                scrollRaf = null;
-            }
-            scrollAbort = true;
-        };
-
-        const getScrollDuration = (distance) => clamp(520 + Math.abs(distance) * 0.35, 520, 1400);
-
-        const smoothScrollTo = (targetY, duration = getScrollDuration(targetY - globalThis.pageYOffset)) => {
-            cancelActiveScroll();
-            scrollAbort = false;
-
-            const startY = globalThis.pageYOffset;
-            const diff = targetY - startY;
-            if (Math.abs(diff) < 2) return;
-
-            let startTime = null;
-            const stopOnUserIntent = () => {
-                scrollAbort = true;
-            };
-
-            globalThis.addEventListener('wheel', stopOnUserIntent, { passive: true, once: true });
-            globalThis.addEventListener('touchstart', stopOnUserIntent, { passive: true, once: true });
-            globalThis.addEventListener('keydown', stopOnUserIntent, { once: true });
-
-            const step = (timestamp) => {
-                if (scrollAbort) {
-                    scrollRaf = null;
-                    return;
-                }
-
-                if (!startTime) startTime = timestamp;
-                const progress = Math.min((timestamp - startTime) / duration, 1);
-                const eased = filmicEase(progress);
-                globalThis.scrollTo(0, startY + diff * eased);
-
-                if (progress < 1) {
-                    scrollRaf = requestAnimationFrame(step);
-                } else {
-                    scrollRaf = null;
-                }
-            };
-
-            scrollRaf = requestAnimationFrame(step);
-        };
-
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
             anchor.addEventListener('click', (e) => {
                 const id = anchor.hash;
@@ -125,412 +95,326 @@
                 if (!target) return;
 
                 e.preventDefault();
+                globalThis.__closeNavDrawer?.();
 
-                if (typeof globalThis.__closeNavDrawer === 'function') {
-                    globalThis.__closeNavDrawer();
+                const navHeight = nav ? nav.offsetHeight : 72;
+                const top = id === '#hero'
+                    ? 0
+                    : target.getBoundingClientRect().top + globalThis.pageYOffset - navHeight + 8;
+
+                globalThis.scrollTo({ top, behavior: reducedMotion() ? 'auto' : 'smooth' });
+
+                // Keep the address bar clean: drop any #hash instead of adding one.
+                if (location.hash && history.replaceState) {
+                    history.replaceState(null, '', location.pathname + location.search);
                 }
-                if (typeof globalThis.__closeLegacyNavMenu === 'function') {
-                    globalThis.__closeLegacyNavMenu();
-                }
+                if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+                target.focus({ preventScroll: true });
+            });
+        });
+    }
 
-                const navHeight = nav ? nav.offsetHeight : 90;
-                const targetY = target.getBoundingClientRect().top + globalThis.pageYOffset - navHeight;
+    /* ---------------------------------------------------------------
+       Scroll reveal (CSS hides [data-reveal] only when the .js class is set)
+    --------------------------------------------------------------- */
+    function initReveals() {
+        // Tells the inline safety-net in the layout that reveal code is running.
+        document.documentElement.classList.add('reveal-ready');
 
-                if (globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                    cancelActiveScroll();
-                    globalThis.scrollTo(0, targetY);
+        const items = document.querySelectorAll('[data-reveal]');
+        if (!items.length) return;
+
+        if (reducedMotion() || !('IntersectionObserver' in globalThis)) {
+            items.forEach((el) => el.classList.add('is-in'));
+            return;
+        }
+
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        items.forEach((el) => io.observe(el));
+    }
+
+    /* ---------------------------------------------------------------
+       Counters (start when the section is seen, no flash of "0")
+    --------------------------------------------------------------- */
+    function initCounter() {
+        const counters = document.querySelectorAll('.counter');
+        const section = document.querySelector('#trusted');
+        if (!counters.length || !section) return;
+
+        const run = () => {
+            counters.forEach((el) => {
+                const target = Number(el.dataset.count) || 0;
+                if (reducedMotion()) {
+                    el.textContent = target;
                     return;
                 }
-
-                smoothScrollTo(targetY);
-            });
-        });
-    }
-
-    function initReveals() {
-        const allReveal = document.querySelectorAll('[data-reveal]');
-        if (!allReveal.length) return;
-
-        allReveal.forEach((el) => {
-            if (!el.classList.contains('visible')) {
-                if (!el.style.opacity) el.style.opacity = '0';
-                if (!el.style.transform) el.style.transform = 'translateY(22px)';
-                if (!el.style.transition) el.style.transition = 'opacity .7s ease, transform .7s ease';
-            }
-
-            const delay = Number(el.dataset.revealDelay || '0');
-            if (delay > 0 && !el.style.transitionDelay) {
-                el.style.transitionDelay = `${delay}ms`;
-            }
-        });
-
-        const revObs = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    revObs.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
-
-        allReveal.forEach((el) => revObs.observe(el));
-
-        let resizeTimer;
-        let resizeRaf = null;
-        let revealForced = false;
-
-        const forceRevealAll = () => {
-            allReveal.forEach((el) => {
-                el.classList.add('visible');
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
+                const duration = 1600;
+                const start = performance.now();
+                const tick = (now) => {
+                    const p = Math.min((now - start) / duration, 1);
+                    el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+                    if (p < 1) requestAnimationFrame(tick);
+                };
+                el.textContent = '0';
+                requestAnimationFrame(tick);
             });
         };
 
-        const endResizeState = () => {
-            document.body.classList.remove('is-resizing');
-            revealForced = false;
-        };
-
-        const handleResizeFrame = () => {
-            document.body.classList.add('is-resizing');
-
-            if (!revealForced) {
-                forceRevealAll();
-                revealForced = true;
+        const io = new IntersectionObserver((entries, obs) => {
+            if (entries.some((e) => e.isIntersecting)) {
+                run();
+                obs.disconnect();
             }
-
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(endResizeState, 220);
-
-            resizeRaf = null;
-        };
-
-        globalThis.addEventListener('resize', () => {
-            if (resizeRaf) return;
-            resizeRaf = requestAnimationFrame(handleResizeFrame);
-        }, { passive: true });
+        }, { threshold: 0.25 });
+        io.observe(section);
     }
 
-    function animateCounter(el, target) {
-        let current = 0;
-        const increment = Math.max(1, Math.ceil(target / 80));
-
-        const interval = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                el.textContent = target;
-                clearInterval(interval);
-            } else {
-                el.textContent = current;
-            }
-        }, 25);
-    }
-
-    function animateAllCounters() {
-        document.querySelectorAll('.counter').forEach((counter) => {
-            animateCounter(counter, Number(counter.dataset.count));
-        });
-    }
-
-    function initCounter() {
-        const trustedSection = document.querySelector('#trusted');
-        if (!trustedSection) return;
-
-        let counterStarted = false;
-
-        const handleIntersection = (entry, observer) => {
-            if (!entry.isIntersecting || counterStarted) return;
-
-            counterStarted = true;
-            animateAllCounters();
-            observer.unobserve(entry.target);
-        };
-
-        const observer = new IntersectionObserver((entries, obs) => {
-            entries.forEach((entry) => handleIntersection(entry, obs));
-        }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -80px 0px'
-        });
-
-        observer.observe(trustedSection);
-    }
-
-    function initCardSwiper(prefersReducedMotion) {
-        if (!document.querySelector('.cardSwiper')) return null;
+    /* ---------------------------------------------------------------
+       Swipers: gallery cards, fullscreen viewer, reviews
+    --------------------------------------------------------------- */
+    function initCardSwiper(autoplay) {
+        if (!document.querySelector('.cardSwiper')) return;
 
         return new globalThis.Swiper('.cardSwiper', {
-            slidesPerView: 1,
-            spaceBetween: 24,
-            autoplay: prefersReducedMotion ? false : { delay: 3500, disableOnInteraction: false },
+            slidesPerView: 1.08,
+            spaceBetween: 20,
+            grabCursor: true,
+            autoplay: autoplay ? { delay: 4200, disableOnInteraction: false, pauseOnMouseEnter: true } : false,
             pagination: { el: '.cardSwiper .swiper-pagination', clickable: true },
-            watchOverflow: true,
-            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+            breakpoints: { 640: { slidesPerView: 2, spaceBetween: 24 }, 1024: { slidesPerView: 3, spaceBetween: 28 } }
         });
     }
 
     function initFullscreenSwiper() {
-        const fullscreenModal = document.querySelector('.fullscreen-modal');
-        const fullscreenSelector = '.fullscreenSwiper';
+        const modal = document.querySelector('.fullscreen-modal');
+        if (!modal || !document.querySelector('.fullscreenSwiper')) return;
 
-        if (!fullscreenModal || !document.querySelector(fullscreenSelector)) {
-            return null;
-        }
-
-        const closeModalBtn = fullscreenModal.querySelector('.close-modal');
-
-        const fullscreenSwiper = new globalThis.Swiper(fullscreenSelector, {
-            navigation: {
-                nextEl: '.fullscreen-modal .swiper-button-next',
-                prevEl: '.fullscreen-modal .swiper-button-prev'
-            },
-            loop: false,
+        const closeBtn = modal.querySelector('.close-modal');
+        const swiper = new globalThis.Swiper('.fullscreenSwiper', {
+            navigation: { nextEl: '.fullscreen-modal .swiper-button-next', prevEl: '.fullscreen-modal .swiper-button-prev' },
+            keyboard: { enabled: true },
             watchOverflow: true
         });
 
-        let lastGalleryTrigger = null;
+        let lastTrigger = null;
+        const focusables = () => [...modal.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])')]
+            .filter((el) => !el.disabled && !el.classList.contains('swiper-button-disabled'));
 
-        const getFocusableElements = () => [...fullscreenModal.querySelectorAll(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        )].filter((el) => !el.disabled);
-
-        const closeFullscreenModal = () => {
-            fullscreenModal.classList.remove('active');
-            fullscreenModal.setAttribute('aria-hidden', 'true');
-
+        const close = () => {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
-
-            lastGalleryTrigger?.focus();
+            lastTrigger?.focus();
         };
-
-        const openFullscreenModal = (card) => {
-            lastGalleryTrigger = card;
-
-            fullscreenModal.classList.add('active');
-            fullscreenModal.setAttribute('aria-hidden', 'false');
-
+        const open = (card) => {
+            lastTrigger = card;
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
-
-            fullscreenSwiper.slideTo(
-                Number.parseInt(card.dataset.index || '0', 10),
-                0
-            );
-
-            closeModalBtn?.focus();
+            swiper.slideTo(Number.parseInt(card.dataset.index || '0', 10), 0);
+            closeBtn?.focus();
         };
 
-        document.querySelectorAll('.gallery-card').forEach((card) => {
-            if (!card.hasAttribute('aria-label')) {
-                const label = card.querySelector('.gallery-info h5')?.textContent?.trim();
-
-                card.setAttribute(
-                    'aria-label',
-                    label
-                        ? `View ${label} full screen`
-                        : 'View image full screen'
-                );
-            }
-
-            card.addEventListener('click', () => {
-                openFullscreenModal(card);
-            });
-        });
-
-        closeModalBtn?.addEventListener('click', closeFullscreenModal);
-
-        fullscreenModal.addEventListener('click', (e) => {
-            if (e.target === fullscreenModal) {
-                closeFullscreenModal();
-            }
-        });
+        document.querySelectorAll('.gallery-card').forEach((card) => card.addEventListener('click', () => open(card)));
+        closeBtn?.addEventListener('click', close);
+        modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
 
         document.addEventListener('keydown', (e) => {
-            if (!fullscreenModal.classList.contains('active')) {
-                return;
-            }
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'Escape') return close();
+            if (e.key !== 'Tab') return;
 
-            if (e.key === 'Escape') {
-                closeFullscreenModal();
-                return;
-            }
-
-            if (e.key !== 'Tab') {
-                return;
-            }
-
-            const focusable = getFocusableElements();
-
-            if (!focusable.length) {
-                e.preventDefault();
-                return;
-            }
-
-            const first = focusable[0];
-            const last = focusable.at(-1);
-
-            if (e.shiftKey) {
-                if (document.activeElement === first) {
-                    e.preventDefault();
-                    last.focus();
-                }
-            } else if (document.activeElement === last) {
-                e.preventDefault();
-                first.focus();
-            }
+            const f = focusables();
+            if (!f.length) return e.preventDefault();
+            const first = f[0];
+            const last = f.at(-1);
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
         });
-
-        return fullscreenSwiper;
     }
 
-    function initReviewSwiper(prefersReducedMotion) {
-        if (!document.querySelector('.reviewSwiper')) return null;
+    function initReviewSwiper(autoplay) {
+        if (!document.querySelector('.reviewSwiper')) return;
 
         return new globalThis.Swiper('.reviewSwiper', {
-            slidesPerView: 1,
-            spaceBetween: 24,
-            autoplay: prefersReducedMotion ? false : { delay: 4000, disableOnInteraction: false },
+            slidesPerView: 1.05,
+            spaceBetween: 20,
+            grabCursor: true,
+            autoplay: autoplay ? { delay: 5200, disableOnInteraction: false, pauseOnMouseEnter: true } : false,
             pagination: { el: '.reviewSwiper .swiper-pagination', clickable: true },
-            watchOverflow: true,
-            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+            breakpoints: { 768: { slidesPerView: 2, spaceBetween: 24 }, 1100: { slidesPerView: 3, spaceBetween: 28 } }
         });
     }
 
     function initSwipers() {
         if (!globalThis.Swiper) return;
-
-        const prefersReducedMotion = globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        initCardSwiper(prefersReducedMotion);
+        const autoplay = !reducedMotion();
+        initCardSwiper(autoplay);
         initFullscreenSwiper();
-        initReviewSwiper(prefersReducedMotion);
+        initReviewSwiper(autoplay);
     }
 
-    function showErrorSwal(errors, fallbackMessage) {
-        let msg = '';
-
-        if (errors && typeof errors === 'object') {
-            Object.entries(errors).forEach(([, value]) => {
-                const message = Array.isArray(value) ? value[0] : value;
-                msg += `${message}<br>`;
+    /* ---------------------------------------------------------------
+       "Enquire / Plan this trip" links pre-fill the contact subject
+    --------------------------------------------------------------- */
+    function initEnquiryLinks() {
+        const subject = document.getElementById('subject');
+        if (!subject) return;
+        document.querySelectorAll('[data-enquiry]').forEach((link) => {
+            link.addEventListener('click', () => {
+                subject.value = link.dataset.enquiry.slice(0, 100);
             });
-        } else if (fallbackMessage) {
-            msg = fallbackMessage;
-        } else {
-            msg = 'Something went wrong. Please try again.';
-        }
-
-        if (globalThis.Swal) {
-            globalThis.Swal.fire({
-                icon: 'error',
-                title: 'Submission Failed',
-                html: msg,
-                confirmButtonColor: '#ef4444',
-                customClass: { htmlContainer: 'swal-html-red-bg' }
-            });
-        }
-    }
-
-    function setSubmitBtnState(submitBtn, isSending) {
-        if (!submitBtn) return;
-
-        submitBtn.disabled = isSending;
-        submitBtn.innerHTML = isSending
-            ? '<i class="fas fa-spinner fa-spin"></i> Sending...'
-            : '<i class="fas fa-paper-plane"></i> Send Message';
-    }
-
-    function showSendingSwal() {
-        globalThis.Swal.fire({
-            title: 'Sending Message...',
-            text: 'Please wait a moment',
-            allowOutsideClick: false,
-            didOpen: () => globalThis.Swal.showLoading()
         });
     }
 
-    async function postContactForm(contactForm) {
-        const response = await fetch(contactForm.action, {
+    /* ---------------------------------------------------------------
+       Contact form (AJAX + SweetAlert, brand coloured)
+    --------------------------------------------------------------- */
+    const BRAND = '#0f6d6f';
+    const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function showErrorSwal(errors, fallbackMessage) {
+        let html = '';
+        if (errors && typeof errors === 'object') {
+            Object.values(errors).forEach((value) => {
+                html += `<div>${escapeHtml(Array.isArray(value) ? value[0] : value)}</div>`;
+            });
+        } else {
+            html = escapeHtml(fallbackMessage || 'Something went wrong. Please try again.');
+        }
+
+        void globalThis.Swal?.fire({
+            icon: 'error',
+            title: 'Please check your details',
+            html: `<div class="swal-error-box">${html}</div>`,
+            confirmButtonColor: BRAND
+        });
+    }
+
+    function setSubmitBtnState(btn, sending) {
+        if (!btn) return;
+        btn.disabled = sending;
+        btn.innerHTML = sending
+            ? '<i class="fa-solid fa-spinner fa-spin"></i> Sending...'
+            : '<i class="fa-solid fa-paper-plane"></i> Send Message';
+    }
+
+    async function postContactForm(form) {
+        const response = await fetch(form.action, {
             method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': contactForm.querySelector('input[name="_token"]')?.value || '',
+                'X-CSRF-TOKEN': form.querySelector('input[name="_token"]')?.value || '',
                 'Accept': 'application/json'
             },
-            body: new FormData(contactForm)
+            body: new FormData(form)
         });
         const data = await response.json().catch(() => null);
 
         if (!response.ok) {
             const error = new Error('Contact form submission failed.');
             error.status = response.status;
-            error.data = data;
+            error.data = data?.errors || data?.data || null;
             throw error;
         }
-
         return data;
     }
 
-    async function submitContactForm(contactForm, submitBtn) {
-        setSubmitBtnState(submitBtn, true);
-        showSendingSwal();
+    async function submitContactForm(form, btn) {
+        setSubmitBtnState(btn, true);
+        void globalThis.Swal.fire({
+            title: 'Sending your message…',
+            text: 'Please wait a moment',
+            allowOutsideClick: false,
+            didOpen: () => globalThis.Swal.showLoading()
+        });
 
         try {
-            const res = await postContactForm(contactForm);
-
+            const res = await postContactForm(form);
             if (res?.success) {
-                globalThis.Swal.fire({
+                void globalThis.Swal.fire({
                     icon: 'success',
-                    title: 'Message Sent Successfully!',
-                    text: res.message,
-                    confirmButtonColor: '#4f46e5'
+                    title: 'Message sent!',
+                    text: res.message || 'Thank you — our team will be in touch shortly.',
+                    confirmButtonColor: BRAND
                 });
-                contactForm.reset();
+                form.reset();
             } else {
                 showErrorSwal(res?.data, res?.message);
             }
         } catch (error) {
-            showErrorSwal(error.data, 'Server error. Please try again later.');
+            showErrorSwal(
+                error.data,
+                error.status === 419
+                    ? 'Your session has expired. Please refresh the page and try again.'
+                    : 'Server error. Please try again later.'
+            );
         } finally {
-            setSubmitBtnState(submitBtn, false);
+            // A Turnstile token is single-use: get a fresh challenge for the next attempt.
+            globalThis.turnstile?.reset();
+            setSubmitBtnState(btn, false);
         }
     }
 
-    async function confirmContactSubmission() {
-        const result = await globalThis.Swal.fire({
-            title: 'Send Message?',
-            text: 'Are you sure you want to submit this form?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, Send',
-            confirmButtonColor: '#4f46e5'
-        });
+    function initContactForm() {
+        const form = document.getElementById('contactForm');
+        if (!form || !globalThis.Swal) return;
 
-        return result.isConfirmed;
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!form.reportValidity()) return;
+            await submitContactForm(form, document.getElementById('submitBtn'));
+        });
     }
 
-    function initContactForm() {
-        const contactForm = document.getElementById('contactForm');
-        if (!contactForm || !globalThis.Swal) return;
+    /* ---------------------------------------------------------------
+       Hero video: user-operable pause / play (WCAG 2.2.2)
+    --------------------------------------------------------------- */
+    function initHeroVideo() {
+        const video = document.querySelector('.hero-video');
+        const btn = document.getElementById('heroVideoToggle');
+        if (!video || !btn) return;
 
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        const icon = btn.querySelector('i');
+        const sync = (paused) => {
+            btn.setAttribute('aria-pressed', String(paused));
+            btn.setAttribute('aria-label', paused ? 'Play background video' : 'Pause background video');
+            icon?.classList.toggle('fa-play', paused);
+            icon?.classList.toggle('fa-pause', !paused);
+        };
 
-            if (await confirmContactSubmission()) {
-                await submitContactForm(contactForm, document.getElementById('submitBtn'));
+        // The control mirrors the video's real state: it is updated from the
+        // media events, never assumed, so a rejected play() (autoplay policy,
+        // data saver, ...) cannot leave a "Pause" label on a stopped video.
+        video.addEventListener('play', () => sync(false));
+        video.addEventListener('pause', () => sync(true));
+
+        btn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play().catch(() => sync(true));
+            } else {
+                video.pause();
             }
         });
+        sync(video.paused);
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', () => {
         initNav();
         initDrawer();
         initSmoothScroll();
         initReveals();
         initCounter();
         initSwipers();
+        initHeroVideo();
+        initEnquiryLinks();
         initContactForm();
     });
 })();

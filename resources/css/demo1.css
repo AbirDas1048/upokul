@@ -1,5 +1,5 @@
-@import "./global.css";
 @import "./demo1_fonts.css";
-@import "../../public/home/css/demo1_base.css";
-@import "../../public/home/css/demo1_hero.css";
-@import "./common.css";
+@import "./global.css";
+@import "./brand.css";
+@import "./site.css";
+@import "./theme-aurora.css";

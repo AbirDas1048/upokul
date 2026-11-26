@@ -1,0 +1,81 @@
+/* ==========================================================================
+   THEME — GLASS (demo 3)
+   Light luxe. Cormorant Garamond display + DM Sans body, frosted-glass
+   cards over soft teal washes, gold call-to-actions, left-aligned hero.
+   ========================================================================== */
+.theme-glass {
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --display-weight: 600;
+    --em-style: italic;
+    --em-weight: 600;
+
+    --bg: #f7fcfc;
+    --bg-alt: #e8f7f7;
+    --surface: rgba(255, 255, 255, .72);
+    --surface-blur: blur(1rem);
+    --heading: var(--teal-900);
+    --text: #2c4c4e;
+    --muted: #4a6769;
+    --line: rgba(15, 109, 111, .14);
+    --line-strong: rgba(15, 109, 111, .34);
+    --line-grad: linear-gradient(90deg, var(--gold-500), var(--teal-400));
+
+    --accent: var(--teal-700);
+    --accent-on: #fff;
+    --em: var(--gold-600);
+    --hero-em: var(--gold-300);
+
+    --cta-bg: linear-gradient(135deg, var(--gold-300), var(--gold-500));
+    --cta-on: #1d1604;
+    --cta-shadow: 0 .6rem 1.6rem rgba(201, 162, 78, .42);
+
+    --eyebrow-bg: rgba(255, 255, 255, .7);
+    --eyebrow-line: rgba(15, 109, 111, .25);
+    --eyebrow-text: var(--teal-800);
+    --icon-bg: rgba(35, 205, 210, .16);
+    --icon-fg: var(--teal-700);
+    --input-bg: rgba(255, 255, 255, .85);
+    --input-line: rgba(15, 109, 111, .22);
+
+    --shadow-sm: 0 .25rem 1rem rgba(15, 109, 111, .08);
+    --shadow-md: 0 .75rem 2rem rgba(15, 109, 111, .14);
+    --shadow-lg: 0 1.5rem 3.5rem rgba(15, 109, 111, .22);
+
+    --about-glow: radial-gradient(circle at 25% 25%, rgba(35, 205, 210, .3), transparent 60%), radial-gradient(circle at 80% 85%, rgba(201, 162, 78, .22), transparent 55%);
+    --nav-solid: rgba(9, 78, 80, .94);
+    --hero-overlay: linear-gradient(100deg, rgba(4, 24, 26, .84) 0%, rgba(10, 74, 77, .5) 55%, rgba(4, 24, 26, .3) 100%), linear-gradient(0deg, rgba(4, 24, 26, .7), transparent 35%);
+    --footer-bg: var(--teal-900);
+    --footer-text: rgba(255, 255, 255, .72);
+    --footer-muted: rgba(255, 255, 255, .5);
+}
+.theme-glass #about,
+.theme-glass #journeys,
+.theme-glass #faq {
+    background:
+        radial-gradient(38rem 24rem at 100% 0%, rgba(35, 205, 210, .14), transparent 65%),
+        radial-gradient(34rem 22rem at 0% 100%, rgba(201, 162, 78, .12), transparent 65%),
+        var(--bg);
+}
+.theme-glass h1, .theme-glass h2, .theme-glass h3 { letter-spacing: 0; }
+.theme-glass .hero h1 { font-size: clamp(2.7rem, 5.4vw + .6rem, 5rem); line-height: 1.03; }
+.theme-glass .sec-title { font-size: clamp(2.2rem, 3.6vw + .6rem, 3.6rem); }
+.theme-glass .service-card h3, .theme-glass .journey h3 { font-size: 1.7rem; }
+.theme-glass .btn-x-outline { background: rgba(255, 255, 255, .6); }
+@media (hover: hover) and (pointer: fine) {
+    .theme-glass .btn-x-outline:hover { background: var(--accent); color: var(--accent-on); }
+}
+
+/* Hero */
+.hero-glass .hero-copy { max-width: 40rem; }
+.hero-glass .hero-aside { display: none; }
+.hero-glass .hero-card { padding: 2rem; border-radius: var(--radius-lg); background: var(--glass-dark); border: .0625rem solid rgba(255, 255, 255, .32); backdrop-filter: blur(1.2rem); -webkit-backdrop-filter: blur(1.2rem); box-shadow: 0 2rem 4rem rgba(0, 0, 0, .3); color: #fff; }
+.hero-glass .hero-card h2 { margin: 0 0 1.2rem; font-size: 1.65rem; color: #fff; }
+.hero-glass .hero-card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 1.1rem; }
+.hero-glass .hero-card li { display: flex; gap: .9rem; font-size: .92rem; color: rgba(255, 255, 255, .86); }
+.hero-glass .hero-card li .ico { flex: none; width: 2.5rem; height: 2.5rem; border-radius: .7rem; display: grid; place-items: center; background: rgba(255, 255, 255, .16); color: var(--gold-300); }
+.hero-glass .hero-card li b { display: block; color: #fff; }
+@media (min-width: 62rem) {
+    .hero-glass .hero-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 4rem; align-items: center; }
+    .hero-glass .hero-aside { display: block; }
+}

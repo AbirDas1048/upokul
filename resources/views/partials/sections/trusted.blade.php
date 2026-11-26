@@ -1,47 +1,28 @@
-<section class="trust-section" id="trusted">
+@php
+    $stats = [
+        ['fa-face-smile-beam', 100, '+', 'Satisfied Clients'],
+        ['fa-earth-asia', 30, '+', 'Destinations Covered'],
+        ['fa-hotel', 800, '+', 'Hotel Partnerships'],
+        ['fa-handshake', 500, '+', 'Trusted Agents & Media'],
+    ];
+@endphp
+
+<section id="trusted" class="trust" aria-labelledby="trusted-title">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="section-title" data-reveal>
-                Trusted by Travelers Worldwide
-            </h2>
-            <p class="section-subtitle" data-reveal data-reveal-delay="150">
-                Numbers that reflect our experience, trust, and global reach
-            </p>
+        <div class="sec-head" data-reveal>
+            <span class="eyebrow">Why Travelers Choose Us</span>
+            <h2 class="sec-title" id="trusted-title">Trusted by Travelers <em>Everywhere</em></h2>
+            <p class="sec-sub">Numbers that reflect our experience, our partnerships and the trust placed in us.</p>
         </div>
 
-        <div class="row g-4">
-            <!-- Item -->
-            <div class="col-md-6 col-lg-3" data-reveal>
-                <div class="trust-card">
-                    <i class="fas fa-smile-beam"></i>
-                    <h3 class="counter" data-count="100">0</h3>
-                    <p>Satisfied Clients</p>
+        <div class="trust-grid">
+            @foreach ($stats as [$icon, $count, $suffix, $label])
+                <div class="trust-card" data-reveal style="--d:{{ $loop->index * .08 }}s">
+                    <i class="fa-solid {{ $icon }}" aria-hidden="true"></i>
+                    <div class="trust-num counter" data-count="{{ $count }}" data-suffix="{{ $suffix }}">{{ $count }}</div>
+                    <p>{{ $label }}</p>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3" data-reveal data-reveal-delay="100">
-                <div class="trust-card">
-                    <i class="fas fa-globe-asia"></i>
-                    <h3 class="counter" data-count="300">0</h3>
-                    <p>Countries Connected</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3" data-reveal data-reveal-delay="200">
-                <div class="trust-card">
-                    <i class="fas fa-hotel"></i>
-                    <h3 class="counter" data-count="800">0</h3>
-                    <p>Hotel Partnerships</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3" data-reveal data-reveal-delay="300">
-                <div class="trust-card">
-                    <i class="fas fa-handshake"></i>
-                    <h3 class="counter" data-count="500">0</h3>
-                    <p>Trusted Agents & Media</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
