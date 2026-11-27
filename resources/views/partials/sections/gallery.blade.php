@@ -1,28 +1,24 @@
 @php
-    // Photos are defined in config/destinations.php and served from public/images/destinations.
-    $photos = [];
-    foreach (config('destinations.photos') as $slug => $p) {
-        $photos[] = [$slug, $p['title'], $p['category'], $p['alt']];
-    }
-    $img = fn (string $slug, int $w) => asset(config('destinations.path')."/{$slug}-{$w}.jpg");
+    // Photos are managed under Website content → Gallery (the shipped ones live in public/images/destinations).
+    $photos = $site->items('gallery')->filter(fn ($p) => ! empty($p['image_url']))->values();
 @endphp
 
 <section id="gallery" class="section gallery-section" aria-labelledby="gallery-title">
     <div class="container">
         <div class="sec-head" data-reveal>
-            <span class="eyebrow">Travel Moments</span>
-            <h2 class="sec-title" id="gallery-title">Explore Our <em>Destinations</em></h2>
-            <p class="sec-sub">A glimpse of the places our travelers fall in love with. Tap any photo to view it full screen.</p>
+            <span class="eyebrow">{{ $site->section('gallery', 'eyebrow') }}</span>
+            <h2 class="sec-title" id="gallery-title">{{ $site->section('gallery', 'title') }} <em>{{ $site->section('gallery', 'highlight') }}</em></h2>
+            <p class="sec-sub">{{ $site->section('gallery', 'subtitle') }}</p>
         </div>
 
         <div class="swiper cardSwiper" data-reveal>
             <div class="swiper-wrapper">
-                @foreach ($photos as $i => [$id, $title, $sub, $alt])
+                @foreach ($photos as $i => $photo)
                     <div class="swiper-slide">
-                        <button type="button" class="gallery-card" data-index="{{ $i }}" aria-label="View {{ $title }} full screen">
-                            <img src="{{ $img($id, 800) }}" alt="{{ $alt }}" width="800" height="600" loading="lazy" decoding="async">
+                        <button type="button" class="gallery-card" data-index="{{ $i }}" aria-label="View {{ $photo['title'] }} full screen">
+                            <img src="{{ $photo['image_url'] }}" alt="{{ $photo['alt'] ?? $photo['title'] }}" width="800" height="600" loading="lazy" decoding="async">
                             <span class="gallery-expand" aria-hidden="true"><i class="fa-solid fa-expand"></i></span>
-                            <span class="gallery-info"><strong class="gallery-title">{{ $title }}</strong><small>{{ $sub }}</small></span>
+                            <span class="gallery-info"><strong class="gallery-title">{{ $photo['title'] }}</strong><small>{{ $photo['category'] ?? '' }}</small></span>
                         </button>
                     </div>
                 @endforeach
@@ -35,8 +31,8 @@
 <div class="fullscreen-modal" id="galleryModal" role="dialog" aria-modal="true" aria-label="Image gallery" aria-hidden="true">
     <div class="swiper fullscreenSwiper">
         <div class="swiper-wrapper">
-            @foreach ($photos as [$id, $title, $sub, $alt])
-                <div class="swiper-slide"><img src="{{ $img($id, 1400) }}" alt="{{ $alt }}" loading="lazy"></div>
+            @foreach ($photos as $photo)
+                <div class="swiper-slide"><img src="{{ $photo['full_url'] }}" alt="{{ $photo['alt'] ?? $photo['title'] }}" loading="lazy"></div>
             @endforeach
         </div>
         <div class="swiper-button-prev" aria-label="Previous photo"></div>

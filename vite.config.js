@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/css/demo2.css',
                 'resources/css/demo3.css',
                 'resources/js/global.js',
+                'resources/js/admin.js',
             ],
             refresh: true,
         }),

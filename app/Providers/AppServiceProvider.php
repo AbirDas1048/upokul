@@ -2,11 +2,21 @@
 
 namespace App\Providers;
 
+use App\Models\PermissionRegistry;
+use App\Models\User;
 use App\Services\ContactService;
+use App\Support\Installer;
+use App\Support\Publisher;
+use App\Support\Settings;
+use App\Support\Site;
+use App\Support\ViteDevServer;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,7 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(Settings::class);
+        $this->app->singleton(Installer::class);
+        $this->app->singleton(Site::class);
+        $this->app->singleton(Publisher::class);
     }
 
     /**
@@ -26,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureTrustedProxies();
         $this->configureRateLimiting();
+        $this->configureAdmin();
     }
 
     /**
@@ -82,5 +96,33 @@ class AppServiceProvider extends ServiceProvider
                 $limits
             );
         });
+    }
+
+    /**
+     * Admin panel wiring: site settings override config, every page sees `$site`, and each
+     * "module.action" permission becomes a Gate ability (the master admin passes all of them).
+     */
+    private function configureAdmin(): void
+    {
+        if ($this->app->make(Installer::class)->installed()) {
+            $this->app->make(Settings::class)->applyToConfig();
+        }
+
+        // A stale public/hot (npm run dev stopped) would make every page load its CSS/JS from a dead server.
+        if (ViteDevServer::isStale()) {
+            Vite::useHotFile(storage_path('framework/vite.hot.ignored'));
+        }
+
+        View::share('site', $this->app->make(Site::class));
+
+        Gate::before(fn (User $user) => $user->isMaster() && $user->is_active ? true : null);
+
+        foreach (PermissionRegistry::all() as $key) {
+            Gate::define($key, fn (User $user) => $user->hasPermission($key));
+        }
+
+        RateLimiter::for('admin-login', fn (Request $request) => Limit::perMinute(5)->by(
+            mb_strtolower((string) $request->input('email')).'|'.$request->ip()
+        ));
     }
 }

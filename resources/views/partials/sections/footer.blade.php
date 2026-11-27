@@ -4,10 +4,10 @@
 
             <div>
                 <a href="#hero" class="footer-brand" aria-label="{{ config('app.name') }} — back to top">
-                    <span class="nav-logo"><img src="{{ asset('images/Logo.png') }}" alt="" width="44" height="44" loading="lazy"></span>
+                    <span class="nav-logo"><img src="{{ $site->image('logo') }}" alt="" width="44" height="44" loading="lazy"></span>
                     <span>{{ config('app.name') }}</span>
                 </a>
-                <p class="footer-about">Tours, visas, hotels and flights — thoughtfully planned and personally supported. Spreading smiles across the globe.</p>
+                <p class="footer-about">{{ $site->section('footer', 'about') }}</p>
                 <div class="social">
                     <a href="{{ config('custom.facebook_page_link') }}" target="_blank" rel="noopener noreferrer" aria-label="{{ config('custom.facebook_page_name') }} on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="https://wa.me/{{ config('custom.whatsapp_digits') }}" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
@@ -18,24 +18,21 @@
             <nav aria-label="Quick links">
                 <h2 class="footer-title">Explore</h2>
                 <ul class="footer-links">
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#journeys">Journeys</a></li>
-                    <li><a href="#process">How It Works</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#reviews">Reviews</a></li>
-                    <li><a href="#faq">FAQ</a></li>
+                    @if ($site->enabled('about')) <li><a href="#about">About Us</a></li> @endif
+                    @if ($site->enabled('journeys')) <li><a href="#journeys">Journeys</a></li> @endif
+                    @if ($site->enabled('process')) <li><a href="#process">How It Works</a></li> @endif
+                    @if ($site->enabled('gallery')) <li><a href="#gallery">Gallery</a></li> @endif
+                    @if ($site->enabled('reviews')) <li><a href="#reviews">Reviews</a></li> @endif
+                    @if ($site->enabled('faq')) <li><a href="#faq">FAQ</a></li> @endif
                 </ul>
             </nav>
 
             <nav aria-label="Services">
                 <h2 class="footer-title">Services</h2>
                 <ul class="footer-links">
-                    <li><a href="#services">Tour Planning</a></li>
-                    <li><a href="#services">Hotel Booking</a></li>
-                    <li><a href="#services">Air Tickets</a></li>
-                    <li><a href="#services">Visa Processing</a></li>
-                    <li><a href="#services">Transfers</a></li>
-                    <li><a href="#services">Travel Insurance</a></li>
+                    @foreach ($site->items('services')->take(8) as $service)
+                        <li><a href="#services">{{ $service['title'] }}</a></li>
+                    @endforeach
                 </ul>
             </nav>
 

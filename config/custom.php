@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'owner_name' => env('OWNER_NAME', 'Abir Das'),
+    'owner_name' => env('OWNER_NAME', ''),
     'owner_designation' => env('OWNER_DESIGNATION', 'Owner'),
     'owner_email' => env('OWNER_EMAIL', 'abirdas....@email.com'),
     'owner_phone' => env('OWNER_PHONE', '018xx-xxxxxx'),
-    'office_address' => env('OFFICE_ADDRESS', 'Chattogram'),
+    'office_address' => env('OFFICE_ADDRESS', ''),
     'office_phone' => env('OFFICE_PHONE', '013-xxxxxx'),
     'office_email' => env('OFFICE_EMAIL', 'office@email.com'),
     'facebook_page_link' => env('FACEBOOK_PAGE_LINK', 'https://www.facebook.com'),

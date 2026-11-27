@@ -1,26 +1,17 @@
-@php
-    $stats = [
-        ['fa-face-smile-beam', 100, '+', 'Satisfied Clients'],
-        ['fa-earth-asia', 30, '+', 'Destinations Covered'],
-        ['fa-hotel', 800, '+', 'Hotel Partnerships'],
-        ['fa-handshake', 500, '+', 'Trusted Agents & Media'],
-    ];
-@endphp
-
 <section id="trusted" class="trust" aria-labelledby="trusted-title">
     <div class="container">
         <div class="sec-head" data-reveal>
-            <span class="eyebrow">Why Travelers Choose Us</span>
-            <h2 class="sec-title" id="trusted-title">Trusted by Travelers <em>Everywhere</em></h2>
-            <p class="sec-sub">Numbers that reflect our experience, our partnerships and the trust placed in us.</p>
+            <span class="eyebrow">{{ $site->section('trusted', 'eyebrow') }}</span>
+            <h2 class="sec-title" id="trusted-title">{{ $site->section('trusted', 'title') }} <em>{{ $site->section('trusted', 'highlight') }}</em></h2>
+            <p class="sec-sub">{{ $site->section('trusted', 'subtitle') }}</p>
         </div>
 
         <div class="trust-grid">
-            @foreach ($stats as [$icon, $count, $suffix, $label])
+            @foreach ($site->items('stats') as $stat)
                 <div class="trust-card" data-reveal style="--d:{{ $loop->index * .08 }}s">
-                    <i class="fa-solid {{ $icon }}" aria-hidden="true"></i>
-                    <div class="trust-num counter" data-count="{{ $count }}" data-suffix="{{ $suffix }}">{{ $count }}</div>
-                    <p>{{ $label }}</p>
+                    <i class="fa-solid {{ preg_match('/^fa-[a-z0-9-]+$/', $stat['icon'] ?? '') ? $stat['icon'] : 'fa-star' }}" aria-hidden="true"></i>
+                    <div class="trust-num counter" data-count="{{ (int) ($stat['count'] ?? 0) }}" data-suffix="{{ $stat['suffix'] ?? '' }}">{{ (int) ($stat['count'] ?? 0) }}</div>
+                    <p>{{ $stat['title'] }}</p>
                 </div>
             @endforeach
         </div>

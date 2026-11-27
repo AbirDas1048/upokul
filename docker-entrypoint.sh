@@ -41,7 +41,8 @@ php artisan route:cache
 php artisan view:cache
 
 # ── Fix storage permissions ──────────────────────────────────────────────────
-chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+mkdir -p /var/www/html/public/uploads
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/public/uploads
 
 echo "========================================"
 echo "  App is ready at http://localhost:8080"

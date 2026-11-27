@@ -16,7 +16,8 @@ services:
       APP_ENV: production
       APP_DEBUG: "false"
     volumes:
-      - ./storage:/var/www/html/storage   # Persist uploaded files & logs
+      - ./storage:/var/www/html/storage   # Persist logs, sessions and the installation lock
+      - ./public/uploads:/var/www/html/public/uploads   # Persist images uploaded in the admin panel
     networks:
       - upokul_network
     depends_on:

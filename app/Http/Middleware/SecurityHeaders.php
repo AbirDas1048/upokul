@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Services\ContactSpamGuard;
+use App\Support\ViteDevServer;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Vite;
@@ -56,12 +57,12 @@ class SecurityHeaders
             "script-src 'self' 'nonce-{$nonce}'{$turnstile}{$dev['http']}",
             // Inline style="" attributes are used for reveal delays / hero backgrounds.
             "style-src 'self' 'unsafe-inline'{$dev['http']}",
-            "img-src 'self' data:{$dev['http']}",
+            "img-src 'self' data: blob:{$dev['http']}",
             "font-src 'self' data:{$dev['http']}",
             "media-src 'self'",
             "connect-src 'self'{$turnstile}{$dev['http']}{$dev['ws']}",
-            // Google Maps embed on the contact section (+ Turnstile widget when enabled).
-            "frame-src https://www.google.com{$turnstile}",
+            // Same-origin frames (the admin live preview) + Google Maps embed on the contact section (+ Turnstile widget when enabled).
+            "frame-src 'self' https://www.google.com{$turnstile}",
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",
@@ -93,9 +94,7 @@ class SecurityHeaders
     /** The dev-server origin from public/hot, or null when absent / not a plain http(s) origin. */
     private function hotOrigin(): ?string
     {
-        $hot = public_path('hot');
-        $origin = is_file($hot) ? trim((string) file_get_contents($hot)) : '';
-
-        return preg_match('~^https?://[A-Za-z0-9.\-]+(:\d+)?$~', $origin) === 1 ? $origin : null;
+        // A leftover hot file (dev server stopped) must not widen the CSP.
+        return ViteDevServer::reachable() ? ViteDevServer::origin() : null;
     }
 }

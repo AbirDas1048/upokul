@@ -68,9 +68,12 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Set correct file permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html \
+# public/uploads holds what the admin panel uploads (logo, gallery photos); docker-compose mounts a volume on it.
+RUN mkdir -p /var/www/html/public/uploads \
+    && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
+    && chmod -R 755 /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/public/uploads
 
 # Copy and set up the startup script
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh

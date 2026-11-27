@@ -1,4 +1,8 @@
-# Upokul Travels & Holidays
+# Wayfolio
+
+> **Launch, brand and run your travel business website.** A self-installing Laravel product: a polished landing
+> site (three designs) plus a role-based admin console. Each installation carries the customer's own brand —
+> Wayfolio is only the name of the software, shown on the installer and as a small "Powered by" credit.
 
 Laravel 12 (PHP ^8.2) + Vite. Two ways to run it: **Docker** or **Laragon**.
 
@@ -84,6 +88,76 @@ php artisan queue:work           # separate terminal, needed for contact emails
 Open `http://upokul.test` (Laragon auto virtual host: Menu → Apache → Reload),
 or run `composer dev` and use `http://localhost:8000`.
 Fill in `OWNER_*`, `OFFICE_*` and `MAIL_*` in `.env` (use Mailtrap or `MAIL_MAILER=log` locally).
+
+## First-time installation & admin panel
+
+The site is a self-installing, fully admin-managed product. Nothing in `.env` has to be edited for
+branding any more — the owner details, contact info, texts, content, images and design all live in the
+database and are edited from the admin panel.
+
+1. **Install** — after `composer install`, `npm run build` and a working database, open the site. Every
+   page redirects to **`/install`** until the wizard has run. It checks the server, runs the migrations,
+   shows the Wayfolio brand and asks for **your business name**, an optional **logo upload** (also written to `APP_NAME` in `.env`), **owner name / e-mail / phone**,
+   office contact info, the home-page design, whether to add the starter content, and creates the
+   **master administrator**. The wizard disappears (404) once it has finished, and you land on the finished website
+   (the standard landing page) with a **one-time popup** linking to the admin panel. The popup is tied to a one-time
+   ticket stored in the database, so it never shows again — not on refresh, not for other visitors.
+   *Complete it straight after deploying: until then anyone who finds the URL could install.*
+2. **Sign in** at **`/admin`** (the popup links to `/admin/login`) with the master account.
+3. **Edit safely — drafts and Publish.** Everything you change in the admin panel is saved as a **draft**.
+   Visitors keep seeing the previous version (right after installing: the standard landing page with your name and
+   contact details) until you press **Publish changes** in the top bar and confirm. Use **Preview draft** (top bar)
+   to look at your unpublished changes first, at desktop / tablet / phone width. Mail (SMTP) settings are the one
+   exception: they apply immediately. Publishing is its own permission (`publish.update`).
+4. **Manage everything** from the sidebar:
+
+| Area | What you can do |
+|---|---|
+| Dashboard | Message statistics, 14-day chart, latest messages, content counts, system status |
+| Messages | Read, search, mark read/unread, re-send the notification mail, delete contact-form messages |
+| Page sections | Headings and wording of every section (hero, about, services, …), switch sections on/off |
+| Services · Journeys · How it works · Trust numbers · Gallery · Reviews · FAQs · About highlights | Add / edit / hide / delete / re-order the cards and photos (image upload included) |
+| Appearance & preview | Pick the home-page design (Aurora / Noir / Glass / chooser) and preview any design at desktop / tablet / phone width — the **Live preview** button is on every page |
+| Site settings | Project name, owner, contact + social links, Google Maps, logo / favicon / banner / owner photo, SEO, **SMTP mail** (password stored encrypted, test-mail button) |
+| Admin users · Roles & permissions · Activity log | See below |
+
+### Roles and permissions
+
+* The **master admin** (created by the wizard) can do everything, needs no role, and cannot be edited,
+  limited, deactivated or deleted by anyone else.
+* Every other admin gets a **role** — a named set of `module.action` permissions
+  (**View / Add / Edit / Delete** per module, e.g. `services.create`, `settings.update`). The role editor is a
+  permission matrix; Add, Edit and Delete automatically include View. A user can only do — and only *sees in the
+  sidebar* — what their role allows; everything else answers 403.
+* **No privilege escalation:** you can only grant permissions you hold yourself, only assign/edit roles you fully
+  hold, and only manage users who have no more power than you. Nobody can edit themselves through the Users screen
+  (use *My profile*) or delete the master admin.
+* Two starter roles are created by the wizard (**Content Manager**, **Support Agent**) as examples.
+* New modules: add them to `config/permissions.php` and they show up in the role editor automatically;
+  new content blocks: add a type to `config/content_types.php`; new settings: `config/site_settings.php`.
+
+**Locked out?** Run `php artisan admin:reset-password` (master) or `php artisan admin:reset-password someone@example.com`
+on the server — it sets a new password and re-activates the account.
+
+**Pages unstyled?** `public/hot` is written by `npm run dev` and makes Laravel load all CSS/JS from the dev server; if the
+server stops, the file stays behind. The app now detects a dead dev server on every request and silently uses the built
+assets (`public/build`, created by `npm run build`) instead. The installer, login and admin panel additionally load plain static
+CSS (`public/css/admin-auth.css`, `public/css/admin.css`, `bootstrap.min.css`, `vendor/fontawesome`), so they keep their design
+even with no build at all. Only the behaviour scripts (dropdowns, confirm dialogs) need the Vite bundle: run `npm run build`
+once after pulling.
+
+**Branding.** Two separate things: the *product* (Wayfolio — `config/product.php`: name, tagline, logo, also
+overridable with `PRODUCT_NAME` in `.env`) and the *customer's site* (name, logo, colours of the content — chosen in the
+installer, edited under Site settings). Without an uploaded logo the site uses a neutral placeholder
+(`public/images/default-logo.svg`); the website never shows another business's logo.
+The built-in sample copy (services, FAQs, reviews) is generic travel-agency text — edit or replace it in the admin panel.
+
+**Re-running the wizard** (fresh start): delete `storage/app/installed.lock` and the `installed_at` row in the
+`settings` table. **Docker:** `public/uploads` (admin-uploaded images) and `storage/` (lock file, logs) are volumes.
+
+> **"SaaS"** here means a white-label product: one installation = one customer site, installed through a wizard and
+> run entirely from its admin panel. It is *not* multi-tenant (many customers sharing one install, subdomains,
+> billing/plans) — that would be a separate architectural step.
 
 ## Security & anti-spam
 

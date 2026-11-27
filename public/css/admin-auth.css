@@ -1,0 +1,62 @@
+/* ==========================================================================
+   Installer + admin login: self-contained styling.
+   Loaded as a plain static file next to bootstrap.min.css, so these pages look right even when the
+   Vite build is missing, stale, or public/hot points at a dev server that is not reachable (Docker).
+   ========================================================================== */
+:root {
+    --ad-brand: #0f6d6f; --ad-brand-2: #23cdd2; --ad-gold: #c9a24e;
+    --ad-surface: #fff; --ad-surface-2: #f8fafb; --ad-border: #e4ebed; --ad-text: #12282a; --ad-muted: #6a7e81;
+    --bs-primary: #0f6d6f; --bs-primary-rgb: 15, 109, 111; --bs-link-color: #0f6d6f; --bs-link-hover-color: #0a4a4d;
+    --bs-body-font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --bs-border-color: #e4ebed; --bs-border-radius: .7rem;
+}
+body.ad-auth {
+    min-height: 100vh; display: grid; place-items: start center; padding: 2rem 1rem; color: var(--ad-text);
+    background: radial-gradient(80% 60% at 15% 10%, rgba(35, 205, 210, .28), transparent 60%),
+                radial-gradient(70% 60% at 90% 90%, rgba(201, 162, 78, .2), transparent 60%),
+                linear-gradient(135deg, #04181a, #0a4a4d) fixed;
+}
+body.ad-auth.login { place-items: center; }
+.ad-auth-card { width: min(100%, 440px); background: var(--ad-surface); border-radius: 1.5rem; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .6); padding: 2.2rem; animation: ad-rise .6s cubic-bezier(.2, .8, .2, 1) both; }
+.ad-auth-card.wide { width: min(100%, 860px); }
+.ad-auth-logo { width: 64px; height: 64px; border-radius: 1.2rem; background: #fff; padding: 6px; object-fit: contain; box-shadow: 0 12px 28px -10px rgba(15, 109, 111, .6); border: 1px solid var(--ad-border); }
+@keyframes ad-rise { from { opacity: 0; transform: translateY(18px) scale(.98); } }
+
+.ad-card { background: var(--ad-surface); border: 1px solid var(--ad-border); border-radius: 1.1rem; box-shadow: 0 1px 2px rgba(7, 47, 49, .04), 0 8px 28px -12px rgba(7, 47, 49, .14); }
+.ad-card-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.4rem; border-bottom: 1px solid var(--ad-border); }
+.ad-card-head h2 { font-size: 1.02rem; margin: 0; font-weight: 650; }
+.ad-card-body { padding: 1.4rem; }
+
+.ad-badge { display: inline-flex; align-items: center; gap: .35rem; padding: .28rem .65rem; border-radius: 99px; font-size: .74rem; font-weight: 650; background: rgba(15, 109, 111, .1); color: var(--ad-brand); }
+.ad-badge.ok { background: rgba(25, 135, 84, .12); color: #1e9d63; }
+.ad-badge.warn { background: rgba(201, 162, 78, .18); color: #a8812f; }
+.ad-badge.bad { background: rgba(192, 57, 43, .12); color: #d4503f; }
+
+.ad-req { display: flex; align-items: center; gap: .6rem; padding: .45rem 0; border-bottom: 1px dashed var(--ad-border); font-size: .88rem; }
+.ad-req:last-child { border: 0; }
+.ad-req i.ok { color: #1e9d63; } .ad-req i.no { color: #d4503f; }
+
+.theme-card { cursor: pointer; border: 2px solid var(--ad-border); border-radius: 1rem; padding: .9rem; transition: .2s; background: #fff; height: 100%; display: block; }
+.theme-card:hover { border-color: var(--ad-brand-2); transform: translateY(-2px); }
+.btn-check:checked + .theme-card { border-color: var(--ad-brand); box-shadow: 0 0 0 4px rgba(35, 205, 210, .18); }
+.theme-swatch { height: 70px; border-radius: .7rem; margin-bottom: .6rem; }
+
+.admin .btn { border-radius: .7rem; font-weight: 550; padding: .52rem 1.05rem; }
+.admin .btn-primary { --bs-btn-bg: #0f6d6f; --bs-btn-border-color: transparent; --bs-btn-hover-bg: #0a5a5c; --bs-btn-hover-border-color: transparent; background-image: linear-gradient(135deg, #12868a, #0a5a5c); box-shadow: 0 6px 16px -6px rgba(15, 109, 111, .6); }
+.admin .btn-outline-secondary { --bs-btn-color: var(--ad-muted); --bs-btn-border-color: var(--ad-border); }
+.admin .form-control, .admin .form-select { border-radius: .7rem; padding: .62rem .9rem; border-color: var(--ad-border); }
+.admin .form-control:focus, .admin .form-select:focus { border-color: var(--ad-brand-2); box-shadow: 0 0 0 .22rem rgba(35, 205, 210, .18); }
+.admin .form-label { font-weight: 600; font-size: .86rem; margin-bottom: .35rem; }
+.admin .form-text { color: var(--ad-muted); font-size: .79rem; }
+.admin .form-check-input:checked { background-color: var(--ad-brand); border-color: var(--ad-brand); }
+.admin .form-switch { padding-left: 3.2em; }
+.admin .form-switch .form-check-input { width: 2.5em; height: 1.35em; cursor: pointer; margin-left: -3.2em; }
+.admin .alert { border: 0; border-radius: .9rem; }
+.admin .alert-success { background: #e4f6ec; color: #135a38; }
+.admin .alert-danger { background: #fde9e6; color: #8c2b1f; }
+fieldset:disabled { opacity: .6; }
+
+.ad-product { display: flex; align-items: center; gap: 1rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--ad-border); }
+.ad-product-name { font-size: 1.5rem; font-weight: 750; letter-spacing: -.02em; line-height: 1.1; background: linear-gradient(90deg, #0a4a4d, #23cdd2); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ad-img-field { display: flex; gap: 1rem; align-items: center; padding: .8rem; border: 1px dashed var(--ad-border); border-radius: .9rem; background: var(--ad-surface-2); }
+.ad-img-field img { width: 76px; height: 76px; object-fit: contain; border-radius: .7rem; background: #fff; border: 1px solid var(--ad-border); flex: none; }

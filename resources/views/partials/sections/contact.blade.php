@@ -1,9 +1,9 @@
 <section id="contact" class="section section-alt" aria-labelledby="contact-title">
     <div class="container">
         <div class="sec-head" data-reveal>
-            <span class="eyebrow">Get In Touch</span>
-            <h2 class="sec-title" id="contact-title">Let's Plan Your <em>Next Trip</em></h2>
-            <p class="sec-sub">Send us a few details and our team will get back to you with options and a clear quote.</p>
+            <span class="eyebrow">{{ $site->section('contact', 'eyebrow') }}</span>
+            <h2 class="sec-title" id="contact-title">{{ $site->section('contact', 'title') }} <em>{{ $site->section('contact', 'highlight') }}</em></h2>
+            <p class="sec-sub">{{ $site->section('contact', 'subtitle') }}</p>
         </div>
 
         <div class="contact-grid">
@@ -56,12 +56,14 @@
             </div>
 
             <div class="card-x contact-card" data-reveal style="--d:.1s">
-                <div class="map-box">
-                    <iframe
-                        title="{{ config('app.name') }} office location on Google Maps"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.600173850267!2d91.81103287529328!3d22.325913979668194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd9df913f946f%3A0x8ac5f87428e5d6cd!2sUpokul%20Travels%20%26%20Holidays!5e0!3m2!1sen!2sbd!4v1768747684228!5m2!1sen!2sbd"
-                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-                </div>
+                @if (($mapUrl = $site->text('contact.map_embed_url')) && str_starts_with($mapUrl, 'https://www.google.com/maps/embed'))
+                    <div class="map-box">
+                        <iframe
+                            title="{{ config('app.name') }} office location on Google Maps"
+                            src="{{ $mapUrl }}"
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                    </div>
+                @endif
 
                 <ul class="info-list">
                     <li>
@@ -79,7 +81,7 @@
                 </ul>
 
                 <div class="owner-box">
-                    <img src="{{ asset('images/avatar.png') }}" alt="{{ config('custom.owner_name') }}" width="60" height="60" loading="lazy">
+                    <img src="{{ $site->image('owner_avatar') }}" alt="{{ config('custom.owner_name') }}" width="60" height="60" loading="lazy">
                     <div>
                         <strong>{{ config('custom.owner_designation') }}: Mr. {{ config('custom.owner_name') }}</strong>
                         <span><a href="mailto:{{ config('custom.owner_email') }}">{{ config('custom.owner_email') }}</a></span>

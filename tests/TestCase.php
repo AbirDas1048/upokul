@@ -8,6 +8,25 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
     /**
+     * The installer remembers "installed" in a lock file (tests/bootstrap.php points it at a temp
+     * folder). It must never leak from one test into the next, or later tests would stop seeing the
+     * shipped default content.
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        @unlink((string) config('installer.lock'));
+    }
+
+    protected function tearDown(): void
+    {
+        @unlink((string) config('installer.lock'));
+
+        parent::tearDown();
+    }
+
+    /**
      * Tripwire. tests/bootstrap.php pins the test environment, but environments leak in creative ways
      * (a stray DB_URL, a new config key...). RefreshDatabase is destructive, so before ANY test can
      * touch a database or send mail, refuse to run unless the application really is isolated.

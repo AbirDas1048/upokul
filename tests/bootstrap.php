@@ -18,6 +18,8 @@
  |
  */
 
+$testScratch = sys_get_temp_dir().'/upokul-tests-'.getmypid();
+
 $testEnvironment = [
     'APP_ENV' => 'testing',
     'DB_CONNECTION' => 'sqlite',
@@ -29,6 +31,13 @@ $testEnvironment = [
     'CACHE_STORE' => 'array',
     'SESSION_DRIVER' => 'array',
     'BROADCAST_CONNECTION' => 'null',
+
+    // Admin panel / installer: existing tests run as an "installed" site, and nothing a test does may
+    // touch the real .env, the real install lock or the real public/uploads folder.
+    'INSTALLER_INSTALLED' => 'true',
+    'INSTALLER_LOCK' => $testScratch.'/installed.lock',
+    'INSTALLER_ENV_FILE' => $testScratch.'/.env',
+    'UPLOAD_PATH' => $testScratch.'/uploads',
 
     // Anti-abuse settings the contact-form tests assume; a developer's .env must not change them.
     'TRUSTED_PROXIES' => '',
